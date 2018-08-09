@@ -15,7 +15,7 @@ export default class App extends Component<Props> {
       <View style={styles.container}>
         <Text style={styles.welcome}>Bill</Text>
         <Text style={styles.instructions}>Dividing the final bill has NEVER been easier.</Text>
-        <Image style={styles.qrCode} source={require('./img/qrCode2.png')}/>
+        <Image style={styles.qrCode} source={require('../img/qrCode2.png')}/>
       </View>
     );
   }
