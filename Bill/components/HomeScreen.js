@@ -15,9 +15,13 @@ class HomeScreen extends Component {
     return (
 
       <Container>
-
+        <Header >
+          <Left>
+          <Icon name='ios-menu' onPress={()=> this.props.navigation.navigate('DrawerOpen')}/>
+          </Left>
+        </Header>
         <Content
-          contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 10 }}>
+          contentContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <Button
             onPress={() => this.props.navigation.navigate('Settings')} full>
             <Text style={{ color: 'white' }}>Home Screen</Text>

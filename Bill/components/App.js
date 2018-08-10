@@ -1,47 +1,83 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, Image} from 'react-native';
-import {DrawerNavigator} from 'react-navigation';
-import HomeScreen from './HomeScreen.js'
-import SettingScreen from './SettingsScreen.js'
+import React, { Component } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image
+} from "react-native";
+
+//library imports 
+import { Container, Content, Icon, Header, Body } from 'native-base'
+import { DrawerNavigator, StackNavigator, DrawerItems, SafeAreaView } from 'react-navigation'
+
+//custom files 
+import SettingsScreen from './SettingsScreen.js'
+import HomeScreen from "./HomeScreen.js";
 
 
-type Props = {};
+export default class App extends Component {
 
-export default class App extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
-        <MyApp />
-      </View>
-    );
+      <MyApp />
+    )
   }
 }
 
+const CustomDrawerContentComponent = (props) => (
+
+  <Container>
+    <Header style={styles.drawerHeader}>
+      <Body>
+        <Image
+          style={styles.drawerImage}
+          source={require('../img/qrCode2.png')} />
+      </Body>
+    </Header>
+    <Content>
+      <DrawerItems {...props} />
+    </Content>
+
+  </Container>
+
+);
 
 const MyApp = DrawerNavigator({
+
+  // For each screen that you can navigate to, create a new entry like this:
   Home: {
-    screen: HomeScreen
+    screen: HomeScreen,
   },
   Settings: {
-    screen: SettingScreen
+    screen: SettingsScreen
   }
-})
+},
+  {
+    initialRouteName: 'Home',
+    drawerPosition: 'left',
+    contentComponent: CustomDrawerContentComponent,
+    drawerOpenRoute: 'DrawerOpen',
+    drawerCloseRoute: 'DrawerClose',
+    drawerToggleRoute: 'DrawerToggle'
+  });
 
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#252326',
+    alignItems: 'center'
   },
+  drawerHeader: {
+    height: 200,
+    backgroundColor: 'white'
+  },
+  drawerImage: {
+    height: 150,
+    width: 150,
+    borderRadius: 75
+  }
 
-});
-
-
-
-
-
-
-
-
+})
