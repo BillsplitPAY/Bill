@@ -1,27 +1,37 @@
 //this is the content page
 import React, { Component } from 'react';
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Button, StyleSheet, Text, View, ScrollView} from 'react-native';
 import Items from './items.js';
 import ScrollStuff from './scrollStuff.js';
 
+
 export default class Menu extends Component {
+  constructor(props){
+    super(props);
+    this.state = {}
+  }
+
   render() {
     return (
       <View style={styles.menuPage}>
         <View style = {styles.header}><Text style={styles.headerText}>Spring Garden</Text></View>
         <View style = {styles.scroller}><ScrollStuff /></View>
-        <View style = {styles.items}>
-        <Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items />
-        </View>
+
+        <ScrollView>
+          <View style = {styles.items}>
+            {}
+            <Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items />
+          </View>
+        </ScrollView>
 
       </View>
     );
   }
+
+  componentDidMount(){
+    console.log(this.props);
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -35,10 +45,14 @@ const styles = StyleSheet.create({
     width: 375,
   },
   header: {
-    height: 75,
-    textAlign: 'center',
+    height: 55,
+    flexDirection: 'column',
+    //position: 'relative',
+    justifyContent:'center',
+    alignItems: 'center',
+    //textAlign: 'center',
     backgroundColor: 'white',
-    borderWidth: 2,
+    borderWidth: 0,
     //borderColor: 'red',
   },
   scroller: {
@@ -47,9 +61,9 @@ const styles = StyleSheet.create({
     //flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    backgroundColor: 'green',
-    borderWidth: 2,
-    borderColor: 'black',
+    //backgroundColor: 'green',
+    //borderWidth: 0,
+    //borderColor: 'black',
   },
   items: {
     position: 'relative',
@@ -60,8 +74,8 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
   },
   headerText:{
-    textAlign: 'center',
-    marginTop: 30,
+    //textAlign: 'center',
+    marginTop: 12,
     fontSize: 20,
 
   },

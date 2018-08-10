@@ -1,16 +1,33 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Image,
-} from 'react-native';
+import {Button, StyleSheet, Text, View, FlatList, Image, } from 'react-native';
 import { List, ListItem } from "react-native-elements";
 
 
+
+
+
+
+
 export default class Items extends Component {
+
+
+
+  /*function itemMaker(){
+    return <View style = {styles.item}>
+
+      <View style={styles.textBox}>
+        <Text style={styles.foodName}>{Data}</Text>
+        <Text style={styles.foodDescription}>{Data}</Text>
+        <Text style={styles.foodPrice}>{Data}</Text>
+      </View>
+      <View><Image style={styles.img} source={Data}/></View>
+    </View>
+  }
+
+    function itemPlacer(){
+      return data.items.map(this.itemMaker)
+    }*/
+
   render() {
     return (
 
@@ -18,9 +35,9 @@ export default class Items extends Component {
         <View style = {styles.item}>
 
           <View style={styles.textBox}>
-            <Text style={styles.foodName}>Chicken Sandwich</Text>
-            <Text style={styles.foodDescription}>Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah </Text>
-            <Text style={styles.foodPrice}>$300</Text>
+            <Text style={styles.foodName}>Determined by Data</Text>
+            <Text style={styles.foodDescription}>Data Data Data Data Data Data Data Data Data Data Data Data </Text>
+            <Text style={styles.foodPrice}>$Data</Text>
           </View>
 
           <View><Image style={styles.img} source={require('../img/qrCode2.png')}/></View>
@@ -29,7 +46,10 @@ export default class Items extends Component {
       </View>
     );
   }
+
+
 }
+
 
 const styles = StyleSheet.create({
   item: {
@@ -39,8 +59,8 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     height: 100,
     width: 'auto',
-    borderColor: 'black',
-    borderWidth: 1,
+    borderColor: 'rgb(218, 212, 212)',
+    borderWidth: .25,
   },
   textBox:{
     flexDirection: 'column',
@@ -55,7 +75,7 @@ const styles = StyleSheet.create({
 
   },
   foodPrice:{
-    color: 'orange',
+    color: 'green',
     fontWeight: 'bold',
   },
 

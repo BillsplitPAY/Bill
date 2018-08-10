@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView} from 'react-native';
 
+
+
 export default class ScrollStuff extends Component {
   render() {
     return (
       <ScrollView horizontal = {true}>
       <View style={styles.scrollContainer}>
-        <View style = {styles.scr}><Text style = {styles.text}>Recommended</Text></View>
+        <View style = {styles.scr, {borderBottomColor: 'black', borderBottomWidth: 3, justifyContent: 'center',}}><Text style = {styles.text}>Recommended</Text></View>
         <View style = {styles.scr}><Text style = {styles.text}>Appetizers</Text></View>
         <View style = {styles.scr}><Text style = {styles.text}>Chicken</Text></View>
         <View style = {styles.scr}><Text style = {styles.text}>Vegetarian</Text></View>
@@ -20,13 +22,15 @@ export default class ScrollStuff extends Component {
   }
 }
 
+
+
 const styles = StyleSheet.create({
   scrollContainer:{
     flexDirection: 'row',
     justifyContent: 'space-between',
     //flexGrow: 1,
     alignItems: 'stretch',
-    backgroundColor: 'grey',
+    backgroundColor: 'rgb(249, 242, 242)',
     height: 'auto',
     width: 'auto',
   },
@@ -35,15 +39,16 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     //backgroundColor: 'yellow',
-    borderBottomWidth: 1,
-    borderBottomColor: '#0e0a0ab8',
+    //borderBottomWidth: 1,
+    //borderBottomColor: '#0e0a0ab8',
     //flexGrow: 1,
     //textAlign: 'center',
   },
   text:{
     textAlign: 'center',
-    margin: 4,
-    fontSize: 12,
+    marginLeft: 14,
+    marginRight: 14,
+    fontSize: 11,
     //alignItems: 'center',
   },
   selected:{
