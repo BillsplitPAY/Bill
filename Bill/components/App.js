@@ -32,7 +32,7 @@ const CustomDrawerContentComponent = (props) => (
       <Body>
         <Image
           style={styles.drawerImage}
-          source={require('../img/qrCode2.png')} />
+          source={require('../img/caramel.jpg')} />
       </Body>
     </Header>
     <Content>
@@ -60,7 +60,7 @@ const MyApp = DrawerNavigator({
     drawerOpenRoute: 'DrawerOpen',
     drawerCloseRoute: 'DrawerClose',
     drawerToggleRoute: 'DrawerToggle'
-  });
+});
 
 
 const styles = StyleSheet.create({
