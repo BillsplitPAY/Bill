@@ -7,17 +7,19 @@ import {
   Image
 } from "react-native";
 
-//library imports 
+//Libraries 
 import { Container, Content, Icon, Header, Body } from 'native-base'
 import { DrawerNavigator, StackNavigator, DrawerItems, SafeAreaView } from 'react-navigation'
 
-//custom files 
-import SettingsScreen from './SettingsScreen.js'
+//Menu Slider Components 
+import Reservations from './Reservations.js'
 import HomeScreen from "./HomeScreen.js";
-
+import Login from "./Login.js";
+import Help from "./Help.js";
+import Payment from "./Payment.js";
+import History from "./History.js";
 
 export default class App extends Component {
-
   render() {
     return (
       <MyApp />
@@ -26,21 +28,20 @@ export default class App extends Component {
 }
 
 const CustomDrawerContentComponent = (props) => (
-
   <Container>
     <Header style={styles.drawerHeader}>
       <Body>
         <Image
           style={styles.drawerImage}
           source={require('../img/caramel.jpg')} />
+        <Text style={styles.userName}> Roscoe Coney </Text>
       </Body>
     </Header>
+
     <Content>
       <DrawerItems {...props} />
     </Content>
-
   </Container>
-
 );
 
 const MyApp = DrawerNavigator({
@@ -49,8 +50,20 @@ const MyApp = DrawerNavigator({
   Home: {
     screen: HomeScreen,
   },
-  Settings: {
-    screen: SettingsScreen
+  Reservations: {
+    screen: Reservations
+  },
+  History: {
+    screen: History
+  },
+  Payment: {
+    screen: Payment
+  },
+  Help: {
+    screen: Help
+  },
+  Login: {
+    screen: Login
   }
 },
   {
@@ -78,6 +91,13 @@ const styles = StyleSheet.create({
     height: 150,
     width: 150,
     borderRadius: 75
+  },
+  userName: {
+    color: '#252326',
+    fontWeight: '800',
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 20
   }
 
 })
