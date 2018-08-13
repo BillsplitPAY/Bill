@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, FlatList, Image, } from 'react-native';
 import { List, ListItem } from "react-native-elements";
 
-
-
-
-
-
-
 export default class Items extends Component {
 
 
@@ -35,9 +29,9 @@ export default class Items extends Component {
         <View style = {styles.item}>
 
           <View style={styles.textBox}>
-            <Text style={styles.foodName}>Determined by Data</Text>
-            <Text style={styles.foodDescription}>Data Data Data Data Data Data Data Data Data Data Data Data </Text>
-            <Text style={styles.foodPrice}>$Data</Text>
+            <Text style={styles.foodName}>{this.props.itemName}</Text>
+            <Text style={styles.foodDescription}>Data Data Wah Data Data Data Data Data Data Data Data Data </Text>
+            <Text style={styles.foodPrice}>{this.props.itemPrice}</Text>
           </View>
 
           <View><Image style={styles.img} source={require('../img/qrCode2.png')}/></View>

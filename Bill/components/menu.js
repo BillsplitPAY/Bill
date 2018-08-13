@@ -1,8 +1,9 @@
 //this is the content page
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView} from 'react-native';
-import Items from './items.js';
+//import Items from './items.js';
 import ScrollStuff from './scrollStuff.js';
+import ItemsTest from './itemsTest.js';
 
 
 export default class Menu extends Component {
@@ -19,8 +20,7 @@ export default class Menu extends Component {
 
         <ScrollView>
           <View style = {styles.items}>
-            {}
-            <Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items /><Items />
+            <ItemsTest item={this.props.menu.daily_menus[1].daily_menu} />
           </View>
         </ScrollView>
 
