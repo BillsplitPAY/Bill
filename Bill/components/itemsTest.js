@@ -13,24 +13,24 @@ createItem(thing){
       <Text style={styles.foodName}>{thing.dish.name}</Text>
       <Text style={styles.foodDescription}>Blahhhhh </Text>
       <Text style={styles.foodPrice}>{thing.dish.price}</Text>
-
     </View>
-    <View><Image style={styles.img} source={require('../img/qrCode2.png')}/></View>
+    <View><Image style={styles.img} source={require('../img/BreakfastSandwich.jpg')}/></View>
     </View>
   )
 }
+//This function returns the component that you want each time, with differences based on changes to the props
 
 createItems(propy){
   return propy.map(this.createItem);
 }
+//This function maps over your data object and calls createItem on each (which creates a component with data from each property)
 
 render(){
-//for (var counter = 1; counter < this.props.item.dishes.length; counter++) {
   return (
     <View>{this.createItems(this.props.item.dishes)}</View>
   )
 
-//}
+
 }
 }
 

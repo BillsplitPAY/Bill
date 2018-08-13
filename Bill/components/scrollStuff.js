@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     //flexGrow: 1,
     alignItems: 'stretch',
-    backgroundColor: 'rgb(249, 242, 242)',
+    backgroundColor: 'rgb(145, 170, 157)',
     height: 'auto',
     width: 'auto',
   },
@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
   },
   selected:{
     borderBottomWidth: 2,
-    borderBottomColor: 'black',
+    borderBottomColor: 'rgb(25, 52, 65)',
   },
 });

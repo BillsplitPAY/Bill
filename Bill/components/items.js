@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, FlatList, Image, } from 'react-native';
 import { List, ListItem } from "react-native-elements";
+import { StackNavigator } from 'react-navigation';
+
 
 export default class Items extends Component {
-
+  constructor(props){
+    super(props);
+  }
 
 
   /*function itemMaker(){
@@ -23,10 +27,10 @@ export default class Items extends Component {
     }*/
 
   render() {
+    //const { navigate } = this.props.navigation
     return (
-
       <View>
-        <View style = {styles.item}>
+        <View style = {styles.item} >
 
           <View style={styles.textBox}>
             <Text style={styles.foodName}>{this.props.itemName}</Text>
@@ -34,7 +38,7 @@ export default class Items extends Component {
             <Text style={styles.foodPrice}>{this.props.itemPrice}</Text>
           </View>
 
-          <View><Image style={styles.img} source={require('../img/qrCode2.png')}/></View>
+          <View><Image style={styles.img} source={require('../img/BreakfastSandwich.jpg')}/></View>
 
         </View>
       </View>

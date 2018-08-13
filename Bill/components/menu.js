@@ -1,9 +1,11 @@
 //this is the content page
 import React, { Component } from 'react';
-import {Button, StyleSheet, Text, View, ScrollView} from 'react-native';
-//import Items from './items.js';
+import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight} from 'react-native';
+import Items from './items.js';
 import ScrollStuff from './scrollStuff.js';
 import ItemsTest from './itemsTest.js';
+import { StackNavigator } from 'react-navigation';
+
 
 
 export default class Menu extends Component {
@@ -11,16 +13,20 @@ export default class Menu extends Component {
     super(props);
     this.state = {}
   }
+  static navigationOptions = {
+    title: "Spring Garden"
+  }
 
   render() {
+    const { navigate } = this.props.navigation
     return (
       <View style={styles.menuPage}>
-        <View style = {styles.header}><Text style={styles.headerText}>Spring Garden</Text></View>
+
         <View style = {styles.scroller}><ScrollStuff /></View>
 
         <ScrollView>
           <View style = {styles.items}>
-            <ItemsTest item={this.props.menu.daily_menus[1].daily_menu} />
+            <TouchableHighlight onPress={() => navigate("ScreenThree", {screen: 'ItemPage'})}><Items  /></TouchableHighlight>
           </View>
         </ScrollView>
 
@@ -77,6 +83,11 @@ const styles = StyleSheet.create({
     //textAlign: 'center',
     marginTop: 12,
     fontSize: 20,
+    color: 'rgb(25, 52, 65)'
 
   },
 });
+
+//<ItemsTest item={this.props.menu.daily_menus[1].daily_menu} />
+
+//<View style = {styles.header}><Text style={styles.headerText}>Spring Garden</Text></View>

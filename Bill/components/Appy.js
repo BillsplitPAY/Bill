@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, Image, ScrollView} from 'react-native';
+import ItemPage from './itemPage.js';
+import { createStackNavigator } from 'react-navigation';
 
 //import { Provider } from 'react-redux';
 //import { connect } from 'react-redux';
@@ -12,7 +14,7 @@ export default class Appy extends React.Component {
     super(props);
     this.state = {
       results: 'nothing',
-      load: 'naw'
+      load: 'nae'
     };
   }
 
@@ -33,9 +35,26 @@ export default class Appy extends React.Component {
   }
 }
 
+/*render() {
+  if (this.state.load === 'nae'){
+    return(
+      <View style={styles.wait}><Text>'Nigga Wait!'</Text></View>
+    )
+  }
+  else{
+  return (
+    //<Provider store={store}>
+      <View style={styles.container}>
+        <ItemPage />
+      </View>
+    //</Provider>
+  );
+}
+}*/
+
 
   componentDidMount(){
-    fetch('https://developers.zomato.com/api/v2.1/dailymenu?res_id=16507624', {
+    fetch('#', {
       headers: {
         'user-key': '276bd7f40b392f21cf03e6f4796431cd'
       }
