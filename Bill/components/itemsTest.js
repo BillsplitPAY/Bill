@@ -11,7 +11,7 @@ createItem(thing){
     <View style = {styles.item}>
      <View style={styles.textBox}>
       <Text style={styles.foodName}>{thing.dish.name}</Text>
-      <Text style={styles.foodDescription}>Blahhhhh </Text>
+      <Text style={styles.foodDescription}>Blahhhhhh</Text>
       <Text style={styles.foodPrice}>{thing.dish.price}</Text>
     </View>
     <View><Image style={styles.img} source={require('../img/BreakfastSandwich.jpg')}/></View>

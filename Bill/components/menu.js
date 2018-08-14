@@ -11,7 +11,7 @@ import { StackNavigator } from 'react-navigation';
 export default class Menu extends Component {
   constructor(props){
     super(props);
-    this.state = {}
+    this.state = {results: 'naw', load: 'naw'}
   }
   static navigationOptions = {
     title: "Spring Garden"
@@ -19,26 +19,66 @@ export default class Menu extends Component {
 
   render() {
     const { navigate } = this.props.navigation
-    return (
-      <View style={styles.menuPage}>
 
-        <View style = {styles.scroller}><ScrollStuff /></View>
+    if (this.state.load === 'naw'){
+      return(
+        <View style={styles.wait}><Text>'Nigga Wait!'</Text></View>
+      )
+    }
+    else{
+      return (
+        <View style={styles.menuPage}>
+
+
+        <View style={styles.scroller}><ScrollStuff /></View>
 
         <ScrollView>
-          <View style = {styles.items}>
-            <TouchableHighlight onPress={() => navigate("ScreenThree", {screen: 'ItemPage'})}><Items  /></TouchableHighlight>
-          </View>
+        <View style = {styles.items}>
+
+        <TouchableHighlight onPress={() => {navigate("ScreenTwo", {screen: "ItemPage"})}}><ItemsTest item={this.state.results.daily_menus[1].daily_menu} /></TouchableHighlight>
+
+        </View>
         </ScrollView>
 
-      </View>
-    );
+        </View>
+      );
+    }
   }
 
   componentDidMount(){
-    console.log(this.props);
+
+    fetch('https://developers.zomato.com/api/v2.1/dailymenu?res_id=16507624', {
+      headers: {
+        'user-key': '276bd7f40b392f21cf03e6f4796431cd'
+      }
+    })
+          .then((resp) => resp.json())
+          .then((data) => {
+            this.setState({results: data});
+            this.setState({load: 'yep',});
+            console.log(this.state);
+          });
+    console.log(this.state);
   }
 
-}
+  // componentDidMount(){
+  //   console.log(this.props);
+  //
+  //     fetch('https://developers.zomato.com/api/v2.1/dailymenu?res_id=16507624', {
+  //       headers: {
+  //         'user-key': '276bd7f40b392f21cf03e6f4796431cd'
+  //       }
+  //     })
+  //           .then((resp) => resp.json())
+  //           .then((data) => {
+  //             this.setState({results: data});
+  //             this.setState({load: 'yep',});
+  //             console.log(this.state);
+  //           });
+  //
+  //   }
+  }
+
 
 const styles = StyleSheet.create({
   menuPage: {
@@ -88,6 +128,5 @@ const styles = StyleSheet.create({
   },
 });
 
-//<ItemsTest item={this.props.menu.daily_menus[1].daily_menu} />
-
-//<View style = {styles.header}><Text style={styles.headerText}>Spring Garden</Text></View>
+//<View style={styles.header}><Text style={styles.headerText}>Spring Garden</Text></View>
+//https://developers.zomato.com/api/v2.1/dailymenu?res_id=16507624

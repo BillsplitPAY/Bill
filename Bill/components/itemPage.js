@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   button:{
     backgroundColor: 'rgb(25, 52, 65)',
-    height: 120,
+    height: 40,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },

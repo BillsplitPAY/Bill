@@ -14,7 +14,7 @@ export default class Appy extends React.Component {
     super(props);
     this.state = {
       results: 'nothing',
-      load: 'nae'
+      load: 'naw'
     };
   }
 
@@ -35,7 +35,7 @@ export default class Appy extends React.Component {
   }
 }
 
-/*render() {
+render() {
   if (this.state.load === 'nae'){
     return(
       <View style={styles.wait}><Text>'Nigga Wait!'</Text></View>
@@ -50,7 +50,7 @@ export default class Appy extends React.Component {
     //</Provider>
   );
 }
-}*/
+}
 
 
   componentDidMount(){
