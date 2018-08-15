@@ -31,7 +31,7 @@ export default class Menu extends Component {
               <Items item={this.state.results.daily_menus[1].daily_menu} navi={this.props.navigation.navigate}/>
             </View>
           </ScrollView>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={()=>{console.log(this.props.propers)}}>
             <Text style={styles.buttonText}>View Order</Text>
             <Text style={styles.price}>TotalPrice</Text>
 

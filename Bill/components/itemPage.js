@@ -4,16 +4,17 @@ import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableOpacity} fro
 export default class ItemPage extends Component{
 
   render(){
-    const { state, navigate } = this.props.navigation;
+    //const { state, navigate } = this.props.navigation;
 
     return(
       <View style={styles.itemPage}>
 
         <ScrollView>
+        <TouchableOpacity onPress={() => {console.log(this.props.screenProps.yo)}}>
           <View style ={styles.imageView}><Image style={styles.img} source= {require('../img/BreakfastSandwich.jpg')} /></View>
-
+          </TouchableOpacity>
           <View style ={styles.descView}>
-            <Text style={styles.foodTitle}>{state.params.screen.name}</Text>
+            <Text style={styles.foodTitle}>Blah</Text>
             <Text style={styles.foodDesc}>The greatest sandwich ever invented.</Text>
           </View>
 
@@ -31,9 +32,9 @@ export default class ItemPage extends Component{
 
         </ScrollView>
 
-        <TouchableOpacity style={styles.button} onPress={() => {navigate('ScreenOne', {screen: ''})}}>
+        <TouchableOpacity style={styles.button} onPress={() => {this.props.increment}}>
           <Text style={styles.buttonText}>Add To Order</Text>
-          <Text style={styles.price}>{state.params.screen.price}</Text>
+          <Text style={styles.price}>Blah</Text>
         </TouchableOpacity>
 
 
