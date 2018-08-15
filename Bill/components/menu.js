@@ -1,9 +1,8 @@
 //this is the content page
 import React, { Component } from 'react';
-import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image} from 'react-native';
-import Items from './items.js';
+import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity} from 'react-native';
 import ScrollStuff from './scrollStuff.js';
-import ItemsTest from './itemsTest.js';
+import Items from './items.js';
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
 
@@ -13,18 +12,11 @@ export default class Menu extends Component {
     this.state = {results: 'naw', load: 'naw', current: ''}
   }
   static navigationOptions = {
-    title: "Spring Garden",
-    drawerLabel: 'Screen One',
-    drawerIcon: ({ tintColor }) => (
-      <Image
-        source={require('../img/BreakfastSandwich.jpg')}
-      />
-    )
+    title: "Spring Garden"
   }
 
   render() {
     const { navigate } = this.props.navigation
-
     if (this.state.load === 'naw'){
       return(
         <View style={styles.wait}><Text>'Nigga Wait!'</Text></View>
@@ -33,19 +25,17 @@ export default class Menu extends Component {
     else{
       return (
         <View style={styles.menuPage}>
+          <View style={styles.scroller}><ScrollStuff /></View>
+          <ScrollView>
+            <View style = {styles.items}>
+              <Items item={this.state.results.daily_menus[1].daily_menu} navi={this.props.navigation.navigate}/>
+            </View>
+          </ScrollView>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>View Order</Text>
+            <Text style={styles.price}>TotalPrice</Text>
 
-          <TouchableHighlight onPress={() => navigate('DrawerOpen')} style={[styles.button, {backgroundColor: '#7567B1'}]}>
-            <Text> Open Drawer </Text>
-          </TouchableHighlight>
-
-        <View style={styles.scroller}><ScrollStuff /></View>
-
-        <ScrollView>
-        <View style = {styles.items}>
-            <ItemsTest style={styles.item} item={this.state.results.daily_menus[1].daily_menu} navi={this.props.navigation.navigate}/>
-        </View>
-        </ScrollView>
-
+          </TouchableOpacity>
         </View>
       );
     }
@@ -54,9 +44,7 @@ export default class Menu extends Component {
   componentDidMount(){
 
     fetch('https://developers.zomato.com/api/v2.1/dailymenu?res_id=16507624', {
-      headers: {
-        'user-key': '276bd7f40b392f21cf03e6f4796431cd'
-      }
+      headers: {'user-key': '276bd7f40b392f21cf03e6f4796431cd'}
     })
           .then((resp) => resp.json())
           .then((data) => {
@@ -66,23 +54,6 @@ export default class Menu extends Component {
           });
     console.log(this.state);
   }
-
-  // componentDidMount(){
-  //   console.log(this.props);
-  //
-  //     fetch('https://developers.zomato.com/api/v2.1/dailymenu?res_id=16507624', {
-  //       headers: {
-  //         'user-key': '276bd7f40b392f21cf03e6f4796431cd'
-  //       }
-  //     })
-  //           .then((resp) => resp.json())
-  //           .then((data) => {
-  //             this.setState({results: data});
-  //             this.setState({load: 'yep',});
-  //             console.log(this.state);
-  //           });
-  //
-  //   }
   }
 
 
@@ -91,21 +62,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     //flexDirection: 'column',
     backgroundColor: 'white',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
     alignItems: 'stretch',
     height: 'auto',
     width: 375,
-  },
-  header: {
-    height: 55,
-    flexDirection: 'column',
-    //position: 'relative',
-    justifyContent:'center',
-    alignItems: 'center',
-    //textAlign: 'center',
-    backgroundColor: 'white',
-    borderWidth: 0,
-    //borderColor: 'red',
   },
   scroller: {
     height: 36,
@@ -121,25 +81,30 @@ const styles = StyleSheet.create({
     position: 'relative',
     flexDirection: 'column',
     height: 'auto',
-    backgroundColor: 'rgba(100, 119, 404, .4)',
+    backgroundColor: 'white',
     //borderWidth: 2,
     borderColor: 'blue',
   },
-  item:{
-    flexDirection:'row',
-    justifyContent: 'space-between'
-  },
-  headerText:{
-    //textAlign: 'center',
-    marginTop: 12,
-    fontSize: 20,
-    color: 'rgb(25, 52, 65)'
-
-  },
   button:{
-    width: 50,
-  }
+    flexDirection: 'column',
+    backgroundColor: 'rgb(25, 52, 65)',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+   buttonText:{
+     color: 'white',
+     fontWeight:'bold',
+   },
+   price:{
+     alignSelf: 'flex-end',
+     color: 'white',
+   }
 });
 
 //<View style={styles.header}><Text style={styles.headerText}>Spring Garden</Text></View>
 //https://developers.zomato.com/api/v2.1/dailymenu?res_id=16507624
+
+// <TouchableHighlight onPress={() => navigate('DrawerOpen')} style={[styles.button, {backgroundColor: '#7567B1'}]}>
+//   <Text> Open Drawer </Text>
+// </TouchableHighlight>

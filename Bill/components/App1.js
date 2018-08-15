@@ -1,15 +1,12 @@
 import React from 'react';
-
 import { DrawerNavigator, StackNavigator, DrawerItems, SafeAreaView } from 'react-navigation'
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image} from 'react-native';
 import { Container, Content, Icon, Header, Body } from 'native-base'
-
 
 //import Appy from './Appy';
 import Menu from './menu';
 import ItemPage from './itemPage';
 import Items from './items';
-import ItemsTest from './itemsTest';
 import DrawerNav from './drawerNav';
 
 export default class App1 extends React.Component {
@@ -20,9 +17,14 @@ export default class App1 extends React.Component {
   }
 }
 
+// const Stacky = StackNavigator({
+//   ScreenOne: {}
+// })
+
+
 const StackNav = StackNavigator({
     ScreenOne: { screen: Menu},
-    ScreenTwo: { screen: ItemsTest},
+    ScreenTwo: { screen: Items},
     ScreenThree: {screen: ItemPage},
     ScreenFour: {screen: ItemPage},
     ScreenFive: {screen: Menu},

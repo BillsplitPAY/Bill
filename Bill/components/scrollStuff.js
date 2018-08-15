@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     //flexGrow: 1,
     alignItems: 'stretch',
-    backgroundColor: 'rgb(145, 170, 157)',
+    backgroundColor: 'rgba(187, 212, 216, .5)',
     height: 'auto',
     width: 'auto',
   },

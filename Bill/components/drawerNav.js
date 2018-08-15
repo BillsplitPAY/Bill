@@ -7,7 +7,7 @@ import { Container, Content, Icon, Header, Body } from 'native-base';
 import Menu from './menu.js';
 import ItemPage from './itemPage';
 import Items from './items';
-import ItemsTest from './itemsTest';
+
 
 export default class DrawerNav extends React.Component{
   render(){
@@ -34,7 +34,7 @@ const CustomDrawerContentComponent = (props) => {
 const DrawerNavy = DrawerNavigator({
   ScreenOne: { screen: Menu},
   ScreenTwo: { screen: ItemPage},
-  ScreenThree: {screen: ItemsTest},
+  ScreenThree: {screen: Items},
   ScreenFour: {screen: ItemPage},
 },
   {

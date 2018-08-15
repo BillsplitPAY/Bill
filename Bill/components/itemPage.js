@@ -8,28 +8,34 @@ export default class ItemPage extends Component{
 
     return(
       <View style={styles.itemPage}>
-      <ScrollView>
-      <View style ={styles.imageView}><Image style={styles.img} source= {require('../img/BreakfastSandwich.jpg')} /></View>
 
-      <View style ={styles.descView}>
-        <Text style={styles.foodTitle}>{state.params.screen.name}</Text>
-        <Text style={styles.foodDesc}>The greatest sandwich ever invented.</Text>
-      </View>
+        <ScrollView>
+          <View style ={styles.imageView}><Image style={styles.img} source= {require('../img/BreakfastSandwich.jpg')} /></View>
 
-      <View style={styles.breaker}><Text style={styles.breakerText}>Quantity</Text></View>
+          <View style ={styles.descView}>
+            <Text style={styles.foodTitle}>{state.params.screen.name}</Text>
+            <Text style={styles.foodDesc}>The greatest sandwich ever invented.</Text>
+          </View>
 
-      <View style={styles.descView}></View>
+        <View style={styles.breaker}><Text style={styles.breakerText}>Quantity</Text></View>
 
-      <View style={styles.breaker}><Text style={styles.breakerText}>Item Special Selections</Text></View>
+        <View style={styles.descView}></View>
 
-      <View style={styles.descView}></View>
+        <View style={styles.breaker}><Text style={styles.breakerText}>Item Special Selections</Text></View>
 
-      <View style={styles.breaker}><Text style={styles.breakerText}>Requests</Text></View>
+        <View style={styles.descView}></View>
 
-      <View style={styles.descView}></View>
+        <View style={styles.breaker}><Text style={styles.breakerText}>Requests</Text></View>
 
-      </ScrollView>
-      <TouchableOpacity style={styles.button} color=''><Text style={styles.buttonText}>Add To Order</Text></TouchableOpacity>
+        <View style={styles.descView}></View>
+
+        </ScrollView>
+
+        <TouchableOpacity style={styles.button} onPress={() => {navigate('ScreenOne', {screen: ''})}}>
+          <Text style={styles.buttonText}>Add To Order</Text>
+          <Text style={styles.price}>{state.params.screen.price}</Text>
+        </TouchableOpacity>
+
 
       </View>
     )
@@ -38,8 +44,8 @@ export default class ItemPage extends Component{
 
 const styles = StyleSheet.create({
   itemPage:{
-    //justifyContent: 'flex-end',
-    height: 667,
+    justifyContent: 'flex-end',
+    height: 'auto',
   },
   imageView: {
     height: 212,
@@ -69,7 +75,7 @@ const styles = StyleSheet.create({
   },
   breaker:{
     height: 25,
-    backgroundColor: 'rgb(62, 96, 111)',
+    backgroundColor: 'rgb(114, 137, 143)',
     justifyContent: 'center',
   },
   breakerText:{
@@ -78,14 +84,19 @@ const styles = StyleSheet.create({
 
   },
   button:{
+    flexDirection: 'column',
     backgroundColor: 'rgb(25, 52, 65)',
     height: 40,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
   },
    buttonText:{
-     color: 'black',
+     color: 'white',
      fontWeight:'bold',
-     marginTop:20,
+   },
+   price:{
+     alignSelf: 'flex-end',
+     color: 'white',
+     fontWeight:'bold',
    }
 })
