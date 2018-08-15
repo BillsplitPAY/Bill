@@ -4,13 +4,15 @@ import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableOpacity} fro
 export default class ItemPage extends Component{
 
   render(){
+    const { state, navigate } = this.props.navigation;
+
     return(
       <View style={styles.itemPage}>
       <ScrollView>
       <View style ={styles.imageView}><Image style={styles.img} source= {require('../img/BreakfastSandwich.jpg')} /></View>
 
       <View style ={styles.descView}>
-        <Text style={styles.foodTitle}>Bacon, Egg and Cheese</Text>
+        <Text style={styles.foodTitle}>{state.params.screen.name}</Text>
         <Text style={styles.foodDesc}>The greatest sandwich ever invented.</Text>
       </View>
 

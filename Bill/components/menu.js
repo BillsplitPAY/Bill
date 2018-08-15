@@ -1,20 +1,25 @@
 //this is the content page
 import React, { Component } from 'react';
-import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight} from 'react-native';
+import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image} from 'react-native';
 import Items from './items.js';
 import ScrollStuff from './scrollStuff.js';
 import ItemsTest from './itemsTest.js';
+//import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
-
-
 
 export default class Menu extends Component {
   constructor(props){
     super(props);
-    this.state = {results: 'naw', load: 'naw'}
+    this.state = {results: 'naw', load: 'naw', current: ''}
   }
   static navigationOptions = {
-    title: "Spring Garden"
+    title: "Spring Garden",
+    drawerLabel: 'Screen One',
+    drawerIcon: ({ tintColor }) => (
+      <Image
+        source={require('../img/BreakfastSandwich.jpg')}
+      />
+    )
   }
 
   render() {
@@ -29,14 +34,15 @@ export default class Menu extends Component {
       return (
         <View style={styles.menuPage}>
 
+          <TouchableHighlight onPress={() => navigate('DrawerOpen')} style={[styles.button, {backgroundColor: '#7567B1'}]}>
+            <Text> Open Drawer </Text>
+          </TouchableHighlight>
 
         <View style={styles.scroller}><ScrollStuff /></View>
 
         <ScrollView>
         <View style = {styles.items}>
-
-        <TouchableHighlight onPress={() => {navigate("ScreenTwo", {screen: "ItemPage"})}}><ItemsTest item={this.state.results.daily_menus[1].daily_menu} /></TouchableHighlight>
-
+            <ItemsTest style={styles.item} item={this.state.results.daily_menus[1].daily_menu} navi={this.props.navigation.navigate}/>
         </View>
         </ScrollView>
 
@@ -119,6 +125,10 @@ const styles = StyleSheet.create({
     //borderWidth: 2,
     borderColor: 'blue',
   },
+  item:{
+    flexDirection:'row',
+    justifyContent: 'space-between'
+  },
   headerText:{
     //textAlign: 'center',
     marginTop: 12,
@@ -126,6 +136,9 @@ const styles = StyleSheet.create({
     color: 'rgb(25, 52, 65)'
 
   },
+  button:{
+    width: 50,
+  }
 });
 
 //<View style={styles.header}><Text style={styles.headerText}>Spring Garden</Text></View>

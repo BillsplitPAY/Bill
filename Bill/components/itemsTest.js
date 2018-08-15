@@ -1,64 +1,85 @@
 import React, { Component } from 'react';
-import {Button, StyleSheet, Text, View, ScrollView, Image} from 'react-native';
+import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableHighlight} from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 
-export default class ItemsTest extends Component {
+
+class ItemsTest extends Component {
+
   constructor(props){
-  super(props);
-}
+    super(props);
+    this.createItem = this.createItem.bind(this);
+    this.state={current: ''}
+  }
 
-createItem(thing){
-  return(
-    <View style = {styles.item}>
-     <View style={styles.textBox}>
-      <Text style={styles.foodName}>{thing.dish.name}</Text>
-      <Text style={styles.foodDescription}>Blahhhhhh</Text>
-      <Text style={styles.foodPrice}>{thing.dish.price}</Text>
-    </View>
-    <View><Image style={styles.img} source={require('../img/BreakfastSandwich.jpg')}/></View>
-    </View>
-  )
+  createItem(thing){
+    return(
+      <TouchableHighlight style={styles.touch} onPress={() => {this.props.navi('ScreenThree', {screen: thing.dish})}}>
+      <View styles={styles.item}>
+
+         <View style={styles.textBox}>
+            <Text style={styles.foodName}>{thing.dish.name}</Text>
+            <Text style={styles.foodDescription}>Blahhhhhh</Text>
+            <Text style={styles.foodPrice}>{thing.dish.price}</Text>
+          </View>
+
+          <View style={styles.imgBox}>
+            <Image style={styles.img} source={require('../img/BreakfastSandwich.jpg')}/>
+          </View>
+
+      </View>
+      </TouchableHighlight>
+
+    )
 }
 //This function returns the component that you want each time, with differences based on changes to the props
 
-createItems(propy){
+  createItems(propy){
   return propy.map(this.createItem);
 }
 //This function maps over your data object and calls createItem on each (which creates a component with data from each property)
 
-render(){
+  render(){
   return (
-    <View>{this.createItems(this.props.item.dishes)}</View>
+    <View style={styles.unnecessary}>
+      {this.createItems(this.props.item.dishes)}
+    </View>
   )
-
+}
 
 }
-}
+export default ItemsTest;
 
   const styles = StyleSheet.create({
-    shirt:{
-      display: 'flex',
-      flexGrow: 1,
-      justifyContent: 'center',
-      //backgroundColor: 'yellow',
-      //borderBottomWidth: 1,
-      //borderBottomColor: '#0e0a0ab8',
-      //flexGrow: 1,
-      //textAlign: 'center',
+    unnecessary:{
+      width: 375,
+      height: 'auto',
+    },
+    touch:{
+      width: 375,
+      //flexDirection:'row',
+      //backgroundColor:'red',
+      borderColor:'black',
+      borderWidth:1,
     },
     item: {
       flexDirection: 'row',
-      backgroundColor: 'white',
+      backgroundColor: 'green',
       justifyContent: 'space-between',
       alignItems: 'stretch',
-      height: 100,
-      width: 'auto',
-      borderColor: 'rgb(218, 212, 212)',
-      borderWidth: .25,
+      width: 375,
+      height: 50,
+      borderColor: 'green',
+      borderWidth: 5,
+
     },
     textBox:{
       flexDirection: 'column',
       flexShrink: 2,
       justifyContent: 'space-around',
+      backgroundColor: 'blue',
+      width: '50%',
+      height: 'auto'
     },
     foodName:{
       fontSize: 15,
@@ -71,12 +92,16 @@ render(){
       color: 'green',
       fontWeight: 'bold',
     },
-
+    imgBox:{
+      height: 75,
+      width: 75,
+    },
     img:{
       height: 75,
       width: 75,
-      marginRight: 5,
-      marginTop: 5,
-      marginLeft: 50,
-    }
+      //marginRight: 5,
+      //marginTop: 5,
+      //marginLeft: 5,
+    },
+
   })
