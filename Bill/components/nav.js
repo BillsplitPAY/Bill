@@ -2,6 +2,7 @@ import Menu from './menu';
 import ItemPage from './itemPage';
 import Items from './items';
 import DrawerNav from './drawerNav';
+import Order from './order';
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -13,6 +14,7 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image} f
     ScreenOne: { screen: Menu},
     ScreenTwo: { screen: Items},
     ScreenThree: {screen: ItemPage},
+    ScreenFour: {screen: Order}
 });
 
 export default class Nav extends React.Component {

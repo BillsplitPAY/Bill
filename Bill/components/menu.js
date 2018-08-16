@@ -9,7 +9,7 @@ import { StackNavigator } from 'react-navigation';
 export default class Menu extends Component {
   constructor(props){
     super(props);
-    this.state = {results: 'naw', load: 'naw', current: ''}
+    //this.state = {results: 'naw', load: 'naw', current: ''}
   }
   static navigationOptions = {
     title: "Spring Garden"
@@ -17,7 +17,8 @@ export default class Menu extends Component {
 
   render() {
     const { navigate } = this.props.navigation
-    if (this.state.load === 'naw'){
+
+    if (this.props.screenProps.yo.load === 'naw'){
       return(
         <View style={styles.wait}><Text>'Nigga Wait!'</Text></View>
       )
@@ -28,12 +29,11 @@ export default class Menu extends Component {
           <View style={styles.scroller}><ScrollStuff /></View>
           <ScrollView>
             <View style = {styles.items}>
-              <Items item={this.state.results.daily_menus[1].daily_menu} navi={this.props.navigation.navigate}/>
+              <Items item={this.props.screenProps.yo.results.daily_menus[1].daily_menu} navi={this.props.navigation.navigate}/>
             </View>
           </ScrollView>
-          <TouchableOpacity style={styles.button} onPress={()=>{console.log(this.props.propers)}}>
+          <TouchableOpacity style={styles.button} onPress={()=>{navigate('ScreenFour'); console.log(this.props.propers)}}>
             <Text style={styles.buttonText}>View Order</Text>
-            <Text style={styles.price}>TotalPrice</Text>
 
           </TouchableOpacity>
         </View>
@@ -48,11 +48,12 @@ export default class Menu extends Component {
     })
           .then((resp) => resp.json())
           .then((data) => {
-            this.setState({results: data});
-            this.setState({load: 'yep',});
-            console.log(this.state);
+            this.props.screenProps.fetch(data);
+            console.log(data);
+            //this.setState({load: 'yep',});
+            //console.log(this.state);
           });
-    console.log(this.state);
+    //console.log(this.state);
   }
   }
 

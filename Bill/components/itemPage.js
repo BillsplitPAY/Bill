@@ -2,19 +2,20 @@ import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableOpacity} from 'react-native';
 
 export default class ItemPage extends Component{
-
+  constructor(props){
+    super(props);
+  }
   render(){
-    //const { state, navigate } = this.props.navigation;
+    const { navigate } = this.props.navigation;
+    console.log(this.props)
 
     return(
       <View style={styles.itemPage}>
 
         <ScrollView>
-        <TouchableOpacity onPress={() => {console.log(this.props.screenProps.yo)}}>
           <View style ={styles.imageView}><Image style={styles.img} source= {require('../img/BreakfastSandwich.jpg')} /></View>
-          </TouchableOpacity>
           <View style ={styles.descView}>
-            <Text style={styles.foodTitle}>Blah</Text>
+            <Text style={styles.foodTitle}>{this.props.navigation.state.params.screen.name}</Text>
             <Text style={styles.foodDesc}>The greatest sandwich ever invented.</Text>
           </View>
 
@@ -32,9 +33,9 @@ export default class ItemPage extends Component{
 
         </ScrollView>
 
-        <TouchableOpacity style={styles.button} onPress={() => {this.props.increment}}>
+        <TouchableOpacity style={styles.button} onPress={() => {navigate('ScreenOne'); this.props.screenProps.add(this.props.navigation.state.params.screen.name, this.props.navigation.state.params.screen.price); console.log(this.props.screenProps.yo)}}>
           <Text style={styles.buttonText}>Add To Order</Text>
-          <Text style={styles.price}>Blah</Text>
+          <Text style={styles.price}>{this.props.navigation.state.params.screen.price}</Text>
         </TouchableOpacity>
 
 

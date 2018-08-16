@@ -8,12 +8,12 @@ class Items extends Component {
   constructor(props){
     super(props);
     this.createItem = this.createItem.bind(this);
-    this.state={current: ''}
+    //this.state={current: ''}
   }
 
   createItem(thing){
     return(
-      <TouchableHighlight style={styles.touch} onPress={() => {this.props.navi('ScreenThree', {screen: thing.dish})}}>
+      <TouchableHighlight style={styles.touch} onPress={() => {this.props.navi('ScreenThree', { screen: thing.dish })}}>
         <View style={styles.itemz}>
          <View style={styles.textBox}>
             <Text style={styles.foodName}>{thing.dish.name}</Text>

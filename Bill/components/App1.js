@@ -12,13 +12,14 @@ import DrawerNav from './drawerNav';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 import store from './store.js';
-import CC from './ccontainer.js'
+import Mappers from './mappers.js';
+import Order from './order.js';
 
 export default class App1 extends React.Component {
   render(){
     return(
             <Provider store={store}>
-            <CC />
+            <Mappers />
             </Provider>
     )
   }
