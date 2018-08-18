@@ -1,59 +1,103 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image} from 'react-native';
+import React, { Component } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image
+} from "react-native";
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+//Libraries 
+import { Container, Content, Icon, Header, Body } from 'native-base'
+import { DrawerNavigator, StackNavigator, DrawerItems, SafeAreaView } from 'react-navigation'
 
-type Props = {};
-export default class App extends Component<Props> {
+//Menu Slider Components 
+import Reservations from './Reservations.js'
+import HomeScreen from "./HomeScreen.js";
+import Login from "./Login.js";
+import Help from "./Help.js";
+import Payment from "./Payment.js";
+import History from "./History.js";
+
+export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Bill</Text>
-        <Text style={styles.instructions}>Dividing the final bill has NEVER been easier.</Text>
-        <Image style={styles.qrCode} source={require('../img/qrCode2.png')}/>
-      </View>
-    );
+      <MyApp />
+    )
   }
 }
 
+const CustomDrawerContentComponent = (props) => (
+  <Container>
+    <Header style={styles.drawerHeader}>
+      <Body>
+        <Image
+          style={styles.drawerImage}
+          source={require('../img/caramel.jpg')} />
+        <Text style={styles.userName}> Roscoe Coney </Text>
+      </Body>
+    </Header>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#252326',
+    <Content>
+      <DrawerItems {...props} />
+    </Content>
+  </Container>
+);
+
+const MyApp = DrawerNavigator({
+
+  // For each screen that you can navigate to, create a new entry like this:
+  Home: {
+    screen: HomeScreen,
   },
-  welcome: {
-    fontSize: 60,
-    textAlign: 'center',
-    margin: 10,
-    color: '#7a8c3f'
+  Reservations: {
+    screen: Reservations
   },
-  instructions: {
-        marginTop: 40,
-    textAlign: 'center',
-    color: '#7a8c3f',
-    fontSize: 15,
-    marginBottom: 5,
+  History: {
+    screen: History
   },
-  qrCode: {
-    marginTop: 80,
-    width: 150,
-    height: 150 
+  Payment: {
+    screen: Payment
+  },
+  Help: {
+    screen: Help
+  },
+  Login: {
+    screen: Login
   }
+},
+  {
+    initialRouteName: 'Home',
+    drawerPosition: 'left',
+    contentComponent: CustomDrawerContentComponent,
+    drawerOpenRoute: 'DrawerOpen',
+    drawerCloseRoute: 'DrawerClose',
+    drawerToggleRoute: 'DrawerToggle'
 });
 
 
+const styles = StyleSheet.create({
 
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  drawerHeader: {
+    height: 200,
+    backgroundColor: 'white'
+  },
+  drawerImage: {
+    height: 150,
+    width: 150,
+    borderRadius: 75
+  },
+  userName: {
+    color: '#252326',
+    fontWeight: '800',
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 20
+  }
 
-
-
-
-
-
+})
