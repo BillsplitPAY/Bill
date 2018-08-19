@@ -43,17 +43,14 @@ export default class Menu extends Component {
 
   componentDidMount(){
 
-    fetch('https://developers.zomato.com/api/v2.1/dailymenu?res_id=16507624', {
-      headers: {'user-key': '276bd7f40b392f21cf03e6f4796431cd'}
-    })
-          .then((resp) => resp.json())
-          .then((data) => {
-            this.props.screenProps.fetch(data);
-            console.log(data);
-            //this.setState({load: 'yep',});
-            //console.log(this.state);
-          });
-    //console.log(this.state);
+    fetch('https://api.foursquare.com/v2/venues/search?ll=40.7128,74.0060&v=20180818', {
+      headers: {
+        mode: 'cors',
+        method: 'GET',
+        'client-id': 'KUZ5DS21RPAGXYPZGDG1R2ACKA43X2SLTY3VNX5WN3PZLYYS',
+        'client-secret': 'WJ2HM3V5YFXSCDQSIVBDCJUCCSQLPRAWLXIZAXWFIRMGALVS'
+      }
+    }).then((data) => console.log(data))
   }
   }
 
@@ -109,3 +106,12 @@ const styles = StyleSheet.create({
 // <TouchableHighlight onPress={() => navigate('DrawerOpen')} style={[styles.button, {backgroundColor: '#7567B1'}]}>
 //   <Text> Open Drawer </Text>
 // </TouchableHighlight>
+
+
+
+
+fetch('https://api.foursquare.com/v2/venues/search?ll=40.7128,74.0060&client_id=KUZ5DS21RPAGXYPZGDG1R2ACKA43X2SLTY3VNX5WN3PZLYYS&client_secret=WJ2HM3V5YFXSCDQSIVBDCJUCCSQLPRAWLXIZAXWFIRMGALVS&v=20180818', {
+  headers: {
+    mode: 'cors',
+  }
+}).then((data) => console.log(data))
