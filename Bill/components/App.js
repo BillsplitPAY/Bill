@@ -18,6 +18,7 @@ import Login from "./Login.js";
 import Help from "./Help.js";
 import Payment from "./Payment.js";
 import History from "./History.js";
+import CurrentMenu from "./App1.js";
 
 export default class App extends Component {
   render() {
@@ -52,6 +53,9 @@ const MyApp = DrawerNavigator({
   },
   Reservations: {
     screen: Reservations
+  },
+  'Current Menu': {
+    screen: CurrentMenu
   },
   History: {
     screen: History
