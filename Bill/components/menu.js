@@ -8,6 +8,16 @@ import  RubirosaAntipasto  from './../data/dummyMenu.js'
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
 
+//Pass in 4sqaure API Keys below
+var foursquare = require('react-foursquare')({
+  clientID: '',
+  clientSecret: ''  
+});
+
+var params = {
+  'venue_id' : '4cc6222106c25481d7a4a047'
+}
+
 export default class Menu extends Component {
   constructor(props){
     super(props);
@@ -15,15 +25,32 @@ export default class Menu extends Component {
     load: 'naw', 
     current: '', 
     menuItems: ["tom", 'jerry'],
+    menuIndex: 0,
     dummyMenu: [],
-    menuIndex: 0
+
   }
+
+  this.changeIndex = this.changeIndex.bind(this);
   }
   static navigationOptions = {
-    title: "Spring Garden"
+    title: "Rubirosa"
   }
+
+  changeIndex(number) {
+    this.setState({menuIndex: number})
+    console.log('shit changed', this.state.menuIndex)
+  }
+
   componentDidMount(){
-    this.setState({dummyMenu: RubirosaAntipasto.response.menu.menus.items[0]})
+    this.setState({dummyMenu: RubirosaAntipasto.response.menu.menus.items[this.state.menuIndex]})
+
+    foursquare.venues.getMenu(params)
+      .then(res=> {
+         // console.log('regular: ',res.response.menu.menus.items)
+        console.log('brunchMenu: ', res)
+        this.setState({ menuItems: res });
+      });
+
 
     fetch('https://developers.zomato.com/api/v2.1/dailymenu?res_id=16507624', {
       headers: {'user-key': '276bd7f40b392f21cf03e6f4796431cd'}
@@ -39,12 +66,13 @@ export default class Menu extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation
 
-     console.log('Menu1', this.state.dummyMenu)
-     console.log('RubirosaAntipasto', RubirosaAntipasto.response.menu.menus.items[0])
+     console.log('Menu1', this.state.dummyMenu.entries.items )
+     console.log('MenuIndex', this.state.menuIndex)
+     console.log('navigation', navigate)
      
 
-    const { navigate } = this.props.navigation
 
     if (this.props.screenProps.yo.load === 'naw'){
       return(
@@ -55,11 +83,11 @@ export default class Menu extends Component {
       return (
         <View style={styles.menuPage}>
           <View style={styles.scroller}>
-            <ScrollStuff items={this.state.dummyMenu.entries.items}/>
+            <ScrollStuff items={this.state.dummyMenu.entries.items} change={this.changeIndex}/>
           </View>
           <ScrollView>
             <View style = {styles.items}>
-              <Items item={this.props.screenProps.yo.results.daily_menus[1].daily_menu} navi={this.props.navigation.navigate}/>
+              <Items item={this.props.screenProps.yo.results.daily_menus[1].daily_menu} food={this.state.dummyMenu.entries.items} current={this.state.menuIndex}  navi={navigate}/>
             </View>
           </ScrollView>
           <TouchableOpacity style={styles.button} onPress={()=>{navigate('ScreenFour'); console.log(this.props.propers)}}>

@@ -3,16 +3,15 @@ import {Button, StyleSheet, Text, View, ScrollView} from 'react-native';
 
 
 
-export default class Item extends Component {
+export default class ScrollItem extends Component {
   constructor(props) {
     super(props);
 
   }
   render() {
-    console.log('inside Props2', this.props)
     return (
-        <View style = {styles.scr}>
-          <Text style = {styles.text}>{this.props.food.name}</Text>
+        <View style={styles.scr}>
+          <Text style={styles.text} onPress={ () => this.props.change(this.props.id) }>{this.props.food.name}</Text>
         </View>
         
     );

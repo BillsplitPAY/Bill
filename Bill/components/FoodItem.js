@@ -2,28 +2,25 @@ import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableHighlight} from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { withNavigation } from 'react-navigation';
-import FoodItem from './FoodItem';
 
-class Items extends Component {
-  constructor(props){
+
+export default class FoodItem extends Component {
+  constructor(props) {
     super(props);
-    this.createItem = this.createItem.bind(this);
-    //this.state={current: ''}
+
   }
+  render() {
+    console.log('finalProduct', this.props.food)
+    return (
 
-  createItem(thing){
-    console.log('FOOD HERE', this.props.food)
-    console.log('Index', this.props.current)
-    console.log('indy', this.props.food[this.props.current])
-    let CurrentItems = this.props.food[this.props.current];
-
-    return(
-      <TouchableHighlight style={styles.touch} onPress={() => {this.props.navi('ScreenThree', { screen: thing.dish })}}>
+<TouchableHighlight style={styles.touch} onPress={() => {this.props.navi('ScreenThree', { screen: this.props.food.name })}}>
         <View style={styles.itemz}>
-
-         <View style={styles.textBox}>
-            {CurrentItems.entries.items.map( (item, index) => <FoodItem food={item} id={index} navi={this.props.navigation.navigate}/> )}
-          </View>
+            
+        <View style={styles.textBox}>
+          <Text style={styles.foodName}>{this.props.food.name}</Text>
+          <Text style={styles.foodDescription}>{this.props.food.description}</Text>
+          <Text style={styles.foodPrice}>{this.props.food.price}</Text>
+        </View>
 
           <View style={styles.imgBox}>
             <Image style={styles.img} source={require('../img/BreakfastSandwich.jpg')}/>
@@ -31,30 +28,13 @@ class Items extends Component {
         </View>
       </TouchableHighlight>
 
-    )
+
+
+    );
   }
-//This function returns the component that you want each time, with differences based on changes to the props
-//styles.foodName
-//styles.foodDescription
-//styles.foodPrice
-
-  createItems(propy){
-    return propy.map(this.createItem);
-  }
-//This function maps over your data object and calls createItem on each (which creates a component with data from each property)
-
-  render(){
-     let CurrentItems = this.props.food[this.props.current];
-
-    return(
-          <View>
-            {CurrentItems.entries.items.map( (item, index) => <FoodItem food={item} id={index} navi={this.props.navi}/> )}
-          </View>
-    )
 }
 
-}
-export default Items;
+
 
   const styles = StyleSheet.create({
     // div surrounding all items
