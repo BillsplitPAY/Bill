@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView} from 'react-native';
-import Item from './Item';
 
 
-export default class ScrollStuff extends Component {
+
+export default class Item extends Component {
   constructor(props) {
     super(props);
 
   }
   render() {
-    console.log('inside Props65', this.props)
+    console.log('inside Props2', this.props)
     return (
-      <ScrollView horizontal = {true}>
-      <View style={styles.scrollContainer}>
-      {this.props.items.map(foodItem => <Item key={foodItem.name} food={foodItem}/> )}
         <View style = {styles.scr}>
-          <Text style = {styles.text}>{this.props.items[0].name}</Text>
+          <Text style = {styles.text}>{this.props.food.name}</Text>
         </View>
         
-      </View>
-      </ScrollView>
     );
   }
 }

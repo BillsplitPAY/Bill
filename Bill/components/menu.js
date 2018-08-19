@@ -3,19 +3,47 @@ import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity} from 'react-native';
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
+import  RubirosaAntipasto  from './../data/dummyMenu.js'
+
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
 
 export default class Menu extends Component {
   constructor(props){
     super(props);
-    //this.state = {results: 'naw', load: 'naw', current: ''}
+    this.state = {results: 'naw', 
+    load: 'naw', 
+    current: '', 
+    menuItems: ["tom", 'jerry'],
+    dummyMenu: [],
+    menuIndex: 0
+  }
   }
   static navigationOptions = {
     title: "Spring Garden"
   }
+  componentDidMount(){
+    this.setState({dummyMenu: RubirosaAntipasto.response.menu.menus.items[0]})
+
+    fetch('https://developers.zomato.com/api/v2.1/dailymenu?res_id=16507624', {
+      headers: {'user-key': '276bd7f40b392f21cf03e6f4796431cd'}
+    })
+          .then((resp) => resp.json())
+          .then((data) => {
+            this.props.screenProps.fetch(data);
+            console.log(data);
+            //this.setState({load: 'yep',});
+            //console.log(this.state);
+          });
+    //console.log(this.state);
+  }
 
   render() {
+
+     console.log('Menu1', this.state.dummyMenu)
+     console.log('RubirosaAntipasto', RubirosaAntipasto.response.menu.menus.items[0])
+     
+
     const { navigate } = this.props.navigation
 
     if (this.props.screenProps.yo.load === 'naw'){
@@ -26,7 +54,9 @@ export default class Menu extends Component {
     else{
       return (
         <View style={styles.menuPage}>
-          <View style={styles.scroller}><ScrollStuff /></View>
+          <View style={styles.scroller}>
+            <ScrollStuff items={this.state.dummyMenu.entries.items}/>
+          </View>
           <ScrollView>
             <View style = {styles.items}>
               <Items item={this.props.screenProps.yo.results.daily_menus[1].daily_menu} navi={this.props.navigation.navigate}/>
@@ -41,20 +71,6 @@ export default class Menu extends Component {
     }
   }
 
-  componentDidMount(){
-
-    fetch('https://developers.zomato.com/api/v2.1/dailymenu?res_id=16507624', {
-      headers: {'user-key': '276bd7f40b392f21cf03e6f4796431cd'}
-    })
-          .then((resp) => resp.json())
-          .then((data) => {
-            this.props.screenProps.fetch(data);
-            console.log(data);
-            //this.setState({load: 'yep',});
-            //console.log(this.state);
-          });
-    //console.log(this.state);
-  }
   }
 
 
