@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView} from 'react-native';
-import ScrollItem from './ScrollItem';
 
 
-export default class ScrollStuff extends Component {
+
+export default class ScrollItem extends Component {
   constructor(props) {
     super(props);
 
   }
   render() {
-    console.log('inside Props65', this.props)
     return (
-      <ScrollView horizontal = {true}>
-      <View style={styles.scrollContainer}>
-      {this.props.items.map( (foodItem, index) => <ScrollItem id={index} food={foodItem} change={this.props.change} /> )}
-        <View style = {styles.scr}>
-          <Text style = {styles.text}>{this.props.items[0].name}</Text>
+        <View style={styles.scr}>
+          <Text style={styles.text} onPress={ () => this.props.change(this.props.id) }>{this.props.food.name}</Text>
         </View>
         
-      </View>
-      </ScrollView>
     );
   }
 }
