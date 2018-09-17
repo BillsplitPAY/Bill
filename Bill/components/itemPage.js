@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableOpacity} from 'react-native';
+import Breaker from './breaker'
+import { addItem, addPrice } from '../src/actions/index.js';
+
 
 export default class ItemPage extends Component{
   constructor(props){
@@ -7,6 +10,10 @@ export default class ItemPage extends Component{
   }
   render(){
     const { navigate } = this.props.navigation;
+    const itemName = this.props.navigation.state.params.screen.name;
+    const itemDesc = this.props.navigation.state.params.screen.description;
+    const itemPrice = this.props.navigation.state.params.screen.price;
+
     console.log(this.props)
 
     return(
@@ -16,25 +23,20 @@ export default class ItemPage extends Component{
           <View style ={styles.imageView}><Image style={styles.img} source= {require('../img/BreakfastSandwich.jpg')} /></View>
           <View style ={styles.descView}>
             <Text style={styles.foodTitle}>{this.props.navigation.state.params.screen.name}</Text>
-            <Text style={styles.foodDesc}>The greatest sandwich ever invented.</Text>
+            <Text style={styles.foodDesc}>{this.props.navigation.state.params.screen.description}</Text>
           </View>
 
-        <View style={styles.breaker}><Text style={styles.breakerText}>Quantity</Text></View>
-
+        <Breaker value='Quantity'/>
         <View style={styles.descView}></View>
-
-        <View style={styles.breaker}><Text style={styles.breakerText}>Item Special Selections</Text></View>
-
+        <Breaker value='Item Special Selections'/>
         <View style={styles.descView}></View>
-
-        <View style={styles.breaker}><Text style={styles.breakerText}>Requests</Text></View>
-
+        <Breaker value='Requests'/>
         <View style={styles.descView}></View>
 
         </ScrollView>
 
-        <TouchableOpacity style={styles.button} onPress={() => {navigate('ScreenOne'); this.props.screenProps.add(this.props.navigation.state.params.screen.name, this.props.navigation.state.params.screen.price); console.log(this.props.screenProps.yo)}}>
-          <Text style={styles.buttonText}>Add To Order</Text>
+        <TouchableOpacity style={styles.button} onPress={() => {navigate('ScreenOne'); this.props.screenProps.addItem(itemName, itemPrice, itemDesc); this.props.screenProps.addPrice(itemPrice); console.log(this.props.screenProps)}}>
+          <Text style={styles.buttonText}>Add To Cart</Text>
           <Text style={styles.price}>{this.props.navigation.state.params.screen.price}</Text>
         </TouchableOpacity>
 

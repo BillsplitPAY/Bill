@@ -2,50 +2,69 @@ import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableHighlight} from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { withNavigation } from 'react-navigation';
+import Breaker from './breaker';
 
 
 class Items extends Component {
   constructor(props){
     super(props);
-    this.createItem = this.createItem.bind(this);
-    //this.state={current: ''}
+    this.categoryMapper = this.categoryMapper.bind(this);
+    this.breakerMaker = this.breakerMaker.bind(this);
+    this.itemMaker = this.itemMaker.bind(this);
+    this.itemMapper = this.itemMapper.bind(this);
   }
 
-  createItem(thing){
-    return(
-      <TouchableHighlight style={styles.touch} onPress={() => {this.props.navi('ScreenThree', { screen: thing.dish })}}>
-        <View style={styles.itemz}>
-         <View style={styles.textBox}>
-            <Text style={styles.foodName}>{thing.dish.name}</Text>
-            <Text style={styles.foodDescription}>Blahhhhhh</Text>
-            <Text style={styles.foodPrice}>{thing.dish.price}</Text>
+//_____________________________________________________________________________________________
+
+itemMaker(foodItem){
+  return (
+    <View>
+    <TouchableHighlight style={styles.touch} onPress={() => {this.props.navi('ScreenThree', { screen: foodItem })}}>
+          <View style={styles.itemz}>
+           <View style={styles.textBox}>
+              <Text style={styles.foodName}>{foodItem.name}</Text>
+              <Text style={styles.foodDescription}>{foodItem.description}</Text>
+              <Text style={styles.foodPrice}>${foodItem.price}</Text>
+            </View>
+            <View style={styles.imgBox}>
+              <Image style={styles.img} source={require('../img/BreakfastSandwich.jpg')}/>
+            </View>
           </View>
-          <View style={styles.imgBox}>
-            <Image style={styles.img} source={require('../img/BreakfastSandwich.jpg')}/>
-          </View>
-        </View>
-      </TouchableHighlight>
+        </TouchableHighlight>
+    </View>
+  )
+}
 
-    )
-  }
-//This function returns the component that you want each time, with differences based on changes to the props
+itemMapper(foodItems){
+  return foodItems.map(this.itemMaker);
+}
 
-  createItems(propy){
-    return propy.map(this.createItem);
+breakerMaker(categoryObj){
+  return (
+    <View>
+      <Breaker value={categoryObj.name}/>
+      {this.itemMapper(categoryObj.entries.items)}
+    </View>
+  )
+};
+
+  categoryMapper(categoriesArray){
+    return categoriesArray.map(this.breakerMaker);
   }
-//This function maps over your data object and calls createItem on each (which creates a component with data from each property)
+
+//____________________________________________________________________________________________
 
   render(){
     return (
       <View style={styles.unnecessary}>
-        {this.createItems(this.props.item.dishes)}
+        {this.categoryMapper(this.props.categories)}
       </View>
     )
 }
 
 }
 export default Items;
-
+//____________________________________________________________________________________________
   const styles = StyleSheet.create({
     // div surrounding all items
     unnecessary:{
@@ -93,5 +112,15 @@ export default Items;
     img:{
       height: 75,
       width: 75,
+    },
+    breaker:{
+      height: 25,
+      backgroundColor: 'rgb(114, 137, 143)',
+      justifyContent: 'center',
+    },
+    breakerText:{
+      color: 'rgb(25, 52, 65)',
+      marginLeft: 12,
+
     },
   })

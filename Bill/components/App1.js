@@ -3,75 +3,28 @@ import { DrawerNavigator, StackNavigator, DrawerItems, SafeAreaView } from 'reac
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image} from 'react-native';
 import { Container, Content, Icon, Header, Body } from 'native-base'
 
-//import Appy from './Appy';
-import Menu from './menu';
-import ItemPage from './itemPage';
-import Items from './items';
-import DrawerNav from './drawerNav';
-
 import { Provider } from 'react-redux';
-import { connect } from 'react-redux';
-import store from './store.js';
-import Mappers from './mappers.js';
-import Order from './order.js';
+import { createStore, applyMiddleware } from 'redux';
+import Nav from './nav'
+
+import ReduxPromise from 'redux-promise'
+import reducers from '../src/reducers';
+
 
 export default class App1 extends React.Component {
   render(){
+    const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore)
+
     return(
-            <Provider store={store}>
-            <Mappers />
+            <Provider store={createStoreWithMiddleware(reducers)}>
+              <Nav screenProps={this.props}/>
             </Provider>
     )
   }
 }
 
-// const Stacky = StackNavigator({
-//   ScreenOne: {}
-// })
 
 
-const StackNav = StackNavigator({
-    ScreenOne: { screen: ItemPage},
-    ScreenTwo: { screen: Items},
-    ScreenThree: {screen: ItemPage},
-    ScreenFour: {screen: ItemPage},
-    ScreenFive: {screen: Menu},
-});
-// const CustomDrawerContentComponent = (props) => (
-//   <Container>
-//     <Header style={styles.drawerHeader}>
-//       <Body>
-//         <Image
-//           style={styles.drawerImage}
-//           source={require('../img/BreakfastSandwich.jpg')} />
-//         <Text style={styles.userName}> Roscoe Coney </Text>
-//       </Body>
-//     </Header>
-//
-//     <Content>
-//       <DrawerItems {...props} />
-//     </Content>
-//   </Container>
-// );
-// const DrawerNavy = DrawerNavigator({
-//   // For each screen that you can navigate to, create a new entry like this:
-//   ScreenOne: { screen: Menu},
-//   ScreenTwo: { screen: ItemPage},
-//   ScreenThree: {screen: ItemsTest},
-//   ScreenFour: {screen: ItemPage},
-// },
-//   {
-//     initialRouteName: 'ScreenOne',
-//     drawerPosition: 'left',
-//     contentComponent: CustomDrawerContentComponent,
-//     drawerOpenRoute: 'DrawerOpen',
-//     drawerCloseRoute: 'DrawerClose',
-//     drawerToggleRoute: 'DrawerToggle'
-// });
-
-
-
-//export default App1;
 
 
 const styles = StyleSheet.create({

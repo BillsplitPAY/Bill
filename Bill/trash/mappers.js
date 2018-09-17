@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+//export default connect(mapStateToProps, mapDispatchToProps)(Nav);
 
 // connect passes these props to the component you tell it to (Nav)
 //

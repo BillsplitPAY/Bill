@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
-import {Button, StyleSheet, Text, View, ScrollView} from 'react-native';
-
-
+import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight} from 'react-native';
 
 export default class ScrollStuff extends Component {
+  constructor(props){
+    super(props);
+  }
+
   render() {
     return (
-      <ScrollView horizontal = {true}>
-      <View style={styles.scrollContainer}>
-        <View style = {styles.scr, {borderBottomColor: 'black', borderBottomWidth: 3, justifyContent: 'center',}}><Text style = {styles.text}>Recommended</Text></View>
-        <View style = {styles.scr}><Text style = {styles.text}>Appetizers</Text></View>
-        <View style = {styles.scr}><Text style = {styles.text}>Chicken</Text></View>
-        <View style = {styles.scr}><Text style = {styles.text}>Vegetarian</Text></View>
-        <View style = {styles.scr}><Text style = {styles.text}>Soup</Text></View>
-        <View style = {styles.scr}><Text style = {styles.text}>Sandwiches</Text></View>
-        <View style = {styles.scr}><Text style = {styles.text}>Sides</Text></View>
-        <View style = {styles.scr}><Text style = {styles.text}>Drinks</Text></View>
-      </View>
+      <View style={styles.scroller}>
+        <ScrollView horizontal = {true}>
+        <View style={styles.scrollContainer}>
+          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[0].name}</Text></View>
+          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[1].name}</Text></View>
+          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[2].name}</Text></View>
+          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[3].name}</Text></View>
+          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[4].name}</Text></View>
+          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[5].name}</Text></View>
+          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[6].name}</Text></View>
+        </View>
       </ScrollView>
+    </View>
     );
   }
 }
-
-
 
 const styles = StyleSheet.create({
   scrollContainer:{
@@ -33,6 +34,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(187, 212, 216, .5)',
     height: 'auto',
     width: 'auto',
+  },
+  scroller: {
+    height: 36,
+    width: 'auto',
+    //flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    //backgroundColor: 'green',
+    //borderWidth: 0,
+    //borderColor: 'black',
   },
   scr: {
     display: 'flex',

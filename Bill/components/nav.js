@@ -2,81 +2,70 @@ import Menu from './menu';
 import ItemPage from './itemPage';
 import Items from './items';
 import DrawerNav from './drawerNav';
-import Order from './order';
+import Cart from './cart';
+import MasterOrder from './masterOrder';
+import Order from './order'
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StackNavigator, addNavigationHelpers } from 'react-navigation'
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image} from 'react-native';
-
+import { bindActionCreators } from 'redux';
+import { fetchMenu, addItem, addPrice, submitOrder, emptyCart } from '../src/actions/index.js';
 
  const StackNav = StackNavigator({
     ScreenOne: { screen: Menu},
     ScreenTwo: { screen: Items},
     ScreenThree: {screen: ItemPage},
-    ScreenFour: {screen: Order}
+    ScreenFour: {screen: Cart},
+    ScreenFive: { screen: Order},
 });
 
-export default class Nav extends React.Component {
+//Nav Component_____________________________________________________________________________
+
+class Nav extends React.Component {
   render(){
+    if (this.props.menu[1] !== 'load'){
+      return <Text style={styles.loading}>'loading'</Text>
+    }
     return(
               <StackNav screenProps={this.props}/>
     )
   }
+
+  componentDidMount(){
+    {this.props.fetchMenu()}
+  }
+
 }
 
+//Map Functions____________________________________________________________________________
 
-// const mapStateToProps = state => ({
-//   navigation: state.navigation,
-// })
-//
-// export default connect(mapStateToProps)(Nav);
+function mapStateToProps(state){
+  return {
+    menu: state.menu,
+    cart: state.cart,
+    price: state.price,
+    order: state.order,
+    //
+    //[0].response.menu.menus.items[2].entries.items,
+  }
+}
 
+function mapDispatchToProps(dispatch){
+	return bindActionCreators(
+    {
+      fetchMenu: fetchMenu,
+      addItem: addItem,
+      addPrice: addPrice,
+      submitOrder: submitOrder,
+      emptyCart: emptyCart,
+    }, dispatch)
+}
 
+export default connect(mapStateToProps, mapDispatchToProps)(Nav)
 
-
-// const Stacky = StackNavigator({
-//   ScreenOne: {}
-// })
-
-
-
-// const CustomDrawerContentComponent = (props) => (
-//   <Container>
-//     <Header style={styles.drawerHeader}>
-//       <Body>
-//         <Image
-//           style={styles.drawerImage}
-//           source={require('../img/BreakfastSandwich.jpg')} />
-//         <Text style={styles.userName}> Roscoe Coney </Text>
-//       </Body>
-//     </Header>
-//
-//     <Content>
-//       <DrawerItems {...props} />
-//     </Content>
-//   </Container>
-// );
-// const DrawerNavy = DrawerNavigator({
-//   // For each screen that you can navigate to, create a new entry like this:
-//   ScreenOne: { screen: Menu},
-//   ScreenTwo: { screen: ItemPage},
-//   ScreenThree: {screen: ItemsTest},
-//   ScreenFour: {screen: ItemPage},
-// },
-//   {
-//     initialRouteName: 'ScreenOne',
-//     drawerPosition: 'left',
-//     contentComponent: CustomDrawerContentComponent,
-//     drawerOpenRoute: 'DrawerOpen',
-//     drawerCloseRoute: 'DrawerClose',
-//     drawerToggleRoute: 'DrawerToggle'
-// });
-
-
-
-//export default App1;
-
+//Styles____________________________________________________________________________
 
 const styles = StyleSheet.create({
 
@@ -100,6 +89,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     fontSize: 20
+  },
+  loading:{
+    textAlign: 'center',
+    marginTop: '50%',
   }
 
 })

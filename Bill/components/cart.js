@@ -8,22 +8,19 @@ import Breaker from './breaker';
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
 
-export default class Order extends Component {
+export default class Cart extends Component {
   constructor(props){
     super(props);
     this.mapster = this.mapster.bind(this);
-    this.orderItemCreator = this.orderItemCreator.bind(this);
+    this.cartItemCreator = this.cartItemCreator.bind(this);
 
   }
   static navigationOptions = {
-    title: "Order"
+    title: "Cart"
   }
 
 
-orderItemCreator(foodItemObject){
-  if (this.props.screenProps.order.length === 0){
-    return 'getting order'
-  }
+cartItemCreator(foodItemObject){
   return(
     <View style={styles.inDesc}>
       <Text style={styles.descItems}>'1X'</Text>
@@ -33,8 +30,8 @@ orderItemCreator(foodItemObject){
   )
 }
 
-mapster(orderArray, funky){
-  return orderArray.map(funky)
+mapster(cartArray, funky){
+  return cartArray.map(funky)
 }
 
 
@@ -45,12 +42,15 @@ mapster(orderArray, funky){
        <View style={styles.cartPage}>
          <ScrollView>
 
-           <Breaker value='What You Gittin' />
+           <Breaker value='Your Cart' />
            <View style={styles.descView}>
-             {this.mapster(this.props.screenProps.order, this.orderItemCreator)}
+             {this.mapster(this.props.screenProps.cart, this.cartItemCreator)}
            </View>
 
-
+          <Breaker value='Add a Note' />
+           <View style={styles.descView}>
+             <TextInput style={styles.textBox} value='Blah' multiline = {true} numberOfLines = {4}/>
+           </View>
 
        </ScrollView>
 
@@ -58,21 +58,21 @@ mapster(orderArray, funky){
           <View style={styles.priceView}>
             <View style={styles.inDesc}>
               <Text>Subtotal</Text>
-              <Text>{this.props.screenProps.price}</Text>
+              <Text>${(this.props.screenProps.price < 10) ? (this.props.screenProps.price).toPrecision(3) : (this.props.screenProps.price).toPrecision(4)}</Text>
             </View>
             <View style={styles.inDesc}>
               <Text>Tax</Text>
-              <Text>{this.props.screenProps.price * .07}</Text>
+              <Text>${(this.props.screenProps.price*.07 < 10) ? (this.props.screenProps.price * .07).toPrecision(3) : (this.props.screenProps.price * .07).toPrecision(4)}</Text>
             </View>
             <View style={styles.inDesc}>
               <Text>Total</Text>
-              <Text>{this.props.screenProps.price * .07 + this.props.screenProps.price}</Text>
+              <Text>${this.props.screenProps.price * .07 + this.props.screenProps.price}</Text>
             </View>
           </View>
        </View>
 
-         <TouchableOpacity style={styles.button} onPress={()=>{console.log(this.props.propers)}}>
-           <Text style={styles.buttonText}>Checkout</Text>
+         <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(this.props.screenProps.cart); this.props.screenProps.emptyCart(); navigate('ScreenFive'); console.log(this.props.screenProps.order)}}>
+           <Text style={styles.buttonText}>Submit Order</Text>
            </TouchableOpacity>
      </View>
       );
@@ -137,7 +137,7 @@ mapster(orderArray, funky){
     },
     button:{
       flexDirection: 'column',
-      backgroundColor: 'rgb(32, 202, 39)',
+      backgroundColor: 'rgb(25, 52, 65)',
       height: 40,
       justifyContent: 'center',
       alignItems: 'center',
