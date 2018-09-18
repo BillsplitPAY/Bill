@@ -53,16 +53,26 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
+<<<<<<< HEAD
 		<string>PatuaOne-Regular.ttf</string>
+=======
+>>>>>>> 8a2402efcd2f942a4edb24ed356dccd36a535f4c
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>Feather.ttf</string>
 		<string>FontAwesome.ttf</string>
+<<<<<<< HEAD
+=======
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+>>>>>>> 8a2402efcd2f942a4edb24ed356dccd36a535f4c
 		<string>Foundation.ttf</string>
 		<string>Ionicons.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>
 		<string>MaterialIcons.ttf</string>
 		<string>Octicons.ttf</string>
+<<<<<<< HEAD
 		<string>Roboto_medium.ttf</string>
 		<string>Roboto.ttf</string>
 		<string>rubicon-icon-font.ttf</string>
@@ -72,6 +82,10 @@
 		<string>FontAwesome5_Regular.ttf</string>
 		<string>FontAwesome5_Solid.ttf</string>
 		<string>PatuaOne.ttf</string>
+=======
+		<string>SimpleLineIcons.ttf</string>
+		<string>Zocial.ttf</string>
+>>>>>>> 8a2402efcd2f942a4edb24ed356dccd36a535f4c
 	</array>
 </dict>
 </plist>

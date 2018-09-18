@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity} from 'react-native';
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
+import  RubirosaAntipasto  from './../data/dummyMenu.js'
+
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
 //import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -11,19 +13,20 @@ import { StackNavigator } from 'react-navigation';
 export default class Menu extends Component {
   constructor(props){
     super(props);
-    //this.state = {results: 'naw', load: 'naw', current: ''}
   }
-  static navigationOptions = {
-    title: "Spring Garden",
+    static navigationOptions = {
+      title: "Spring Garden",
 
-    headerStyle: {
-      backgroundColor: 'rgb(0, 0, 0,)',
+      headerStyle: {
+        backgroundColor: 'rgb(0, 0, 0,)',
     },
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      color: 'white'
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        color: 'white'
     },
   }
+
+
 
   render() {
     const { navigate } = this.props.navigation
