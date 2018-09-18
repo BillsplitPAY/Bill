@@ -14,17 +14,17 @@ export default class Menu extends Component {
   constructor(props){
     super(props);
   }
-  //   static navigationOptions = {
-  //     title: "Spring Garden",
-  //
-  //     headerStyle: {
-  //       backgroundColor: 'black',
-  //   },
-  //     headerTitleStyle: {
-  //       fontWeight: 'bold',
-  //       color: 'white'
-  //   },
-  // }
+    static navigationOptions = {
+      title: "Spring Garden",
+  
+      headerStyle: {
+        backgroundColor: 'black',
+    },
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        color: 'white'
+    },
+  }
 
 
 

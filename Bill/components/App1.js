@@ -6,6 +6,7 @@ import { Container, Content, Icon, Header, Body } from 'native-base'
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import Nav from './nav'
+import MainNav from './mainNav'
 
 import ReduxPromise from 'redux-promise'
 import reducers from '../src/reducers';
@@ -19,7 +20,7 @@ export default class App1 extends React.Component {
 
     return(
             <Provider store={createStoreWithMiddleware(reducers)}>
-              <Nav screenProps={this.props}/>
+              <MainNav />
             </Provider>
     )
   }

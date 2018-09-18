@@ -6,7 +6,7 @@ import Cart from './cart';
 import MasterOrder from './masterOrder';
 //import Order from './order';
 import OrderNav from './orderNav';
-import MenuNav from './menuNav';
+import MainNav from './mainNav';
 import PayType from './payType'
 
 import React, { Component } from 'react'
@@ -17,7 +17,7 @@ import { bindActionCreators } from 'redux';
 import { fetchMenu, addItem, addPrice, submitOrder, emptyCart } from '../src/actions/index.js';
 
  const StackNav = StackNavigator({
-    ScreenOne: { screen: MenuNav, navigationOptions: {title: 'Menu', headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0}, headerTintColor: 'white' }},
+    ScreenOne: { screen: MainNav, navigationOptions: {title: 'Menu', headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0}, headerTintColor: 'white' }},
     ScreenTwo: { screen: Items},
     ScreenThree: {screen: ItemPage},
     ScreenFour: {screen: Cart},

@@ -15,9 +15,11 @@ export default class Cart extends Component {
     this.cartItemCreator = this.cartItemCreator.bind(this);
 
   }
-  static navigationOptions = {
-    title: "Cart"
-  }
+  static navigationOptions: {
+   title: 'Cart',
+   headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
+   headerTintColor: 'white'
+};
 
 
 cartItemCreator(foodItemObject){
