@@ -7,6 +7,7 @@ import MasterOrder from './masterOrder';
 //import Order from './order';
 import OrderNav from './orderNav';
 import MenuNav from './menuNav';
+import PayType from './payType'
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -21,6 +22,7 @@ import { fetchMenu, addItem, addPrice, submitOrder, emptyCart } from '../src/act
     ScreenThree: {screen: ItemPage},
     ScreenFour: {screen: Cart},
     ScreenFive: { screen: OrderNav},
+    ScreenSix: { screen: PayType},
 });
 
 //Nav Component_____________________________________________________________________________

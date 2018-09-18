@@ -50,8 +50,6 @@ mapster(orderArray, funky){
              {this.mapster(this.props.screenProps.order, this.orderItemCreator)}
            </View>
 
-
-
        </ScrollView>
 
        <View>

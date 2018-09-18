@@ -74,7 +74,7 @@ export default Items;
     touch:{
       width: 'auto',
       height: 'auto',
-      backgroundColor: 'black'
+      backgroundColor: 'white'
     },
     itemz: {
       flexDirection: 'row',
@@ -95,11 +95,11 @@ export default Items;
       fontSize: 15,
       fontWeight: 'bold',
       fontFamily: 'Avenir',
-      color: 'white',
+      color: 'black',
     },
     foodDescription:{
       fontSize: 13,
-      color: 'white',
+      color: 'black',
     },
     foodPrice:{
       color: 'green',

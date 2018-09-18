@@ -3,6 +3,7 @@ import { createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-n
 import Menu from './menu';
 import Cart from './cart';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import OrderNav from './orderNav';
 
 
 export default createBottomTabNavigator({
@@ -15,12 +16,15 @@ export default createBottomTabNavigator({
   },
 Settings: {
   screen: Cart,
-  }
+},
+Order: {
+  screen: OrderNav
+}
 },
 {
   tabBarOptions: {
-      activeTintColor: 'tomato',
-      inactiveTintColor: 'gray',
+      activeTintColor: 'red',
+      inactiveTintColor: 'black',
       activeBackgroundColor: 'rgb(114, 137, 143)',
       style: {
         backgroundColor: 'rgb(114, 137, 143)',
@@ -30,7 +34,7 @@ Settings: {
       labelStyle: {
         fontSize: 12,
         fontFamily: 'Avenir',
-        color: 'black',
+        //color: 'black',
         marginBottom: 3,
 
       }

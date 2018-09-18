@@ -15,6 +15,8 @@ export default class App1 extends React.Component {
   render(){
     const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore)
 
+
+
     return(
             <Provider store={createStoreWithMiddleware(reducers)}>
               <Nav screenProps={this.props}/>
@@ -22,9 +24,6 @@ export default class App1 extends React.Component {
     )
   }
 }
-
-
-
 
 
 const styles = StyleSheet.create({

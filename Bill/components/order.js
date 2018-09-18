@@ -71,8 +71,8 @@ mapster(orderArray, funky){
           </View>
        </View>
 
-         <TouchableOpacity style={styles.button} onPress={()=>{console.log(this.props.propers)}}>
-           <Text style={styles.buttonText}>Checkout</Text>
+         <TouchableOpacity style={styles.button} onPress={()=>{this.props.navigation.navigate('ScreenSix'); console.log(this.props.propers)}}>
+           <Text style={styles.buttonText}>Get the Check</Text>
            </TouchableOpacity>
      </View>
       );

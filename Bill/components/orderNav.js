@@ -3,7 +3,7 @@ import { createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-n
 import Order from './order';
 import GroupOrder from './groupOrder';
 
-export default createBottomTabNavigator({
+export default createMaterialTopTabNavigator({
   Home: Order,
   Settings: GroupOrder,
 }, { tabBarOptions: {
@@ -11,15 +11,15 @@ export default createBottomTabNavigator({
       inactiveTintColor: 'gray',
       activeBackgroundColor: 'rgb(114, 137, 143)',
       style: {
-        backgroundColor: 'rgb(114, 137, 143)',
-        fontSize: 15,
+        backgroundColor: 'grey',
+        fontSize: 10,
         fontFamily: 'Avenir',
       },
       labelStyle: {
-        fontSize: 19,
+        fontSize: 10,
         fontFamily: 'Avenir',
         color: 'black',
-        marginBottom: 10,
+        
 
       }
     }
