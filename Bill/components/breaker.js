@@ -28,12 +28,12 @@ const styles = StyleSheet.create({
 
   breaker:{
     height: 25,
-    backgroundColor: 'rgb(114, 137, 143)',
+    backgroundColor: '#212121',
     justifyContent: 'center',
   },
 
   breakerText:{
-    color: 'rgb(25, 52, 65)',
+    color: 'white',
     marginRight: 12,
     fontWeight: '600',
     textAlign: 'right',

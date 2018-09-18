@@ -1,6 +1,6 @@
 //this is the content page
 import React, { Component } from 'react';
-import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity} from 'react-native';
+import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, StatusBar} from 'react-native';
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 import  RubirosaAntipasto  from './../data/dummyMenu.js'
@@ -14,17 +14,17 @@ export default class Menu extends Component {
   constructor(props){
     super(props);
   }
-    static navigationOptions = {
-      title: "Spring Garden",
-
-      headerStyle: {
-        backgroundColor: 'rgb(0, 0, 0,)',
-    },
-      headerTitleStyle: {
-        fontWeight: 'bold',
-        color: 'white'
-    },
-  }
+  //   static navigationOptions = {
+  //     title: "Spring Garden",
+  //
+  //     headerStyle: {
+  //       backgroundColor: 'black',
+  //   },
+  //     headerTitleStyle: {
+  //       fontWeight: 'bold',
+  //       color: 'white'
+  //   },
+  // }
 
 
 
@@ -36,6 +36,10 @@ export default class Menu extends Component {
 
       return (
         <View style={styles.menuPage}>
+
+        <View>
+          <StatusBar backgroundColor="blue" barStyle="light-content"/>
+        </View>
 
             <ScrollStuff categories={foodCategories} />
 
@@ -67,7 +71,7 @@ const styles = StyleSheet.create({
   menuPage: {
     display: 'flex',
     //flexDirection: 'column',
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     justifyContent: 'flex-end',
     alignItems: 'stretch',
     height: 'auto',

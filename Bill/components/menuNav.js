@@ -11,23 +11,36 @@ export default createBottomTabNavigator({
     screen: Menu,
     navigationOptions: {
             tabBarLabel: 'Menu',
+            headerTitle: 'Menu',
+            headerTintColor: 'black',
+            headerStyle:{
+              backgroundColor: 'black',
+            },
+            headerTitleStyle:{
+              color: 'black',
+            }
             //tabBarIcon:() => <Ionicons size={ 20 } name={ 'basket' } color={ 'red' }/>
         }
   },
+
 Settings: {
   screen: Cart,
 },
+
 Order: {
   screen: OrderNav
 }
+
 },
 {
+  animationEnabled: 'true',
+  swipeEnabled: 'true',
   tabBarOptions: {
-      activeTintColor: 'red',
+      activeTintColor: 'white',
       inactiveTintColor: 'black',
-      activeBackgroundColor: 'rgb(114, 137, 143)',
+      animationEnabled: 'true',
       style: {
-        backgroundColor: 'rgb(114, 137, 143)',
+        backgroundColor: '#424242',
         fontSize: 15,
         fontFamily: 'Avenir',
       },
@@ -38,7 +51,7 @@ Order: {
         marginBottom: 3,
 
       }
-    }
+    },
   },
 
   {

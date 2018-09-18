@@ -17,7 +17,7 @@ import { bindActionCreators } from 'redux';
 import { fetchMenu, addItem, addPrice, submitOrder, emptyCart } from '../src/actions/index.js';
 
  const StackNav = StackNavigator({
-    ScreenOne: { screen: MenuNav},
+    ScreenOne: { screen: MenuNav, navigationOptions: {title: 'Menu', headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0}, headerTintColor: 'white' }},
     ScreenTwo: { screen: Items},
     ScreenThree: {screen: ItemPage},
     ScreenFour: {screen: Cart},
