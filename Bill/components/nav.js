@@ -4,7 +4,9 @@ import Items from './items';
 import DrawerNav from './drawerNav';
 import Cart from './cart';
 import MasterOrder from './masterOrder';
-import Order from './order'
+//import Order from './order';
+import OrderNav from './orderNav';
+import MenuNav from './menuNav';
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -14,11 +16,11 @@ import { bindActionCreators } from 'redux';
 import { fetchMenu, addItem, addPrice, submitOrder, emptyCart } from '../src/actions/index.js';
 
  const StackNav = StackNavigator({
-    ScreenOne: { screen: Menu},
+    ScreenOne: { screen: MenuNav},
     ScreenTwo: { screen: Items},
     ScreenThree: {screen: ItemPage},
     ScreenFour: {screen: Cart},
-    ScreenFive: { screen: Order},
+    ScreenFive: { screen: OrderNav},
 });
 
 //Nav Component_____________________________________________________________________________

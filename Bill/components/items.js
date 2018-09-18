@@ -73,7 +73,8 @@ export default Items;
     },
     touch:{
       width: 'auto',
-      height: 'auto'
+      height: 'auto',
+      backgroundColor: 'black'
     },
     itemz: {
       flexDirection: 'row',
@@ -91,16 +92,19 @@ export default Items;
       height: 'auto'
     },
     foodName:{
-      fontSize: 12,
+      fontSize: 15,
       fontWeight: 'bold',
+      fontFamily: 'Avenir',
+      color: 'white',
     },
     foodDescription:{
-      fontSize: 12,
+      fontSize: 13,
+      color: 'white',
     },
     foodPrice:{
       color: 'green',
       fontWeight: 'bold',
-      fontSize: 12,
+      fontSize: 14,
     },
     imgBox:{
       height: 75,

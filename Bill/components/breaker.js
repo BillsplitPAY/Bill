@@ -34,8 +34,9 @@ const styles = StyleSheet.create({
 
   breakerText:{
     color: 'rgb(25, 52, 65)',
-    marginLeft: 12,
+    marginRight: 12,
     fontWeight: '600',
+    textAlign: 'right',
   },
 
    textBox:{

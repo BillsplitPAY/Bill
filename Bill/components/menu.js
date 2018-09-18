@@ -5,6 +5,8 @@ import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
+//import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 export default class Menu extends Component {
   constructor(props){
@@ -12,7 +14,15 @@ export default class Menu extends Component {
     //this.state = {results: 'naw', load: 'naw', current: ''}
   }
   static navigationOptions = {
-    title: "Spring Garden"
+    title: "Spring Garden",
+
+    headerStyle: {
+      backgroundColor: 'rgb(0, 0, 0,)',
+    },
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      color: 'white'
+    },
   }
 
   render() {
@@ -33,10 +43,7 @@ export default class Menu extends Component {
             </View>
           </ScrollView>
 
-          <TouchableOpacity style={styles.button} onPress={()=>{navigate('ScreenFour'); console.log(this.props.propers)}}>
-            <Text style={styles.buttonText}>View Cart</Text>
 
-          </TouchableOpacity>
         </View>
       );
     }
@@ -116,3 +123,9 @@ const styles = StyleSheet.create({
 // })
 // .then((resp) => resp.json())
 // .then((data) => {console.log(data)})
+
+
+// <TouchableOpacity style={styles.button} onPress={()=>{navigate('ScreenFour'); console.log(this.props.propers)}}>
+//   <Text style={styles.buttonText}>View Cart</Text>
+//
+// </TouchableOpacity>

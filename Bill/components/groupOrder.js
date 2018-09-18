@@ -16,7 +16,7 @@ export default class Order extends Component {
 
   }
   static navigationOptions = {
-    title: "Your Order"
+    title: "Group Order"
   }
 
 
@@ -89,7 +89,7 @@ mapster(orderArray, funky){
       height: 'auto',
       //borderBottomColor: 'black',
       //borderBottomWidth: 1,
-      backgroundColor:'white',
+      backgroundColor:'grey',
       justifyContent: 'space-between',
       flexGrow: 1,
       margin: 10,
@@ -98,7 +98,7 @@ mapster(orderArray, funky){
       height: 'auto',
       //borderBottomColor: 'black',
       //borderBottomWidth: 1,
-      backgroundColor:'white',
+      backgroundColor:'grey',
       justifyContent: 'space-between',
       flexGrow: 1,
       width: '100%',
@@ -137,7 +137,7 @@ mapster(orderArray, funky){
     },
     button:{
       flexDirection: 'column',
-      backgroundColor: 'rgb(0, 204, 0)',
+      backgroundColor: 'rgb(32, 202, 39)',
       height: 40,
       justifyContent: 'center',
       alignItems: 'center',
