@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput} from 'react-native';
-import { StackNavigator, addNavigationHelpers } from 'react-navigation'
+import { StackNavigator, addNavigationHelpers } from 'react-navigation';
 
-import Menu from './menu';
-import OrderNav from './orderNav';
-import PayType from './payType';
-import ItemPage from './itemPage';
-import Cart from './cart'
+import { OrderStackNav } from './orderStackNav';
+import Menu from '../components/menu';
+import ItemPage from '../components/itemPage';
+import Cart from '../components/cart'
 
 
 export const MenuNav = StackNavigator({
-   ScreenOne: {
+   Menu: {
      screen: Menu,
      navigationOptions: {
        title: 'Menu',
@@ -18,13 +17,11 @@ export const MenuNav = StackNavigator({
        headerTintColor: 'white'
      }
    },
-   ScreenTwo: {
+   ItemPage: {
      screen: ItemPage,
      navigationOptions: {
-       title: 'Cart',
        headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
-       headerTintColor: 'white'
-
+       headerTintColor: 'white',
    },
 }
 });
@@ -38,16 +35,12 @@ export const CartNav = StackNavigator({
        headerTintColor: 'white'
      }
    },
- });
-
-export const OrderStackNav = StackNavigator({
-   ScreenOne: {
-     screen: OrderNav,
+   OrderStackNav: {
+     screen: OrderStackNav,
      navigationOptions: {
-       title: 'Order',
+       title: 'Cart',
        headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
        headerTintColor: 'white'
-     },
-   },
-   ScreenTwo: { screen: PayType},
-});
+     }
+   }
+ });

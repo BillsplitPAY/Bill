@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import { createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-navigation';
-import Menu from './menu';
-import Cart from './cart';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import OrderNav from './orderNav';
-
 import { connect } from 'react-redux'
 import { StackNavigator, addNavigationHelpers } from 'react-navigation'
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchMenu, addItem, addPrice, submitOrder, emptyCart } from '../src/actions/index.js';
-import { MenuNav, OrderStackNav, CartNav } from './stackNavs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+//imports the action creator functions to be bound to props below.
+import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown } from '../src/actions/index.js';
+
+import { MenuNav, CartNav } from './stackNavs';
+import { OrderStackNav } from './orderStackNav';
+
+
+//console.log(this.props);
 
 const TabNav = createBottomTabNavigator({
   Menu: {
@@ -24,31 +27,42 @@ const TabNav = createBottomTabNavigator({
             },
             headerTitleStyle:{
               color: 'black',
+            },
+            tabBarVisible: (function(){
+              console.log(global)
+            //   if (this.props.navigation.state.routeName === "Menu"){
+            //   return false
+            // }
+            // else{
+            //   return false
+
+          }())
+
+
+            //tabBarIcon:() => <Ionicons size={ 20 } name={ 'basket' } color={ 'red' }/>
+        },
+
+  },
+
+  Cart: {
+    screen: CartNav,
+    navigationOptions: {
+            tabBarLabel: 'Cart',
+            headerTitle: 'Cart',
+            headerTintColor: 'black',
+            headerStyle:{
+              backgroundColor: 'black',
+            },
+            headerTitleStyle:{
+              color: 'black',
             }
             //tabBarIcon:() => <Ionicons size={ 20 } name={ 'basket' } color={ 'red' }/>
         }
   },
 
-Cart: {
-  screen: CartNav,
-  navigationOptions: {
-          tabBarLabel: 'Cart',
-          headerTitle: 'Cart',
-          headerTintColor: 'black',
-          headerStyle:{
-            backgroundColor: 'black',
-          },
-          headerTitleStyle:{
-            color: 'black',
-          }
-          //tabBarIcon:() => <Ionicons size={ 20 } name={ 'basket' } color={ 'red' }/>
-      }
-},
-
-Order: {
-  screen: OrderStackNav
-}
-
+  Order: {
+    screen: OrderStackNav,
+  }
 },
 {
   animationEnabled: 'true',
@@ -65,26 +79,20 @@ Order: {
       labelStyle: {
         fontSize: 12,
         fontFamily: 'Avenir',
-        //color: 'black',
         marginBottom: 3,
 
       }
     },
   },
-
   {
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
         let iconName = 'basket'
-        // You can return any component that you like here! We usually use an
-        // icon component from react-native-vector-icons
         return <Ionicons name={'basket'} size={25} color={'black'} />;
       }
-    }
-  )
-}
+    })
+  }
 )
-
 
 class MainNav extends Component {
   render(){
@@ -92,39 +100,42 @@ class MainNav extends Component {
       return <Text style={styles.loading}>'loading'</Text>
     }
     return(
+      //Passes all props here (ACs and state props) to screen components of TabNav
     <TabNav screenProps={this.props} />
   )
 }
-componentDidMount(){
-  {this.props.fetchMenu()}
+/*All actions involving State begin here. fetchMenu is an action creator function that fetches
+the menu and sends it to the Menu reducer where it is applied to the menu property on the state object.*/
+  componentDidMount(){
+    {this.props.fetchMenu()}
+  }
 }
-}
 
-
-//Map Functions____________________________________________________________________________
-
+//Maps the state object properties to React props so the data can be passed down components
 function mapStateToProps(state){
-return {
-  menu: state.menu,
-  cart: state.cart,
-  price: state.price,
-  order: state.order,
-  //
-  //[0].response.menu.menus.items[2].entries.items,
-}
-}
+  return {
+    menu: state.menu,
+    cart: state.cart,
+    price: state.price,
+    order: state.order,
+    tip: state.tip,
 
+  }
+}
+//Maps the action creators to component functions so they can be called on components
 function mapDispatchToProps(dispatch){
-return bindActionCreators(
-  {
-    fetchMenu: fetchMenu,
-    addItem: addItem,
-    addPrice: addPrice,
-    submitOrder: submitOrder,
-    emptyCart: emptyCart,
-  }, dispatch)
+  return bindActionCreators(
+    {
+      fetchMenu: fetchMenu,
+      addItem: addItem,
+      addPrice: addPrice,
+      submitOrder: submitOrder,
+      emptyCart: emptyCart,
+      tipUp: tipUp,
+      tipDown: tipDown
+    }, dispatch)
 }
-
+//connects the mapped state object properties and action creators to props on this component
 export default connect(mapStateToProps, mapDispatchToProps)(MainNav)
 
 const styles = StyleSheet.create({

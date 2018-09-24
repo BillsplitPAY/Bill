@@ -13,6 +13,7 @@ export default class Cart extends Component {
     super(props);
     this.mapster = this.mapster.bind(this);
     this.cartItemCreator = this.cartItemCreator.bind(this);
+    this.totalAdder = this.totalAdder.bind(this);
 
   }
   static navigationOptions: {
@@ -27,7 +28,7 @@ cartItemCreator(foodItemObject){
     <View style={styles.inDesc}>
       <Text style={styles.descItems}>'1X'</Text>
       <Text style={styles.descText}>{foodItemObject.name}</Text>
-      <Text style={styles.descPrice}>{foodItemObject.price}</Text>
+      <Text style={styles.descPrice}>${foodItemObject.price <= 10 ? foodItemObject.price.toPrecision(3) : foodItemObject.price.toPrecision(4)}</Text>
     </View>
   )
 }
@@ -36,6 +37,13 @@ mapster(cartArray, funky){
   return cartArray.map(funky)
 }
 
+totalAdder(){
+  let total = 0;
+  for (i = 0; i < this.props.screenProps.cart.length; i++){
+    total += this.props.screenProps.cart[i].price
+  }
+  return total
+}
 
   render() {
     const { navigate } = this.props.navigation
@@ -44,14 +52,13 @@ mapster(cartArray, funky){
        <View style={styles.cartPage}>
          <ScrollView>
 
-           <Breaker value='Your Cart' />
            <View style={styles.descView}>
              {this.mapster(this.props.screenProps.cart, this.cartItemCreator)}
            </View>
 
           <Breaker value='Add a Note' />
            <View style={styles.descView}>
-             <TextInput style={styles.textBox} value='Blah' multiline = {true} numberOfLines = {4}/>
+             <TextInput style={styles.textBox} value='Hey Chef...' multiline = {true} numberOfLines = {4}/>
            </View>
 
        </ScrollView>
@@ -60,20 +67,20 @@ mapster(cartArray, funky){
           <View style={styles.priceView}>
             <View style={styles.inDesc}>
               <Text>Subtotal</Text>
-              <Text>${(this.props.screenProps.price < 10) ? (this.props.screenProps.price).toPrecision(3) : (this.props.screenProps.price).toPrecision(4)}</Text>
+              <Text>${this.totalAdder().toFixed(2)}</Text>
             </View>
             <View style={styles.inDesc}>
               <Text>Tax</Text>
-              <Text>${(this.props.screenProps.price*.07 < 10) ? (this.props.screenProps.price * .07).toPrecision(3) : (this.props.screenProps.price * .07).toPrecision(4)}</Text>
+              <Text>${(this.totalAdder() * .07).toFixed(2)}</Text>
             </View>
             <View style={styles.inDesc}>
               <Text>Total</Text>
-              <Text>${this.props.screenProps.price * .07 + this.props.screenProps.price}</Text>
+              <Text>${((this.totalAdder() * .07) + (this.totalAdder())).toFixed(2)}</Text>
             </View>
           </View>
        </View>
 
-         <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(this.props.screenProps.cart); this.props.screenProps.emptyCart(); navigate('ScreenFive'); console.log(this.props.screenProps.order)}}>
+         <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(this.props.screenProps.cart); this.props.screenProps.emptyCart(); console.log(this.props.screenProps.order)}}>
            <Text style={styles.buttonText}>Submit Order</Text>
            </TouchableOpacity>
      </View>

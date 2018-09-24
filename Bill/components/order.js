@@ -5,6 +5,7 @@ import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 import Breaker from './breaker';
 
+
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
 
@@ -12,7 +13,8 @@ export default class Order extends Component {
   constructor(props){
     super(props);
     this.mapster = this.mapster.bind(this);
-    this.orderItemCreator = this.orderItemCreator.bind(this);
+    this.orderListCreator = this.orderListCreator.bind(this);
+    this.totalAdder = this.totalAdder.bind(this);
 
   }
   static navigationOptions = {
@@ -20,7 +22,7 @@ export default class Order extends Component {
   }
 
 
-orderItemCreator(foodItemObject){
+orderListCreator(foodItemObject){
   if (this.props.screenProps.order.length === 0){
     return 'getting order'
   }
@@ -28,7 +30,7 @@ orderItemCreator(foodItemObject){
     <View style={styles.inDesc}>
       <Text style={styles.descItems}>'1X'</Text>
       <Text style={styles.descText}>{foodItemObject.name}</Text>
-      <Text style={styles.descPrice}>{foodItemObject.price}</Text>
+      <Text style={styles.descPrice}>${foodItemObject.price.toFixed(2)}</Text>
     </View>
   )
 }
@@ -37,7 +39,13 @@ mapster(orderArray, funky){
   return orderArray.map(funky)
 }
 
-
+totalAdder(){
+  let total = 0;
+  for (i = 0; i < this.props.screenProps.order.length; i++){
+    total += this.props.screenProps.order[i].price
+  }
+  return total
+}
   render() {
     const { navigate } = this.props.navigation
     console.log(this.props)
@@ -45,9 +53,9 @@ mapster(orderArray, funky){
        <View style={styles.cartPage}>
          <ScrollView>
 
-           <Breaker value='What You Gittin' />
+
            <View style={styles.descView}>
-             {this.mapster(this.props.screenProps.order, this.orderItemCreator)}
+             {this.mapster(this.props.screenProps.order, this.orderListCreator)}
            </View>
 
 
@@ -58,20 +66,20 @@ mapster(orderArray, funky){
           <View style={styles.priceView}>
             <View style={styles.inDesc}>
               <Text>Subtotal</Text>
-              <Text>{this.props.screenProps.price}</Text>
+              <Text>${this.totalAdder().toFixed(2)}</Text>
             </View>
             <View style={styles.inDesc}>
               <Text>Tax</Text>
-              <Text>{this.props.screenProps.price * .07}</Text>
+              <Text>${(this.totalAdder() * .07).toFixed(2)}</Text>
             </View>
             <View style={styles.inDesc}>
               <Text>Total</Text>
-              <Text>{this.props.screenProps.price * .07 + this.props.screenProps.price}</Text>
+              <Text>${((this.totalAdder() * .07) + (this.totalAdder())).toFixed(2)}</Text>
             </View>
           </View>
        </View>
 
-         <TouchableOpacity style={styles.button} onPress={()=>{this.props.navigation.navigate('ScreenSix'); console.log(this.props.propers)}}>
+         <TouchableOpacity style={styles.button} onPress={()=>{this.props.navigation.navigate('ScreenTwo'); console.log(this.props.propers)}}>
            <Text style={styles.buttonText}>Get the Check</Text>
            </TouchableOpacity>
      </View>

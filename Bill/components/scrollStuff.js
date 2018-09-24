@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#303030',
     height: 'auto',
     width: 'auto',
+    borderBottomWidth: 2,
+    borderBottomColor: '#424242',
   },
   scroller: {
     height: 36,

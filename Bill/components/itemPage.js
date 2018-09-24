@@ -8,6 +8,7 @@ export default class ItemPage extends Component{
   constructor(props){
     super(props);
   }
+  
   render(){
     const { navigate } = this.props.navigation;
     const itemName = this.props.navigation.state.params.screen.name;
@@ -35,7 +36,7 @@ export default class ItemPage extends Component{
 
         </ScrollView>
 
-        <TouchableOpacity style={styles.button} onPress={() => {navigate('ScreenOne'); this.props.screenProps.addItem(itemName, itemPrice, itemDesc); this.props.screenProps.addPrice(itemPrice); console.log(this.props.screenProps)}}>
+        <TouchableOpacity style={styles.button} onPress={() => {navigate('Menu'); this.props.screenProps.addItem(itemName, Number(itemPrice), itemDesc); this.props.screenProps.addPrice(Number(itemPrice)); console.log(this.props.screenProps)}}>
           <Text style={styles.buttonText}>Add To Cart</Text>
           <Text style={styles.price}>{this.props.navigation.state.params.screen.price}</Text>
         </TouchableOpacity>

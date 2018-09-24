@@ -40,3 +40,15 @@ export function emptyCart(){
 	   type: 'EMPTY'
     };
 }
+
+export function tipUp(){
+  return {
+	   type: 'TIPUP'
+    };
+}
+
+export function tipDown(){
+  return {
+	   type: 'TIPDOWN'
+    };
+}

@@ -19,7 +19,7 @@ class Items extends Component {
 itemMaker(foodItem){
   return (
     <View>
-    <TouchableHighlight style={styles.touch} onPress={() => {this.props.navi('ScreenThree', { screen: foodItem })}}>
+    <TouchableHighlight style={styles.touch} onPress={() => {this.props.navi('ItemPage', { screen: foodItem })}}>
           <View style={styles.itemz}>
            <View style={styles.textBox}>
               <Text style={styles.foodName}>{foodItem.name}</Text>

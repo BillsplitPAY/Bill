@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput} from 'react-native';
 
 export default class PayType extends Component{
+  constructor(props){
+    super(props);
+  }
   render(){
     console.log(global)
-    
+
     return(
     <View>
     <Text style={styles.payTypeText}>How do you want to pay?</Text>
     <View style={styles.buttonBox}>
-      <TouchableHighlight style={styles.buttonWrap} onPress={()=>{}}><Button title='Even Split' style={styles.buttonText} /></TouchableHighlight>
-      <TouchableHighlight style={styles.buttonWrap}><Button title='Pay For Your Stuff' style={styles.buttonText} /></TouchableHighlight>
+      <TouchableHighlight style={styles.buttonWrap} onPress={()=>{this.props.navigation.navigate('EvenSplit')}}><Button title='Even Split' style={styles.buttonText} /></TouchableHighlight>
+      <TouchableHighlight style={styles.buttonWrap}  onPress={()=>{this.props.navigation.navigate('YourStuff')}}><Button title='Pay For Your Stuff' style={styles.buttonText} /></TouchableHighlight>
       <TouchableHighlight style={styles.buttonWrap}><Button title='Custom Amount' style={styles.buttonText} /></TouchableHighlight>
       <TouchableHighlight style={styles.buttonWrap}><Button title='Roulette' style={styles.buttonText} /></TouchableHighlight>
     </View>
