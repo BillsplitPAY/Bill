@@ -21,7 +21,8 @@ export const MenuNav = StackNavigator({
      screen: ItemPage,
      navigationOptions: {
        headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
-       headerTintColor: 'white',
+       headerTintColor: 'red',
+       headerLeft: null
    },
 }
 });
