@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput, Picker} from 'react-native';
-import Breaker from './breaker'
+import Breaker from './breaker';
+import Tipper from '../src/flexComponents/tipper';
+import BottomButton from '../src/flexComponents/bottomButton';
+import PriceBreakdown from '../src/flexComponents/priceBreakdown';
+import { addUp, itemListCreator } from '../src/helperFunctions/pureFunctions';
 
 export default class YourStuff extends Component{
   constructor(props){
@@ -36,51 +40,28 @@ export default class YourStuff extends Component{
   }
 
   render(){
+
+    const order = this.props.screenProps.order
+    const total = addUp(order).toFixed(2)
+    const tax = (addUp(order) * .07).toFixed(2);
+    const subtotal = ((addUp(order) * .07) + (addUp(order))).toFixed(2);
+    const tip = ((this.props.screenProps.tip / 100) * (total)).toFixed(2);
+
     return(
       <View style={styles.payPage}>
       <View>
 
       <Breaker value='Your Stuff' />
       <View style={styles.descView}>
-        {this.mapster(this.props.screenProps.order, this.orderItemCreator)}
+        {itemListCreator(order)}
       </View>
 
-         <View style={styles.priceView}>
+      <PriceBreakdown lineOneText={'Group Total'} lineTwoText={'Your Total'} lineThreeText={'Your Tax'} lineFourText={'Your Subtotal'} lineOne={total} lineTwo={total} lineThree={tax} lineFour={subtotal}/>
 
-           <View style={styles.inDesc}>
-             <Text>Your Total</Text>
-             <Text>${this.totalAdder().toFixed(2)}</Text>
-           </View>
+      <Tipper screenProps={this.props.screenProps} tip={tip}/>
 
-           <View style={styles.inDesc}>
-             <Text>Tax</Text>
-             <Text>${(this.totalAdder() * .07).toFixed(2)}</Text>
-           </View>
+      <BottomButton navigate={this.props.navigation.navigate} buttonText={`Pay $ ${((addUp(this.props.screenProps.order) * .07) + (addUp(this.props.screenProps.order)) + (this.totalAdder() * (this.props.screenProps.tip / 100))).toFixed(2)}`}/>
 
-           <View style={styles.inDesc}>
-             <Text>Your Subtotal</Text>
-             <Text>${((this.totalAdder() * .07) + (this.totalAdder())).toFixed(2)}</Text>
-           </View>
-         </View>
-        </View>
-
-        <View style={styles.tipPayContainer}>
-           <View style={styles.tipContainer}>
-            <View style={styles.tipLine}>
-              <TouchableHighlight style={styles.tipButton}><Text style={styles.tipButtonText}>Cash{"\n"} Tip</Text></TouchableHighlight>
-              <TouchableHighlight style={[styles.tipButton]} onPress={()=>{this.props.screenProps.tipDown()}}><Text style={[styles.tipButtonText,  styles.upDownButtons]}>-</Text></TouchableHighlight>
-              <View style={styles.tipAmount}>
-                <Text>{this.props.screenProps.tip}%</Text>
-                <Text>${(this.totalAdder() * (this.props.screenProps.tip / 100)).toFixed(2)}</Text>
-              </View>
-              <TouchableHighlight style={[styles.tipButton]} onPress={()=>{this.props.screenProps.tipUp()}}><Text style={[styles.tipButtonText,  styles.upDownButtons]}>+</Text></TouchableHighlight>
-              <TouchableHighlight style={styles.tipButton}><Text style={styles.tipButtonText}>Custom{"\n"} Amount</Text></TouchableHighlight>
-            </View>
-           </View>
-
-           <TouchableHighlight style={styles.payButton}>
-            <Text style={styles.yourShareText}>Pay ${((this.totalAdder() * .07) + (this.totalAdder()) + (this.totalAdder() * (this.props.screenProps.tip / 100))).toFixed(2)}</Text>
-           </TouchableHighlight>
       </View>
 
       </View>

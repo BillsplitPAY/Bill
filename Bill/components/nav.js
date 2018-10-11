@@ -23,6 +23,7 @@ import { fetchMenu, addItem, addPrice, submitOrder, emptyCart } from '../src/act
     ScreenFour: {screen: Cart},
     ScreenFive: { screen: OrderNav},
     ScreenSix: { screen: PayType},
+    ScreenSeven: { screen: Categories},
 });
 
 //Nav Component_____________________________________________________________________________

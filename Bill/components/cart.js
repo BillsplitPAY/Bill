@@ -4,6 +4,9 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 import Breaker from './breaker';
+import ItemList from '../src/flexComponents/itemList';
+import { itemListCreator, addUp } from '../src/helperFunctions/pureFunctions';
+import PriceBreakdown from '../src/flexComponents/priceBreakdown';
 
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
@@ -11,10 +14,6 @@ import { StackNavigator } from 'react-navigation';
 export default class Cart extends Component {
   constructor(props){
     super(props);
-    this.mapster = this.mapster.bind(this);
-    this.cartItemCreator = this.cartItemCreator.bind(this);
-    this.totalAdder = this.totalAdder.bind(this);
-
   }
   static navigationOptions: {
    title: 'Cart',
@@ -22,65 +21,33 @@ export default class Cart extends Component {
    headerTintColor: 'white'
 };
 
-
-cartItemCreator(foodItemObject){
-  return(
-    <View style={styles.inDesc}>
-      <Text style={styles.descItems}>'1X'</Text>
-      <Text style={styles.descText}>{foodItemObject.name}</Text>
-      <Text style={styles.descPrice}>${foodItemObject.price <= 10 ? foodItemObject.price.toPrecision(3) : foodItemObject.price.toPrecision(4)}</Text>
-    </View>
-  )
-}
-
-mapster(cartArray, funky){
-  return cartArray.map(funky)
-}
-
-totalAdder(){
-  let total = 0;
-  for (i = 0; i < this.props.screenProps.cart.length; i++){
-    total += this.props.screenProps.cart[i].price
-  }
-  return total
-}
-
   render() {
     const { navigate } = this.props.navigation
-    console.log(this.props)
+    const cart = this.props.screenProps.cart
+    const total = addUp(cart).toFixed(2)
+    const tax = (addUp(cart) * .07).toFixed(2);
+    const subtotal = ((addUp(cart) * .07) + (addUp(cart))).toFixed(2);
+    //console.log(this.props)
+
     return (
        <View style={styles.cartPage}>
          <ScrollView>
-
            <View style={styles.descView}>
-             {this.mapster(this.props.screenProps.cart, this.cartItemCreator)}
-           </View>
+           {itemListCreator(cart)}
 
+           </View>
           <Breaker value='Add a Note' />
            <View style={styles.descView}>
              <TextInput style={styles.textBox} value='Hey Chef...' multiline = {true} numberOfLines = {4}/>
            </View>
-
        </ScrollView>
 
        <View>
-          <View style={styles.priceView}>
-            <View style={styles.inDesc}>
-              <Text>Subtotal</Text>
-              <Text>${this.totalAdder().toFixed(2)}</Text>
-            </View>
-            <View style={styles.inDesc}>
-              <Text>Tax</Text>
-              <Text>${(this.totalAdder() * .07).toFixed(2)}</Text>
-            </View>
-            <View style={styles.inDesc}>
-              <Text>Total</Text>
-              <Text>${((this.totalAdder() * .07) + (this.totalAdder())).toFixed(2)}</Text>
-            </View>
-          </View>
+       <PriceBreakdown lineTwoText={'Item Total'} lineThreeText={'Item Tax'} lineFourText={'Item Subtotal'} lineTwo={total} lineThree={tax} lineFour={subtotal}/>
+
        </View>
 
-         <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(this.props.screenProps.cart); this.props.screenProps.emptyCart(); console.log(this.props.screenProps.order)}}>
+         <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); console.log(this.props.screenProps.order)}}>
            <Text style={styles.buttonText}>Submit Order</Text>
            </TouchableOpacity>
      </View>

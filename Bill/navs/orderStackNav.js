@@ -6,6 +6,8 @@ import OrderNav from './orderNav';
 import PayType from '../components/payType';
 import EvenSplit from '../components/evenSplit';
 import YourStuff from '../components/yourStuff';
+import Confirm from '../components/confirm';
+import CustomAmount from '../components/customAmount';
 
 export const OrderStackNav = StackNavigator({
    ScreenOne: {
@@ -21,4 +23,6 @@ export const OrderStackNav = StackNavigator({
    ScreenTwo: { screen: PayType},
    EvenSplit: {screen: EvenSplit},
    YourStuff: {screen: YourStuff},
+   CustomAmount: {screen: CustomAmount},
+   Confirm: {screen: Confirm}
 });

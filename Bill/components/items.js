@@ -26,9 +26,7 @@ itemMaker(foodItem){
               <Text style={styles.foodDescription}>{foodItem.description}</Text>
               <Text style={styles.foodPrice}>${foodItem.price}</Text>
             </View>
-            <View style={styles.imgBox}>
-              <Image style={styles.img} source={require('../img/BreakfastSandwich.jpg')}/>
-            </View>
+
           </View>
         </TouchableHighlight>
     </View>
@@ -92,13 +90,13 @@ export default Items;
       height: 'auto'
     },
     foodName:{
-      fontSize: 15,
+      fontSize: 20,
       fontWeight: 'bold',
       fontFamily: 'Avenir',
       color: 'white',
     },
     foodDescription:{
-      fontSize: 13,
+      fontSize: 17,
       color: 'white',
     },
     foodPrice:{
