@@ -50,7 +50,6 @@ export default class Categories extends Component {
     const { navigate } = this.props.navigation
     const foodCategories = this.props.screenProps.menu[0].response.menu.menus.items[2].entries.items
     //this is an array of objects, each being a category on the menu. the category name is under the name property on each object
-    console.log(this.props)
 
       return (
         <View style={styles.catContainer}>

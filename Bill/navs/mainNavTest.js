@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 //imports the action creator functions to be bound to props below.
-import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown } from '../src/actions/index.js';
+import { fetchMenu, fetchData, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown } from '../src/actions/index.js';
 import { createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 
 import { MenuNav, CartNav } from './stackNavs';
@@ -15,31 +15,24 @@ import { OrderStackNav } from './orderStackNav';
 import { TabNav, TabNavy } from './tabNav';
 import Hamburger from '../src/flexComponents/hamburger';
 import { CustomDrawerContentComponent } from './drawerContent';
+import Scanny from '../src/flexComponents/qrScans';
 
 
 
-class MainNav extends Component {
 
+class MainNavTest extends Component {
   render(){
-    if (this.props.menu[1] !== 'load'){
-      return <Text style={styles.loading}>'loading'</Text>
-    }
     return(
-    <DrawerNav screenProps={this.props} />
+    <FullStackNav screenProps={this.props} />
   )
 }
 
   componentDidMount(){
-    {this.props.fetchMenu()}
+    // {this.props.fetchMenu()}
   }
 }
 
 
-// export const StackNav = StackNavigator({
-//    Menu: {
-//      screen: TabNav,
-//    },
-// })
 
    export const DrawerNav = DrawerNavigator({
      Home: {
@@ -59,6 +52,16 @@ class MainNav extends Component {
        drawerWidth: 300,
    });
 
+   export const FullStackNav = StackNavigator({
+     One: {
+       screen: Scanny
+     },
+     Two: {
+       screen: DrawerNav
+     },
+   })
+
+
 //Maps the state object properties to React props so the data can be passed down components
 function mapStateToProps(state){
   return {
@@ -75,6 +78,7 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators(
     {
       fetchMenu: fetchMenu,
+      fetchData: fetchData,
       addItem: addItem,
       addPrice: addPrice,
       submitOrder: submitOrder,
@@ -84,7 +88,7 @@ function mapDispatchToProps(dispatch){
     }, dispatch)
 }
 //connects the mapped state object properties and action creators to props on this component
-export default connect(mapStateToProps, mapDispatchToProps)(MainNav)
+export default connect(mapStateToProps, mapDispatchToProps)(MainNavTest)
 
 const styles = StyleSheet.create({
 

@@ -6,8 +6,12 @@ import ReduxPromise from 'redux-promise'
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
-import MainNav from '../navs/mainNav'
-import reducers from '../src/reducers';
+import MainNav from './navs/mainNav'
+import reducers from './src/reducers';
+import DrawerTest from './navs/drawerTest';
+import Scanny from './src/flexComponents/qrScans';
+import MainNavTest, { FullStackNav } from './navs/mainNavTest'
+//import DrawerNavy from './navs/drawerNav';
 
 
 export default class App1 extends React.Component {

@@ -16,7 +16,6 @@ export default class MasterOrder extends Component {
 
   render() {
     //const { navigate } = this.props.navigation
-    console.log(this.props.screenProps.menu)
 
     return (
       <View style={styles.orderPage}>

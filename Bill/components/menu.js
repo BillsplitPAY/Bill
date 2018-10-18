@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, StatusBar} from 'react-native';
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
-import  RubirosaAntipasto  from './../data/dummyMenu.js'
+import  RubirosaAntipasto  from './../data/dummyMenu.js';
+import { Hamburger } from '../src/flexComponents/hamburger'
 
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
@@ -14,17 +15,6 @@ export default class Menu extends Component {
   constructor(props){
     super(props);
   }
-    static navigationOptions = {
-      title: "Spring Garden",
-  
-      headerStyle: {
-        backgroundColor: 'black',
-    },
-      headerTitleStyle: {
-        fontWeight: 'bold',
-        color: 'white'
-    },
-  }
 
 
 
@@ -32,8 +22,9 @@ export default class Menu extends Component {
     const { navigate } = this.props.navigation
     const foodCategories = this.props.screenProps.menu[0].response.menu.menus.items[2].entries.items
     //this is an array of objects, each being a category on the menu. the category name is under the name property on each object
-    console.log(this.props)
-
+    if (this.props.screenProps.menu[1] !== 'load'){
+      return <Text style={styles.loading}>'loading'</Text>
+    }
       return (
         <View style={styles.menuPage}>
 
@@ -62,7 +53,6 @@ export default class Menu extends Component {
     // })
     // .then((resp) => resp.json())
     // .then((data) => {this.props.screenProps.fetch(data); console.log(this.props)})
-    console.log(this.props);
   }
   }
 

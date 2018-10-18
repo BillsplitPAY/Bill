@@ -6,7 +6,6 @@ export default class PayType extends Component{
     super(props);
   }
   render(){
-    console.log(global)
 
     return(
     <View>

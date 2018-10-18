@@ -7,7 +7,6 @@ export default class ScrollStuff extends Component {
   }
 
   render() {
-    console.log('inside Props65', this.props)
     return (
       <View style={styles.scroller}>
         <ScrollView horizontal = {true}>

@@ -27,7 +27,6 @@ export default class Cart extends Component {
     const total = addUp(cart).toFixed(2)
     const tax = (addUp(cart) * .07).toFixed(2);
     const subtotal = ((addUp(cart) * .07) + (addUp(cart))).toFixed(2);
-    //console.log(this.props)
 
     return (
        <View style={styles.cartPage}>
@@ -47,7 +46,7 @@ export default class Cart extends Component {
 
        </View>
 
-         <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); console.log(this.props.screenProps.order)}}>
+         <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); }}>
            <Text style={styles.buttonText}>Submit Order</Text>
            </TouchableOpacity>
      </View>

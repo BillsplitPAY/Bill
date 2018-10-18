@@ -6,7 +6,16 @@ return {
         mode: 'cors',
       })
       .then((resp) => resp.json())
-      //.then((data) => {this.props.screenProps.fetch(data); console.log(this.props)})
+};
+}
+
+export function fetchData(data){
+return {
+	type: 'FETCHY',
+	payload: fetch(data, {
+        mode: 'cors',
+      })
+      .then((resp) => resp.json())
 };
 }
 

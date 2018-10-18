@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput} from 'react-native';
-import { StackNavigator, addNavigationHelpers } from 'react-navigation';
+import { StackNavigator, addNavigationHelpers, NavigationActions } from 'react-navigation';
 
 import { OrderStackNav } from './orderStackNav';
 import Menu from '../components/menu';
 import ItemPage from '../components/itemPage';
 import Cart from '../components/cart';
 import Categories from '../components/categories';
+import Hamburger from '../src/flexComponents/hamburger';
+import { DrawerActions } from 'react-navigation';
+
 
 
 export const MenuNav = StackNavigator({
@@ -14,18 +17,12 @@ export const MenuNav = StackNavigator({
      screen: Menu,
      navigationOptions: {
        title: 'Menu',
-       headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
-       headerTintColor: 'white'
+       headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 40},
+       headerTintColor: 'white',
+       headerLeft: <Hamburger />
      }
    },
-   Menu: {
-     screen: Menu,
-     navigationOptions: {
-       title: 'Menu',
-       headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
-       headerTintColor: 'white'
-     }
-   },
+
    ItemPage: {
      screen: ItemPage,
      navigationOptions: {
@@ -42,7 +39,8 @@ export const CartNav = StackNavigator({
      navigationOptions: {
        title: 'Cart',
        headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
-       headerTintColor: 'white'
+       headerTintColor: 'white',
+       headerLeft: <Hamburger onPress={() => {this.props.navigation.dispatch(DrawerActions.openDrawer());}}/>
      }
    },
    OrderStackNav: {
@@ -54,3 +52,12 @@ export const CartNav = StackNavigator({
      }
    }
  });
+
+ const styles = StyleSheet.create({
+   hamburger: {
+     color: 'white',
+     fontSize: 30,
+     marginLeft: 20
+   }
+
+ })
