@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableOpacity} from 'react-native';
+import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, TextInput} from 'react-native';
 import Breaker from './breaker'
 import { addItem, addPrice } from '../src/actions/index.js';
 
@@ -8,6 +8,9 @@ export default class ItemPage extends Component{
   constructor(props){
     super(props);
   }
+  static navigationOptions = {
+    tabBarVisible: false,
+  }
 
   render(){
     const { navigate } = this.props.navigation;
@@ -15,22 +18,23 @@ export default class ItemPage extends Component{
     const itemDesc = this.props.navigation.state.params.screen.description;
     const itemPrice = this.props.navigation.state.params.screen.price;
 
-
     return(
       <View style={styles.itemPage}>
 
         <ScrollView>
-          <View style ={styles.imageView}><Image style={styles.img} source= {require('../img/BreakfastSandwich.jpg')} /></View>
+
           <View style ={styles.descView}>
             <Text style={styles.foodTitle}>{this.props.navigation.state.params.screen.name}</Text>
             <Text style={styles.foodDesc}>{this.props.navigation.state.params.screen.description}</Text>
           </View>
 
         <Breaker value='Quantity'/>
-        <View style={styles.descView}></View>
+        <View style={styles.descView}>
+          <TextInput style={styles.textBox} autoFocus={true} onChangeText={(payment) => {this.setState({amount: Number(payment)})}}/>
+        </View>
         <Breaker value='Item Special Selections'/>
         <View style={styles.descView}></View>
-        <Breaker value='Requests'/>
+        <Breaker value='Notes for the Kitchen'/>
         <View style={styles.descView}></View>
 
         </ScrollView>

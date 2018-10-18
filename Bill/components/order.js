@@ -4,6 +4,7 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 import Breaker from './breaker';
+import {orderTopNav} from '../navs/orderNav'
 
 
 //import DrawerNav from './drawerNav.js';
@@ -78,7 +79,7 @@ totalAdder(){
           </View>
        </View>
 
-         <TouchableOpacity style={styles.button} onPress={()=>{this.props.navigation.navigate('ScreenTwo')}}>
+         <TouchableOpacity style={styles.button} onPress={()=>{this.props.navigation.navigate('PayType')}}>
            <Text style={styles.buttonText}>Get the Check</Text>
            </TouchableOpacity>
      </View>

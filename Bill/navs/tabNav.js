@@ -10,18 +10,22 @@ import ItemPage from '../components/itemPage';
 import Items from '../components/items';
 import { MenuNav, CartNav, MenuNavy } from './stackNavs';
 import { OrderStackNav } from './orderStackNav';
-import Hamburger from '../src/flexComponents/hamburger'
+import Hamburger from '../src/flexComponents/hamburger';
+import Cart from '../components/cart';
+import Order from '../components/order';
+import {orderTabNav} from './orderNav'
+
 
 export const TabNav = createBottomTabNavigator({
   Menu: {
-    screen: MenuNav,
+    screen: Menu,
     tabNavigatorConfig: {
             tabBarLabel: 'Menu',
         },
   },
 
   Cart: {
-    screen: CartNav,
+    screen: Cart,
     navigationOptions: {
             tabBarLabel: 'Cart',
             //tabBarIcon:() => <Ionicons size={ 20 } name={ 'basket' } color={ 'red' }/>
@@ -29,7 +33,7 @@ export const TabNav = createBottomTabNavigator({
   },
 
   Order: {
-    screen: OrderStackNav,
+    screen: orderTabNav,
   }
 },
 

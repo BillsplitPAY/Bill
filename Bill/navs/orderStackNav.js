@@ -8,10 +8,11 @@ import EvenSplit from '../components/evenSplit';
 import YourStuff from '../components/yourStuff';
 import Confirm from '../components/confirm';
 import CustomAmount from '../components/customAmount';
+import Order from '../components/order'
 
 export const OrderStackNav = StackNavigator({
    ScreenOne: {
-     screen: OrderNav,
+     screen: Order,
      headerMode: 'none',
      navigationOptions: {
        //title: 'Order',

@@ -3,7 +3,7 @@ import { createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-n
 import Order from '../components/order';
 import GroupOrder from '../components/groupOrder';
 
-export default createMaterialTopTabNavigator({
+export const orderTabNav = createMaterialTopTabNavigator({
   Home: Order,
   Settings: GroupOrder,
 }, { tabBarOptions: {

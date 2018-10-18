@@ -15,6 +15,7 @@ import { OrderStackNav } from './orderStackNav';
 import { TabNav, TabNavy } from './tabNav';
 import Hamburger from '../src/flexComponents/hamburger';
 import { CustomDrawerContentComponent } from './drawerContent';
+import {expStackNav} from './expStackNav'
 
 
 
@@ -34,16 +35,9 @@ class MainNav extends Component {
   }
 }
 
-
-// export const StackNav = StackNavigator({
-//    Menu: {
-//      screen: TabNav,
-//    },
-// })
-
    export const DrawerNav = DrawerNavigator({
      Home: {
-       screen: TabNav,
+       screen: expStackNav,
      },
      Hamburger: {
        screen: Hamburger,
