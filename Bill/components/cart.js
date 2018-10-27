@@ -46,7 +46,7 @@ export default class Cart extends Component {
 
        </View>
 
-         <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); }}>
+         <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); this.props.navigation.navigate('Order') }}>
            <Text style={styles.buttonText}>Submit Order</Text>
            </TouchableOpacity>
      </View>

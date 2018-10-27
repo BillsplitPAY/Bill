@@ -2,7 +2,7 @@
 export function fetchMenu(){
 return {
 	type: 'FETCH',
-	payload: fetch('https://api.foursquare.com/v2/venues/4cc6222106c25481d7a4a047/menu?client_id=KUZ5DS21RPAGXYPZGDG1R2ACKA43X2SLTY3VNX5WN3PZLYYS&client_secret=WJ2HM3V5YFXSCDQSIVBDCJUCCSQLPRAWLXIZAXWFIRMGALVS&v=20180323', {
+	payload: fetch('https://api.foursquare.com/v2/venues/4adaa371f964a520ec2321e3/menu?client_id=KUZ5DS21RPAGXYPZGDG1R2ACKA43X2SLTY3VNX5WN3PZLYYS&client_secret=WJ2HM3V5YFXSCDQSIVBDCJUCCSQLPRAWLXIZAXWFIRMGALVS&v=20180323', {
         mode: 'cors',
       })
       .then((resp) => resp.json())
@@ -19,11 +19,12 @@ return {
 };
 }
 
-export function addItem(itemName, itemPrice, itemDesc){
+export function addItem(quantity, itemName, itemPrice, itemDesc){
   return {
 	   type: 'ADD',
 	    payload: {
-        name: itemName,
+				quantity: quantity,
+				name: itemName,
         description: itemDesc,
         price: itemPrice
       }
@@ -37,10 +38,10 @@ export function addPrice(itemPrice){
     };
 }
 
-export function submitOrder(orderArray){
+export function submitOrder(orderObject){
   return {
 	   type: 'SUBMIT',
-	    payload: orderArray
+	    payload: orderObject
     };
 }
 

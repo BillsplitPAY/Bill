@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Alert,
-  Linking,
-  Dimensions,
-  LayoutAnimation,
-  Text,
-  View,
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { Alert, Linking, Dimensions, LayoutAnimation, Text, View, StatusBar, StyleSheet, TouchableOpacity } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
 import { Loading } from '../../navs/loading'
 
@@ -54,7 +44,7 @@ export default class Scanny extends Component {
 
   render() {
 
-    //console.log(this.props);
+
 
     return (
       <View style={styles.container}>

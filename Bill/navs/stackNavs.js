@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput} from 'react-native';
-import { StackNavigator, addNavigationHelpers, NavigationActions } from 'react-navigation';
+import { createStackNavigator, addNavigationHelpers, NavigationActions } from 'react-navigation';
 
 import { OrderStackNav } from './orderStackNav';
 import Menu from '../components/menu';
@@ -12,7 +12,7 @@ import { DrawerActions } from 'react-navigation';
 
 
 
-export const MenuNav = StackNavigator({
+export const MenuNav = createStackNavigator({
    Menu: {
      screen: Menu,
      navigationOptions: {
@@ -33,7 +33,7 @@ export const MenuNav = StackNavigator({
 }
 });
 
-export const CartNav = StackNavigator({
+export const CartNav = createStackNavigator({
    ScreenOne: {
      screen: Cart,
      navigationOptions: {

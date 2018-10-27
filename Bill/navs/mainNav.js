@@ -1,32 +1,21 @@
 import React, { Component } from 'react'
-import { createMaterialTopTabNavigator, createBottomTabNavigator, DrawerNavigator } from 'react-navigation';
+import { createMaterialTopTabNavigator, createBottomTabNavigator, createStackNavigator, addNavigationHelpers, NavigationActions, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
-import { StackNavigator, addNavigationHelpers, NavigationActions } from 'react-navigation'
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image} from 'react-native';
 import { bindActionCreators } from 'redux';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
-//imports the action creator functions to be bound to props below.
-import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown } from '../src/actions/index.js';
-import { createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
-
-import { MenuNav, CartNav } from './stackNavs';
-import { OrderStackNav } from './orderStackNav';
-import { TabNav, TabNavy } from './tabNav';
+import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData } from '../src/actions/index.js';
 import Hamburger from '../src/flexComponents/hamburger';
-import { CustomDrawerContentComponent } from './drawerContent';
-import {expStackNav} from './expStackNav'
-
-
+import { drawerContent } from './drawerContent';
+import {inAppStackNav} from './inAppStackNav';
+import Scanny from '../src/flexComponents/qrScans';
 
 class MainNav extends Component {
-
   render(){
     if (this.props.menu[1] !== 'load'){
       return <Text style={styles.loading}>'loading'</Text>
     }
     return(
-    <DrawerNav screenProps={this.props} />
+    <FullStackNav screenProps={this.props} />
   )
 }
 
@@ -35,9 +24,9 @@ class MainNav extends Component {
   }
 }
 
-   export const DrawerNav = DrawerNavigator({
+   export const DrawerNav = createDrawerNavigator({
      Home: {
-       screen: expStackNav,
+       screen: inAppStackNav,
      },
      Hamburger: {
        screen: Hamburger,
@@ -45,13 +34,30 @@ class MainNav extends Component {
 
    }, {
        initialRouteName: 'Home',
-       drawerPosition: 'left',
-       contentComponent: CustomDrawerContentComponent,
+       drawerPosition: 'right',
+       contentComponent: drawerContent,
        drawerOpenRoute: 'DrawerOpen',
        drawerCloseRoute: 'DrawerClose',
        drawerToggleRoute: 'DrawerToggle',
        drawerWidth: 300,
    });
+
+   export const FullStackNav = createStackNavigator({
+     Zero: {
+       screen: DrawerNav,
+       navigationOptions: {
+         headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
+       },
+     },
+     One: {
+       screen: Scanny,
+       navigationOptions: {
+         headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
+       },
+     },
+   },
+ )
+
 
 //Maps the state object properties to React props so the data can be passed down components
 function mapStateToProps(state){
@@ -69,6 +75,7 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators(
     {
       fetchMenu: fetchMenu,
+      fetchData: fetchData,
       addItem: addItem,
       addPrice: addPrice,
       submitOrder: submitOrder,
@@ -118,6 +125,4 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
   },
-
-
 })

@@ -12,3 +12,7 @@ const Confirm = () => {
 }
 
 export default Confirm;
+
+const styles = StyleSheet.create({
+
+})

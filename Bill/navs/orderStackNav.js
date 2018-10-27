@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput} from 'react-native';
-import { StackNavigator, addNavigationHelpers } from 'react-navigation'
+import { createStackNavigator, addNavigationHelpers } from 'react-navigation'
 
 import OrderNav from './orderNav';
 import PayType from '../components/payType';
@@ -10,7 +10,7 @@ import Confirm from '../components/confirm';
 import CustomAmount from '../components/customAmount';
 import Order from '../components/order'
 
-export const OrderStackNav = StackNavigator({
+export const OrderStackNav = createStackNavigator({
    ScreenOne: {
      screen: Order,
      headerMode: 'none',

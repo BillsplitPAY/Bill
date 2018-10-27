@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { DrawerNavigator, StackNavigator, DrawerItems, SafeAreaView, NavigationActions } from 'react-navigation';
+import { createDrawerNavigator, createStackNavigator, DrawerItems, SafeAreaView, NavigationActions } from 'react-navigation';
 import { Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image } from 'react-native';
 import { Container, Content, Icon, Header, Body } from 'native-base';
 import { createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-navigation';
 
-export const CustomDrawerContentComponent = (props) => {
+export const drawerContent = (props) => {
   return(
     <View style={styles.contain}>
     <View style={styles.drawerHeader}>

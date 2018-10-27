@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, StatusBar} from 'react-native';
 import { withNavigation, DrawerActions } from 'react-navigation';
+import { Ionicons } from '@expo/vector-icons';
 
 
 class Hamburger extends Component{
@@ -12,16 +13,22 @@ class Hamburger extends Component{
     }
   render(){
     return (
-    <TouchableOpacity onPress={() => {this.props.navigation.openDrawer()}}><Text style={styles.hamburger}>III</Text></TouchableOpacity>
+    <TouchableOpacity style={styles.burgerContainer} onPress={() => {this.props.navigation.openDrawer()}}><Ionicons style={styles.hamburger}name="ios-menu" size={32} /></TouchableOpacity>
   )
 }
 }
 
 const styles = StyleSheet.create({
+burgerContainer:{
+  //justifyContent: 'flex-start',
+  height: '100%'
+},
   hamburger: {
     color: 'white',
     fontSize: 30,
-    marginLeft: 10,
+    marginRight: 15,
+    marginTop: -20,
+    //justifyContent: 'center',
   }
 })
 

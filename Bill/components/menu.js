@@ -15,13 +15,18 @@ export default class Menu extends Component {
   constructor(props){
     super(props);
   }
+  static navigationOptions = {
+  title: 'Home',
+  headerStyle: {height: 20},
+};
 
 
 
   render() {
     const { navigate } = this.props.navigation
-    const foodCategories = this.props.screenProps.menu[0].response.menu.menus.items[2].entries.items
+    const foodCategories = this.props.screenProps.menu[0].response.menu.menus.items[0].entries.items
     //this is an array of objects, each being a category on the menu. the category name is under the name property on each object
+    //each object contains a property called entries, which is another object containing the food items in that category
     if (this.props.screenProps.menu[1] !== 'load'){
       return <Text style={styles.loading}>'loading'</Text>
     }
@@ -45,15 +50,6 @@ export default class Menu extends Component {
         </View>
       );
     }
-
-  componentDidMount(){
-
-    // fetch('https://api.foursquare.com/v2/venues/4cc6222106c25481d7a4a047/menu?client_id=KUZ5DS21RPAGXYPZGDG1R2ACKA43X2SLTY3VNX5WN3PZLYYS&client_secret=WJ2HM3V5YFXSCDQSIVBDCJUCCSQLPRAWLXIZAXWFIRMGALVS&v=20180323', {
-    //   mode: 'cors',
-    // })
-    // .then((resp) => resp.json())
-    // .then((data) => {this.props.screenProps.fetch(data); console.log(this.props)})
-  }
   }
 
 
@@ -65,7 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'stretch',
     height: 'auto',
-    width: 375,
+    width: '100%',
   },
   // scroller: {
   //   height: 36,

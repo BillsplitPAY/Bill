@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { createMaterialTopTabNavigator, createBottomTabNavigator, DrawerNavigator } from 'react-navigation';
+import { createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-navigation';
 import { connect } from 'react-redux'
-import { StackNavigator, addNavigationHelpers, NavigationActions } from 'react-navigation'
+import { createStackNavigator, addNavigationHelpers, NavigationActions } from 'react-navigation'
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image} from 'react-native';
 import { bindActionCreators } from 'redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -18,8 +18,6 @@ import { CustomDrawerContentComponent } from './drawerContent';
 import Scanny from '../src/flexComponents/qrScans';
 
 
-
-
 class MainNavTest extends Component {
   render(){
     return(
@@ -32,9 +30,7 @@ class MainNavTest extends Component {
   }
 }
 
-
-
-   export const DrawerNav = DrawerNavigator({
+   export const DrawerNav = createDrawerNavigator({
      Home: {
        screen: TabNav,
      },
@@ -52,7 +48,7 @@ class MainNavTest extends Component {
        drawerWidth: 300,
    });
 
-   export const FullStackNav = StackNavigator({
+   export const FullStackNav = createStackNavigator({
      One: {
        screen: Scanny
      },

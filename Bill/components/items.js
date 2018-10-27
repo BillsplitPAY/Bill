@@ -4,61 +4,67 @@ import { StackNavigator } from 'react-navigation';
 import { withNavigation } from 'react-navigation';
 import Breaker from './breaker';
 
-
 class Items extends Component {
   constructor(props){
     super(props);
-    this.categoryMapper = this.categoryMapper.bind(this);
-    this.breakerMaker = this.breakerMaker.bind(this);
-    this.itemMaker = this.itemMaker.bind(this);
-    this.itemMapper = this.itemMapper.bind(this);
+    this.breakerBuilder = this.breakerBuilder.bind(this);
+    //this.itemBuilder = this.itemBuilder.bind(this);
   }
 
 //_____________________________________________________________________________________________
 
-itemMaker(foodItem){
-  return (
-    <View>
-    <TouchableHighlight style={styles.touch} onPress={() => {this.props.navi('ItemPage', { screen: foodItem })}}>
-          <View style={styles.itemz}>
-           <View style={styles.textBox}>
-              <Text style={styles.foodName}>{foodItem.name}</Text>
-              <Text style={styles.foodDescription}>{foodItem.description}</Text>
-              <Text style={styles.foodPrice}>${foodItem.price}</Text>
-            </View>
+// itemBuilder(categoryItem){
+//   return(
+//     <TouchableHighlight style={styles.touch} onPress={() => {this.props.navigation.navigate('ItemPage', { screen: categoryItem })}}>
+//           <View style={styles.itemz}>
+//            <View style={styles.textBox}>
+//               <Text style={styles.foodName}>{categoryItem.name}</Text>
+//               <Text style={styles.foodDescription}>{categoryItem.description}</Text>
+//               <Text style={styles.foodPrice}>${categoryItem.price}</Text>
+//             </View>
+//           </View>
+//         </TouchableHighlight>
+//
+//   )
+// }
 
-          </View>
-        </TouchableHighlight>
-    </View>
-  )
-}
+  breakerBuilder(categoriesArray, navigate){
+    return categoriesArray.map(function(index){
+      return (
+        <View>
+        <Breaker value={index.name} />
+        {index.entries.items.map(function(categoryItem){
+          return(
+            <TouchableHighlight style={styles.touch} onPress={() => {navigate('ItemPage', { screen: categoryItem, other: index, navi: navigate})}}>
+                  <View style={styles.itemz}>
+                   <View style={styles.textBox}>
+                      <Text style={styles.foodName}>{categoryItem.name}</Text>
+                      <Text style={styles.foodDescription}>{categoryItem.description}</Text>
+                      <Text style={styles.foodPrice}>${categoryItem.price}</Text>
+                    </View>
+                  </View>
+                </TouchableHighlight>
 
-itemMapper(foodItems){
-  return foodItems.map(this.itemMaker);
-}
-
-breakerMaker(categoryObj){
-  return (
-    <View>
-      <Breaker value={categoryObj.name}/>
-      {this.itemMapper(categoryObj.entries.items)}
-    </View>
-  )
-};
-
-  categoryMapper(categoriesArray){
-    return categoriesArray.map(this.breakerMaker);
+          )
+        })}
+        </View>
+      )
+    })
   }
+
+
 
 //____________________________________________________________________________________________
 
   render(){
     return (
-      <View style={styles.unnecessary}>
-        {this.categoryMapper(this.props.categories)}
+      <View style={styles.unnecessary} ref={view => { this.myComponent = view; }}>
+        {this.breakerBuilder(this.props.categories, this.props.navi)}
       </View>
     )
 }
+
+
 
 }
 export default Items;

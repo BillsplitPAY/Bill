@@ -11,7 +11,7 @@ function totalAdder(){
   return total
 }
 
-console.log(props.screenProps)
+
 
 return(
 <View style={styles.tipPayContainer}>

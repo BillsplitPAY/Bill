@@ -29,7 +29,7 @@ orderListCreator(foodItemObject){
   }
   return(
     <View style={styles.inDesc}>
-      <Text style={styles.descItems}>'1X'</Text>
+      <Text style={styles.descItems}>{foodItemObject.quantity}</Text>
       <Text style={styles.descText}>{foodItemObject.name}</Text>
       <Text style={styles.descPrice}>${foodItemObject.price.toFixed(2)}</Text>
     </View>
