@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import MainNav from './navs/mainNav'
 import reducers from './src/reducers';
-import MainNavTest, { FullStackNav } from './navs/mainNavTest'
+import MainNavTest, { FullStackNav } from './navs/mainNavTest';
+import { Font } from 'expo';
 
 export default class App1 extends React.Component {
   render(){
@@ -21,6 +22,10 @@ export default class App1 extends React.Component {
             </Provider>
     )
   }
+  // componentDidMount(){
+  //   Font.loadAsync({'open-sans-bold': require('./assets/fonts/TitilliumWeb-Italic.ttf'),
+  //   });
+  // }
 }
 
 const styles = StyleSheet.create({

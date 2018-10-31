@@ -5,9 +5,9 @@ const ItemList = (props) => {
   return (
     <View>
     <View style={styles.inDesc}>
-      <Text style={styles.descItems}>{props.itemAmount}</Text>
-      <Text style={styles.descText}>{props.itemName}</Text>
-      <Text style={styles.descPrice}>${props.itemPrice}</Text>
+      <Text style={styles.descItems, {fontWeight: 'bold'}}>{props.itemAmount}</Text>
+      <Text style={styles.descText, {fontStyle: 'italic'}}>{props.itemName}</Text>
+      <Text style={styles.descPrice, {fontWeight: 'bold'}}>${props.itemPrice}</Text>
     </View>
     </View>
   )
@@ -17,19 +17,17 @@ export default ItemList;
 
 
 const styles = StyleSheet.create({
-  cartPage:{
-    justifyContent: 'space-between',
-    height: '100%',
-  },
+
 
   descView:{
     height: 'auto',
     //borderBottomColor: 'black',
     //borderBottomWidth: 1,
-    backgroundColor:'white',
+    //backgroundColor:'white',
     justifyContent: 'space-between',
     flexGrow: 1,
     margin: 10,
+
   },
   priceView:{
     height: 'auto',
@@ -45,10 +43,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 8,
+    width: '95%',
+    alignItems: 'center',
+    alignSelf: 'center',
+
     //marginBottom: 20,
   },
   descText:{
     marginLeft: 15,
+    fontSize: 17,
     //width: 220,
     flexGrow: 2,
     //width: 200,
@@ -56,10 +59,12 @@ const styles = StyleSheet.create({
   descItems:{
     //marginLeft: 15,
     flexShrink: 2,
+    fontSize: 17,
     //width: 200,
   },
   descPrice:{
     //marginLeft: 50,
+    fontSize: 17,
   },
   breaker:{
     height: 25,

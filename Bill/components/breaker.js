@@ -16,16 +16,6 @@ export default class Breaker extends React.Component{
 
 const styles = StyleSheet.create({
 
-  descView:{
-    height: 'auto',
-    //borderBottomColor: 'black',
-    //borderBottomWidth: 1,
-    backgroundColor:'white',
-    justifyContent: 'space-between',
-    flexGrow: 1,
-    margin: 10,
-  },
-
   breaker:{
     height: 25,
     backgroundColor: '#212121',
@@ -39,13 +29,5 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 
-   textBox:{
-     height: 55,
-     width: '90%',
-     borderColor: 'grey',
-     borderWidth: 1,
-     margin: 10,
-     color: 'grey',
-   },
 
 })

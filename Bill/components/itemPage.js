@@ -23,9 +23,9 @@ export default class ItemPage extends Component{
       <View style={styles.itemPage}>
         <ScrollView style={styles.pageContent}>
 
-          <View style ={styles.foodView}>
+          <View style ={[styles.foodView, {height:'25%', alignItems: 'center'}]}>
 
-          <View style={styles.foodInfo}>
+          <View style={[styles.foodInfo, {}]}>
             <Text style={styles.foodTitle}>{itemName}</Text>
             <Text style={styles.foodDesc}>{itemDesc}</Text>
           </View>

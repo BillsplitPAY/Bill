@@ -25,30 +25,31 @@ export const inAppStackNav = createStackNavigator({
      screen: TabNav,
      navigationOptions: {
        //title: 'Blah',
-       headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 15},
+       headerStyle:{backgroundColor: 'blue', borderBottomWidth: 0, height: 0, display: 'none'},
+       headerVisible: false,
        // headerTintColor: 'white',
-      headerRight: <Hamburger />
+      //headerRight: <Hamburger />
      }
    },
 
    Items: {
      screen: Items,
      navigationOptions: {
-       headerStyle:{backgroundColor: 'white', borderBottomWidth: 0, height: 15},
+       headerStyle:{backgroundColor: 'white', borderBottomWidth: 0, height: 0},
        headerTintColor: 'black',
    },
 },
    ItemPage: {
      screen: ItemPage,
      navigationOptions: {
-       headerStyle:{backgroundColor: 'white', borderBottomWidth: 0, height: 15},
+       headerStyle:{backgroundColor: 'white', borderBottomWidth: 0, height: 0},
        headerTintColor: 'black',
    },
 },
 ItemScroller: {
   screen: ItemScroller,
   navigationOptions: {
-    headerStyle:{backgroundColor: 'white', borderBottomWidth: 0, height: 15},
+    headerStyle:{backgroundColor: 'white', borderBottomWidth: 0, height: 0},
     headerTintColor: 'black',
 },
 },

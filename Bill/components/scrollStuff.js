@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight} from 'react-native';
+import { Font } from 'expo';
 
 export default class ScrollStuff extends Component {
   constructor(props){
@@ -23,6 +24,13 @@ export default class ScrollStuff extends Component {
     </View>
     );
   }
+  // componentDidMount(){
+  //   Font.loadAsync({'open-sans-bold': require('../assets/fonts/TitilliumWeb-Regular.ttf'),
+  //   });
+  // }
+  shouldComponentUpdate(){
+    return true;
+  }
 }
 
 const styles = StyleSheet.create({
@@ -31,7 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     //flexGrow: 1,
     alignItems: 'stretch',
-    backgroundColor: '#303030',
+    backgroundColor: '#212121',
     height: 'auto',
     width: 'auto',
     borderBottomWidth: 2,
@@ -61,8 +69,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginLeft: 14,
     marginRight: 14,
-    fontSize: 11,
+    fontSize: 12,
     color: 'white',
+    fontFamily: 'Futura'
     //alignItems: 'center',
   },
   selected:{

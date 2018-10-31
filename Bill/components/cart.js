@@ -7,6 +7,7 @@ import Breaker from './breaker';
 import ItemList from '../src/flexComponents/itemList';
 import { itemListCreator, addUp } from '../src/helperFunctions/pureFunctions';
 import PriceBreakdown from '../src/flexComponents/priceBreakdown';
+import NoteBox from '../src/flexComponents/noteBox';
 
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
@@ -29,27 +30,59 @@ export default class Cart extends Component {
     const subtotal = ((addUp(cart) * .07) + (addUp(cart))).toFixed(2);
 
     return (
-       <View style={styles.cartPage}>
-         <ScrollView>
-           <View style={styles.descView}>
-           {itemListCreator(cart)}
+      <View style={{height: '100%'}}>
 
-           </View>
-          <Breaker value='Add a Note' />
-           <View style={styles.descView}>
-             <TextInput style={styles.textBox} value='Hey Chef...' multiline = {true} numberOfLines = {4}/>
-           </View>
-       </ScrollView>
+        <View style={{height: '55%'}}>
+          <View style={{borderBottomWidth: .5, borderBottomColor: 'black'}}>
+          <Text style={{fontWeight: 'bold', marginTop: 10, marginLeft: 10}}>Your Cart</Text>
+          </View>
+          <ScrollView>
+          {itemListCreator(cart)}
+          </ScrollView>
+        </View>
 
-       <View>
-       <PriceBreakdown lineTwoText={'Item Total'} lineThreeText={'Item Tax'} lineFourText={'Item Subtotal'} lineTwo={total} lineThree={tax} lineFour={subtotal}/>
 
-       </View>
+        <View style={{justifyContent: 'flex-end', height: '45%'}}>
+        <Text style={{fontWeight: 'bold', marginBottom: 10, marginLeft: 10}}>Order Notes</Text>
+        <NoteBox />
+          <PriceBreakdown lineTwoText={'Item Total'} lineThreeText={'Item Tax'} lineFourText={'Item Subtotal'} lineTwo={total} lineThree={tax} lineFour={subtotal}/>
+          <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); this.props.navigation.navigate('Order') }}>
+              <Text style={styles.buttonText}>Submit Order</Text>
+          </TouchableOpacity>
 
-         <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); this.props.navigation.navigate('Order') }}>
-           <Text style={styles.buttonText}>Submit Order</Text>
-           </TouchableOpacity>
-     </View>
+        </View>
+
+      </View>
+
+
+
+
+
+
+
+     //   <View style={styles.cartPage}>
+     //     <View style={{width: '100%', height: 'auto'}}>
+     //     <Text style={{textAlign: 'left', marginTop: 8, fontWeight: 'bold', fontSize: 14, marginLeft: 5}}>Your Cart</Text>
+     //       <ScrollView style={{height: 'auto'}}>
+     //         {itemListCreator(cart)}
+     //      </ScrollView>
+     //    </View>
+     //
+     //    <View style={{height: '30%'}}>
+     //      <Breaker value='Add a Note' />
+     //       <View style={{marginTop: 15}}>
+     //        <NoteBox />
+     //       </View>
+     //      </View>
+     //
+     //      <View style={{height: '30%'}}>
+     //        <PriceBreakdown lineTwoText={'Item Total'} lineThreeText={'Item Tax'} lineFourText={'Item Subtotal'} lineTwo={total} lineThree={tax} lineFour={subtotal}/>
+     //        <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); this.props.navigation.navigate('Order') }}>
+     //            <Text style={styles.buttonText}>Submit Order</Text>
+     //         </TouchableOpacity>
+     //       </View>
+     //
+     // </View>
       );
     }
   }
@@ -64,10 +97,10 @@ export default class Cart extends Component {
       height: 'auto',
       //borderBottomColor: 'black',
       //borderBottomWidth: 1,
-      backgroundColor:'white',
       justifyContent: 'space-between',
       flexGrow: 1,
-      margin: 10,
+      //margin: 10,
+      marginTop:5,
     },
     priceView:{
       height: 'auto',
@@ -111,15 +144,21 @@ export default class Cart extends Component {
 
     },
     button:{
-      flexDirection: 'column',
-      backgroundColor: 'rgb(25, 52, 65)',
-      height: 40,
-      justifyContent: 'center',
+      flexDirection: 'row',
+      backgroundColor: 'black',
+      height: 45,
+      width: '99%',
+      justifyContent: 'space-between',
       alignItems: 'center',
+      alignSelf: 'center',
+      marginBottom: 2,
+      borderRadius: 5,
     },
      buttonText:{
        color: 'white',
        fontWeight:'bold',
+       marginLeft: '37%',
+       fontSize: 17,
      },
      price:{
        alignSelf: 'flex-end',

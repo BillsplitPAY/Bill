@@ -11,42 +11,32 @@ class Items extends Component {
     //this.itemBuilder = this.itemBuilder.bind(this);
   }
 
-//_____________________________________________________________________________________________
-
-// itemBuilder(categoryItem){
-//   return(
-//     <TouchableHighlight style={styles.touch} onPress={() => {this.props.navigation.navigate('ItemPage', { screen: categoryItem })}}>
-//           <View style={styles.itemz}>
-//            <View style={styles.textBox}>
-//               <Text style={styles.foodName}>{categoryItem.name}</Text>
-//               <Text style={styles.foodDescription}>{categoryItem.description}</Text>
-//               <Text style={styles.foodPrice}>${categoryItem.price}</Text>
-//             </View>
-//           </View>
-//         </TouchableHighlight>
-//
-//   )
-// }
 
   breakerBuilder(categoriesArray, navigate){
     return categoriesArray.map(function(index){
       return (
-        <View>
-        <Breaker value={index.name} />
+        <View style={{backgroundColor: '#edeef0'}}>
+          <View style={{height: 'auto', marginTop: 3, backgroundColor: '#212121', borderColor: 'black', borderWidth: 1}}>
+            <Text style={{textAlign: 'left', marginLeft: '5%', color: 'white', fontSize: 14, fontFamily: 'Futura'}}>{index.name}</Text>
+          </View>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', backgroundColor: '#edeef0',  margin: '1.8%'}}>
+
+
         {index.entries.items.map(function(categoryItem){
           return(
-            <TouchableHighlight style={styles.touch} onPress={() => {navigate('ItemPage', { screen: categoryItem, other: index, navi: navigate})}}>
-                  <View style={styles.itemz}>
-                   <View style={styles.textBox}>
-                      <Text style={styles.foodName}>{categoryItem.name}</Text>
-                      <Text style={styles.foodDescription}>{categoryItem.description}</Text>
-                      <Text style={styles.foodPrice}>${categoryItem.price}</Text>
+            <View style={styles.touch, {flexDirection: 'row', width: '48%', height: 'auto', marginRight: '2%'}} >
+                <TouchableHighlight onPress={() => {navigate('ItemPage', { screen: categoryItem, other: index, navi: navigate})}} style={styles.innerTouch, {width: '100%', flexDirection: 'row',  justifyContent: 'space-between', alignSelf: 'center', borderColor: '#dad9e2', borderWidth: .5, marginBottom: 2}}>
+                <View style={{height: '100%', width: '100%', flexDirection: 'row', justifyContent: 'space-between', padding: 2, backgroundColor: 'white', shadowOffset:{  width: 4,  height: 8,  }, shadowColor: 'grey', shadowOpacity: .75, borderRadius: 3.5, padding: 5}}>
+                      <Text style={[styles.foodName, {width: '83%', fontFamily: 'Futura',}]}>{categoryItem.name}</Text>
+                      <Text style={[styles.foodPrice, {width: '17%', alignSelf: 'flex-end'}]}>${Number(categoryItem.price).toFixed(0)}</Text>
+
                     </View>
-                  </View>
-                </TouchableHighlight>
+                    </TouchableHighlight>
+              </View>
 
           )
         })}
+        </View>
         </View>
       )
     })
@@ -76,18 +66,22 @@ export default Items;
       height: 'auto',
     },
     touch:{
-      width: 'auto',
-      height: 'auto',
-      backgroundColor: '#303030'
+      width: '48%',
+      backgroundColor: '#e8e4e4',
+      //alignSelf: 'center',
+      marginBottom: 8,
+    },
+    innerTouch:{
+
     },
     itemz: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'stretch',
       width: 'auto',
-      height: 100,
+      height: 'auto',
       borderColor: 'rgba(114, 137, 143, 0.29)',
-      borderWidth: .25,
+
     },
     textBox:{
       flexDirection: 'column',
@@ -96,19 +90,20 @@ export default Items;
       height: 'auto'
     },
     foodName:{
-      fontSize: 20,
-      fontWeight: 'bold',
+      fontSize: 15,
       fontFamily: 'Avenir',
-      color: 'white',
+      color: 'black',
     },
     foodDescription:{
       fontSize: 17,
-      color: 'white',
+      color: 'black',
     },
     foodPrice:{
       color: 'green',
-      fontWeight: 'bold',
-      fontSize: 14,
+
+      fontSize: 13,
+      textAlign: 'right',
+      fontFamily: 'Futura',
     },
     imgBox:{
       height: 75,

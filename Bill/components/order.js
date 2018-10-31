@@ -144,15 +144,21 @@ totalAdder(){
 
     },
     button:{
-      flexDirection: 'column',
-      backgroundColor: 'rgb(0, 204, 0)',
-      height: 40,
-      justifyContent: 'center',
+      flexDirection: 'row',
+      backgroundColor: 'black',
+      height: 45,
+      width: '99%',
+      justifyContent: 'space-between',
       alignItems: 'center',
+      alignSelf: 'center',
+      marginBottom: 2,
+      borderRadius: 5,
     },
      buttonText:{
        color: 'white',
        fontWeight:'bold',
+       marginLeft: '37%',
+       fontSize: 17,
      },
      price:{
        alignSelf: 'flex-end',

@@ -15,8 +15,8 @@ export default NoteBox;
 
 const styles = StyleSheet.create({
   noteBoxView:{
-    width: '80%',
-    height: '80%',
+    width: '90%',
+    height: 85,
     alignSelf: 'center',
   },
   noteBox:{

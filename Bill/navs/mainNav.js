@@ -28,9 +28,9 @@ class MainNav extends Component {
      Home: {
        screen: inAppStackNav,
      },
-     Hamburger: {
-       screen: Hamburger,
-     },
+     // Hamburger: {
+     //   screen: Hamburger,
+     // },
 
    }, {
        initialRouteName: 'Home',

@@ -22,8 +22,7 @@ export const TabNav = createBottomTabNavigator({
   Menu: {
     screen: Menu,
     navigationOptions: {
-            tabBarLabel: <View style={{alignItems: 'center'}}><Ionicons name="ios-pizza" size={24} /><Text>Menu</Text></View>,
-
+            tabBarLabel: <View style={{alignItems: 'center'}}><Ionicons name="md-book" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'Futura', fontSize: 14,}}>Menu</Text></View>,
         },
 
   },
@@ -31,13 +30,16 @@ export const TabNav = createBottomTabNavigator({
   Cart: {
     screen: Cart,
     navigationOptions: {
-            tabBarLabel: <View style={{alignItems: 'center'}}><Ionicons name="ios-cart" size={24} /><Text>Cart</Text></View>
+            tabBarLabel: <View style={{alignItems: 'center'}}><Ionicons name="md-cart" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'Futura', fontSize: 14,}}>Cart</Text></View>
             //tabBarIcon:() => <Ionicons size={ 20 } name={ 'basket' } color={ 'red' }/>
         }
   },
 
   Order: {
     screen: orderTabNav,
+    navigationOptions:{
+      tabBarLabel: <View style={{alignItems: 'center'}}><Ionicons name="md-color-wand" size={24} style={{color:'white'}}/><Text style={{fontFamily: 'Futura', fontSize: 14, color: 'white'}}>Order</Text></View>
+    }
   }
 },
 {
@@ -45,12 +47,12 @@ export const TabNav = createBottomTabNavigator({
   swipeEnabled: 'true',
   tabBarOptions: {
       activeTintColor: 'white',
-      inactiveTintColor: 'black',
+      inactiveTintColor: 'white',
       animationEnabled: 'true',
       style: {
-        backgroundColor: '#424242',
+        backgroundColor: '#212121',
         //fontSize: 20,
-        fontFamily: 'Avenir',
+        fontFamily: 'Futura',
       },
       labelStyle: {
         fontSize: 12,

@@ -17,7 +17,7 @@ export default class Menu extends Component {
   }
   static navigationOptions = {
   title: 'Home',
-  headerStyle: {height: 20},
+  headerStyle: {height: 0},
 };
 
 
@@ -41,7 +41,7 @@ export default class Menu extends Component {
 
 
           <ScrollView ref='scrollo'>
-            <View style = {styles.items}>
+            <View style = {styles.items, {borderWidth: 1}}>
               <Items categories={foodCategories} navi={this.props.navigation.navigate}/>
             </View>
           </ScrollView>
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     //borderWidth: 2,
     borderColor: 'blue',
+    flexWrap: 'wrap',
   },
   button:{
     flexDirection: 'column',
@@ -97,28 +98,3 @@ const styles = StyleSheet.create({
      color: 'white',
    }
 });
-
-//<View style={styles.header}><Text style={styles.headerText}>Spring Garden</Text></View>
-//https://developers.zomato.com/api/v2.1/dailymenu?res_id=16507624
-
-// <TouchableHighlight onPress={() => navigate('DrawerOpen')} style={[styles.button, {backgroundColor: '#7567B1'}]}>
-//   <Text> Open Drawer </Text>
-// </TouchableHighlight>
-
-// fetch('https://api.foursquare.com/v2/venues/search?client_id=KUZ5DS21RPAGXYPZGDG1R2ACKA43X2SLTY3VNX5WN3PZLYYS&client_secret=WJ2HM3V5YFXSCDQSIVBDCJUCCSQLPRAWLXIZAXWFIRMGALVS&v=20180323&limit=100&radius=10000&ll=40.7,74.0&categoryId=4bf58dd8d48988d1c5941735&intent=browse', {
-//   mode: 'cors',
-// })
-// .then((resp) => resp.json())
-// .then((data) => {console.log(data)})
-//
-// fetch('https://api.foursquare.com/v2/venues/4cc6222106c25481d7a4a047/menu?client_id=KUZ5DS21RPAGXYPZGDG1R2ACKA43X2SLTY3VNX5WN3PZLYYS&client_secret=WJ2HM3V5YFXSCDQSIVBDCJUCCSQLPRAWLXIZAXWFIRMGALVS&v=20180323', {
-//   mode: 'cors',
-// })
-// .then((resp) => resp.json())
-// .then((data) => {console.log(data)})
-
-
-// <TouchableOpacity style={styles.button} onPress={()=>{navigate('ScreenFour'); console.log(this.props.propers)}}>
-//   <Text style={styles.buttonText}>View Cart</Text>
-//
-// </TouchableOpacity>
