@@ -20,6 +20,11 @@ Application that seamlessly divides the check amongst friends.
 3. git add (filename)
 4. git add . (to add ALL files)
 
+#Git Command Latest version(HARD RESET)
+1. git fetch --all
+2. git reset --hard origin/master
+
+
 #Errors
 Error1: No bundle url present. Make sure you’re running a packager server or have included a .jsbundle file in your application bundle.
 
