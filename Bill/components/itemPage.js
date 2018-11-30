@@ -9,7 +9,15 @@ import ItemScroller from '../src/flexComponents/itemScroller';
 export default class ItemPage extends Component{
   constructor(props){
     super(props);
-    this.state = {quantity: '1'}
+    this.state = {
+      quantity: '1'
+    }
+  }
+
+  decreaseQuantity (quantity) {
+    if(quantity === '1') {return}
+    quantity = quantity - 1;
+    this.setState({quantity: String(Number(quantity)) })
   }
 
   render(){
@@ -31,7 +39,7 @@ export default class ItemPage extends Component{
           </View>
 
           <View style={styles.quantityCounter}>
-              <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) - 1)})}}><Ionicons name="ios-remove-circle-outline" size={32} /></TouchableHighlight>
+              <TouchableHighlight onPress={ ()=> this.decreaseQuantity(this.state.quantity) }><Ionicons name="ios-remove-circle-outline" size={32} /></TouchableHighlight>
               <TextInput style={styles.textBox} defaultValue={this.state.quantity} autoFocus={false} onChangeText={(payment) => {this.setState({amount: Number(payment)})}}/>
               <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) + 1)})}}><Ionicons name="ios-add-circle-outline" size={32} /></TouchableHighlight>
           </View>
