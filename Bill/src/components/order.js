@@ -4,7 +4,7 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 import Breaker from './breaker';
-import {orderTopNav} from '../navs/orderNav'
+//import {orderTopNav} from '../navs/orderNav'
 
 
 //import DrawerNav from './drawerNav.js';

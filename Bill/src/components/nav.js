@@ -14,7 +14,7 @@ import { connect } from 'react-redux'
 import { StackNavigator, addNavigationHelpers } from 'react-navigation'
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchMenu, addItem, addPrice, submitOrder, emptyCart } from '../src/actions/index.js';
+import { fetchMenu, addItem, addPrice, submitOrder, emptyCart } from '../actions/index.js';
 
  const StackNav = StackNavigator({
     ScreenOne: { screen: MainNav, navigationOptions: {title: 'Menu', headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0}, headerTintColor: 'white' }},

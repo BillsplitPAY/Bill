@@ -3,13 +3,13 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 
 const ItemList = (props) => {
   return (
-    <View>
-    <View style={styles.inDesc}>
+    <TouchableHighlight style={styles.inDesc}>
+    <View style={styles.touch}>
       <Text style={styles.descItems, {fontWeight: 'bold'}}>{props.itemAmount}</Text>
       <Text style={styles.descText, {fontStyle: 'italic'}}>{props.itemName}</Text>
       <Text style={styles.descPrice, {fontWeight: 'bold'}}>${props.itemPrice}</Text>
-    </View>
-    </View>
+      </View>
+    </TouchableHighlight>
   )
 }
 
@@ -19,16 +19,7 @@ export default ItemList;
 const styles = StyleSheet.create({
 
 
-  descView:{
-    height: 'auto',
-    //borderBottomColor: 'black',
-    //borderBottomWidth: 1,
-    //backgroundColor:'white',
-    justifyContent: 'space-between',
-    flexGrow: 1,
-    margin: 10,
 
-  },
   priceView:{
     height: 'auto',
     //borderBottomColor: 'black',
@@ -40,14 +31,21 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   inDesc:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    borderBottomWidth: .5,
+    borderBottomColor: 'black',
+
     marginTop: 8,
     width: '95%',
+    height: 40,
     alignItems: 'center',
     alignSelf: 'center',
-
-    //marginBottom: 20,
+  },
+  touch:{
+    height: '100%',
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   descText:{
     marginLeft: 15,

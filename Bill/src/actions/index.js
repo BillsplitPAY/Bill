@@ -9,6 +9,16 @@ return {
 };
 }
 
+export function setCategory(category){
+	return{
+	type: 'CAT',
+	payload:{
+		category: category,
+		item: category.entries.items
+	}
+};
+}
+
 export function fetchData(data){
 return {
 	type: 'FETCHY',

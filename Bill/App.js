@@ -4,10 +4,13 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image} f
 import ReduxPromise from 'redux-promise'
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import MainNav from './navs/mainNav'
-import reducers from './src/reducers';
-import MainNavTest, { FullStackNav } from './navs/mainNavTest';
 import { Font } from 'expo';
+
+import MainNav from './src/navs/mainNav'
+import reducers from './src/reducers';
+import PayType from './src/components/payType'
+//import MainNavTest, { FullStackNav } from './navs/mainNavTest';
+
 
 export default class App1 extends React.Component {
   render(){
@@ -29,6 +32,7 @@ export default class App1 extends React.Component {
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     justifyContent: 'center',

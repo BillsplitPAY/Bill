@@ -4,10 +4,10 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 import Breaker from './breaker';
-import ItemList from '../src/flexComponents/itemList';
-import { itemListCreator, addUp } from '../src/helperFunctions/pureFunctions';
-import PriceBreakdown from '../src/flexComponents/priceBreakdown';
-import NoteBox from '../src/flexComponents/noteBox';
+import ItemList from '../flexComponents/itemList';
+import { itemListCreator, addUp } from '../helperFunctions/pureFunctions';
+import PriceBreakdown from '../flexComponents/priceBreakdown';
+import NoteBox from '../flexComponents/noteBox';
 
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';

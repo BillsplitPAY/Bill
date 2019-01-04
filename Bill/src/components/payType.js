@@ -8,7 +8,7 @@ export default class PayType extends Component{
   render(){
 
     return(
-    <View>
+    <View style={styles.page}>
     <Text style={styles.payTypeText}>How do you want to pay?</Text>
     <View style={styles.buttonBox}>
       <TouchableHighlight style={styles.buttonWrap} onPress={()=>{this.props.navigation.navigate('EvenSplit')}}><Button title='Even Split' style={styles.buttonText} /></TouchableHighlight>
@@ -21,12 +21,29 @@ export default class PayType extends Component{
   }
 }
 
+const defaultHeight = '90%';
+
+const pageDefault = {
+  height: defaultHeight,
+  borderWidth: 1,
+  borderColor: 'red',
+  marginTop: 35,
+}
+
 const styles = StyleSheet.create({
+  page: pageDefault,
+
+  payTypeText:{
+    textAlign: 'center',
+    fontSize: 28,
+    marginTop: 20,
+  },
   buttonBox:{
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
+    width: '100%',
+
     justifyContent:'space-around',
-    height: '100%',
+    height: 'auto',
     alignItems: 'center',
     marginTop: 20
   },
@@ -34,16 +51,12 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
-    width: '50%',
-    height: '20%',
+    width: '100%',
+    height: 'auto',
   },
   buttonText:{
     borderColor: 'black',
     borderWidth: 1,
   },
-  payTypeText:{
-    textAlign: 'center',
-    fontSize: 28,
-    marginTop: 20,
-  }
+
 })

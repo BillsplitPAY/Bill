@@ -3,37 +3,30 @@ import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableHighlight} f
 import { StackNavigator } from 'react-navigation';
 import { withNavigation } from 'react-navigation';
 import Breaker from './breaker';
+import Item from '../flexComponents/item';
 
 class Items extends Component {
   constructor(props){
     super(props);
-    this.breakerBuilder = this.breakerBuilder.bind(this);
+    this.categoryBuilder = this.categoryBuilder.bind(this);
     //this.itemBuilder = this.itemBuilder.bind(this);
   }
+  static navigationOptions: {
+   title: 'Cart',
+  // headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
+   headerTintColor: 'white'
+};
 
-
-  breakerBuilder(categoriesArray, navigate){
-    return categoriesArray.map(function(index){
+  categoryBuilder(array, navigate, other){
+    return array.map(function(category){
       return (
         <View style={{backgroundColor: '#edeef0'}}>
-          <View style={{height: 'auto', marginTop: 3, backgroundColor: '#212121', borderColor: 'black', borderWidth: 1}}>
-            <Text style={{textAlign: 'left', marginLeft: '5%', color: 'white', fontSize: 14, fontFamily: 'Futura'}}>{index.name}</Text>
-          </View>
+          <Breaker value={category.name} />
+
         <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', backgroundColor: '#edeef0',  margin: '1.8%'}}>
-
-
-        {index.entries.items.map(function(categoryItem){
-          return(
-            <View style={styles.touch, {flexDirection: 'row', width: '48%', height: 'auto', marginRight: '2%'}} >
-                <TouchableHighlight onPress={() => {navigate('ItemPage', { screen: categoryItem, other: index, navi: navigate})}} style={styles.innerTouch, {width: '100%', flexDirection: 'row',  justifyContent: 'space-between', alignSelf: 'center', borderColor: '#dad9e2', borderWidth: .5, marginBottom: 2}}>
-                <View style={{height: '100%', width: '100%', flexDirection: 'row', justifyContent: 'space-between', padding: 2, backgroundColor: 'white', shadowOffset:{  width: 4,  height: 8,  }, shadowColor: 'grey', shadowOpacity: .75, borderRadius: 3.5, padding: 5}}>
-                      <Text style={[styles.foodName, {width: '83%', fontFamily: 'Futura',}]}>{categoryItem.name}</Text>
-                      <Text style={[styles.foodPrice, {width: '17%', alignSelf: 'flex-end'}]}>${Number(categoryItem.price).toFixed(0)}</Text>
-
-                    </View>
-                    </TouchableHighlight>
-              </View>
-
+          {category.entries.items.map(function(categoryItem){
+            return(
+              <Item setCategory={other} foodItem={categoryItem} navi={navigate} category={category}/>
           )
         })}
         </View>
@@ -42,19 +35,16 @@ class Items extends Component {
     })
   }
 
-
-
 //____________________________________________________________________________________________
 
   render(){
-    return (
-      <View style={styles.unnecessary} ref={view => { this.myComponent = view; }}>
-        {this.breakerBuilder(this.props.categories, this.props.navi)}
+    console.log(this.props)
+    return(
+      <View style={styles.unnecessary}>
+        {this.categoryBuilder(this.props.categories, this.props.navigate, this.props.setCategory)}
       </View>
     )
 }
-
-
 
 }
 export default Items;

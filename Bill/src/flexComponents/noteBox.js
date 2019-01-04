@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, TextInput, TouchableHighlight} from 'react-native';
-//import { addItem, addPrice } from '../src/actions/index.js';
+//import { addItem, addPrice } from '../actions/index.js';
 import { Ionicons } from '@expo/vector-icons';
 
 const NoteBox = () => {

@@ -5,20 +5,24 @@ import { Font } from 'expo';
 export default class ScrollStuff extends Component {
   constructor(props){
     super(props);
+    this.itemCreator = this.itemCreator.bind(this);
   }
 
+
+itemCreator(array){
+  return array.map((index) => {
+    console.log(window);
+    return <View style = {styles.scr}><Text style = {styles.text}>{index.name}</Text></View>
+  })
+}
+
   render() {
+    console.log(this.props.screenProps)
     return (
       <View style={styles.scroller}>
         <ScrollView horizontal = {true}>
         <View style={styles.scrollContainer}>
-          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[0].name}</Text></View>
-          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[1].name}</Text></View>
-          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[2].name}</Text></View>
-          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[3].name}</Text></View>
-          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[4].name}</Text></View>
-          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[5].name}</Text></View>
-          <View style = {styles.scr}><Text style = {styles.text}>{this.props.categories[6].name}</Text></View>
+          {this.itemCreator(this.props.categories)}
         </View>
       </ScrollView>
     </View>
@@ -65,6 +69,7 @@ const styles = StyleSheet.create({
     //flexGrow: 1,
     //textAlign: 'center',
   },
+
   text:{
     textAlign: 'center',
     marginLeft: 14,
@@ -74,6 +79,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Futura'
     //alignItems: 'center',
   },
+
   selected:{
     borderBottomWidth: 2,
     borderBottomColor: 'rgb(25, 52, 65)',

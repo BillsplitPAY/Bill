@@ -20,3 +20,19 @@ export const itemListCreator = function(itemArray){
   }
   )
 }
+
+//need the following styles: styles.foodName, styles.foodPrice. styles.innerTouch.
+//Really, you should build these into this, or an independent module
+const itemizer = (itemArray, navi) => {
+  return itemArray.map(function(index){
+    return(
+      <TouchableHighlight onPress={() => {navi('ItemPage', { screen: props.foodItem, other: props.category})}} style={styles.innerTouch, {width: '100%', flexDirection: 'row',  justifyContent: 'space-between', alignSelf: 'center', borderColor: '#dad9e2', borderWidth: .5, marginBottom: 2}}>
+      <View style={{height: '100%', width: '100%', flexDirection: 'row', justifyContent: 'space-between', padding: 2, backgroundColor: 'white', shadowOffset:{  width: 4,  height: 8,  }, shadowColor: 'grey', shadowOpacity: .75, borderRadius: 3.5, padding: 5}}>
+            <Text style={[styles.foodName, {width: '83%', fontFamily: 'Futura',}]}>{index.name}</Text>
+            <Text style={[styles.foodPrice, {width: '17%', alignSelf: 'flex-end'}]}>${Number(index.price).toFixed(0)}</Text>
+          </View>
+          </TouchableHighlight>
+    )
+  });
+
+}

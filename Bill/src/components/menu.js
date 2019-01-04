@@ -3,27 +3,23 @@ import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, StatusBar} from 'react-native';
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
-import  RubirosaAntipasto  from './../data/dummyMenu.js';
-import { Hamburger } from '../src/flexComponents/hamburger'
-
+import { Hamburger } from '../flexComponents/hamburger'
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
 //import Ionicons from 'react-native-vector-icons/Ionicons';
-
 
 export default class Menu extends Component {
   constructor(props){
     super(props);
   }
   static navigationOptions = {
-  title: 'Home',
+  title: 'Menu',
   headerStyle: {height: 0},
 };
 
-
-
   render() {
-    const { navigate } = this.props.navigation
+    console.log(this.props)
+    const { navigate } = this.props.navigation.navigate
     const foodCategories = this.props.screenProps.menu[0].response.menu.menus.items[0].entries.items
     //this is an array of objects, each being a category on the menu. the category name is under the name property on each object
     //each object contains a property called entries, which is another object containing the food items in that category
@@ -32,21 +28,12 @@ export default class Menu extends Component {
     }
       return (
         <View style={styles.menuPage}>
-
-        <View>
-          <StatusBar backgroundColor="blue" barStyle="light-content"/>
-        </View>
-
             <ScrollStuff categories={foodCategories} />
-
-
           <ScrollView ref='scrollo'>
             <View style = {styles.items, {borderWidth: 1}}>
-              <Items categories={foodCategories} navi={this.props.navigation.navigate}/>
+              <Items setCategory={this.props.screenProps.setCategory} categories={foodCategories} navigate={this.props.navigation.navigate}/>
             </View>
           </ScrollView>
-
-
         </View>
       );
     }

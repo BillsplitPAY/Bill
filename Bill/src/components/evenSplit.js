@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput} from 'react-native';
 import Breaker from './breaker';
-import Tipper from '../src/flexComponents/tipper';
-import BottomButton from '../src/flexComponents/bottomButton';
-import PriceBreakdown from '../src/flexComponents/priceBreakdown';
-import { addUp, itemListCreator } from '../src/helperFunctions/pureFunctions';
+import Tipper from '../flexComponents/tipper';
+import BottomButton from '../flexComponents/bottomButton';
+import PriceBreakdown from '../flexComponents/priceBreakdown';
+import { addUp, itemListCreator } from '../helperFunctions/pureFunctions';
 
 export default class EvenSplit extends Component{
   constructor(props){

@@ -1,34 +1,37 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, TextInput, TouchableHighlight} from 'react-native';
 import Breaker from './breaker'
-import { addItem, addPrice } from '../src/actions/index.js';
+import { addItem, addPrice } from '../actions/index.js';
 import { Ionicons } from '@expo/vector-icons';
-import NoteBox from '../src/flexComponents/noteBox';
-import ItemScroller from '../src/flexComponents/itemScroller';
+import NoteBox from '../flexComponents/noteBox';
+import ItemScroller from '../flexComponents/itemScroller';
 
 export default class ItemPage extends Component{
   constructor(props){
     super(props);
     this.state = {quantity: '1'}
+    this.otherBuilder = this.otherBuilder.bind(this);
   }
 
+
+
   render(){
-    const { navigate } = this.props.navigation;
+    const {navigate} = this.props.navigation;
     const category = this.props.navigation.state.params.other;
     const itemName = this.props.navigation.state.params.screen.name;
     const itemDesc = this.props.navigation.state.params.screen.description;
     const itemPrice = this.props.navigation.state.params.screen.price;
-    //console.log(global.window)
+    console.log(category)
     return(
       <View style={styles.itemPage}>
         <ScrollView style={styles.pageContent}>
 
           <View style ={[styles.foodView, {height:'25%', alignItems: 'center'}]}>
 
-          <View style={[styles.foodInfo, {}]}>
-            <Text style={styles.foodTitle}>{itemName}</Text>
-            <Text style={styles.foodDesc}>{itemDesc}</Text>
-          </View>
+            <View style={[styles.foodInfo, {}]}>
+              <Text style={styles.foodTitle}>{itemName}</Text>
+              <Text style={styles.foodDesc}>{itemDesc}</Text>
+            </View>
 
           <View style={styles.quantityCounter}>
               <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) - 1)})}}><Ionicons name="ios-remove-circle-outline" size={32} /></TouchableHighlight>
@@ -46,13 +49,16 @@ export default class ItemPage extends Component{
           <NoteBox />
         </View>
 
-        <View style={styles.otherView} >
+        <View style={styles.otherView, {borderWidth: 4, borderColor: 'blue', height: '100%'}} >
         <Text style={styles.otherSuggestionsTitle}>{`Other ${category.name}`}</Text>
 
-          <ScrollView style={styles.relatedItems} horizontal = {true}>
-          <ItemScroller category={category} navigation={this.props.navigation}/>
+          <ScrollView style={{height: '20%', width: '100%', borderColor: 'green', borderWidth: 2} } horizontal = {true}>
           </ScrollView>
         </View>
+
+
+
+
 
         </ScrollView>
 
@@ -72,9 +78,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     height: '100%',
     backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: 'red',
   },
   pageContent:{
-    marginTop: 10,
+    //marginTop: 10,
+    borderWidth: 1,
+    borderColor: 'blue',
   },
   imageView: {
     height: 212,
@@ -95,8 +105,10 @@ const styles = StyleSheet.create({
     backgroundColor:'white',
     justifyContent: 'space-around',
     flexDirection: 'row',
-    justifyContent:'flex-start',
+    alignItems:'flex-start',
     width: '100%',
+    borderWidth: 3,
+    borderColor: 'green',
   },
   descView:{
     height: 130,
@@ -175,10 +187,7 @@ const styles = StyleSheet.create({
      marginLeft: 20,
      marginBottom: 20,
    },
-   relatedItems:{
-    height: '100%',
-    marginTop: 4,
-  },
+
   otherSuggestionsTitle:{
     fontWeight:'bold',
     fontSize: 15,
@@ -193,6 +202,30 @@ const styles = StyleSheet.create({
     width: '100%',
     //borderTopWidth: 1,
     borderTopColor: 'black',
+  },
+
+  touch:{
+    width: '48%',
+    backgroundColor: '#e8e4e4',
+    //alignSelf: 'center',
+    marginBottom: 8,
+  },
+  innerTouch:{
+
+  },
+
+  foodName:{
+    fontSize: 15,
+    fontFamily: 'Avenir',
+    color: 'black',
+  },
+
+  foodPrice:{
+    color: 'green',
+
+    fontSize: 13,
+    textAlign: 'right',
+    fontFamily: 'Futura',
   },
 
 })
