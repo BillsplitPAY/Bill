@@ -3,7 +3,13 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
+<<<<<<< HEAD
   "expoServerNgrokUrl": null,
   "packagerNgrokUrl": null,
   "ngrokPid": null
+=======
+  "expoServerNgrokUrl": "https://bv-cfw.rrconey.bill.exp.direct",
+  "packagerNgrokUrl": "https://packager.bv-cfw.rrconey.bill.exp.direct",
+  "ngrokPid": 41258
+>>>>>>> 4428752e2b9d07f58c31b589058a74876f11b247
 }
