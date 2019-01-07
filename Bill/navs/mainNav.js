@@ -8,6 +8,9 @@ import Hamburger from '../src/flexComponents/hamburger';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './inAppStackNav';
 import Scanny from '../src/flexComponents/qrScans';
+import config from '../firebase/firebaseInfo'
+import firebase from 'firebase'
+
 
 class MainNav extends Component {
   render(){
@@ -20,7 +23,8 @@ class MainNav extends Component {
 }
 
   componentDidMount(){
-    {this.props.fetchMenu()}
+    firebase.initializeApp(config); 
+    this.props.fetchMenu()
   }
 }
 

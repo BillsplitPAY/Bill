@@ -8,6 +8,9 @@ import MainNav from './navs/mainNav'
 import reducers from './src/reducers';
 import MainNavTest, { FullStackNav } from './navs/mainNavTest';
 import { Font } from 'expo';
+//import thunk from 'thunk';
+
+
 
 export default class App1 extends React.Component {
   render(){

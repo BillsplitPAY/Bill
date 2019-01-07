@@ -8,7 +8,7 @@ import ItemList from '../src/flexComponents/itemList';
 import { itemListCreator, addUp } from '../src/helperFunctions/pureFunctions';
 import PriceBreakdown from '../src/flexComponents/priceBreakdown';
 import NoteBox from '../src/flexComponents/noteBox';
-
+import firebase from 'firebase';
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
 
@@ -21,6 +21,23 @@ export default class Cart extends Component {
    headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
    headerTintColor: 'white'
 };
+  
+  sendToFirebase(cartInfo, subtotal) {
+    console.log('TRYINGNN TO SEND THE DATAAAAA!!!')
+      //console.log(cartInfo)
+      cartInfo.subtotal = subtotal
+      //async issue below to be resolved
+      cartInfo.timeStamp = new Date();
+
+    firebase.database().ref('Transactions/').set(cartInfo).then((data)=>{
+        //success callback
+        console.log('data ' , cartInfo)
+    }).catch((error)=>{
+        //error callback
+        console.log('error ' , error)
+    })
+
+  }
 
   render() {
     const { navigate } = this.props.navigation
@@ -46,7 +63,7 @@ export default class Cart extends Component {
         <Text style={{fontWeight: 'bold', marginBottom: 10, marginLeft: 10}}>Order Notes</Text>
         <NoteBox />
           <PriceBreakdown lineTwoText={'Item Total'} lineThreeText={'Item Tax'} lineFourText={'Item Subtotal'} lineTwo={total} lineThree={tax} lineFour={subtotal}/>
-          <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); this.props.navigation.navigate('Order') }}>
+          <TouchableOpacity style={styles.button} onPress={()=>{this.sendToFirebase(cart, subtotal);this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); this.props.navigation.navigate('Order') }}>
               <Text style={styles.buttonText}>Submit Order</Text>
           </TouchableOpacity>
 
