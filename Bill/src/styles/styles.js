@@ -1,6 +1,6 @@
 
 
-export const style = {
+export const gStyle = {
   redBorder: {
     borderWidth: 2,
     borderColor: 'red',
@@ -16,7 +16,6 @@ export const style = {
   page:{
     height: '100%',
   },
-
   row:{
     flexDirection: 'row',
   },

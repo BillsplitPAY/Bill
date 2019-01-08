@@ -16,7 +16,7 @@ export const itemListCreator = function(itemArray){
   }
   return itemArray.map(function(item){
 
-    return <ItemList  itemAmount = {item.quantity} itemName = {item.name} itemPrice={item.price <= 10 ? item.price.toFixed(2) : item.price.toFixed(2)} />
+    return <ItemList itemAmount = {1} itemName = {item.name} itemPrice={item.price} />
   }
   )
 }

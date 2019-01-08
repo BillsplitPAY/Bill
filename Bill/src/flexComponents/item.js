@@ -10,7 +10,7 @@ const setCurrentItem = props.screenProps.setCurrentItem
 const setCategory = props.screenProps.setCategory
   return(
     <View style={styles.touchContainer}>
-        <TouchableHighlight style={styles.touch} onPress={() => {setCurrentItem(props.foodItem); setCategory(props.category); props.navi('ItemPage', { screen: props.foodItem, other: props.category})}} >
+        <TouchableHighlight style={styles.touch} onPress={() => {setCurrentItem(props.foodItem); setCategory(props.category); props.navi('ItemPage')}} >
         <View style={styles.innerTouch}>
               <Text style={[styles.foodName, {width: '83%', fontFamily: 'Futura',}]}>{props.foodItem.name}</Text>
               <Text style={[styles.foodPrice, {width: '17%', alignSelf: 'flex-end'}]}>${Number(props.foodItem.price).toFixed(0)}</Text>
@@ -31,7 +31,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '48%',
     height: 'auto',
-    marginRight: '2%'
+    marginRight: '2%',
+
+
   },
 
   touch:{
@@ -41,10 +43,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderColor: '#dad9e2',
     borderWidth: .5,
-    marginBottom: 2
+    marginBottom: 2,
+
   },
   innerTouch:{
-    height: '100%',
+    minHeight: 50,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -54,7 +57,9 @@ const styles = StyleSheet.create({
     shadowColor: 'grey',
     shadowOpacity: .75,
     borderRadius: 3.5,
-    padding: 5
+    padding: 5,
+    borderColor: '#212121',
+    borderWidth: .5,
   },
 
   foodName:{

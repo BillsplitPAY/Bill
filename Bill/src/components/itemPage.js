@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableHighlight, TouchableOpacity, TextInput} from 'react-native';
-import {style} from '../styles/styles'
+import {gStyle} from '../styles/styles'
 import Breaker from './breaker'
 import { Ionicons } from '@expo/vector-icons';
 import Item from '../flexComponents/item';
@@ -23,38 +23,42 @@ class ItemPage extends Component {
     console.table(this.props)
     const {navigate} = this.props.navigation;
     //category is an object with the category's name under the name property, and the category's items under .entries.items
-    const category = this.props.navigation.state.params.other;
+
 
     const itemName = this.props.screenProps.currentItem.name;
     const itemDesc = this.props.screenProps.currentItem.desc;
     const itemPrice = this.props.screenProps.currentItem.price;
 
     return(
-      <View style={[style.redBorder, style.page, {justifyContent: 'space-between'}]}>
-      <View style={[style.greenBorder, style.row, {height: 200}]}>
-        <View style={[style.redBorder, {width: '50%', justifyContent: 'flex-start'}]}>
-          <Text style={{fontSize: 20, fontWeight: 'bold', marginTop: 32,}}>{itemName}</Text>
-          <Text style={{fontSize: 15}}>{itemDesc}</Text>
+      <View style={[gStyle.redBorder, gStyle.page, styles.topDiv]}>
+
+      <View style={[gStyle.greenBorder, gStyle.row, styles.itemAndCounterRow]}>
+
+        <View style={[gStyle.redBorder, styles.itemDiv]}>
+          <Text style={styles.itemName}>{itemName}</Text>
+          <Text style={styles.itemDescription}>{itemDesc}</Text>
         </View>
-        <View style={[style.redBorder, style.row, {alignItems: 'center', justifyContent:'center', width: '50%'}]}>
-        <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) - 1)})}}><Ionicons name="ios-remove-circle-outline" size={32} /></TouchableHighlight>
-        <TextInput style={styles.textBox} defaultValue={this.state.quantity} autoFocus={false} onChangeText={(payment) => {this.setState({amount: Number(payment)})}}/>
-        <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) + 1)})}}><Ionicons name="ios-add-circle-outline" size={32} /></TouchableHighlight>
+
+        <View style={[gStyle.redBorder, gStyle.row, styles.counterDiv]}>
+          <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) - 1)})}}><Ionicons name="ios-remove-circle-outline" size={32} /></TouchableHighlight>
+          <TextInput style={styles.textBox} defaultValue={String(this.state.quantity)} autoFocus={false}/>
+          <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) + 1)})}}><Ionicons name="ios-add-circle-outline" size={32} /></TouchableHighlight>
         </View>
+
       </View>
 
       <Breaker value={'Item Options'}/>
-      <View style={[style.greenBorder, {height: 200}]}></View>
+      <View style={[gStyle.greenBorder, {height: 200}]}></View>
 
       <Breaker value={'Similar Items'}/>
-      <View style={[style.greenBorder, {height: 200, flexWrap: 'wrap'}]}>
+      <View style={[gStyle.greenBorder, styles.similarDiv]}>
 
       {this.repeater(this.props.screenProps.category.category, this.props.navigation.navigate, this.props.screenProps)}
 
-        <Item foodItem={this.props.screenProps.category.category[0]} category={this.props.screenProps.category} navi={this.props.navigation.navigate} screenProps={this.props.screenProps}/>
+
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={() => {navigate('Menu'); this.props.screenProps.addItem(this.state.quantity, itemName, (Number(itemPrice) * this.state.quantity), itemDesc); this.props.screenProps.addPrice(Number(itemPrice))}}>
+      <TouchableOpacity style={styles.button} onPress={() => {navigate('Menu'); this.props.screenProps.addItem((this.props.screenProps.currentItem)); this.props.screenProps.addPrice(Number(itemPrice))}}>
         <Text style={styles.buttonText}>Add To Cart</Text>
         <Text style={styles.price}>${(itemPrice * this.state.quantity).toFixed(2)}</Text>
       </TouchableOpacity>
@@ -68,6 +72,47 @@ class ItemPage extends Component {
 export default ItemPage;
 
 const styles = StyleSheet.create({
+
+topDiv:{
+  justifyContent: 'space-between',
+},
+itemAndCounterRow:{
+  height: 200,
+},
+itemDiv:{
+  width: '50%',
+  justifyContent: 'flex-start',
+  paddingLeft: 10,
+},
+itemName:{
+  fontSize: 20,
+  fontWeight: 'bold',
+  marginTop: 32,
+  marginBottom: 8,
+},
+itemDescription:{
+  fontSize: 15
+},
+counterDiv: {
+  alignItems: 'center',
+  justifyContent:'center',
+  width: '50%'
+},
+similarDiv:{
+  height: 200,
+  flexWrap: 'wrap',
+  justifyContent: 'space-around'
+},
+
+
+
+
+
+
+
+
+
+
   button:{
     flexDirection: 'row',
     backgroundColor: 'black',

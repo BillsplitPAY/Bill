@@ -34,15 +34,11 @@ return {
 };
 }
 
-export function addItem(quantity, itemName, itemPrice, itemDesc){
-  return {
+export function addItem(currentItem){
+
+	return {
 	   type: 'ADD',
-	    payload: {
-				quantity: quantity,
-				name: itemName,
-        description: itemDesc,
-        price: itemPrice
-      }
+	    payload: currentItem,
     };
 }
 

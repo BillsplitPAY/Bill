@@ -17,24 +17,6 @@ class Items extends Component {
    headerTintColor: 'white',
 }
 
-//takes an object, iterates over it's keys, and creates a breaker
-
-//you need a function that iterates over something and uses it to render multiple repeat components with different values.
-
-// blah(component, iteratedThing){
-//   if (typeof iteratedThing === 'object'){
-//     Object.values(iteratedThing).map( (property) => {
-//         return component
-//     })
-//
-//   }
-//   if (typeof iteratedThing === 'array'){
-//     iteratedThing.map(function(item){return <Item foodItem={item} category={category} navi={navigate} screenProps={screenProps}/>
-//   }
-//   else{
-//     return'this is neither an array nor an object, bruh.'
-//   }
-// }
 
 
 
@@ -44,7 +26,7 @@ categoryBuilder(obj, navigate, setItem, setCat, screenProps){
     return(
     <View style={{backgroundColor: '#edeef0'}}>
       <Breaker value={category[0].category} />
-      <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', backgroundColor: '#edeef0',  margin: '1.8%'}}>
+      <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', alignItems: 'flex-start', backgroundColor: '#edeef0',  margin: '1.8%'}}>
       {category.map(function(item){return <Item foodItem={item} category={category} navi={navigate} screenProps={screenProps}/>})}
       </View>
     </View>
