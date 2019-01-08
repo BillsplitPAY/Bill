@@ -11,37 +11,53 @@ class Items extends Component {
     this.categoryBuilder = this.categoryBuilder.bind(this);
     //this.itemBuilder = this.itemBuilder.bind(this);
   }
-  static navigationOptions: {
+
+  static navigationOptions:{
    title: 'Cart',
-  // headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
-   headerTintColor: 'white'
-};
+   headerTintColor: 'white',
+}
 
-  categoryBuilder(array, navigate, other){
-    return array.map(function(category){
-      return (
-        <View style={{backgroundColor: '#edeef0'}}>
-          <Breaker value={category.name} />
+//takes an object, iterates over it's keys, and creates a breaker
 
-        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', backgroundColor: '#edeef0',  margin: '1.8%'}}>
-          {category.entries.items.map(function(categoryItem){
-            return(
-              <Item setCategory={other} foodItem={categoryItem} navi={navigate} category={category}/>
-          )
-        })}
-        </View>
-        </View>
-      )
-    })
-  }
+//you need a function that iterates over something and uses it to render multiple repeat components with different values.
 
-//____________________________________________________________________________________________
+// blah(component, iteratedThing){
+//   if (typeof iteratedThing === 'object'){
+//     Object.values(iteratedThing).map( (property) => {
+//         return component
+//     })
+//
+//   }
+//   if (typeof iteratedThing === 'array'){
+//     iteratedThing.map(function(item){return <Item foodItem={item} category={category} navi={navigate} screenProps={screenProps}/>
+//   }
+//   else{
+//     return'this is neither an array nor an object, bruh.'
+//   }
+// }
+
+
+
+
+categoryBuilder(obj, navigate, setItem, setCat, screenProps){
+  return Object.values(obj).map(category => {
+    return(
+    <View style={{backgroundColor: '#edeef0'}}>
+      <Breaker value={category[0].category} />
+      <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', backgroundColor: '#edeef0',  margin: '1.8%'}}>
+      {category.map(function(item){return <Item foodItem={item} category={category} navi={navigate} screenProps={screenProps}/>})}
+      </View>
+    </View>
+  )
+})
+}
+
 
   render(){
     console.log(this.props)
     return(
       <View style={styles.unnecessary}>
-        {this.categoryBuilder(this.props.categories, this.props.navigate, this.props.setCategory)}
+        {this.categoryBuilder(this.props.menu, this.props.navigate, this.props.setCurrentItem, this.props.setCategory, this.props.screenProps)}
       </View>
     )
 }

@@ -36,3 +36,41 @@ const itemizer = (itemArray, navi) => {
   });
 
 }
+
+
+
+
+const testy = (arr) => {
+  return arr.map(function(index){
+    return {name: index.name, desc: index.description}
+  })
+}
+
+ export const tester = (array) => {
+   let newMenu = {};
+  array.forEach(function(catObject){
+    let key = catObject.name
+    newMenu[key] = catObject.entries.items.map(function(index){
+      return {name: index.name, desc: index.description, category: catObject.name, price: index.price}
+    });
+    })
+    return newMenu
+}
+
+
+
+//set the food state property to the object version of the menu
+
+
+
+export const menuSetter = (array) => {
+  let newMenu = {};
+ array.forEach(function(catObject){
+   let key = catObject.name
+   newMenu[key] = catObject.entries.items.map(function(index){
+     return {name: index.name, desc: index.description, category: catObject.name, price: index.price}
+   });
+   })
+   this.props.setMenu(newMenu)
+
+}

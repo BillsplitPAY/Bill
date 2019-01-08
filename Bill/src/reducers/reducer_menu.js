@@ -1,9 +1,9 @@
-//Menu state
 
-export default function(state = [], action) {
+
+export default function(state = '', action) {
 	switch (action.type) {
 		case 'FETCH':
-			return [action.payload, 'load']
+			return action.payload
 			break;
 			case 'FETCHY':
 			return [action.payload, 'load']

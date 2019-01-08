@@ -9,20 +9,8 @@ import ItemScroller from '../flexComponents/itemScroller';
 export default class ItemPage extends Component{
   constructor(props){
     super(props);
-<<<<<<< HEAD:Bill/src/components/itemPage2.js
     this.state = {quantity: '1'}
     this.otherBuilder = this.otherBuilder.bind(this);
-=======
-    this.state = {
-      quantity: '1'
-    }
-  }
-
-  decreaseQuantity (quantity) {
-    if(quantity === '1') {return}
-    quantity = quantity - 1;
-    this.setState({quantity: String(Number(quantity)) })
->>>>>>> 4428752e2b9d07f58c31b589058a74876f11b247:Bill/components/itemPage.js
   }
 
 

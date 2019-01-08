@@ -5,6 +5,8 @@ import PriceReducer from './reducer_price';
 import OrderReducer from './reducer_order';
 import TipReducer from './reducer_tip';
 import CatReducer from './reducer_category';
+import NewMenuReducer from './reducer_newMenu';
+import CurrentItem from './reducer_currentItem';
 
  export default combineReducers({
 	menu: MenuReducer,
@@ -14,6 +16,8 @@ import CatReducer from './reducer_category';
   order: OrderReducer,
   tip: TipReducer,
   category: CatReducer,
+  newMenu: NewMenuReducer,
+  currentItem: CurrentItem,
 });
 
 //export default rootReducer;

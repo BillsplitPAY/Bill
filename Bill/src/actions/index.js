@@ -4,8 +4,7 @@ return {
 	type: 'FETCH',
 	payload: fetch('https://api.foursquare.com/v2/venues/4adaa371f964a520ec2321e3/menu?client_id=KUZ5DS21RPAGXYPZGDG1R2ACKA43X2SLTY3VNX5WN3PZLYYS&client_secret=WJ2HM3V5YFXSCDQSIVBDCJUCCSQLPRAWLXIZAXWFIRMGALVS&v=20180323', {
         mode: 'cors',
-      })
-      .then((resp) => resp.json())
+      }).then((resp) => resp.json())
 };
 }
 
@@ -13,10 +12,16 @@ export function setCategory(category){
 	return{
 	type: 'CAT',
 	payload:{
-		category: category,
-		item: category.entries.items
+		category: category
 	}
 };
+}
+
+export function setMenu(menuObj){
+  return {
+	   type: 'SETMENU',
+	    payload: menuObj,
+    };
 }
 
 export function fetchData(data){
@@ -38,6 +43,13 @@ export function addItem(quantity, itemName, itemPrice, itemDesc){
         description: itemDesc,
         price: itemPrice
       }
+    };
+}
+
+export function setCurrentItem(currentItem){
+  return {
+	   type: 'SETITEM',
+	    payload: currentItem,
     };
 }
 

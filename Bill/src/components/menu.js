@@ -7,6 +7,7 @@ import { Hamburger } from '../flexComponents/hamburger'
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
 //import Ionicons from 'react-native-vector-icons/Ionicons';
+import {tester} from '../helperFunctions/pureFunctions';
 
 export default class Menu extends Component {
   constructor(props){
@@ -18,26 +19,34 @@ export default class Menu extends Component {
 };
 
   render() {
-    console.log(this.props)
     const { navigate } = this.props.navigation.navigate
-    const foodCategories = this.props.screenProps.menu[0].response.menu.menus.items[0].entries.items
-    //this is an array of objects, each being a category on the menu. the category name is under the name property on each object
-    //each object contains a property called entries, which is another object containing the food items in that category
-    if (this.props.screenProps.menu[1] !== 'load'){
-      return <Text style={styles.loading}>'loading'</Text>
-    }
+    const categoriesArray = this.props.screenProps.menu.response.menu.menus.items[0].entries.items
+    console.log(this.props)
+
+    if (this.props.screenProps.newMenu !== 'whatever'){
       return (
         <View style={styles.menuPage}>
-            <ScrollStuff categories={foodCategories} />
+            <ScrollStuff categories={categoriesArray} />
           <ScrollView ref='scrollo'>
             <View style = {styles.items, {borderWidth: 1}}>
-              <Items setCategory={this.props.screenProps.setCategory} categories={foodCategories} navigate={this.props.navigation.navigate}/>
+              <Items screenProps = {this.props.screenProps} setCurrentItem={this.props.screenProps.setCurrentItem} setCategory={this.props.screenProps.setCategory} menu ={this.props.screenProps.newMenu} navigate={this.props.navigation.navigate}/>
             </View>
           </ScrollView>
         </View>
       );
     }
+
+    else{
+      return <Text>waiting</Text>
+    }
+    }
+
+
+  componentDidMount(){
+    const categoriesArray = this.props.screenProps.menu.response.menu.menus.items[0].entries.items
+    this.props.screenProps.setMenu(tester(categoriesArray));
   }
+}
 
 
 const styles = StyleSheet.create({

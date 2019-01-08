@@ -3,12 +3,20 @@ import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableHighlight, T
 import {style} from '../styles/styles'
 import Breaker from './breaker'
 import { Ionicons } from '@expo/vector-icons';
+import Item from '../flexComponents/item';
 
 
 class ItemPage extends Component {
   constructor(props){
     super(props)
     this.state = {quantity: 1}
+    this.repeater = this.repeater.bind(this)
+  }
+
+  repeater(iteratedThing, navigate, screenProps){
+    return iteratedThing.map((item)=>{
+      return <Item foodItem={item} category={iteratedThing} navi={navigate} screenProps={screenProps}/>
+    })
   }
 
   render(){
@@ -17,14 +25,15 @@ class ItemPage extends Component {
     //category is an object with the category's name under the name property, and the category's items under .entries.items
     const category = this.props.navigation.state.params.other;
 
-    const itemName = this.props.navigation.state.params.screen.name;
-    const itemDesc = this.props.navigation.state.params.screen.description;
-    const itemPrice = this.props.navigation.state.params.screen.price;
+    const itemName = this.props.screenProps.currentItem.name;
+    const itemDesc = this.props.screenProps.currentItem.desc;
+    const itemPrice = this.props.screenProps.currentItem.price;
+
     return(
-      <View style={[style.redBorder, style.page, {justifyContent: 'flex-end'}]}>
+      <View style={[style.redBorder, style.page, {justifyContent: 'space-between'}]}>
       <View style={[style.greenBorder, style.row, {height: 200}]}>
-        <View style={[style.redBorder, {width: '50%', justifyContent: 'center'}]}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>{this.props.screenProps.category.name}</Text>
+        <View style={[style.redBorder, {width: '50%', justifyContent: 'flex-start'}]}>
+          <Text style={{fontSize: 20, fontWeight: 'bold', marginTop: 32,}}>{itemName}</Text>
           <Text style={{fontSize: 15}}>{itemDesc}</Text>
         </View>
         <View style={[style.redBorder, style.row, {alignItems: 'center', justifyContent:'center', width: '50%'}]}>
@@ -34,17 +43,20 @@ class ItemPage extends Component {
         </View>
       </View>
 
-      <Breaker value={'Item Selections'}/>
+      <Breaker value={'Item Options'}/>
       <View style={[style.greenBorder, {height: 200}]}></View>
 
       <Breaker value={'Similar Items'}/>
-      <View style={[style.greenBorder, {height: 200}]}>
+      <View style={[style.greenBorder, {height: 200, flexWrap: 'wrap'}]}>
 
+      {this.repeater(this.props.screenProps.category.category, this.props.navigation.navigate, this.props.screenProps)}
+
+        <Item foodItem={this.props.screenProps.category.category[0]} category={this.props.screenProps.category} navi={this.props.navigation.navigate} screenProps={this.props.screenProps}/>
       </View>
 
       <TouchableOpacity style={styles.button} onPress={() => {navigate('Menu'); this.props.screenProps.addItem(this.state.quantity, itemName, (Number(itemPrice) * this.state.quantity), itemDesc); this.props.screenProps.addPrice(Number(itemPrice))}}>
         <Text style={styles.buttonText}>Add To Cart</Text>
-        <Text style={styles.price}>${(this.props.navigation.state.params.screen.price * this.state.quantity).toFixed(2)}</Text>
+        <Text style={styles.price}>${(itemPrice * this.state.quantity).toFixed(2)}</Text>
       </TouchableOpacity>
 
       </View>

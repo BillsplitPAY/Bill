@@ -3,7 +3,7 @@ import { createMaterialTopTabNavigator, createBottomTabNavigator, createStackNav
 import { connect } from 'react-redux'
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory } from '../actions/index.js';
+import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory, setMenu, setCurrentItem } from '../actions/index.js';
 //import Hamburger from '../flexComponents/hamburger';
 import { drawerContent } from './drawerContent';
 //import {inAppStackNav} from './inAppStackNav';
@@ -23,7 +23,8 @@ import Menu from '../components/menu.js';
 import Cart from '../components/cart';
 import Order from '../components/order.js';
 import GroupOrder from '../components/groupOrder';
-import ScrollStuff from '../components/scrollStuff'
+import ScrollStuff from '../components/scrollStuff';
+import {menuSetter} from '../helperFunctions/pureFunctions';
 
 //import {orderTabNav} from './orderNav';
 import { Ionicons } from '@expo/vector-icons';
@@ -31,18 +32,22 @@ import { Ionicons } from '@expo/vector-icons';
 class MainNav extends Component {
 
   render(){
-    if (this.props.menu[1] !== 'load'){
-      return <Text style={styles.loading}>'loading'</Text>
-    }
-    return(
 
-      <FullStackNav screenProps={this.props}/>
-  )
+    if (this.props.menu === ''){
+      return <Text style={styles.loading}>'loading'</Text>
+
+
+    }
+    else{
+      return <FullStackNav screenProps={this.props}/>
+  }
 }
+
   componentDidMount(){
     {this.props.fetchMenu()}
     console.log(this.props);
-  }
+
+}
 }
 
 export const OrderTabNav = createMaterialTopTabNavigator({
@@ -114,7 +119,7 @@ export const TabNav = createBottomTabNavigator({
       style: {
         backgroundColor: '#212121',
         //fontSize: 20,
-        fontFamily: 'Futura',
+        //fontFamily: 'Futura',
 
         height: 75,
       },
@@ -242,7 +247,9 @@ function mapStateToProps(state){
     price: state.price,
     order: state.order,
     tip: state.tip,
-    category: state.category
+    category: state.category,
+    newMenu: state.newMenu,
+    currentItem: state.currentItem,
   }
 }
 //Maps the action creators to component functions so they can be called on components
@@ -257,6 +264,8 @@ function mapDispatchToProps(dispatch){
       submitOrder: submitOrder,
       emptyCart: emptyCart,
       setCategory: setCategory,
+      setMenu: setMenu,
+      setCurrentItem: setCurrentItem,
       tipUp: tipUp,
       tipDown: tipDown
     }, dispatch)
