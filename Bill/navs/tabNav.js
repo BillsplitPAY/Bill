@@ -17,7 +17,6 @@ import {orderTabNav} from './orderNav';
 import { Ionicons } from '@expo/vector-icons';
 
 
-
 export const TabNav = createBottomTabNavigator({
   Menu: {
     screen: Menu,

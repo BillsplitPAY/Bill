@@ -1,25 +1,28 @@
 import React, { Component } from 'react'
 import { createMaterialTopTabNavigator, createBottomTabNavigator, createStackNavigator, addNavigationHelpers, NavigationActions, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
-import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image} from 'react-native';
+import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image, ActivityIndicator} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData } from '../src/actions/index.js';
 import Hamburger from '../src/flexComponents/hamburger';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './inAppStackNav';
 import Scanny from '../src/flexComponents/qrScans';
-import config from '../firebase/firebaseInfo'
+import config from '../Firebase/firebaseConfig'
 import firebase from 'firebase'
-
+import signUp from '../components/signUp'
+import signIn from '../components/signIn'
 
 class MainNav extends Component {
   render(){
-    if (this.props.menu[1] !== 'load'){
-      return <Text style={styles.loading}>'loading'</Text>
-    }
-    return(
-    <FullStackNav screenProps={this.props} />
-  )
+    return (this.props.menu[1] !== 'load')
+      ?
+      <View style={styles.container}>
+        <Text>Loading William...</Text>
+        <ActivityIndicator size="large" />
+      </View> 
+      :
+      <FullStackNav screenProps={this.props} />
 }
 
   componentDidMount(){
@@ -27,14 +30,26 @@ class MainNav extends Component {
     this.props.fetchMenu()
   }
 }
-
+   
    export const DrawerNav = createDrawerNavigator({
+    //this is the slide out drawer navigator for the right side panel
+    //in order to use add key/value pair to component as an object below
+    //and within the component itself use the 'static' keyword, check examples
      Home: {
        screen: inAppStackNav,
      },
-     // Hamburger: {
-     //   screen: Hamburger,
-     // },
+
+     signIn: {
+       screen: signIn,
+     },
+
+     Hamburger: {
+       screen: Hamburger,
+     },
+
+     signUp: {
+       screen: signUp,
+     },
 
    }, {
        initialRouteName: 'Home',

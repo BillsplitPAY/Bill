@@ -9,11 +9,14 @@ class Hamburger extends Component{
     super(props)
   }
   static navigationOptions = {
-         drawerLabel: () => null
-    }
+         drawerLabel: 'Hamburger',
+
+  }
   render(){
     return (
-    <TouchableOpacity style={styles.burgerContainer} onPress={() => {this.props.navigation.openDrawer()}}><Ionicons style={styles.hamburger}name="ios-menu" size={32} /></TouchableOpacity>
+    <TouchableOpacity style={styles.burgerContainer} onPress={() => {this.props.navigation.openDrawer()}}><Ionicons style={styles.hamburger}name="ios-menu" size={32} />
+   
+    </TouchableOpacity>
   )
 }
 }
