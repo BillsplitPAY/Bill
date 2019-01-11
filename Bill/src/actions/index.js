@@ -45,6 +45,14 @@ export function submitOrder(orderObject){
     };
 }
 
+export function updateName(name){
+  return {
+     type: 'UPDATENAME',
+     payload: name
+    };
+}
+
+
 export function emptyCart(){
   return {
 	   type: 'EMPTY'
@@ -62,3 +70,5 @@ export function tipDown(){
 	   type: 'TIPDOWN'
     };
 }
+
+

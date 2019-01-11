@@ -14,6 +14,7 @@ import signUp from '../components/signUp'
 import signIn from '../components/signIn'
 
 class MainNav extends Component {
+   
   render(){
     return (this.props.menu[1] !== 'load')
       ?
@@ -28,6 +29,8 @@ class MainNav extends Component {
   componentDidMount(){
     firebase.initializeApp(config); 
     this.props.fetchMenu()
+
+
   }
 }
    
@@ -86,6 +89,7 @@ function mapStateToProps(state){
     price: state.price,
     order: state.order,
     tip: state.tip,
+    user: state.user
   }
 }
 //Maps the action creators to component functions so they can be called on components

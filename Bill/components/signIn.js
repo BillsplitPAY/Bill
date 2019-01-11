@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import t from 'tcomb-form-native';
 import firebase from 'firebase';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { updateName } from '../src/actions/index';
 
 const Form = t.form.Form;
 
@@ -46,45 +49,46 @@ const options = {
   stylesheet: formStyles,
 };
 
-export default class signIn extends Component {
+class signIn extends Component {
     static navigationOptions = {
          drawerLabel: 'Sign In',   
     }
 
   handleSubmit = () => {
-    console.log('can you handle it?!!?')
+    console.log('can you sign in?!!?')
     const value = this._form.getValue();
     console.log('value: ', value);
 
-    firebase.database().ref('Users/').set(value).then((data)=>{
-        //success callback
-        console.log('sent the follow to the Usersdb' , value)
-    }).catch((error)=>{
-        //error callback
-        console.log('error ' , error)
-    })
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.props.navigation.navigate('Menu');
+        this.props.updateName(value.name);
+      })
+      .catch(error => this.setState({ errorMessage: error.message }))  
 
   }
 
 
 
-  handleSubmit = () => {
-    console.log('can you handle it?!!?')
-    const value = this._form.getValue();
-    console.log('value: ', value);
+  // handleSubmit = () => {
+  //   console.log('can you handle it?!!?')
+  //   const value = this._form.getValue();
+  //   console.log('value: ', value);
     
-    let email = value.email
-    let password = value.password 
+  //   let email = value.email
+  //   let password = value.password 
  
-    firebase.auth().signInWithEmailAndPassword(email, password)
-    .then( () => {
-      console.log('person has an existing account && been signed in!')
-    
-    }).catch( (err) => {
-      console.log('sorry this person doesnt have an account');
-      console.log('ERROR!!!!!%#', err)
-    })
-  }
+  //   firebase.auth().signInWithEmailAndPassword(email, password)
+  //   .then( () => {
+  //     console.log('person has an existing account && been signed in!')
+      
+  //   }).catch( (err) => {
+  //     console.log('sorry this person doesnt have an account');
+  //     console.log('ERROR!!!!!%#', err)
+  //   })
+  // }
 
   
   render() {
@@ -103,6 +107,20 @@ export default class signIn extends Component {
     );
   }
 }
+
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators(
+    {
+      updateName: updateName
+    },
+     dispatch)
+}
+
+//connects the mapped state object properties and action creators to props on this component
+export default connect(null, mapDispatchToProps)(signIn)
+
+
 
 const styles = StyleSheet.create({
   container: {

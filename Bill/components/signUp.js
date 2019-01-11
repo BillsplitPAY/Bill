@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import t from 'tcomb-form-native';
 import firebase from 'firebase';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { updateName } from '../src/actions/index';
 
 const Form = t.form.Form;
 
 const User = t.struct({
-  firstName: t.maybe(t.String)|| 'Aynonmous',
-  lastname: t.maybe(t.String) || 'Aynonmous',
+  name: t.String,
+  //lastname: t.maybe(t.String) || 'Aynonmous',
   email: t.String,
   // username: t.String,
   password: t.String,
@@ -53,33 +56,34 @@ const options = {
   stylesheet: formStyles,
 };
 
-export default class signUp extends Component {
+class signUp extends Component {
     static navigationOptions = {
          drawerLabel: 'Sign Up',   
     }
 
   handleSubmit = () => {
-    console.log('can you handle it?!!?')
     const value = this._form.getValue();
-    console.log('value: ', value);
     
     let email = value.email
     let password = value.password 
- 
+    let userId = null
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then( (data) => {
-      let userId = data.user.uid
+      userId = data.user.uid
       firebase.database().ref('Users/' + userId).set(value).then((data)=>{
           //success callback
           console.log('sent the follow to the Usersdb' , value)
+          this.props.navigation.navigate('Menu');
+          this.props.updateName(value.name)
+
+
       }).catch((error)=>{
           //error callback
           console.log('error ' , error)
       })
-    }).catch( (err) => {
-      console.log('ERROR!!!!!%#', err)
+    }).catch( (errz) => {
+      console.log('ERROR!!!!!%#', errz)
     })
-
 
   }
   
@@ -99,6 +103,24 @@ export default class signUp extends Component {
     );
   }
 }
+
+function mapStateToProps(state){
+  return {
+    user: state.user
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators(
+    {
+      updateName: updateName
+    },
+     dispatch)
+}
+
+//connects the mapped state object properties and action creators to props on this component
+export default connect(mapStateToProps, mapDispatchToProps)(signUp)
+
 
 const styles = StyleSheet.create({
   container: {

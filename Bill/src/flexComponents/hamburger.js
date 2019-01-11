@@ -9,13 +9,22 @@ class Hamburger extends Component{
     super(props)
   }
   static navigationOptions = {
-         drawerLabel: 'Hamburger',
+         drawerLabel: 'About',
 
   }
   render(){
     return (
     <TouchableOpacity style={styles.burgerContainer} onPress={() => {this.props.navigation.openDrawer()}}><Ionicons style={styles.hamburger}name="ios-menu" size={32} />
-   
+      <View>
+        <Text>
+          Billie Jean is not my lover
+                She's just a girl who claims that I am the one!
+But the kid is not my son!!!%#$@
+She says I am the one, but the kid is not my son.
+
+
+        </Text>
+      </View>
     </TouchableOpacity>
   )
 }

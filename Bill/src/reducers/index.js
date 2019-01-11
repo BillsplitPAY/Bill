@@ -4,6 +4,7 @@ import CartReducer from './reducer_cart';
 import PriceReducer from './reducer_price';
 import OrderReducer from './reducer_order';
 import TipReducer from './reducer_tip';
+import UserReducer from './reducer_user';
 
  export default combineReducers({
 	menu: MenuReducer,
@@ -12,6 +13,7 @@ import TipReducer from './reducer_tip';
   price: PriceReducer,
   order: OrderReducer,
   tip: TipReducer,
+  user: UserReducer
 });
 
 //export default rootReducer;

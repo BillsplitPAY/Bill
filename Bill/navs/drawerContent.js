@@ -1,17 +1,19 @@
 import React from 'react';
-
 import { createDrawerNavigator, createStackNavigator, DrawerItems, SafeAreaView, NavigationActions } from 'react-navigation';
 import { Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image } from 'react-native';
 import { Container, Content, Icon, Header, Body } from 'native-base';
 import { createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-navigation';
+import { connect } from 'react-redux';
+
 
 export const drawerContent = (props) => {
+  let userInfo = props.screenProps.user;
   return(
     <View style={styles.contain}>
     <View style={styles.drawerHeader}>
       <View>
         <Image style={styles.drawerImage} source={require('../img/team.jpg')} />
-        <Text style={styles.userName}> Billy </Text>
+        <Text style={styles.userName}> {userInfo.name || 'Robot'} </Text>
       </View>
     </View>
 
@@ -21,6 +23,15 @@ export const drawerContent = (props) => {
   </View>
   )
 };
+
+
+function mapStateToProps(state){
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps, null)(drawerContent)
 
 
 const styles = StyleSheet.create({
