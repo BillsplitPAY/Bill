@@ -3,10 +3,10 @@ import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, Tex
 //import { addItem, addPrice } from '../actions/index.js';
 import { Ionicons } from '@expo/vector-icons';
 
-const NoteBox = () => {
+const NoteBox = (props) => {
   return(
     <View style={styles.noteBoxView}>
-      <TextInput style={styles.noteBox} multiline={true} defaultValue={'Hey chef...'}></TextInput>
+      <TextInput style={styles.noteBox} multiline={true} defaultValue={props.defaultValue}></TextInput>
     </View>
   )
 }
@@ -25,10 +25,11 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 5,
     borderColor: 'black',
-    borderWidth: 2,
+    borderWidth: .5,
     padding: 5,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     fontSize:15,
+    color: 'grey',
   }
 })

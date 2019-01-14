@@ -24,10 +24,10 @@ class Items extends Component {
 categoryBuilder(obj, navigate, setItem, setCat, screenProps){
   return Object.values(obj).map(category => {
     return(
-    <View style={{backgroundColor: '#edeef0'}}>
+    <View key={category}style={{backgroundColor: '#edeef0'}}>
       <Breaker value={category[0].category} />
       <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', alignItems: 'flex-start', backgroundColor: '#edeef0',  margin: '1.8%'}}>
-      {category.map(function(item){return <Item foodItem={item} category={category} navi={navigate} screenProps={screenProps}/>})}
+      {category.map(function(item){return <Item key={item.name} foodItem={item} category={category} navi={navigate} screenProps={screenProps}/>})}
       </View>
     </View>
   )

@@ -8,6 +8,9 @@ import { drawerContent } from './drawerContent';
 import {FullStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
 
+import firebase from 'firebase'
+import {config} from '../../Firebase/firebaseConfig'
+
 class MainNav extends Component {
   render(){
     if (this.props.menu === ''){
@@ -19,6 +22,7 @@ class MainNav extends Component {
 }
 
   componentDidMount(){
+    firebase.initializeApp(config);
     {this.props.fetchMenu()}
     console.log(this.props);
 

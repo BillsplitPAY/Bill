@@ -30,16 +30,16 @@ class ItemPage extends Component {
     const itemPrice = this.props.screenProps.currentItem.price;
 
     return(
-      <View style={[gStyle.redBorder, gStyle.page, styles.topDiv]}>
+      <View style={[gStyle.page, styles.topDiv]}>
 
-      <View style={[gStyle.greenBorder, gStyle.row, styles.itemAndCounterRow]}>
+      <View style={[gStyle.row, styles.itemAndCounterRow]}>
 
-        <View style={[gStyle.redBorder, styles.itemDiv]}>
+        <View style={styles.itemDiv}>
           <Text style={styles.itemName}>{itemName}</Text>
           <Text style={styles.itemDescription}>{itemDesc}</Text>
         </View>
 
-        <View style={[gStyle.redBorder, gStyle.row, styles.counterDiv]}>
+        <View style={[gStyle.row, styles.counterDiv]}>
           <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) - 1)})}}><Ionicons name="ios-remove-circle-outline" size={32} /></TouchableHighlight>
           <TextInput style={styles.textBox} defaultValue={String(this.state.quantity)} autoFocus={false}/>
           <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) + 1)})}}><Ionicons name="ios-add-circle-outline" size={32} /></TouchableHighlight>
@@ -48,17 +48,17 @@ class ItemPage extends Component {
       </View>
 
       <Breaker value={'Item Options'}/>
-      <View style={[gStyle.greenBorder, {height: 200}]}></View>
+      <View style={{height: 200}}></View>
 
       <Breaker value={'Similar Items'}/>
-      <View style={[gStyle.greenBorder, styles.similarDiv]}>
+      <View style={styles.similarDiv}>
 
       {this.repeater(this.props.screenProps.category.category, this.props.navigation.navigate, this.props.screenProps)}
 
 
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={() => {navigate('Menu'); this.props.screenProps.addItem((this.props.screenProps.currentItem)); this.props.screenProps.addPrice(Number(itemPrice))}}>
+      <TouchableOpacity style={styles.button} onPress={() => {navigate('Menu'); for(let i = 0; i < this.state.quantity; i++){this.props.screenProps.addItem((this.props.screenProps.currentItem))}; this.props.screenProps.addPrice(Number(itemPrice))}}>
         <Text style={styles.buttonText}>Add To Cart</Text>
         <Text style={styles.price}>${(itemPrice * this.state.quantity).toFixed(2)}</Text>
       </TouchableOpacity>

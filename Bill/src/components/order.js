@@ -4,90 +4,87 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 import Breaker from './breaker';
-//import {orderTopNav} from '../navs/orderNav'
-
-
-//import DrawerNav from './drawerNav.js';
+import {itemListCreator} from '../helperFunctions/pureFunctions';
+import PriceBreakdown from '../flexComponents/priceBreakdown'
+import BottomButton from '../flexComponents/bottomButton'
 import { StackNavigator } from 'react-navigation';
+import {gStyle} from '../styles/styles'
 
 export default class Order extends Component {
   constructor(props){
     super(props);
-    this.mapster = this.mapster.bind(this);
-    this.orderListCreator = this.orderListCreator.bind(this);
-    this.totalAdder = this.totalAdder.bind(this);
+    this.state = {display: 'none'}
 
+    this.totalAdder = this.totalAdder.bind(this);
+    this.payOptionRender = this.payOptionRender.bind(this)
   }
   static navigationOptions = {
     title: "Your Order"
   }
 
-
-orderListCreator(foodItemObject){
-  if (this.props.screenProps.order.length === 0){
-    return 'getting order'
-  }
-  return(
-    <View style={styles.inDesc}>
-      <Text style={styles.descItems}>{foodItemObject.quantity}</Text>
-      <Text style={styles.descText}>{foodItemObject.name}</Text>
-      <Text style={styles.descPrice}>${foodItemObject.price.toFixed(2)}</Text>
-    </View>
-  )
+totalAdder(acc, itemObj){
+  return acc + itemObj.price
 }
 
-mapster(orderArray, funky){
-  return orderArray.map(funky)
+payOptionRender(){
+  return (this.state.display === 'none') ? this.setState({display: 'block'}): this.setState({display: 'none'});
 }
 
-totalAdder(){
-  let total = 0;
-  for (i = 0; i < this.props.screenProps.order.length; i++){
-    total += this.props.screenProps.order[i].price
-  }
-  return total
-}
   render() {
     const { navigate } = this.props.navigation
+    const order = this.props.screenProps.order
+    const subTotal = order.reduce(this.totalAdder, 0)
+    const tax = subTotal * .07
+    const total = subTotal + tax
+
     return (
        <View style={styles.cartPage}>
          <ScrollView>
 
+           <View>
+           <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14}}>Your Items</Text>
+             {itemListCreator(this.props.screenProps.order)}
+             <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14}}>Rob's Items</Text>
+             {itemListCreator(this.props.screenProps.order)}
+             <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14}}>Lee's Items</Text>
+             {itemListCreator(this.props.screenProps.order)}
+             <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14}}>Luc's Items</Text>
+             {itemListCreator(this.props.screenProps.order)}
 
-           <View style={styles.descView}>
-             {this.mapster(this.props.screenProps.order, this.orderListCreator)}
            </View>
-
-
-
        </ScrollView>
 
-       <View>
-          <View style={styles.priceView}>
-            <View style={styles.inDesc}>
-              <Text>Subtotal</Text>
-              <Text>${this.totalAdder().toFixed(2)}</Text>
-            </View>
-            <View style={styles.inDesc}>
-              <Text>Tax</Text>
-              <Text>${(this.totalAdder() * .07).toFixed(2)}</Text>
-            </View>
-            <View style={styles.inDesc}>
-              <Text>Total</Text>
-              <Text>${((this.totalAdder() * .07) + (this.totalAdder())).toFixed(2)}</Text>
-            </View>
-          </View>
+       <PriceBreakdown lineOneText={'Subtotal'} lineOneValue={subTotal} lineTwoText={'Tax'} lineTwoValue={tax.toFixed(2)} />
+       <BottomButton buttonText={'Checkout'} doThis={()=> {this.payOptionRender()}} buttonPrice={total.toFixed(2)}/>
+
+       <View style={[styles.hidden, {display: this.state.display, borderRadius: 7.5}]}>
+        <View style={styles.payOption}><Text style={{textAlign:'center', fontSize: 20, fontFamily: gStyle.appFont}}>Split</Text></View>
+        <View style={styles.payOption}><Text style={{textAlign:'center', fontSize: 20, fontFamily: gStyle.appFont}}>Your Items Only</Text></View>
+        <View style={styles.payOption}><Text style={{textAlign:'center', fontSize: 20, fontFamily: gStyle.appFont}}>Custom Selection</Text></View>
+        <View style={styles.payOption}><Text style={{textAlign:'center', fontSize: 20, fontFamily: gStyle.appFont}}>Roulette</Text></View>
        </View>
 
-         <TouchableOpacity style={styles.button} onPress={()=>{this.props.navigation.navigate('PayType')}}>
-           <Text style={styles.buttonText}>Get the Check</Text>
-           </TouchableOpacity>
      </View>
       );
     }
+
   }
 
+
   const styles = StyleSheet.create({
+    hidden:{
+      position: 'absolute', height:'auto', borderWidth: .5, borderColor: 'black', width: '95%', zIndex: 2, left: 10, right: 'auto', top: 500, marginBottom: 0, display:'flex', flexDirection: 'row', justifyContent: 'space-between'
+    },
+    payOption:{
+      height: 80,
+      width: '25%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'white',
+      borderRightWidth: .5,
+      borderRightColor: 'black',
+
+    },
     cartPage:{
       justifyContent: 'space-between',
       height: '100%',

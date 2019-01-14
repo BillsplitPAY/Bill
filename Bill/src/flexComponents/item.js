@@ -3,9 +3,6 @@ import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableHighlight} f
 
 const Item = (props) => {
 
-
-
-console.log(props)
 const setCurrentItem = props.screenProps.setCurrentItem
 const setCategory = props.screenProps.setCategory
   return(
@@ -56,7 +53,7 @@ const styles = StyleSheet.create({
     shadowOffset:{  width: 4,  height: 8,  },
     shadowColor: 'grey',
     shadowOpacity: .75,
-    borderRadius: 3.5,
+    borderRadius: 7,
     padding: 5,
     borderColor: '#212121',
     borderWidth: .5,

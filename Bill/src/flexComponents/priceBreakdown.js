@@ -3,27 +3,20 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 
 const PriceBreakdown = (props) => {
   return (
+
     <View style={styles.priceView}>
 
       <View style={styles.inDesc}>
-        <Text>{props.lineOneText}</Text>
-        <Text>${props.lineOne}</Text>
+        <Text style={{fontSize: 18, fontWeight: 'bold'}}>{props.lineOneText}</Text>
+        <Text style={{fontSize: 18, fontWeight: 'bold'}}>${props.lineOneValue}</Text>
       </View>
 
       <View style={styles.inDesc}>
         <Text>{props.lineTwoText}</Text>
-        <Text>${props.lineTwo}</Text>
+        <Text>${props.lineTwoValue}</Text>
       </View>
 
-      <View style={styles.inDesc}>
-        <Text>{props.lineThreeText}</Text>
-        <Text>${props.lineThree}</Text>
-      </View>
 
-      <View style={styles.inDesc}>
-        <Text>{props.lineFourText}</Text>
-        <Text>${props.lineFour}</Text>
-      </View>
 
     </View>
   )
@@ -35,11 +28,11 @@ export default PriceBreakdown;
 const styles = StyleSheet.create({
 
   priceView:{
-    height: 100,
+    height: 60,
     //borderBottomColor: 'black',
     //borderBottomWidth: 1,
     backgroundColor:'white',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
 
     //width: '100%',
     margin: 10,
@@ -49,6 +42,8 @@ const styles = StyleSheet.create({
   inDesc:{
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingLeft: 20,
+    paddingRight: 20,
     //marginTop: 8,
     //marginBottom: 20,
   },

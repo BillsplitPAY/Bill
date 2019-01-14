@@ -4,17 +4,20 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 import Breaker from './breaker';
-import ItemList from '../src/flexComponents/itemList';
-import { itemListCreator, addUp } from '../src/helperFunctions/pureFunctions';
-import PriceBreakdown from '../src/flexComponents/priceBreakdown';
-import NoteBox from '../src/flexComponents/noteBox';
+import ItemList from '../flexComponents/itemList';
+import { itemListCreator, addUp } from '../helperFunctions/pureFunctions';
+import PriceBreakdown from '../flexComponents/priceBreakdown';
+import NoteBox from '../flexComponents/noteBox';
 import firebase from 'firebase';
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
+import BottomButton from '../flexComponents/bottomButton'
 
 export default class Cart extends Component {
   constructor(props){
     super(props);
+    this.totalAdder=this.totalAdder.bind(this)
+    this.sendToFirebase=this.sendToFirebase.bind(this)
   }
   static navigationOptions: {
    title: 'Cart',
@@ -22,16 +25,21 @@ export default class Cart extends Component {
    headerTintColor: 'white'
 };
 
-  sendToFirebase(cartInfo, subtotal) {
+  sendToFirebase(cartArray) {
     console.log('TRYINGNN TO SEND THE DATAAAAA!!!')
       //console.log(cartInfo)
-      cartInfo.subtotal = subtotal
-      //async issue below to be resolved
-      cartInfo.timeStamp = new Date();
 
-    firebase.database().ref('Transactions/').set(cartInfo).then((data)=>{
+      //add the cart to user1
+
+      //cartInfo.subtotal = subtotal
+
+      //async issue below to be resolved
+
+      //cartInfo.timeStamp = new Date();
+
+    firebase.database().ref('Restaurant/Tables/Table1/User1/Order').push(cartArray).then((data)=>{
         //success callback
-        console.log('data ' , cartInfo)
+        console.log('data ', cartInfo)
     }).catch((error)=>{
         //error callback
         console.log('error ' , error)
@@ -39,13 +47,18 @@ export default class Cart extends Component {
 
   }
 
+  totalAdder(acc, itemObj){
+    return acc + itemObj.price
+  }
+
   render() {
     const { navigate } = this.props.navigation
     const cart = this.props.screenProps.cart
-    const total = addUp(cart).toFixed(2)
-    const tax = (addUp(cart) * .07).toFixed(2);
-    const subtotal = ((addUp(cart) * .07) + (addUp(cart))).toFixed(2);
+    const subTotal = cart.reduce(this.totalAdder, 0)
+    const tax = subTotal * .07
+    const total = subTotal + tax
 
+    console.log(this.props)
     return (
       <View style={{height: '100%'}}>
 
@@ -61,11 +74,13 @@ export default class Cart extends Component {
 
         <View style={{justifyContent: 'flex-end', height: '45%'}}>
         <Text style={{fontWeight: 'bold', marginBottom: 10, marginLeft: 10}}>Order Notes</Text>
-        <NoteBox />
-          <PriceBreakdown lineTwoText={'Item Total'} lineThreeText={'Item Tax'} lineFourText={'Item Subtotal'} lineTwo={total} lineThree={tax} lineFour={subtotal}/>
-          <TouchableOpacity style={styles.button} onPress={()=>{this.sendToFirebase(cart, subtotal);this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); this.props.navigation.navigate('Order') }}>
-              <Text style={styles.buttonText}>Submit Order</Text>
-          </TouchableOpacity>
+        <NoteBox defaultValue={'e.g. Bring everything out together!'}/>
+
+          <PriceBreakdown lineOneText={'Subtotal'} lineOneValue={subTotal} lineTwoText={'Tax'} lineTwoValue={tax.toFixed(2)} />
+
+          <BottomButton buttonText={'Submit Order'} doThis={()=>{this.props.navigation.navigate('Order'); this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); this.sendToFirebase(cart); console.log(this.props)}} buttonPrice={total.toFixed(2)}/>
+
+
 
         </View>
 

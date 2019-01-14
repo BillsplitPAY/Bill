@@ -56,10 +56,10 @@ export function addPrice(itemPrice){
     };
 }
 
-export function submitOrder(orderObject){
+export function submitOrder(orderArray){
   return {
 	   type: 'SUBMIT',
-	    payload: orderObject
+	    payload: orderArray
     };
 }
 

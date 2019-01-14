@@ -82,9 +82,9 @@ export const TabNav = createBottomTabNavigator({
         }
   },
   Order: {
-    screen: OrderTabNav,
+    screen: Order,
     navigationOptions:{
-      tabBarLabel: <View style={{alignItems: 'center', marginBottom: 20}}><Ionicons name="md-color-wand" size={24} style={{color:'white'}}/><Text style={{fontFamily: 'Futura', fontSize: 14, color: 'white'}}>Order</Text></View>
+      tabBarLabel: <View style={{alignItems: 'center', marginBottom: 20}}><Ionicons name="md-color-wand" size={24} style={{color:'white'}}/><Text style={{fontFamily: 'Futura', fontSize: 14, color: 'white'}}>Options</Text></View>
     }
   }
 },

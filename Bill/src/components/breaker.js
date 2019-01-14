@@ -7,9 +7,7 @@ export default class Breaker extends React.Component{
   render(){
     return(
     <View style={styles.breaker}><Text style={styles.breakerText}>{this.props.value}</Text></View>
-    // <View style={styles.descView}>
-    //   {this.mappy(this.props.screenProps.yo.order.items)}
-    // </View>
+
   )
   }
 }

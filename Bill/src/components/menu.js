@@ -7,7 +7,7 @@ import { Hamburger } from '../flexComponents/hamburger'
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
 //import Ionicons from 'react-native-vector-icons/Ionicons';
-import {tester} from '../helperFunctions/pureFunctions';
+import {menuSetter} from '../helperFunctions/pureFunctions';
 
 export default class Menu extends Component {
   constructor(props){
@@ -44,7 +44,7 @@ export default class Menu extends Component {
 
   componentDidMount(){
     const categoriesArray = this.props.screenProps.menu.response.menu.menus.items[0].entries.items
-    this.props.screenProps.setMenu(tester(categoriesArray));
+    this.props.screenProps.setMenu(menuSetter(categoriesArray));
   }
 }
 

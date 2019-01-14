@@ -12,7 +12,7 @@ export default class ScrollStuff extends Component {
 itemCreator(array){
   return array.map((index) => {
     console.log(window);
-    return <View style = {styles.scr}><Text style = {styles.text}>{index.name}</Text></View>
+    return <View key={index.name} style = {styles.scr}><Text style = {styles.text}>{index.name}</Text></View>
   })
 }
 

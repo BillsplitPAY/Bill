@@ -29,7 +29,7 @@ export default class Categories extends Component {
   mapper(array){
       return array.map(function(index){
         return (
-          <TouchableHighlight style={styles.catBox} onPress={() => this.props.navigation.navigate('Menu', { screen: Menu })}>
+          <TouchableHighlight key={index.name} style={styles.catBox} onPress={() => this.props.navigation.navigate('Menu', { screen: Menu })}>
             <Text style={styles.catText}>{index.name}</Text>
           </TouchableHighlight>)
       })
