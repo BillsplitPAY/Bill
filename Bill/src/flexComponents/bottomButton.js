@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput, Picker} from 'react-native';
 
+
 const BottomButton = (props) => {
+
   return (
     <View>
     <TouchableOpacity style={styles.button} onPress={()=>{props.doThis()}}>
@@ -12,6 +14,9 @@ const BottomButton = (props) => {
   )
 }
 export default BottomButton
+
+
+
 
 const styles = StyleSheet.create({
 

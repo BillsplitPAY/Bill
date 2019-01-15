@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { createMaterialTopTabNavigator, createBottomTabNavigator, createStackNavigator, addNavigationHelpers, NavigationActions, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
-import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image} from 'react-native';
+import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image, ActivityIndicator} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory, setMenu, setCurrentItem } from '../actions/index.js';
 import { drawerContent } from './drawerContent';
@@ -12,6 +12,7 @@ import firebase from 'firebase'
 import {config} from '../../Firebase/firebaseConfig'
 
 class MainNav extends Component {
+
   render(){
     if (this.props.menu === ''){
       return <Text style={styles.loading}>'loading'</Text>
@@ -40,6 +41,7 @@ function mapStateToProps(state){
     category: state.category,
     newMenu: state.newMenu,
     currentItem: state.currentItem,
+    user: state.user,
   }
 }
 //Maps the action creators to component functions so they can be called on components

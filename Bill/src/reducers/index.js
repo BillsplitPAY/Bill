@@ -7,6 +7,7 @@ import TipReducer from './reducer_tip';
 import CatReducer from './reducer_category';
 import NewMenuReducer from './reducer_newMenu';
 import CurrentItem from './reducer_currentItem';
+import UserReducer from './reducer_user';
 
  export default combineReducers({
 	menu: MenuReducer,
@@ -18,6 +19,7 @@ import CurrentItem from './reducer_currentItem';
   category: CatReducer,
   newMenu: NewMenuReducer,
   currentItem: CurrentItem,
+  user: UserReducer,
 });
 
 //export default rootReducer;

@@ -44,7 +44,7 @@ payOptionRender(){
            <View>
            <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14}}>Your Items</Text>
              {itemListCreator(this.props.screenProps.order)}
-             <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14}}>Rob's Items</Text>
+             <Breaker value={"Rob's Items"}/>
              {itemListCreator(this.props.screenProps.order)}
              <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14}}>Lee's Items</Text>
              {itemListCreator(this.props.screenProps.order)}

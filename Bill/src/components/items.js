@@ -36,7 +36,7 @@ categoryBuilder(obj, navigate, setItem, setCat, screenProps){
 
 
   render(){
-    console.log(this.props)
+    
     return(
       <View style={styles.unnecessary}>
         {this.categoryBuilder(this.props.menu, this.props.navigate, this.props.setCurrentItem, this.props.setCategory, this.props.screenProps)}
