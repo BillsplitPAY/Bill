@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
   // div surrounding all items
 
   touchContainer:{
-
     flexDirection: 'row',
     width: '48%',
     height: 'auto',

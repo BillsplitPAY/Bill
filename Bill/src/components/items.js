@@ -8,7 +8,9 @@ import Item from '../flexComponents/item';
 class Items extends Component {
   constructor(props){
     super(props);
+    this.state ={};
     this.categoryBuilder = this.categoryBuilder.bind(this);
+    this.breakerCollapse = this.breakerCollapse.bind(this);
     //this.itemBuilder = this.itemBuilder.bind(this);
   }
 
@@ -17,6 +19,15 @@ class Items extends Component {
    headerTintColor: 'white',
 }
 
+breakerCollapse(){
+  const height = this.state.height
+  if (height === 0){
+    return this.state.height = 'auto';
+  }
+  else{
+    return this.state.height = 0;
+  }
+}
 
 
 
@@ -25,8 +36,8 @@ categoryBuilder(obj, navigate, setItem, setCat, screenProps){
   return Object.values(obj).map(category => {
     return(
     <View key={category}style={{backgroundColor: '#edeef0'}}>
-      <Breaker value={category[0].category} />
-      <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', alignItems: 'flex-start', backgroundColor: '#edeef0',  margin: '1.8%'}}>
+      <Breaker value={category[0].category} doThis={()=> {this.breakerCollapse()}}/>
+      <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', alignItems: 'flex-start', backgroundColor: '#edeef0',  margin: '1.8%', height: 'auto'}}>
       {category.map(function(item){return <Item key={item.name} foodItem={item} category={category} navi={navigate} screenProps={screenProps}/>})}
       </View>
     </View>
@@ -36,7 +47,7 @@ categoryBuilder(obj, navigate, setItem, setCat, screenProps){
 
 
   render(){
-    
+
     return(
       <View style={styles.unnecessary}>
         {this.categoryBuilder(this.props.menu, this.props.navigate, this.props.setCurrentItem, this.props.setCategory, this.props.screenProps)}

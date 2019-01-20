@@ -6,7 +6,7 @@ export default class Breaker extends React.Component{
 
   render(){
     return(
-    <View style={styles.breaker}><Text style={styles.breakerText}>{this.props.value}</Text></View>
+    <View style={styles.breaker} onPress={()=>{props.doThis()}}><Text style={styles.breakerText}>{this.props.value}</Text></View>
 
   )
   }

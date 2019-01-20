@@ -46,7 +46,7 @@ export const itemListCreator = function(itemArray){
   })
     console.log(newArray)
     return newArray.map((newItem) => {
-        return <ItemList itemAmount = {newItem.quantity} itemName = {newItem.name} itemPrice={newItem.price} />
+        return <ItemList itemAmount = {newItem.quantity} itemName = {newItem.name} itemPrice={newItem.price} onPress={'function that pulls up edit/delete options'} />
     })
   }
 
@@ -76,3 +76,8 @@ const itemizer = (itemArray, navi) => {
     })
     return newMenu
 }
+
+
+// export const stateToggler = (stateProp, stateValue, trueValue, falseValue) => {
+//   return (this.state[stateProp] === stateValue) ? this.setState({[stateProp]: trueValue}):this.setState({[stateProp]: falseValue});
+// }

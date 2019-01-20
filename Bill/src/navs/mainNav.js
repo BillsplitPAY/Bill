@@ -67,13 +67,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(MainNav)
 
 const styles = StyleSheet.create({
 
-  dimensions:{
-    borderWidth: 2,
-    borderColor: 'red',
-    height: '90%',
-    marginTop: 35,
-    backgroundColor: 'black',
-  },
   container: {
     flex: 1,
     justifyContent: 'center',

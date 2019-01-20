@@ -1,6 +1,6 @@
 //this is the content page
 import React, { Component } from 'react';
-import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput} from 'react-native';
+import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput, TouchableWithoutFeedback} from 'react-native';
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 import Breaker from './breaker';

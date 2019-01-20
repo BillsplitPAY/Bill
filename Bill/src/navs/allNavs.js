@@ -29,26 +29,6 @@ import {menuSetter} from '../helperFunctions/pureFunctions';
 //import {orderTabNav} from './orderNav';
 import { Ionicons } from '@expo/vector-icons';
 
-export const OrderTabNav = createMaterialTopTabNavigator({
-  Home: Order,
-  Settings: GroupOrder,
-}, { tabBarOptions: {
-      activeTintColor: 'tomato',
-      inactiveTintColor: 'white',
-      activeBackgroundColor: 'rgb(114, 137, 143)',
-      style: {
-        backgroundColor: '#212121',
-        fontSize: 30,
-        fontFamily: 'Avenir',
-      },
-      labelStyle: {
-        fontSize: 10,
-        fontFamily: 'Avenir',
-        color: 'white',
-      }
-    }
-  }
-);
 
 export const MenuNav = createStackNavigator({
   Menu: {
@@ -62,9 +42,13 @@ export const MenuNav = createStackNavigator({
     navigationOptions: {
       headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
       headerLeft: null,
+    },
   },
-  },
-},
+},{
+  cardStyle: {backgroundColor: 'rgba(234, 235, 238, 1)'}
+
+
+}
 )
 
 export const TabNav = createBottomTabNavigator({
@@ -79,7 +63,7 @@ export const TabNav = createBottomTabNavigator({
     navigationOptions: {
             tabBarLabel: <View style={{alignItems: 'center', marginBottom: 20}}><Ionicons name="md-cart" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'Futura', fontSize: 14,}}>Cart</Text></View>
             //tabBarIcon:() => <Ionicons size={ 20 } name={ 'basket' } color={ 'red' }/>
-        }
+        },
   },
   Order: {
     screen: Order,
@@ -115,8 +99,9 @@ export const TabNav = createBottomTabNavigator({
       tabBarIcon: ({ focused, tintColor }) => {
         let iconName = 'basket'
         return <Ionicons name={'basket'} size={25} color={'black'} />;
-      }
-    })
+      },
+    }),
+
   }
 )
    export const inAppStackNav = createStackNavigator({
@@ -128,8 +113,9 @@ export const TabNav = createBottomTabNavigator({
           headerVisible: false,
           // headerTintColor: 'white',
          //headerRight: <Hamburger />
-        }
+       },
       },
+
       Items: {
         screen: Items,
         navigationOptions: {
@@ -137,13 +123,7 @@ export const TabNav = createBottomTabNavigator({
           headerTintColor: 'black',
       },
    },
-      ItemPage: {
-        screen: ItemPage,
-        navigationOptions: {
-          headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 38},
-          headerTintColor: 'white',
-      },
-    },
+
       ScrollStuff: {
         screen: ScrollStuff,
         navigationOptions: {
@@ -168,7 +148,7 @@ export const TabNav = createBottomTabNavigator({
      },
    },
    Order: {
-     screen: OrderTabNav,
+     screen: Order,
      navigationOptions: {
        headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
        headerTintColor: 'red',
@@ -199,8 +179,12 @@ export const TabNav = createBottomTabNavigator({
        headerLeft: null
      },
    },
-
-   });
+ },
+ {
+   cardStyle: {backgroundColor: 'rgba(234, 235, 238, 1)'},
+   
+ }
+);
 
    export const FullStackNav = createStackNavigator({
      Zero: {
@@ -216,6 +200,7 @@ export const TabNav = createBottomTabNavigator({
        },
      },
    },
+   {cardStyle: {backgroundColor:'white'}}
  )
 
 //Maps the state object properties to React props so the data can be passed down components

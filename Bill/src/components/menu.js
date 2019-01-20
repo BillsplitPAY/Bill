@@ -24,6 +24,7 @@ export default class Menu extends Component {
 
 
     if (this.props.screenProps.newMenu !== 'whatever'){
+      console.log(global)
       return (
         <View style={styles.menuPage}>
             <ScrollStuff categories={categoriesArray} />

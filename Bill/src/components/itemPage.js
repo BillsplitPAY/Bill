@@ -104,15 +104,6 @@ similarDiv:{
   justifyContent: 'space-around'
 },
 
-
-
-
-
-
-
-
-
-
   button:{
     flexDirection: 'row',
     backgroundColor: 'black',
