@@ -7,22 +7,17 @@ const PriceBreakdown = (props) => {
     <View style={styles.priceView}>
 
       <View style={styles.inDesc}>
-        <Text style={{fontSize: 18, fontWeight: 'bold'}}>{props.lineOneText}</Text>
+        <Text style={{fontSize: 18, fontWeight: 'bold'}}>Subtotal</Text>
         <Text style={{fontSize: 18, fontWeight: 'bold'}}>${props.lineOneValue}</Text>
       </View>
 
       <View style={styles.inDesc}>
-        <Text>{props.lineTwoText}</Text>
+        <Text>Tax</Text>
         <Text>${props.lineTwoValue}</Text>
       </View>
-
-
-
     </View>
   )
-
 }
-
 export default PriceBreakdown;
 
 const styles = StyleSheet.create({

@@ -15,6 +15,27 @@ const BottomButton = (props) => {
 }
 export default BottomButton
 
+export const CheckoutButton = (props)=>{
+  return(
+    <View>
+    <TouchableOpacity style={styles.button} onPress={()=>{props.doThis()}}>
+      <Text style={styles.buttonText}>Checkout</Text>
+      <Text style={styles.buttonPrice}>{props.buttonPrice}</Text>
+    </TouchableOpacity>
+    </View>
+  )
+}
+
+export const PayButton = (props)=>{
+  return (
+    <View>
+    <TouchableOpacity style={[styles.button, {backgroundColor: 'green',}]}>
+      <Text style={[styles.buttonText, {color: 'black', left: 25,}]}>Pay</Text>
+      <Text style={[styles.buttonPrice, {color:'black'}]}>{props.buttonPrice}</Text>
+    </TouchableOpacity>
+    </View>
+  )
+}
 
 
 
@@ -36,6 +57,7 @@ const styles = StyleSheet.create({
      fontWeight:'bold',
      marginLeft: '37%',
      fontSize: 17,
+
    },
    buttonPrice:{
      //alignSelf: 'flex-end',

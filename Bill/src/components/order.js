@@ -7,46 +7,52 @@ import Items from './items.js';
 import Breaker from './breaker';
 import {itemListCreator} from '../helperFunctions/pureFunctions';
 import PriceBreakdown from '../flexComponents/priceBreakdown'
-import BottomButton from '../flexComponents/bottomButton'
+import BottomButton, {PayButton, CheckoutButton} from '../flexComponents/bottomButton'
 import { StackNavigator } from 'react-navigation';
-import {gStyle} from '../styles/styles'
+import {gStyle} from '../styles/styles';
+import Tipper from './tipper';
+import PayOptions from './payOptions';
+import {SplitBreakdown} from './payPages/splitComponents'
 
 export default class Order extends Component {
   constructor(props){
     super(props);
     this.state ={
-      screenBlurrer: {opacity: 1, zIndex: -1, borderColor: 'red', borderWidth: 2},
-      //set opacity to .5, zIndex to 1
-      payOptions: {zIndex: -2},
-      //set zIndex to 2
-
+      tip: ()=>{return null},
+      payUp: ()=>{return null},
+      breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)}/>},
+      button: () => {return <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payOptionState()}} /> }
     }
-    // this.state.anim = new Animated.Value(0);
-    // this.state.payOption = this.state.anim.interpolate({
-    //   inputRange: [0, 1],
-    //   outputRange: [-1, 2]
-    // });
-    // this.state.screenBlur = this.state.anim.interpolate({
-    //   inputRange: [0, 1],
-    //   outputRange: [1, .5]
-    // });
     this.totalAdder = this.totalAdder.bind(this);
-    //this.payOptionRender = this.payOptionRender.bind(this)
-    // this.animator = this.animator.bind(this)
+    this.orderState = this.orderState.bind(this);
+    this.payOptionState = this.payOptionState.bind(this);
+    this.splitState = this.splitState.bind(this);
   }
 
-  static navigationOptions = {
-    title: "Your Order"
-  }
+payOptionState(){
+  this.setState({
+    payUp: ()=>{return <PayOptions payState={()=>{return this.splitState()}} orderState={()=>{return this.orderState()}}/>}
+  })
+  console.log(this.state)
+}
 
-  // animator(){
-  //     if (this.state.anim._value === 0){
-  //         return Animated.timing(this.state.anim, {duration: 200, toValue: 1,})
-  //     }
-  //     else{
-  //         return Animated.timing(this.state.anim, {duration: 200, toValue: 0,})
-  //     }
-  // }
+orderState(){
+  this.setState({
+    tip: ()=>{return null},
+    payUp: ()=>{return null},
+    breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)}/>},
+    button: () => {return <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payState()}}/> }
+  })
+}
+
+splitState(){
+  this.setState({
+    tip:()=>{return <Tipper />},
+    breakdown: ()=>{return <SplitBreakdown />},
+    payUp: ()=>{return null},
+    button: ()=>{return <PayButton buttonPrice={'$0.00'}/>},
+  })
+}
 
 totalAdder(acc, itemObj){
   return acc + itemObj.price
@@ -62,40 +68,36 @@ totalAdder(acc, itemObj){
     return (
        <View style={styles.cartPage} blurRadius={1}>
 
-       <TouchableOpacity onPress={()=>{console.log(this.state); this.setState({screenBlurrer:{opacity: 1, zIndex: 0, borderColor: 'blue', borderWidth: 2}, payOptions:{zIndex: -2}})}} style={[this.state.screenBlurrer, {width: '100%', height: '100%', position: 'absolute',}]} >
+       <TouchableOpacity onPress={()=>{console.log(this.state); this.setState({screenBlurrer:{opacity: .5, zIndex: 0, borderColor: 'blue', borderWidth: 2}})}} style={[this.state.screenBlurrer, {width: '100%', height: '100%', position: 'absolute',}]} >
        <Image source={{uri: 'https://dummyimage.com/300x600/e7e8eb/e7e8eb.jpg'}} style={{height: '100%', width: '100%'}}/>
        </TouchableOpacity>
          <ScrollView>
            <View>
-           <Text style={styles.itemHeader}>Your Items</Text>
-             {itemListCreator(this.props.screenProps.order)}
-             <Text style={styles.itemHeader}>Rob's Items</Text>
-             {itemListCreator(this.props.screenProps.order)}
-             <Text style={styles.itemHeader}>Lee's Items</Text>
-             {itemListCreator(this.props.screenProps.order)}
-             <Text style={styles.itemHeader}>Luc's Items</Text>
-             {itemListCreator(this.props.screenProps.order)}
+            <Text style={styles.itemHeader}>Your Items</Text>
+            {itemListCreator(this.props.screenProps.order)}
+            <Text style={styles.itemHeader}>Rob's Items</Text>
+            {itemListCreator(this.props.screenProps.order)}
+            <Text style={styles.itemHeader}>Lee's Items</Text>
+            {itemListCreator(this.props.screenProps.order)}
+            <Text style={styles.itemHeader}>Luc's Items</Text>
+            {itemListCreator(this.props.screenProps.order)}
            </View>
        </ScrollView>
 
-       <PriceBreakdown lineOneText={'Subtotal'} lineOneValue={subTotal} lineTwoText={'Tax'} lineTwoValue={tax.toFixed(2)} />
-       <BottomButton buttonText={'Checkout'} doThis={() => {this.setState({screenBlurrer:{opacity: .5, zIndex: 1, borderColor: 'red', borderWidth: 2}, payOptions:{zIndex: 2}})}} buttonPrice={total.toFixed(2)}/>
+       {this.state.breakdown(subTotal, tax)}
 
-       <Animated.View style={[styles.hidden, this.state.payOptions, {borderWidth: 2, borderRadius: 7.5}]}>
-          <View style={styles.payOption}><Text style={styles.payText}>Split</Text></View>
-          <View style={styles.payOption}><Text style={styles.payText}>Your Items Only</Text></View>
-          <View style={styles.payOption}><Text style={styles.payText}>Custom Selection</Text></View>
-          <View style={styles.payOption}><Text style={styles.payText}>Roulette</Text></View>
-       </Animated.View>
+       {this.state.tip()}
+
+       {this.state.button()}
+
+       {this.state.payUp()}
 
      </View>
       );
     }
-
   }
 
 // <BottomButton buttonText={'Checkout'} doThis={() => {this.animator().start(); console.log(this.state)}} buttonPrice={total.toFixed(2)}/>
-
 
   const styles = StyleSheet.create({
     hidden:{position: 'absolute', height:'auto', borderColor: 'black', width: '95%',  left: 10, right: 'auto', top: 500, marginBottom: 0, flexDirection: 'row', justifyContent: 'space-between', },
