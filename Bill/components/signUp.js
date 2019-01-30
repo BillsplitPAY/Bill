@@ -76,7 +76,6 @@ class signUp extends Component {
           this.props.navigation.navigate('Menu');
           this.props.updateName(value.name)
 
-
       }).catch((error)=>{
           //error callback
           console.log('error ' , error)

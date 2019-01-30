@@ -11,8 +11,11 @@ import NoteBox from '../src/flexComponents/noteBox';
 import firebase from 'firebase';
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
+import { connect } from 'react-redux'
 
-export default class Cart extends Component {
+
+
+class Cart extends Component {
   constructor(props){
     super(props);
   }
@@ -23,13 +26,22 @@ export default class Cart extends Component {
 };
   
   sendToFirebase(cartInfo, subtotal) {
+
+    this.props.screenProps.submitOrder(cartInfo); 
+    this.props.screenProps.emptyCart();
+    this.props.navigation.navigate('Order')
+    
     console.log('TRYINGNN TO SEND THE DATAAAAA!!!')
       //console.log(cartInfo)
       cartInfo.subtotal = subtotal
       //async issue below to be resolved
       cartInfo.timeStamp = new Date();
 
-    firebase.database().ref('Transactions/').set(cartInfo).then((data)=>{
+    firebase.database().ref('Restaurants/xk9jf912/Tables/-LXHpNLnsb0fbE7DpptJ')
+    // .child('8888').setValue(cartInfo)
+    .push()
+    .set(cartInfo)
+    .then((data)=>{
         //success callback
         console.log('data ' , cartInfo)
     }).catch((error)=>{
@@ -40,6 +52,8 @@ export default class Cart extends Component {
   }
 
   render() {
+
+    console.log('cart info', this.props.user)
     const { navigate } = this.props.navigation
     const cart = this.props.screenProps.cart
     const total = addUp(cart).toFixed(2)
@@ -63,13 +77,14 @@ export default class Cart extends Component {
         <Text style={{fontWeight: 'bold', marginBottom: 10, marginLeft: 10}}>Order Notes</Text>
         <NoteBox />
           <PriceBreakdown lineTwoText={'Item Total'} lineThreeText={'Item Tax'} lineFourText={'Item Subtotal'} lineTwo={total} lineThree={tax} lineFour={subtotal}/>
-          <TouchableOpacity style={styles.button} onPress={()=>{this.sendToFirebase(cart, subtotal);this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); this.props.navigation.navigate('Order') }}>
+          <TouchableOpacity style={styles.button} onPress={()=>{this.sendToFirebase(cart, subtotal) }}>
               <Text style={styles.buttonText}>Submit Order</Text>
           </TouchableOpacity>
 
         </View>
 
       </View>
+
 
 
 
@@ -103,6 +118,18 @@ export default class Cart extends Component {
       );
     }
   }
+
+
+
+function mapStateToProps(state){
+  return {
+    user: state.user
+  }
+}
+
+
+export default connect(mapStateToProps)(Cart)
+
 
   const styles = StyleSheet.create({
     cartPage:{

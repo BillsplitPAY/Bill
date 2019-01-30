@@ -6,7 +6,7 @@ return {
         mode: 'cors',
       })
       .then((resp) => resp.json())
-};
+  };
 }
 
 export function fetchData(data){

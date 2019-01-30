@@ -30,7 +30,6 @@ export default class ItemPage extends Component{
     return(
       <View style={styles.itemPage}>
         <ScrollView style={styles.pageContent}>
-
           <View style ={[styles.foodView, {height:'25%', alignItems: 'center'}]}>
 
           <View style={[styles.foodInfo, {}]}>

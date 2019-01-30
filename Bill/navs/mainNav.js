@@ -12,6 +12,8 @@ import config from '../Firebase/firebaseConfig'
 import firebase from 'firebase'
 import signUp from '../components/signUp'
 import signIn from '../components/signIn'
+import TableRequest from '../components/TableRequest'
+
 
 class MainNav extends Component {
    
@@ -50,6 +52,10 @@ class MainNav extends Component {
        screen: Hamburger,
      },
 
+     Scan: {
+       screen: Scanny,
+     },
+
      signUp: {
        screen: signUp,
      },
@@ -70,15 +76,22 @@ class MainNav extends Component {
        navigationOptions: {
          headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
        },
+
+
      },
+
      One: {
-       screen: Scanny,
+       screen: TableRequest,
        navigationOptions: {
          headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
        },
+
+       
      },
-   },
- )
+
+
+
+   })
 
 
 //Maps the state object properties to React props so the data can be passed down components

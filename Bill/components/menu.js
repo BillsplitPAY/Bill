@@ -21,7 +21,6 @@ export default class Menu extends Component {
 };
 
 
-
   render() {
     const { navigate } = this.props.navigation
     const foodCategories = this.props.screenProps.menu[0].response.menu.menus.items[0].entries.items
