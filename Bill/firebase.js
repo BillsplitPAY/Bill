@@ -1,14 +1,7 @@
 import * as firebase from 'firebase';
 
 // Initialize Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyDqisPjS_aCsR4Z9oz5B9Q8SnFX3VnrI9k",
-    authDomain: "bill-b84a6.firebaseapp.com",
-    databaseURL: "https://bill-b84a6.firebaseio.com",
-    projectId: "bill-b84a6",
-    storageBucket: "bill-b84a6.appspot.com",
-    messagingSenderId: "1057864138139"
-  };
+
   firebase.initializeApp(config);
 
   //export default firebaseConfig;

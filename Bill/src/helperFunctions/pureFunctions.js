@@ -9,7 +9,7 @@ export const addUp = function(array){
   }, 0)
 };
 
-export const itemListCreator = function(itemArray){
+export const itemListCreator = function(itemArray, ListType){
 //create new array that will hold objects that get rendered
   let newArray = []
 //if there's nothing in cart, render a message saying so.
@@ -46,7 +46,7 @@ export const itemListCreator = function(itemArray){
   })
     console.log(newArray)
     return newArray.map((newItem) => {
-        return <ItemList itemAmount = {newItem.quantity} itemName = {newItem.name} itemPrice={newItem.price} onPress={'function that pulls up edit/delete options'} />
+        return <ListType itemAmount = {newItem.quantity} itemName = {newItem.name} itemPrice={newItem.price} />
     })
   }
 
@@ -81,3 +81,12 @@ const itemizer = (itemArray, navi) => {
 // export const stateToggler = (stateProp, stateValue, trueValue, falseValue) => {
 //   return (this.state[stateProp] === stateValue) ? this.setState({[stateProp]: trueValue}):this.setState({[stateProp]: falseValue});
 // }
+
+export const animator = (stateValue, animValue, initValue) => {
+    if (stateValue._value === 0){
+        return Animated.timing(stateValue, {duration: 200, toValue: animValue})
+    }
+    else{
+        return Animated.timing(this.state.edit, {duration: 200, toValue: initValue})
+    }
+}

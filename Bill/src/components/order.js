@@ -12,7 +12,8 @@ import { StackNavigator } from 'react-navigation';
 import {gStyle} from '../styles/styles';
 import Tipper from './tipper';
 import PayOptions from './payOptions';
-import {SplitBreakdown} from './payPages/splitComponents'
+import {SplitBreakdown} from './payPages/splitComponents';
+import {OrderItemList} from '../flexComponents/itemList'
 
 export default class Order extends Component {
   constructor(props){
@@ -31,7 +32,7 @@ export default class Order extends Component {
 
 payOptionState(){
   this.setState({
-    payUp: ()=>{return <PayOptions payState={()=>{return this.splitState()}} orderState={()=>{return this.orderState()}}/>}
+    payUp: ()=>{return <PayOptions payState={()=>{return this.splitState()}} orderState={()=>{return this.orderState()}} navigate={this.props.navigation.navigate}/>}
   })
   console.log(this.state)
 }
@@ -54,6 +55,15 @@ splitState(){
   })
 }
 
+customState(){
+  this.setState({
+    tip:()=>{return <Tipper />},
+    breakdown: ()=>{return <SplitBreakdown />},
+    payUp: ()=>{return null},
+    button: ()=>{return <PayButton buttonPrice={'$0.00'}/>},
+  })
+}
+
 totalAdder(acc, itemObj){
   return acc + itemObj.price
 }
@@ -68,19 +78,20 @@ totalAdder(acc, itemObj){
     return (
        <View style={styles.cartPage} blurRadius={1}>
 
-       <TouchableOpacity onPress={()=>{console.log(this.state); this.setState({screenBlurrer:{opacity: .5, zIndex: 0, borderColor: 'blue', borderWidth: 2}})}} style={[this.state.screenBlurrer, {width: '100%', height: '100%', position: 'absolute',}]} >
+       <TouchableOpacity onPress={()=>{this.orderState()}} style={[this.state.screenBlurrer, {width: '100%', height: '100%', position: 'absolute',}]} >
        <Image source={{uri: 'https://dummyimage.com/300x600/e7e8eb/e7e8eb.jpg'}} style={{height: '100%', width: '100%'}}/>
        </TouchableOpacity>
          <ScrollView>
            <View>
             <Text style={styles.itemHeader}>Your Items</Text>
-            {itemListCreator(this.props.screenProps.order)}
+            {itemListCreator(this.props.screenProps.order, OrderItemList)}
+
             <Text style={styles.itemHeader}>Rob's Items</Text>
-            {itemListCreator(this.props.screenProps.order)}
+            {itemListCreator(this.props.screenProps.order, OrderItemList)}
             <Text style={styles.itemHeader}>Lee's Items</Text>
-            {itemListCreator(this.props.screenProps.order)}
+            {itemListCreator(this.props.screenProps.order, OrderItemList)}
             <Text style={styles.itemHeader}>Luc's Items</Text>
-            {itemListCreator(this.props.screenProps.order)}
+            {itemListCreator(this.props.screenProps.order, OrderItemList)}
            </View>
        </ScrollView>
 
@@ -88,7 +99,7 @@ totalAdder(acc, itemObj){
 
        {this.state.tip()}
 
-       {this.state.button()}
+       <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payOptionState()}}/>
 
        {this.state.payUp()}
 
@@ -96,6 +107,8 @@ totalAdder(acc, itemObj){
       );
     }
   }
+
+  // <TouchableOpacity onPress={()=>{console.log(this.state); this.setState({screenBlurrer:{opacity: .5, zIndex: 0, borderColor: 'blue', borderWidth: 2}})}} style={[this.state.screenBlurrer, {width: '100%', height: '100%', position: 'absolute',}]} >
 
 // <BottomButton buttonText={'Checkout'} doThis={() => {this.animator().start(); console.log(this.state)}} buttonPrice={total.toFixed(2)}/>
 

@@ -158,7 +158,7 @@ export const TabNav = createBottomTabNavigator({
    EvenSplit: {
      screen: EvenSplit,
      navigationOptions: {
-       headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
+       headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
        headerTintColor: 'red',
        headerLeft: null
      },
@@ -182,7 +182,7 @@ export const TabNav = createBottomTabNavigator({
  },
  {
    cardStyle: {backgroundColor: 'rgba(234, 235, 238, 1)'},
-   
+
  }
 );
 

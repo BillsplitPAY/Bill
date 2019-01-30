@@ -1,36 +1,21 @@
 import React, { Component } from 'react';
-import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput,
-  Picker, Animated, TouchableWithoutFeedback} from 'react-native';
+import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput, Picker, Animated, TouchableWithoutFeedback} from 'react-native';
 import {stateToggler} from '../helperFunctions/pureFunctions';
-import {gStyle} from '../styles/styles';
-import {animator} from '../helperFunctions/pureFunctions'
+import {gStyle} from '../styles/styles'
 
-export const ItemList = (props) => {
-    return (
-      <TouchableOpacity style={styles.inDesc} onPress={()=>{props.animate().start()}}>
-        <Animated.View style = {{height: '100%', width: '100%', right: props.right, borderWidth: props.borderWidth, flexDirection: 'row'}}>
-          <View style={styles.touch}>
-            <Text style={styles.descItems, {fontWeight: 'bold'}}>{props.itemAmount}</Text>
-            <Text style={styles.descText, {fontStyle: 'italic'}}>{props.itemName}</Text>
-            <Text style={styles.descPrice, {fontWeight: 'bold'}}>${props.itemPrice}</Text>
-          </View>
-          <View style={{borderColor: 'red', borderWidth: 1, height: '100%', width: 90, flexDirection: 'row'}}>
-            <View style={{backgroundColor: 'red', height: '100%', width: '50%'}}><Text>Edit</Text></View>
-            <View style={{backgroundColor: 'blue', height: '100%', width: '50%'}}><Text>Delete</Text></View>
-          </View>
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
 
-          </Animated.View>
-        </TouchableOpacity>
-    )
-  }
 
-export class CartItemList extends Component {
+class OrderItemList extends Component {
   constructor(props){
-    super(props);
+    super(props)
+    //1. create an animated value
     this.state = {edit: new Animated.Value(0)}
     this.animator = this.animator.bind(this)
   }
 
+  //2. write a function that changes the animated value
   animator(){
       if (this.state.edit._value === 0){
           return Animated.timing(this.state.edit, {duration: 200, toValue: 95})
@@ -39,19 +24,7 @@ export class CartItemList extends Component {
           return Animated.timing(this.state.edit, {duration: 200, toValue: 0})
       }
   }
-  render(){
-    return (
-      <ItemList {...this.props} animate={this.animator} right={this.state.edit} borderWidth={null}/>
-    )
-  }
-}
 
-export class CustomItemList extends Component {
-  constructor(props){
-    super(props)
-    this.state = {edit: new Animated.Value(0)}
-    this.borderAnimator = this.borderAnimator.bind(this)
-  }
   borderAnimator(){
       if (this.state.edit._value === 0){
           return Animated.timing(this.state.edit, {duration: 200, toValue: 3})
@@ -60,28 +33,46 @@ export class CustomItemList extends Component {
           return Animated.timing(this.state.edit, {duration: 200, toValue: 0})
       }
   }
+
   render(){
+    //3. Add Animated.View component with the css property you want animated paired with animated value
+    //4.Call the function with .start() on a component that contains your animated.view Component
+    console.log(this.props)
     return (
-      <ItemList {...this.props} animate={this.borderAnimator} right={null} borderWidth={this.state.edit}/>
+      <TouchableOpacity style={styles.inDesc} onPress={()=>{this.borderAnimator().start()}}>
+        <Animated.View style = {{height: '100%', width: '100%', borderWidth: this.state.edit, borderColor:'black', flexDirection: 'row'}}>
+
+          <View style={styles.touch}>
+            <Text style={styles.descItems, {fontWeight: 'bold'}}>{this.props.itemAmount}</Text>
+            <Text style={styles.descText, {fontStyle: 'italic'}}>{this.props.itemName}</Text>
+            <Text style={styles.descPrice, {fontWeight: 'bold'}}>${this.props.itemPrice}</Text>
+          </View>
+
+          </Animated.View>
+        </TouchableOpacity>
+
     )
+  }
+
+}
+
+function mapStateToProps(state){
+  return {
+    menu: state.menu,
+    cart: state.cart,
+    price: state.price,
+    order: state.order,
+    tip: state.tip,
+    category: state.category,
+    newMenu: state.newMenu,
+    currentItem: state.currentItem,
+    user: state.user,
   }
 }
 
-export class OrderItemList extends Component {
-  constructor(props){
-    super(props)
-    this.state = {edit: new Animated.Value(0)}
-    this.borderAnimator = this.borderAnimator.bind(this)
-  }
-  borderAnimator(){
-    return Animated.timing(this.state.edit, {duration: 1, toValue: 0})
-}
-  render(){
-    return (
-      <ItemList {...this.props} animate={this.borderAnimator} right={null} borderWidth={this.state.edit}/>
-    )
-  }
-}
+export default connect(mapStateToProps)(OrderItemList)
+
+
 
 
 

@@ -4,7 +4,7 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 import Breaker from './breaker';
-import ItemList from '../flexComponents/itemList';
+import {ItemList, CartItemList} from '../flexComponents/itemList';
 import { itemListCreator, addUp } from '../helperFunctions/pureFunctions';
 import PriceBreakdown from '../flexComponents/priceBreakdown';
 import NoteBox from '../flexComponents/noteBox';
@@ -67,7 +67,7 @@ export default class Cart extends Component {
           <Text style={{fontWeight: 'bold', marginTop: 10, marginLeft: 10}}>Your Cart</Text>
           </View>
           <ScrollView>
-          {itemListCreator(cart)}
+          {itemListCreator(cart, CartItemList)}
           </ScrollView>
         </View>
 

@@ -37,7 +37,7 @@ export default class Scanny extends Component {
     this.props.screenProps.fetchData(data);
 
     if (this.props.screenProps.menu[1] === 'load'){
-    this.props.navigation.navigate('Two');
+    this.props.navigation.navigate('One');
   }
 
   }

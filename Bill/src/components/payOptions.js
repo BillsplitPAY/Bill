@@ -12,6 +12,7 @@ import {gStyle} from '../styles/styles';
 import Tipper from './tipper'
 
 const PayOptions = (props) =>{
+  console.log(props)
   return(
     <View style={{position: 'absolute', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
 
@@ -19,7 +20,7 @@ const PayOptions = (props) =>{
 
 
     <View style={[styles.optionsContainer, {borderWidth: 2, borderRadius: 7.5}]}>
-       <TouchableOpacity onPress={()=>{props.payState()}} style={styles.payOption}>
+       <TouchableOpacity onPress={()=>{props.navigate('EvenSplit')}} style={styles.payOption}>
         <Text style={styles.payText}>Split</Text>
         <Text style={{color: 'black', margin: 10, textAlign: 'center'}}>Split the check with all of your friends, or whomever you choose.</Text>
        </TouchableOpacity>

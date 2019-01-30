@@ -27,7 +27,10 @@
     "thunk": "0.0.1"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "babel-jest": "23.4.2",
+    "eslint": "^5.12.1",
+    "eslint-plugin-react": "^7.12.4",
     "jest": "23.4.2",
     "react-test-renderer": "16.4.1"
   },
