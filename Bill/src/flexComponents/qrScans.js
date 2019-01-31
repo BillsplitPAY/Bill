@@ -32,19 +32,20 @@ export default class Scanny extends Component {
     }
   };
 
+
   handleQRRead({type, data}){
+    console.log('hanle READ')
+    console.log('data: ', data)
+    // console.log(this.props.navigation)
+    //this.props.screenProps.fetchData(data);
 
-    this.props.screenProps.fetchData(data);
-
-    if (this.props.screenProps.menu[1] === 'load'){
-    this.props.navigation.navigate('One');
-  }
-
+  //   if (this.props.screenProps.menu[1] === 'load'){
+  //   this.props.navigation.navigate('Zero');
+  // }
+     this.props.navigation.navigate('Menu')
   }
 
   render() {
-
-
 
     return (
       <View style={styles.container}>

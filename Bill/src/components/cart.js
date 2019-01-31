@@ -11,9 +11,11 @@ import NoteBox from '../flexComponents/noteBox';
 import firebase from 'firebase';
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
+import { connect } from 'react-redux'
 import BottomButton from '../flexComponents/bottomButton'
 
-export default class Cart extends Component {
+
+class Cart extends Component {
   constructor(props){
     super(props);
     this.totalAdder=this.totalAdder.bind(this)
@@ -25,7 +27,12 @@ export default class Cart extends Component {
    headerTintColor: 'white'
 };
 
-  sendToFirebase(cartArray) {
+  sendToFirebase(cartInfo, subtotal) {
+
+    this.props.screenProps.submitOrder(cartInfo);
+    this.props.screenProps.emptyCart();
+    this.props.navigation.navigate('Order')
+
     console.log('TRYINGNN TO SEND THE DATAAAAA!!!')
       //console.log(cartInfo)
 
@@ -35,9 +42,11 @@ export default class Cart extends Component {
 
       //async issue below to be resolved
 
-      //cartInfo.timeStamp = new Date();
-
-    firebase.database().ref('Restaurant/Tables/Table1/User1/Order').push(cartArray).then((data)=>{
+    firebase.database().ref('Restaurants/xk9jf912/Tables/-LXHpNLnsb0fbE7DpptJ')
+    // .child('8888').setValue(cartInfo)
+    .push()
+    .set(cartInfo)
+    .then((data)=>{
         //success callback
         console.log('data ', cartInfo)
     }).catch((error)=>{
@@ -52,11 +61,13 @@ export default class Cart extends Component {
   }
 
   render() {
+
+    console.log('cart info', this.props.user)
     const { navigate } = this.props.navigation
     const cart = this.props.screenProps.cart
-    const subTotal = cart.reduce(this.totalAdder, 0)
-    const tax = subTotal * .07
-    const total = subTotal + tax
+    const subtotal = cart.reduce(this.totalAdder, 0)
+    const tax = subtotal * .07
+    const total = subtotal + tax
 
     console.log(this.props)
     return (
@@ -76,15 +87,16 @@ export default class Cart extends Component {
         <Text style={{fontWeight: 'bold', marginBottom: 10, marginLeft: 10}}>Order Notes</Text>
         <NoteBox defaultValue={'e.g. Bring everything out together!'}/>
 
-          <PriceBreakdown lineOneText={'Subtotal'} lineOneValue={subTotal} lineTwoText={'Tax'} lineTwoValue={tax.toFixed(2)} />
+          <PriceBreakdown lineOneText={'Subtotal'} lineOneValue={subtotal} lineTwoText={'Tax'} lineTwoValue={tax.toFixed(2)} />
 
-          <BottomButton buttonText={'Submit Order'} doThis={()=>{this.props.navigation.navigate('Order'); this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); this.sendToFirebase(cart); console.log(this.props)}} buttonPrice={total.toFixed(2)}/>
+          <BottomButton buttonText={'Submit Order'} doThis={()=>{this.sendToFirebase(cart, subtotal);}} buttonPrice={total.toFixed(2)}/>
 
 
 
         </View>
 
       </View>
+
 
 
 
@@ -118,6 +130,18 @@ export default class Cart extends Component {
       );
     }
   }
+
+
+
+function mapStateToProps(state){
+  return {
+    user: state.user
+  }
+}
+
+
+export default connect(mapStateToProps)(Cart)
+
 
   const styles = StyleSheet.create({
     cartPage:{

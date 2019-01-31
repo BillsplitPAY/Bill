@@ -12,6 +12,7 @@ import { MenuNav, CartNav, MenuNavy } from './stackNavs';
 import { OrderStackNav } from './orderStackNav';
 import Hamburger from '../src/flexComponents/hamburger';
 import Cart from '../components/cart';
+import TableRequest from '../components/TableRequest';
 import Order from '../components/order';
 import {orderTabNav} from './orderNav';
 import { Ionicons } from '@expo/vector-icons';
@@ -34,12 +35,13 @@ export const TabNav = createBottomTabNavigator({
         }
   },
 
+
   Order: {
     screen: orderTabNav,
     navigationOptions:{
       tabBarLabel: <View style={{alignItems: 'center'}}><Ionicons name="md-color-wand" size={24} style={{color:'white'}}/><Text style={{fontFamily: 'Futura', fontSize: 14, color: 'white'}}>Order</Text></View>
     }
-  }
+  },
 },
 {
   animationEnabled: 'true',

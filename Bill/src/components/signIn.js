@@ -4,7 +4,7 @@ import t from 'tcomb-form-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import { updateName } from '../src/actions/index';
+import { updateName } from '../actions/index';
 
 const Form = t.form.Form;
 
@@ -51,7 +51,7 @@ const options = {
 
 class signIn extends Component {
     static navigationOptions = {
-         drawerLabel: 'Sign In',   
+         drawerLabel: 'Sign In',
     }
 
   handleSubmit = () => {
@@ -66,7 +66,7 @@ class signIn extends Component {
         this.props.navigation.navigate('Menu');
         this.props.updateName(value.name);
       })
-      .catch(error => this.setState({ errorMessage: error.message }))  
+      .catch(error => this.setState({ errorMessage: error.message }))
 
   }
 
@@ -76,27 +76,27 @@ class signIn extends Component {
   //   console.log('can you handle it?!!?')
   //   const value = this._form.getValue();
   //   console.log('value: ', value);
-    
+
   //   let email = value.email
-  //   let password = value.password 
- 
+  //   let password = value.password
+
   //   firebase.auth().signInWithEmailAndPassword(email, password)
   //   .then( () => {
   //     console.log('person has an existing account && been signed in!')
-      
+
   //   }).catch( (err) => {
   //     console.log('sorry this person doesnt have an account');
   //     console.log('ERROR!!!!!%#', err)
   //   })
   // }
 
-  
+
   render() {
     return (
       <View style={styles.container}>
-        <Form 
+        <Form
           ref={c => this._form = c}
-          type={User} 
+          type={User}
           options={options}
         />
         <Button

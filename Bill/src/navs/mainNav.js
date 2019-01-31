@@ -5,11 +5,15 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Touchabl
 import { bindActionCreators } from 'redux';
 import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory, setMenu, setCurrentItem } from '../actions/index.js';
 import { drawerContent } from './drawerContent';
-import {FullStackNav} from './allNavs'
+import {inAppStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
 
 import firebase from 'firebase'
+import signUp from '../components/signUp'
+import signIn from '../components/signIn'
+import TableRequest from '../components/TableRequest'
 import {config} from '../../Firebase/firebaseConfig'
+
 
 class MainNav extends Component {
 
@@ -29,6 +33,62 @@ class MainNav extends Component {
 
 }
 }
+
+   export const DrawerNav = createDrawerNavigator({
+    //this is the slide out drawer navigator for the right side panel
+    //in order to use add key/value pair to component as an object below
+    //and within the component itself use the 'static' keyword, check examples
+     Home: {
+       screen: inAppStackNav,
+     },
+
+     signIn: {
+       screen: signIn,
+     },
+
+  
+
+     Scan: {
+       screen: Scanny,
+     },
+
+     signUp: {
+       screen: signUp,
+     },
+
+   }, {
+       initialRouteName: 'Home',
+       drawerPosition: 'right',
+       contentComponent: drawerContent,
+       drawerOpenRoute: 'DrawerOpen',
+       drawerCloseRoute: 'DrawerClose',
+       drawerToggleRoute: 'DrawerToggle',
+       drawerWidth: 300,
+   });
+
+   export const FullStackNav = createStackNavigator({
+     Zero: {
+       screen: DrawerNav,
+       navigationOptions: {
+         headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
+       },
+
+
+     },
+
+     One: {
+       screen: TableRequest,
+       navigationOptions: {
+         headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
+       },
+
+
+     },
+
+
+
+   })
+
 
 //Maps the state object properties to React props so the data can be passed down components
 function mapStateToProps(state){
