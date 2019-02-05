@@ -6,7 +6,7 @@ import Items from './items.js';
 import Breaker from './breaker';
 import {ItemList, CartItemList} from '../flexComponents/itemList';
 import { itemListCreator, addUp } from '../helperFunctions/pureFunctions';
-import PriceBreakdown from '../flexComponents/priceBreakdown';
+import {PriceBreakdown} from '../flexComponents/priceBreakdown';
 import NoteBox from '../flexComponents/noteBox';
 import firebase from 'firebase';
 //import DrawerNav from './drawerNav.js';
@@ -26,7 +26,6 @@ class Cart extends Component {
    headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
    headerTintColor: 'white'
 };
-
   sendToFirebase(cartInfo, subtotal) {
 
     this.props.screenProps.submitOrder(cartInfo);
@@ -42,7 +41,7 @@ class Cart extends Component {
 
       //async issue below to be resolved
 
-    firebase.database().ref('Restaurants/xk9jf912/Tables/-LXHpNLnsb0fbE7DpptJ')
+    firebase.database().ref('Restaurants/Larrys/Tables/Table1')
     // .child('8888').setValue(cartInfo)
     .push()
     .set(cartInfo)
@@ -61,7 +60,6 @@ class Cart extends Component {
   }
 
   render() {
-
     console.log('cart info', this.props.user)
     const { navigate } = this.props.navigation
     const cart = this.props.screenProps.cart
@@ -75,7 +73,7 @@ class Cart extends Component {
 
         <View style={{height: '55%'}}>
           <View style={{borderBottomWidth: .5, borderBottomColor: 'black'}}>
-          <Text style={{fontWeight: 'bold', marginTop: 10, marginLeft: 10}}>Your Cart</Text>
+            <Text style={{fontWeight: 'bold', marginTop: 10, marginLeft: 10}}>Your Cart</Text>
           </View>
           <ScrollView>
           {itemListCreator(cart, CartItemList)}
@@ -87,7 +85,7 @@ class Cart extends Component {
         <Text style={{fontWeight: 'bold', marginBottom: 10, marginLeft: 10}}>Order Notes</Text>
         <NoteBox defaultValue={'e.g. Bring everything out together!'}/>
 
-          <PriceBreakdown lineOneText={'Subtotal'} lineOneValue={subtotal} lineTwoText={'Tax'} lineTwoValue={tax.toFixed(2)} />
+          <PriceBreakdown lineOneValue={subtotal} lineTwoValue={tax.toFixed(2)} />
 
           <BottomButton buttonText={'Submit Order'} doThis={()=>{this.sendToFirebase(cart, subtotal);}} buttonPrice={total.toFixed(2)}/>
 

@@ -11,13 +11,11 @@ export default class ScrollStuff extends Component {
 
 itemCreator(array){
   return array.map((index) => {
-
-    return <View key={index.name} style = {styles.scr}><Text style = {styles.text}>{index.name}</Text></View>
+    return <View key={index.name} style = {styles.scr}><Text style = {styles.text}>{index}</Text></View>
   })
 }
 
   render() {
-    
     return (
       <View style={styles.scroller}>
         <ScrollView horizontal = {true}>

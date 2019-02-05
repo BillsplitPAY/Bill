@@ -11,7 +11,7 @@ import { Font } from 'expo';
 
 import MainNav from './src/navs/mainNav'
 import reducers from './src/reducers';
-import PayType from './src/components/payType'
+
 //import MainNavTest, { FullStackNav } from './navs/mainNavTest';
 
 
@@ -23,9 +23,11 @@ export default class App1 extends React.Component {
     return(
             /*The Redux store is created with ReduxPromise middleware built in, and applied to
             MainNav*/
+          <SafeAreaView style={{flex: 1, backgroundColor: '#212121'}}>
             <Provider store={createStoreWithMiddleware(reducers)}>
               <MainNav />
             </Provider>
+          </SafeAreaView>
     )
   }
   // componentDidMount(){

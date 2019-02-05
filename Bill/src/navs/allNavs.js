@@ -4,50 +4,41 @@ import { connect } from 'react-redux'
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory, setMenu, setCurrentItem } from '../actions/index.js';
-//import Hamburger from '../flexComponents/hamburger';
 import { drawerContent } from './drawerContent';
-//import {inAppStackNav} from './inAppStackNav';
-
 import Scanny from '../flexComponents/qrScans';
-//import {TabNav} from './tabNav';
 import Items from '../components/items';
 import ItemPage from '../components/itemPage';
-import ItemScroller from '../flexComponents/itemScroller';
-import PayType from '../components/payType';
-//import {orderTabNav} from './orderNav';
+
+
 import EvenSplit from '../components/evenSplit';
 import YourStuff from '../components/yourStuff';
 import CustomAmount from '../components/customAmount';
-
 import Menu from '../components/menu.js';
 import Cart from '../components/cart';
 import Order from '../components/order.js';
-import GroupOrder from '../components/groupOrder';
+
 import ScrollStuff from '../components/scrollStuff';
 import {menuSetter} from '../helperFunctions/pureFunctions';
 
 //import {orderTabNav} from './orderNav';
 import { Ionicons } from '@expo/vector-icons';
 
-
 export const MenuNav = createStackNavigator({
   Menu: {
     screen: Menu,
     navigationOptions: {
-      headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
+      headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0, display: 'none'},
     },
   },
   ItemPage: {
     screen: ItemPage,
     navigationOptions: {
-      headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
+      headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0, display: 'none'},
       headerLeft: null,
     },
   },
 },{
   cardStyle: {backgroundColor: 'rgba(234, 235, 238, 1)'}
-
-
 }
 )
 
@@ -109,13 +100,12 @@ export const TabNav = createBottomTabNavigator({
         screen: TabNav,
         navigationOptions: {
           //title: 'Blah',
-          headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
+          headerStyle:{backgroundColor: 'green', borderBottomWidth: 0, height: 0, display: 'none'},
           headerVisible: false,
           // headerTintColor: 'white',
          //headerRight: <Hamburger />
        },
       },
-
       Items: {
         screen: Items,
         navigationOptions: {
@@ -123,7 +113,6 @@ export const TabNav = createBottomTabNavigator({
           headerTintColor: 'black',
       },
    },
-
       ScrollStuff: {
         screen: ScrollStuff,
         navigationOptions: {
@@ -131,22 +120,9 @@ export const TabNav = createBottomTabNavigator({
           headerTintColor: 'black',
       },
    },
-   ItemScroller: {
-     screen: ItemScroller,
-     navigationOptions: {
-       headerStyle:{backgroundColor: 'white', borderBottomWidth: 0, height: 0},
-       headerTintColor: 'black',
-   },
-   },
 
-   PayType: {
-     screen: PayType,
-     navigationOptions: {
-       headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
-       headerTintColor: 'blue',
-       headerLeft: null
-     },
-   },
+
+
    Order: {
      screen: Order,
      navigationOptions: {
@@ -158,9 +134,8 @@ export const TabNav = createBottomTabNavigator({
    EvenSplit: {
      screen: EvenSplit,
      navigationOptions: {
-       headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
-       headerTintColor: 'red',
-       headerLeft: null
+       headerStyle:{backgroundColor: 'rgba(231, 232, 235, 1)', borderBottomWidth: 0, height: 0},
+       headerTintColor: '#212121',
      },
    },
    YourStuff: {
@@ -190,7 +165,7 @@ export const TabNav = createBottomTabNavigator({
      Zero: {
        screen: inAppStackNav,
        navigationOptions: {
-         headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
+         headerStyle:{backgroundColor: 'green', borderBottomWidth: 0, height: 0, display: 'none'},
        },
      },
      One: {
@@ -200,7 +175,11 @@ export const TabNav = createBottomTabNavigator({
        },
      },
    },
-   {cardStyle: {backgroundColor:'white'}}
+   {
+     cardStyle: {
+       backgroundColor:'white'
+     }
+   }
  )
 
 //Maps the state object properties to React props so the data can be passed down components

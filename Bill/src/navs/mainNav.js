@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { createMaterialTopTabNavigator, createBottomTabNavigator, createStackNavigator, addNavigationHelpers, NavigationActions, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
-import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image, ActivityIndicator} from 'react-native';
+import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image, ActivityIndicator, StatusBar} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory, setMenu, setCurrentItem } from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
-
 import firebase from 'firebase'
 import signUp from '../components/signUp'
 import signIn from '../components/signIn'
@@ -22,7 +21,9 @@ class MainNav extends Component {
       return <Text style={styles.loading}>'loading'</Text>
     }
     else{
-      return <FullStackNav screenProps={this.props}/>
+      return (
+        <FullStackNav screenProps={this.props}/>
+      )
   }
 }
 
@@ -46,7 +47,7 @@ class MainNav extends Component {
        screen: signIn,
      },
 
-  
+
 
      Scan: {
        screen: Scanny,
@@ -70,10 +71,8 @@ class MainNav extends Component {
      Zero: {
        screen: DrawerNav,
        navigationOptions: {
-         headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
+         headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0,},
        },
-
-
      },
 
      One: {
@@ -81,12 +80,7 @@ class MainNav extends Component {
        navigationOptions: {
          headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
        },
-
-
      },
-
-
-
    })
 
 
@@ -151,6 +145,7 @@ const styles = StyleSheet.create({
   loading:{
     textAlign: 'center',
     marginTop: '50%',
+    color: 'white'
   },
   contain: {
     flex: 1,

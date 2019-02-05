@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput} from 'react-native';
 import Breaker from './breaker';
-import Tipper from '../flexComponents/tipper';
+
 import BottomButton from '../flexComponents/bottomButton';
 import PriceBreakdown from '../flexComponents/priceBreakdown';
 import { addUp, itemListCreator } from '../helperFunctions/pureFunctions';

@@ -1,29 +1,37 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput, Picker} from 'react-native';
 
-const PriceBreakdown = (props) => {
+export const PriceBreakdown = (props) => {
   return (
-
     <View style={styles.priceView}>
-
+    {props.children}
       <View style={styles.inDesc}>
-        <Text style={{fontSize: 18, fontWeight: 'bold'}}>Subtotal</Text>
-        <Text style={{fontSize: 18, fontWeight: 'bold'}}>${props.lineOneValue}</Text>
+        <Text style={{marginTop: 8, fontSize: 18, fontWeight: 'bold'}}>Subtotal</Text>
+        <Text style={{marginTop: 8, fontSize: 18, fontWeight: 'bold'}}>${props.lineOneValue}</Text>
       </View>
-
       <View style={styles.inDesc}>
-        <Text>Tax</Text>
-        <Text>${props.lineTwoValue}</Text>
+        <Text style={{marginTop: 8, fontSize: 14}}>Tax</Text>
+        <Text style={{marginTop: 8, fontSize: 14}}>${props.lineTwoValue}</Text>
       </View>
     </View>
   )
 }
-export default PriceBreakdown;
+
+export const SplitBreakdown = (props) => {
+  return(
+    <PriceBreakdown subtotal={props.subtotal}>
+        <Text style={{textAlign: 'center', fontSize: 24}}>Even Split</Text>
+        <Text style={{textAlign: 'center', fontSize: 18}}>Splitting Four Ways</Text>
+    </PriceBreakdown>
+  )
+}
 
 const styles = StyleSheet.create({
 
   priceView:{
-    height: 60,
+    height: 'auto',
+    paddingTop: 5,
+    paddingBottom: 5,
     //borderBottomColor: 'black',
     //borderBottomWidth: 1,
     backgroundColor:'white',

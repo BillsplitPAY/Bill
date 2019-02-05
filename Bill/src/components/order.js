@@ -6,13 +6,12 @@ import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 import Breaker from './breaker';
 import {itemListCreator} from '../helperFunctions/pureFunctions';
-import PriceBreakdown from '../flexComponents/priceBreakdown'
 import BottomButton, {PayButton, CheckoutButton} from '../flexComponents/bottomButton'
 import { StackNavigator } from 'react-navigation';
 import {gStyle} from '../styles/styles';
 import Tipper from './tipper';
 import PayOptions from './payOptions';
-import {SplitBreakdown} from './payPages/splitComponents';
+import {SplitBreakdown, PriceBreakdown} from '../flexComponents/priceBreakdown';
 import {OrderItemList} from '../flexComponents/itemList'
 
 export default class Order extends Component {
@@ -21,7 +20,7 @@ export default class Order extends Component {
     this.state ={
       tip: ()=>{return null},
       payUp: ()=>{return null},
-      breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)}/>},
+      breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)} subtotal={tax.toFixed(2)}/>},
       button: () => {return <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payOptionState()}} /> }
     }
     this.totalAdder = this.totalAdder.bind(this);

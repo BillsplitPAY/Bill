@@ -4,9 +4,7 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 import ScrollStuff from './scrollStuff.js';
 import Items from './items.js';
 import { Hamburger } from '../flexComponents/hamburger'
-//import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
-//import Ionicons from 'react-native-vector-icons/Ionicons';
 import {menuSetter} from '../helperFunctions/pureFunctions';
 
 export default class Menu extends Component {
@@ -20,15 +18,12 @@ export default class Menu extends Component {
 
   render() {
     const { navigate } = this.props.navigation.navigate
-    const categoriesArray = this.props.screenProps.menu.response.menu.menus.items[0].entries.items
-
-
     if (this.props.screenProps.newMenu !== 'whatever'){
-      console.log(global)
       return (
         <View style={styles.menuPage}>
-            <ScrollStuff categories={categoriesArray} />
-          <ScrollView ref='scrollo'>
+        <StatusBar barStyle="light-content" />
+          <ScrollStuff categories={Object.keys(this.props.screenProps.newMenu)} />
+          <ScrollView>
             <View style = {styles.items, {borderWidth: 1}}>
               <Items screenProps = {this.props.screenProps} setCurrentItem={this.props.screenProps.setCurrentItem} setCategory={this.props.screenProps.setCategory} menu ={this.props.screenProps.newMenu} navigate={this.props.navigation.navigate}/>
             </View>
@@ -46,14 +41,13 @@ export default class Menu extends Component {
   componentDidMount(){
     const categoriesArray = this.props.screenProps.menu.response.menu.menus.items[0].entries.items
     this.props.screenProps.setMenu(menuSetter(categoriesArray));
+    //transforms API menu object to more manageable menu object. Sets it to props.screenProps.newMenu.
   }
 }
 
 
 const styles = StyleSheet.create({
   menuPage: {
-    display: 'flex',
-    //flexDirection: 'column',
     backgroundColor: 'black',
     justifyContent: 'flex-end',
     alignItems: 'stretch',
