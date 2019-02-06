@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableHighlight, TouchableOpacity, TextInput} from 'react-native';
-import {gStyle} from '../styles/styles'
-import Breaker from './breaker'
+import {gStyle} from '../containers/styles'
+import Breaker from '../flexComponents/breaker'
 import { Ionicons } from '@expo/vector-icons';
 import Item from '../flexComponents/item';
 

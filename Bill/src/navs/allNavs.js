@@ -6,21 +6,13 @@ import { bindActionCreators } from 'redux';
 import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory, setMenu, setCurrentItem } from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import Scanny from '../flexComponents/qrScans';
-import Items from '../components/items';
 import ItemPage from '../components/itemPage';
-
-
-import EvenSplit from '../components/evenSplit';
-import YourStuff from '../components/yourStuff';
+import PaymentPage, {YourStuffPay, SplitPay, PickPay, RoulettePay} from '../components/payPages/paymentPage';
 import CustomAmount from '../components/customAmount';
 import Menu from '../components/menu.js';
 import Cart from '../components/cart';
 import Order from '../components/order.js';
-
-import ScrollStuff from '../components/scrollStuff';
 import {menuSetter} from '../helperFunctions/pureFunctions';
-
-//import {orderTabNav} from './orderNav';
 import { Ionicons } from '@expo/vector-icons';
 
 export const MenuNav = createStackNavigator({
@@ -106,22 +98,13 @@ export const TabNav = createBottomTabNavigator({
          //headerRight: <Hamburger />
        },
       },
-      Items: {
-        screen: Items,
-        navigationOptions: {
-          headerStyle:{backgroundColor: 'white', borderBottomWidth: 0, height: 0},
-          headerTintColor: 'black',
-      },
-   },
-      ScrollStuff: {
-        screen: ScrollStuff,
-        navigationOptions: {
-          headerStyle:{backgroundColor: 'white', borderBottomWidth: 0, height: 0},
-          headerTintColor: 'black',
-      },
-   },
-
-
+   //    MenuCategories: {
+   //      screen: MenuCategories,
+   //      navigationOptions: {
+   //        headerStyle:{backgroundColor: 'white', borderBottomWidth: 0, height: 0},
+   //        headerTintColor: 'black',
+   //    },
+   // },
 
    Order: {
      screen: Order,
@@ -131,21 +114,49 @@ export const TabNav = createBottomTabNavigator({
        headerLeft: null
      },
    },
-   EvenSplit: {
-     screen: EvenSplit,
+   SplitPay: {
+     screen: SplitPay,
      navigationOptions: {
        headerStyle:{backgroundColor: 'rgba(231, 232, 235, 1)', borderBottomWidth: 0, height: 0},
        headerTintColor: '#212121',
      },
    },
-   YourStuff: {
-     screen: YourStuff,
+   PaymentPage: {
+     screen: PaymentPage,
      navigationOptions: {
-       headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
-       headerTintColor: 'red',
-       headerLeft: null
+       headerStyle:{backgroundColor: 'rgba(231, 232, 235, 1)', borderBottomWidth: 0, height: 0},
+       headerTintColor: '#212121',
      },
    },
+   YourStuffPay: {
+     screen: YourStuffPay,
+     navigationOptions: {
+       headerStyle:{backgroundColor: 'rgba(231, 232, 235, 1)', borderBottomWidth: 0, height: 0},
+       headerTintColor: '#212121',
+     },
+   },
+   PickPay: {
+     screen: PickPay,
+     navigationOptions: {
+       headerStyle:{backgroundColor: 'rgba(231, 232, 235, 1)', borderBottomWidth: 0, height: 0},
+       headerTintColor: '#212121',
+     },
+   },
+   RoulettePay: {
+     screen: RoulettePay,
+     navigationOptions: {
+       headerStyle:{backgroundColor: 'rgba(231, 232, 235, 1)', borderBottomWidth: 0, height: 0},
+       headerTintColor: '#212121',
+     },
+   },
+   // YourStuff: {
+   //   screen: YourStuff,
+   //   navigationOptions: {
+   //     headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
+   //     headerTintColor: 'red',
+   //     headerLeft: null
+   //   },
+   // },
    CustomAmount: {
      screen: CustomAmount,
      navigationOptions: {

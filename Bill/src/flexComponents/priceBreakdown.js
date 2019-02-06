@@ -21,7 +21,33 @@ export const SplitBreakdown = (props) => {
   return(
     <PriceBreakdown subtotal={props.subtotal}>
         <Text style={{textAlign: 'center', fontSize: 24}}>Even Split</Text>
-        <Text style={{textAlign: 'center', fontSize: 18}}>Splitting Four Ways</Text>
+        <Text style={{textAlign: 'center', fontSize: 18}}>Splitting {'Four'} Ways</Text>
+    </PriceBreakdown>
+  )
+}
+
+export const YourBreakdown = (props) => {
+  return(
+    <PriceBreakdown subtotal={props.subtotal}>
+        <Text style={{textAlign: 'center', fontSize: 24}}>Your Stuff</Text>
+        <Text style={{textAlign: 'center', fontSize: 18}}>You ordered {'four'} items</Text>
+    </PriceBreakdown>
+  )
+}
+
+export const RouletteBreakdown = (props) => {
+  return(
+    <PriceBreakdown subtotal={props.subtotal}>
+        <Text style={{textAlign: 'center', fontSize: 24}}>Roulette</Text>
+    </PriceBreakdown>
+  )
+}
+
+export const PickBreakdown = (props) => {
+  return(
+    <PriceBreakdown subtotal={props.subtotal}>
+        <Text style={{textAlign: 'center', fontSize: 24}}>Custom Selection</Text>
+        <Text style={{textAlign: 'center', fontSize: 18}}>Select the items you wish to pay for</Text>
     </PriceBreakdown>
   )
 }

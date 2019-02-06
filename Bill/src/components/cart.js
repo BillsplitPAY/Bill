@@ -1,11 +1,11 @@
 //this is the content page
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput, TouchableWithoutFeedback} from 'react-native';
-import ScrollStuff from './scrollStuff.js';
-import Items from './items.js';
-import Breaker from './breaker';
-import {ItemList, CartItemList} from '../flexComponents/itemList';
-import { itemListCreator, addUp } from '../helperFunctions/pureFunctions';
+
+
+import Breaker from '../flexComponents/breaker';
+import {ListItem, CartListItem} from '../flexComponents/listItem';
+import { listItemCreator, addUp } from '../helperFunctions/pureFunctions';
 import {PriceBreakdown} from '../flexComponents/priceBreakdown';
 import NoteBox from '../flexComponents/noteBox';
 import firebase from 'firebase';
@@ -76,7 +76,7 @@ class Cart extends Component {
             <Text style={{fontWeight: 'bold', marginTop: 10, marginLeft: 10}}>Your Cart</Text>
           </View>
           <ScrollView>
-          {itemListCreator(cart, CartItemList)}
+          {listItemCreator(cart, CartListItem)}
           </ScrollView>
         </View>
 
@@ -106,7 +106,7 @@ class Cart extends Component {
      //     <View style={{width: '100%', height: 'auto'}}>
      //     <Text style={{textAlign: 'left', marginTop: 8, fontWeight: 'bold', fontSize: 14, marginLeft: 5}}>Your Cart</Text>
      //       <ScrollView style={{height: 'auto'}}>
-     //         {itemListCreator(cart)}
+     //         {listItemCreator(cart)}
      //      </ScrollView>
      //    </View>
      //

@@ -1,32 +1,37 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView,
   TouchableHighlight, Image, TouchableOpacity, TextInput, Animated, TouchableWithoutFeedback} from 'react-native';
-import ScrollStuff from './scrollStuff.js';
-import Items from './items.js';
-import Breaker from './breaker';
-import {itemListCreator} from '../helperFunctions/pureFunctions';
+
+import Breaker from '../flexComponents/breaker';
+import {listItemCreator} from '../helperFunctions/pureFunctions';
 import PriceBreakdown from '../flexComponents/priceBreakdown'
 import BottomButton from '../flexComponents/bottomButton'
 import { StackNavigator } from 'react-navigation';
-import {gStyle} from '../styles/styles';
+import {gStyle} from '../containers/styles';
 import Tipper from './tipper'
+
+const PayOp = (props)=>{
+return(
+<TouchableOpacity style={styles.payOption} onPress={props.doThis}>
+   <View style={{height: '100%',  width: '70%', alignItems: 'flex-start'}}><Text style={styles.payText}>{props.title}</Text><Text style={{color: 'black', marginTop: 10}}>{props.description}</Text></View>
+   <View style={{height: '100%',  width: '30%', justifyContent: 'center', alignItems: 'center',}}><Image source={props.img} style={{width:'90%', height: '90%'}}/></View>
+ </TouchableOpacity>
+)
+}
 
 const PayOptions = (props) =>{
   console.log(props)
   return(
-    <View style={{position: 'absolute', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
-
+    <View style={{position: 'absolute', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center',}}>
     <TouchableOpacity onPress={()=>{props.orderState()}} style={{width: '100%', height: '100%', backgroundColor: 'black', opacity: .5, position: 'absolute'}}><Text>test</Text></TouchableOpacity>
+    <View style={styles.optionsContainer}>
 
+      <PayOp title={"Even Split"} description={"Split the check with all of your friends, or whomever you choose."} img={require('../img/split.png')} doThis={()=>{props.navigate('SplitPay')}}/>
+      <PayOp title={"Your Items Only"} description={"Split the check with all of your friends, or whomever you choose."} img={require('../img/yourStuff.jpeg')} doThis={()=>{props.navigate('YourStuffPay')}}/>
+      <PayOp title={"Pick What You Pay For"} description={"Split the check with all of your friends, or whomever you choose."} img={require('../img/custom.png')} doThis={()=>{props.navigate('PickPay')}}/>
+      <PayOp title={"Roulette"} description={"Split the check with all of your friends, or whomever you choose."} img={require('../img/roulette.png')} doThis={()=>{props.navigate('RoulettePay')}}/>
+      <PayOp title={"I'm Treatin'!"} description={"Split the check with all of your friends, or whomever you choose."} img={require('../img/treatin.png')} doThis={null}/>
 
-    <View style={[styles.optionsContainer, {borderWidth: 2, borderRadius: 7.5}]}>
-       <TouchableOpacity onPress={()=>{props.navigate('EvenSplit')}} style={styles.payOption}>
-        <Text style={styles.payText}>Split</Text>
-        <Text style={{color: 'black', margin: 10, textAlign: 'center'}}>Split the check with all of your friends, or whomever you choose.</Text>
-       </TouchableOpacity>
-       <TouchableOpacity style={styles.payOption}><Text style={styles.payText}>Your Items Only</Text><Text style={{color: 'black', margin: 10, textAlign: 'center'}}>Split the check with all of your friends, or whomever you choose.</Text></TouchableOpacity>
-       <TouchableOpacity style={styles.payOption}><Text style={styles.payText}>Custom Selection</Text><Text style={{color: 'black', margin: 10, textAlign: 'center'}}>Split the check with all of your friends, or whomever you choose.</Text></TouchableOpacity>
-       <TouchableOpacity style={styles.payOption}><Text style={styles.payText}>Roulette</Text><Text style={{color: 'black', margin: 10, textAlign: 'center'}}>Split the check with all of your friends, or whomever you choose.</Text></TouchableOpacity>
     </View>
     </View>
   )
@@ -35,9 +40,9 @@ const PayOptions = (props) =>{
 export default PayOptions;
 
 const styles = StyleSheet.create({
-  optionsContainer:{height: 'auto', borderWidth: .1, borderColor: 'grey', width: '90%',  flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', bottom:52 },
+  optionsContainer:{height: 'auto', width: '93%',  justifyContent: 'space-between', bottom:52, alignItems: 'center'},
 
-  payOption:{height: 190, width: '45%', alignItems: 'center', justifyContent: 'flex-start', backgroundColor: 'white', marginBottom: 20, borderColor: '#212121', borderWidth: 2, borderRadius: 5},
+  payOption:{height: 100, width: '100%', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', backgroundColor: 'white', borderColor: '#212121', borderWidth: 2, borderRadius: 5, marginBottom: 20, paddingLeft: 5},
 
   cartPage:{justifyContent: 'space-between', height: '100%', opacity: 1},
 

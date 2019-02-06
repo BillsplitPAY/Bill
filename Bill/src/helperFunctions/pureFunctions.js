@@ -1,5 +1,5 @@
 import React from 'react';
-import ItemList from '../flexComponents/itemList';
+import ListItem from '../flexComponents/listItem';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput} from 'react-native';
 
 //takes an array containing objects and adds up the price properties of each object
@@ -9,7 +9,7 @@ export const addUp = function(array){
   }, 0)
 };
 
-export const itemListCreator = function(itemArray, ListType){
+export const listItemCreator = function(itemArray, ListType){
 //create new array that will hold objects that get rendered
   let newArray = []
 //if there's nothing in cart, render a message saying so.

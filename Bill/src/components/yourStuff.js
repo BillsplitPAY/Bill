@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput, Picker} from 'react-native';
-import Breaker from './breaker';
+import Breaker from '../flexComponents/breaker';
 
 import BottomButton from '../flexComponents/bottomButton';
 import PriceBreakdown from '../flexComponents/priceBreakdown';
-import { addUp, itemListCreator } from '../helperFunctions/pureFunctions';
+import { addUp, listItemCreator } from '../helperFunctions/pureFunctions';
 
 export default class YourStuff extends Component{
   constructor(props){
@@ -53,7 +53,7 @@ export default class YourStuff extends Component{
 
       <Breaker value='Your Stuff' />
       <View style={styles.descView}>
-        {itemListCreator(order)}
+        {listItemCreator(order)}
       </View>
 
       <PriceBreakdown lineOneText={'Group Total'} lineTwoText={'Your Total'} lineThreeText={'Your Tax'} lineFourText={'Your Subtotal'} lineOne={total} lineTwo={total} lineThree={tax} lineFour={subtotal}/>

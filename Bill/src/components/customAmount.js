@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput} from 'react-native';
-import Breaker from './breaker';
-
+import Breaker from '../flexComponents/breaker';
 import BottomButton from '../flexComponents/bottomButton';
 import PriceBreakdown from '../flexComponents/priceBreakdown';
-import { addUp, itemListCreator } from '../helperFunctions/pureFunctions';
+import { addUp, listItemCreator } from '../helperFunctions/pureFunctions';
 
 export default class EvenSplit extends Component{
   constructor(props){
@@ -25,7 +24,7 @@ export default class EvenSplit extends Component{
         <View>
           <Breaker value='Order Breakdown' />
           <View style={styles.descView}>
-              {itemListCreator(order)}
+              {listItemCreator(order)}
           </View>
           <PriceBreakdown lineOneText={'Group Total'} lineTwoText={'Group Tax'} lineThreeText={'Group Subtotal'} lineFourText={'Your Subtotal'} lineOne={total} lineTwo={tax} lineThree={subtotal} lineFour={subtotal}/>
 

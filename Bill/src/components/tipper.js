@@ -2,14 +2,14 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView,
   TouchableHighlight, Image, TouchableOpacity, TextInput, Animated} from 'react-native';
-import ScrollStuff from './scrollStuff.js';
-import Items from './items.js';
-import Breaker from './breaker';
-import {itemListCreator} from '../helperFunctions/pureFunctions';
+
+
+import Breaker from '../flexComponents/breaker';
+import {listItemCreator} from '../helperFunctions/pureFunctions';
 import PriceBreakdown from '../flexComponents/priceBreakdown'
 import BottomButton from '../flexComponents/bottomButton'
 import { StackNavigator } from 'react-navigation';
-import {gStyle} from '../styles/styles'
+import {gStyle} from '../containers/styles'
 
 export default class Tipper extends Component {
 constructor(props){
