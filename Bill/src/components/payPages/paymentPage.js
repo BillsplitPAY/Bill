@@ -7,6 +7,8 @@ import Tipper from '../tipper';
 import BottomButton, {PayButton, CheckoutButton} from '../../flexComponents/bottomButton'
 import {gStyle} from '../../containers/styles';
 import {OrderListItem} from '../../flexComponents/listItem'
+import OrderDropdown from '../../flexComponents/orderDropdown'
+
 
 export default class PaymentPage extends Component{
   constructor(props){
@@ -25,14 +27,13 @@ export default class PaymentPage extends Component{
       <View style={{justifyContent: 'space-between', height: 870, opacity: 1}} blurRadius={1}>
         <ScrollView>
           <View>
-           <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14}}>Your Items</Text>
-           {listItemCreator(this.props.screenProps.order, OrderListItem)}
-           <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14}}>Rob's Items</Text>
-           {listItemCreator(this.props.screenProps.order, OrderListItem)}
-           <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14}}>Lee's Items</Text>
-           {listItemCreator(this.props.screenProps.order, OrderListItem)}
-           <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14}}>Luc's Items</Text>
-           {listItemCreator(this.props.screenProps.order, OrderListItem)}
+          <OrderDropdown order={this.props.screenProps.order} name={'You'}/>
+          <OrderDropdown order={this.props.screenProps.order} name={'Lee'}/>
+          <OrderDropdown order={this.props.screenProps.order} name={'Scoe'}/>
+          <OrderDropdown order={this.props.screenProps.order} name={'Luc'}/>
+          <OrderDropdown order={this.props.screenProps.order} name={'Lyn'}/>
+
+
           </View>
       </ScrollView>
 

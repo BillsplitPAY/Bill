@@ -1,8 +1,6 @@
-
-
-export default function(state = 'whatever', action) {
+export default function(state = '', action) {
 	switch (action.type) {
-		case 'SETMENU':
+		case 'FETCH':
 			return action.payload
 			break;
 		default:

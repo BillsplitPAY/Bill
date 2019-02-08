@@ -7,62 +7,53 @@ import {styles_catScroller} from '../containers/container_catScroller'
 import {styles_menuCategories, categoryBuilder} from '../containers/container_menuCategories'
 import {styles_menu, menuSetter} from '../containers/container_menu'
 
-export const MenuCategories = (props) => {
+const MenuCategories = (props) => {
+  console.log(props)
     return(
       <View style={styles_menuCategories.unnecessary}>
-        {categoryBuilder(props.menu, props.navigate, props.setCurrentItem, props.setCategory, props.screenProps)}
+        {categoryBuilder(props.screenProps.menu, props.navigate, props.screenProps.setCurrentItem, props.screenProps.setCategory, props.screenProps)}
       </View>
     )
 }
 
-const CatScroller = (props) => {
-  function itemCreator(array){
-    return array.map((index) => {
-      return <View key={index.name} style = {styles_catScroller.scr}><Text style = {styles_catScroller.text}>{index}</Text></View>
-    })
-  }
-  return (
+const TopCatScroller = (props) => {
+  return(
     <View style={styles_catScroller.scroller}>
       <ScrollView horizontal = {true}>
-        <View style={styles_catScroller.scrollContainer}>{itemCreator(props.categories)}</View>
+        <View style={styles_catScroller.scrollContainer}>
+          {Object.keys(props.categories).map((index) => {return <View key={index} style = {styles_catScroller.scr}><Text style = {styles_catScroller.text}>{index}</Text></View>})}
+        </View>
     </ScrollView>
   </View>
-  );
+  )
 }
 
 export default class Menu extends Component {
   constructor(props){
     super(props);
   }
-static navigationOptions = {
-    title: 'Menu',
-    headerStyle: {height: 0},
-};
-
   render() {
     const { navigate } = this.props.navigation.navigate
-    if (this.props.screenProps.newMenu !== 'whatever'){
+
+    if (this.props.screenProps.menu === {}){
+      return <Text>Waiting for menu...</Text>
+    }
       return (
         <View style={styles_menu.menuPage}>
         <StatusBar barStyle="light-content" />
-          <CatScroller categories={Object.keys(this.props.screenProps.newMenu)} />
+          <TopCatScroller categories={this.props.screenProps.menu}/>
           <ScrollView>
-            <View style = {styles_menu.items, {borderWidth: 1}}>
-              <MenuCategories screenProps = {this.props.screenProps} setCurrentItem={this.props.screenProps.setCurrentItem} setCategory={this.props.screenProps.setCategory} menu ={this.props.screenProps.newMenu} navigate={this.props.navigation.navigate}/>
+            <View style={styles_menu.items, {borderWidth: 1}}>
+              <MenuCategories screenProps={this.props.screenProps} navigate={this.props.navigation.navigate}/>
             </View>
           </ScrollView>
         </View>
-      );
-    }
-
-    else{
-      return <Text>Waiting for menu...</Text>
-    }
+      )
   }
 
   componentDidMount(){
-    const categoriesArray = this.props.screenProps.menu.response.menu.menus.items[0].entries.items
+    const categoriesArray = this.props.screenProps.APIData.response.menu.menus.items[0].entries.items
     this.props.screenProps.setMenu(menuSetter(categoriesArray));
-    //transforms API menu object to more manageable menu object. Sets it to props.screenProps.newMenu.
+    //transforms API menu object to more manageable menu object. Sets it to props.screenProps.menu.
   }
 }

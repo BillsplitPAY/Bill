@@ -12,7 +12,9 @@ import {gStyle} from '../containers/styles';
 import Tipper from './tipper';
 import PayOptions from './payOptions';
 import {SplitBreakdown, PriceBreakdown} from '../flexComponents/priceBreakdown';
-import {OrderListItem} from '../flexComponents/listItem'
+import {OrderListItem} from '../flexComponents/listItem';
+import IndyOrder from '../flexComponents/orderDropdown'
+import firebase from 'firebase';
 
 export default class Order extends Component {
   constructor(props){
@@ -21,13 +23,47 @@ export default class Order extends Component {
       tip: ()=>{return null},
       payUp: ()=>{return null},
       breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)} subtotal={tax.toFixed(2)}/>},
-      button: () => {return <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payOptionState()}} /> }
+      button: () => {return <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payOptionState()}} /> },
+      dropdown: new Animated.Value(0)
     }
     this.totalAdder = this.totalAdder.bind(this);
     this.orderState = this.orderState.bind(this);
     this.payOptionState = this.payOptionState.bind(this);
     this.splitState = this.splitState.bind(this);
+    this.animator = this.animator.bind(this);
+    this.getFromFirebase = this.getFromFirebase.bind(this);
   }
+
+
+// Get a database reference to our posts
+getFromFirebase(){
+  firebase.database().ref('Restaurants/Larrys/Tables/Table1').on("value", function(snapshot) {
+    console.log(snapshot.val());
+  }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  });
+}
+// var ref = db.ref("server/saving-data/fireblog/posts");
+// firebase.database().ref('Restaurants/Larrys/Tables/Table1')
+//
+// // Attach an asynchronous callback to read the data at our posts reference
+// ref.on("value", function(snapshot) {
+//   console.log(snapshot.val());
+// }, function (errorObject) {
+//   console.log("The read failed: " + errorObject.code);
+// });
+
+  animator(itemCount){
+      if (this.state.dropdown._value === 0){
+          return Animated.timing(this.state.dropdown, {duration: 300, toValue: (itemCount*50)})
+      }
+      else{
+          return Animated.timing(this.state.dropdown, {duration: 300, toValue: 0})
+          //return Animated.timing(this.state.dropdown, {duration: 200, toValue: 0})
+      }
+  }
+
+
 
 payOptionState(){
   this.setState({
@@ -73,24 +109,22 @@ totalAdder(acc, itemObj){
     const subTotal = order.reduce(this.totalAdder, 0)
     const tax = subTotal * .07
     const total = subTotal + tax
-
+    this.getFromFirebase();
     return (
        <View style={styles.cartPage} blurRadius={1}>
 
        <TouchableOpacity onPress={()=>{this.orderState()}} style={[this.state.screenBlurrer, {width: '100%', height: '100%', position: 'absolute',}]} >
-       <Image source={{uri: 'https://dummyimage.com/300x600/e7e8eb/e7e8eb.jpg'}} style={{height: '100%', width: '100%'}}/>
+         <Image source={{uri: 'https://dummyimage.com/300x600/e7e8eb/e7e8eb.jpg'}} style={{height: '100%', width: '100%'}}/>
        </TouchableOpacity>
-         <ScrollView>
-           <View style={{borderColor: 'red', borderWidth: 1}}>
-            <View style={{borderColor: 'black', borderWidth: .5, width: '100%', height: 40, backgroundColor: '#212121'}}><Text style={styles.itemHeader}>Lyn's Items</Text></View>
-            {listItemCreator(this.props.screenProps.order, OrderListItem)}
+       <ScrollView>
+         <View>
+           <IndyOrder order={this.props.screenProps.order} name={'You'}/>
+           <IndyOrder order={this.props.screenProps.order} name={'Lyn'}/>
+           <IndyOrder order={this.props.screenProps.order} name={'Scoe'}/>
+           <IndyOrder order={this.props.screenProps.order} name={'Lee'}/>
+           <IndyOrder order={this.props.screenProps.order} name={'Luc'}/>
 
-            <Text style={styles.itemHeader}>Rob's Items</Text>
-            {listItemCreator(this.props.screenProps.order, OrderListItem)}
-            <Text style={styles.itemHeader}>Lee's Items</Text>
-            {listItemCreator(this.props.screenProps.order, OrderListItem)}
-            <Text style={styles.itemHeader}>Luc's Items</Text>
-            {listItemCreator(this.props.screenProps.order, OrderListItem)}
+
            </View>
        </ScrollView>
 
@@ -118,7 +152,7 @@ totalAdder(acc, itemObj){
 
     cartPage:{justifyContent: 'space-between', height: '100%', opacity: 1},
 
-    itemHeader:{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14, color: 'red'},
+    itemHeader:{fontSize: 20, fontWeight: 'bold', color: 'white'},
 
     payText: {textAlign:'center', fontSize: 20, fontFamily: gStyle.appFont}
 

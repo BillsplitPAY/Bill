@@ -7,6 +7,7 @@ import Tipper from '../tipper';
 import BottomButton, {PayButton, CheckoutButton} from '../../flexComponents/bottomButton'
 import {gStyle} from '../../containers/styles';
 import {OrderListItem} from '../../flexComponents/listItem'
+import OrderDropdown from '../../flexComponents/OrderDropdown'
 
 export default class EvenSplit extends Component{
   constructor(props){
@@ -25,6 +26,8 @@ export default class EvenSplit extends Component{
       <View style={styles.cartPage} blurRadius={1}>
         <ScrollView>
           <View>
+          <OrderDropdown order={this.props.screenProps.order} name={'You'}/>
+
            <Text style={styles.itemHeader}>Your Items</Text>
            {listItemCreator(this.props.screenProps.order, OrderListItem)}
            <Text style={styles.itemHeader}>Rob's Items</Text>

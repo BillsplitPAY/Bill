@@ -1,23 +1,23 @@
 import { combineReducers } from 'redux';
-import MenuReducer from './reducer_menu';
+import APIDataReducer from './reducer_apiData';
 import CartReducer from './reducer_cart';
 import PriceReducer from './reducer_price';
 import OrderReducer from './reducer_order';
 import TipReducer from './reducer_tip';
 import CatReducer from './reducer_category';
-import NewMenuReducer from './reducer_newMenu';
+import MenuReducer from './reducer_menu';
 import CurrentItem from './reducer_currentItem';
 import UserReducer from './reducer_user';
 
  export default combineReducers({
-	menu: MenuReducer,
+	APIData: APIDataReducer,
   load: 'yea',
   cart: CartReducer,
   price: PriceReducer,
   order: OrderReducer,
   tip: TipReducer,
   category: CatReducer,
-  newMenu: NewMenuReducer,
+  menu: MenuReducer,
   currentItem: CurrentItem,
   user: UserReducer,
 });

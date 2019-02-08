@@ -1,8 +1,6 @@
 //this is the content page
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput, TouchableWithoutFeedback} from 'react-native';
-
-
 import Breaker from '../flexComponents/breaker';
 import {ListItem, CartListItem} from '../flexComponents/listItem';
 import { listItemCreator, addUp } from '../helperFunctions/pureFunctions';
@@ -79,8 +77,6 @@ class Cart extends Component {
           {listItemCreator(cart, CartListItem)}
           </ScrollView>
         </View>
-
-
         <View style={{justifyContent: 'flex-end', height: '45%'}}>
         <Text style={{fontWeight: 'bold', marginBottom: 10, marginLeft: 10}}>Order Notes</Text>
         <NoteBox defaultValue={'e.g. Bring everything out together!'}/>

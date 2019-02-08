@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { createMaterialTopTabNavigator, createBottomTabNavigator, createStackNavigator, addNavigationHelpers, NavigationActions, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator, addNavigationHelpers, NavigationActions, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux'
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image} from 'react-native';
 import { bindActionCreators } from 'redux';
@@ -8,14 +8,14 @@ import { drawerContent } from './drawerContent';
 import Scanny from '../flexComponents/qrScans';
 import ItemPage from '../components/itemPage';
 import PaymentPage, {YourStuffPay, SplitPay, PickPay, RoulettePay} from '../components/payPages/paymentPage';
-import CustomAmount from '../components/customAmount';
+import CustomAmount from '../components/payPages/customAmount';
 import Menu from '../components/menu.js';
 import Cart from '../components/cart';
 import Order from '../components/order.js';
 import {menuSetter} from '../helperFunctions/pureFunctions';
 import { Ionicons } from '@expo/vector-icons';
 
-export const MenuNav = createStackNavigator({
+export const MenuStackNav = createStackNavigator({
   Menu: {
     screen: Menu,
     navigationOptions: {
@@ -29,14 +29,14 @@ export const MenuNav = createStackNavigator({
       headerLeft: null,
     },
   },
-},{
-  cardStyle: {backgroundColor: 'rgba(234, 235, 238, 1)'}
-}
+},
+{ cardStyle: {backgroundColor: 'rgba(234, 235, 238, 1)'} }
 )
+//--------------------------------------------------------------------------------------
 
 export const TabNav = createBottomTabNavigator({
   Menu: {
-    screen: MenuNav,
+    screen: MenuStackNav,
     navigationOptions: {
             tabBarLabel: <View style={{alignItems: 'center', marginBottom: 20}}><Ionicons name="md-book" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'Futura', fontSize: 14,}}>Menu</Text></View>,
         },
@@ -64,16 +64,12 @@ export const TabNav = createBottomTabNavigator({
       animationEnabled: 'true',
       style: {
         backgroundColor: '#212121',
-        //fontSize: 20,
-        //fontFamily: 'Futura',
-
         height: 75,
       },
       labelStyle: {
         fontSize: 12,
         fontFamily: 'Avenir',
         marginBottom: 3,
-
       }
     },
   },
@@ -87,158 +83,73 @@ export const TabNav = createBottomTabNavigator({
 
   }
 )
+//--------------------------------------------------------------------------------------
+  const defaultHeaderStyle = {backgroundColor: 'rgba(231, 232, 235, 1)', borderBottomWidth: 0, height: 0}
+  const defaultNavOptions = { headerStyle: defaultHeaderStyle, headerTintColor: '#212121', }
+
    export const inAppStackNav = createStackNavigator({
       TabNav: {
         screen: TabNav,
         navigationOptions: {
-          //title: 'Blah',
-          headerStyle:{backgroundColor: 'green', borderBottomWidth: 0, height: 0, display: 'none'},
+          headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
           headerVisible: false,
-          // headerTintColor: 'white',
-         //headerRight: <Hamburger />
        },
       },
-   //    MenuCategories: {
-   //      screen: MenuCategories,
-   //      navigationOptions: {
-   //        headerStyle:{backgroundColor: 'white', borderBottomWidth: 0, height: 0},
-   //        headerTintColor: 'black',
-   //    },
-   // },
-
-   Order: {
-     screen: Order,
-     navigationOptions: {
-       headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
-       headerTintColor: 'red',
-       headerLeft: null
+     SplitPay: {
+       screen: SplitPay,
+       navigationOptions: defaultNavOptions,
+     },
+     PaymentPage: {
+       screen: PaymentPage,
+       navigationOptions: defaultNavOptions,
+     },
+     YourStuffPay: {
+       screen: YourStuffPay,
+       navigationOptions: defaultNavOptions,
+     },
+     PickPay: {
+       screen: PickPay,
+       navigationOptions: defaultNavOptions,
+     },
+     RoulettePay: {
+       screen: RoulettePay,
+       navigationOptions: defaultNavOptions,
+     },
+     CustomAmount: {
+       screen: CustomAmount,
+       navigationOptions: defaultNavOptions,
      },
    },
-   SplitPay: {
-     screen: SplitPay,
-     navigationOptions: {
-       headerStyle:{backgroundColor: 'rgba(231, 232, 235, 1)', borderBottomWidth: 0, height: 0},
-       headerTintColor: '#212121',
-     },
-   },
-   PaymentPage: {
-     screen: PaymentPage,
-     navigationOptions: {
-       headerStyle:{backgroundColor: 'rgba(231, 232, 235, 1)', borderBottomWidth: 0, height: 0},
-       headerTintColor: '#212121',
-     },
-   },
-   YourStuffPay: {
-     screen: YourStuffPay,
-     navigationOptions: {
-       headerStyle:{backgroundColor: 'rgba(231, 232, 235, 1)', borderBottomWidth: 0, height: 0},
-       headerTintColor: '#212121',
-     },
-   },
-   PickPay: {
-     screen: PickPay,
-     navigationOptions: {
-       headerStyle:{backgroundColor: 'rgba(231, 232, 235, 1)', borderBottomWidth: 0, height: 0},
-       headerTintColor: '#212121',
-     },
-   },
-   RoulettePay: {
-     screen: RoulettePay,
-     navigationOptions: {
-       headerStyle:{backgroundColor: 'rgba(231, 232, 235, 1)', borderBottomWidth: 0, height: 0},
-       headerTintColor: '#212121',
-     },
-   },
-   // YourStuff: {
-   //   screen: YourStuff,
-   //   navigationOptions: {
-   //     headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
-   //     headerTintColor: 'red',
-   //     headerLeft: null
-   //   },
-   // },
-   CustomAmount: {
-     screen: CustomAmount,
-     navigationOptions: {
-       headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
-       headerTintColor: 'red',
-       headerLeft: null
-     },
-   },
- },
- {
-   cardStyle: {backgroundColor: 'rgba(234, 235, 238, 1)'},
-
- }
+ // { cardStyle: {backgroundColor: 'rgba(234, 235, 238, 1)'}, }
 );
 
-   export const FullStackNav = createStackNavigator({
-     Zero: {
-       screen: inAppStackNav,
-       navigationOptions: {
-         headerStyle:{backgroundColor: 'green', borderBottomWidth: 0, height: 0, display: 'none'},
-       },
-     },
-     One: {
-       screen: Scanny,
-       navigationOptions: {
-         headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
-       },
-     },
-   },
-   {
-     cardStyle: {
-       backgroundColor:'white'
-     }
-   }
- )
+ //   export const FullStackNav = createStackNavigator({
+ //     Zero: {
+ //       screen: inAppStackNav,
+ //       navigationOptions: {
+ //         headerStyle:{backgroundColor: 'green', borderBottomWidth: 0, height: 0, display: 'none'},
+ //       },
+ //     },
+ //     One: {
+ //       screen: Scanny,
+ //       navigationOptions: {
+ //         headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
+ //       },
+ //     },
+ //   },
+ //   { cardStyle: { backgroundColor:'white' }
+ //   }
+ // )
 
-//Maps the state object properties to React props so the data can be passed down components
 
 
 const styles = StyleSheet.create({
-
-  dimensions:{
-    borderWidth: 2,
-    borderColor: 'red',
-    height: '90%',
-    marginTop: 35,
-    backgroundColor: 'black',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  drawerHeader: {
-    height: 200,
-    backgroundColor: 'white'
-  },
-  drawerImage: {
-    height: 150,
-    width: 150,
-    borderRadius: 75
-  },
-  userName: {
-    color: '#252326',
-    fontWeight: '800',
-    marginTop: 10,
-    marginBottom: 10,
-    fontSize: 20
-  },
-  loading:{
-    textAlign: 'center',
-    marginTop: '50%',
-  },
-  contain: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 100,
-
-  },
-  icon: {
-    width: 24,
-    height: 24,
-  },
+  dimensions:{ borderWidth: 2, borderColor: 'red', height: '90%', marginTop: 35, backgroundColor: 'black', },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  drawerHeader: { height: 200, backgroundColor: 'white' },
+  drawerImage: { height: 150, width: 150, borderRadius: 75 },
+  userName: { color: '#252326', fontWeight: '800', marginTop: 10, marginBottom: 10, fontSize: 20 },
+  loading:{ textAlign: 'center', marginTop: '50%', },
+  contain: { flex: 1, justifyContent: 'center', alignItems: 'center', width: 100, },
+  icon: { width: 24, height: 24, },
 })

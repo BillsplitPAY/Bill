@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { createMaterialTopTabNavigator, createBottomTabNavigator, createStackNavigator, addNavigationHelpers, NavigationActions, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
+import { createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import { connect } from 'react-redux'
-import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image, ActivityIndicator, StatusBar} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory, setMenu, setCurrentItem } from '../actions/index.js';
+import { fetchAPIData, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory, setMenu, setCurrentItem } from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
@@ -12,12 +12,11 @@ import signUp from '../components/signUp'
 import signIn from '../components/signIn'
 import TableRequest from '../components/TableRequest'
 import {config} from '../../Firebase/firebaseConfig'
-
+import {styles_menu, menuSetter} from '../containers/container_menu'
 
 class MainNav extends Component {
-
   render(){
-    if (this.props.menu === ''){
+    if (this.props.APIData === ''){
       return <Text style={styles.loading}>'loading'</Text>
     }
     else{
@@ -26,13 +25,12 @@ class MainNav extends Component {
       )
   }
 }
-
   componentDidMount(){
     firebase.initializeApp(config);
-    {this.props.fetchMenu()}
+    this.props.fetchAPIData();
     console.log(this.props);
-
-}
+    // this.props.setMenu(menuSetter(this.props.menu.response.menu.menus.items[0].entries.items));
+  }
 }
 
    export const DrawerNav = createDrawerNavigator({
@@ -42,21 +40,15 @@ class MainNav extends Component {
      Home: {
        screen: inAppStackNav,
      },
-
      signIn: {
        screen: signIn,
      },
-
-
-
      Scan: {
        screen: Scanny,
      },
-
      signUp: {
        screen: signUp,
      },
-
    }, {
        initialRouteName: 'Home',
        drawerPosition: 'right',
@@ -74,7 +66,6 @@ class MainNav extends Component {
          headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0,},
        },
      },
-
      One: {
        screen: TableRequest,
        navigationOptions: {
@@ -83,17 +74,16 @@ class MainNav extends Component {
      },
    })
 
-
 //Maps the state object properties to React props so the data can be passed down components
 function mapStateToProps(state){
   return {
-    menu: state.menu,
+    APIData: state.APIData,
     cart: state.cart,
     price: state.price,
     order: state.order,
     tip: state.tip,
     category: state.category,
-    newMenu: state.newMenu,
+    menu: state.menu,
     currentItem: state.currentItem,
     user: state.user,
   }
@@ -103,7 +93,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return bindActionCreators(
     {
-      fetchMenu: fetchMenu,
+      fetchAPIData: fetchAPIData,
       fetchData: fetchData,
       addItem: addItem,
       addPrice: addPrice,

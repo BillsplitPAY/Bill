@@ -4,6 +4,7 @@ import {gStyle} from '../containers/styles'
 import Breaker from '../flexComponents/breaker'
 import { Ionicons } from '@expo/vector-icons';
 import Item from '../flexComponents/item';
+import BottomButton from '../flexComponents/bottomButton';
 
 
 class ItemPage extends Component {
@@ -13,9 +14,9 @@ class ItemPage extends Component {
     this.repeater = this.repeater.bind(this)
   }
 
-  repeater(iteratedThing, navigate, screenProps){
-    return iteratedThing.map((item)=>{
-      return <Item foodItem={item} category={iteratedThing} navi={navigate} screenProps={screenProps}/>
+  repeater(array, navigate, screenProps){
+    return array.map((item)=>{
+      return <Item foodItem={item} category={array} navi={navigate} screenProps={screenProps}/>
     })
   }
 
@@ -23,8 +24,6 @@ class ItemPage extends Component {
     console.table(this.props)
     const {navigate} = this.props.navigation;
     //category is an object with the category's name under the name property, and the category's items under .entries.items
-
-
     const itemName = this.props.screenProps.currentItem.name;
     const itemDesc = this.props.screenProps.currentItem.desc;
     const itemPrice = this.props.screenProps.currentItem.price;
@@ -32,19 +31,16 @@ class ItemPage extends Component {
     return(
       <View style={[gStyle.page, styles.topDiv]}>
 
-      <View style={[gStyle.row, styles.itemAndCounterRow]}>
-
-        <View style={styles.itemDiv}>
-          <Text style={styles.itemName}>{itemName}</Text>
-          <Text style={styles.itemDescription}>{itemDesc}</Text>
-        </View>
-
+        <View style={[gStyle.row, styles.itemAndCounterRow]}>
+          <View style={styles.itemDiv}>
+            <Text style={styles.itemName}>{itemName}</Text>
+            <Text style={styles.itemDescription}>{itemDesc}</Text>
+          </View>
         <View style={[gStyle.row, styles.counterDiv]}>
           <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) - 1)})}}><Ionicons name="ios-remove-circle-outline" size={32} /></TouchableHighlight>
           <TextInput style={styles.textBox} defaultValue={String(this.state.quantity)} autoFocus={false}/>
           <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) + 1)})}}><Ionicons name="ios-add-circle-outline" size={32} /></TouchableHighlight>
         </View>
-
       </View>
 
       <Breaker value={'Item Options'}/>
@@ -52,16 +48,10 @@ class ItemPage extends Component {
 
       <Breaker value={'Similar Items'}/>
       <View style={styles.similarDiv}>
-
-      {this.repeater(this.props.screenProps.category.category, this.props.navigation.navigate, this.props.screenProps)}
-
-
+        {this.repeater(this.props.screenProps.category.category, this.props.navigation.navigate, this.props.screenProps)}
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={() => {navigate('Menu'); for(let i = 0; i < this.state.quantity; i++){this.props.screenProps.addItem((this.props.screenProps.currentItem))}; this.props.screenProps.addPrice(Number(itemPrice))}}>
-        <Text style={styles.buttonText}>Add To Cart</Text>
-        <Text style={styles.price}>${(itemPrice * this.state.quantity).toFixed(2)}</Text>
-      </TouchableOpacity>
+      <BottomButton buttonText={'Add to Cart'} buttonPrice={(itemPrice * this.state.quantity).toFixed(2)} doThis={() => {navigate('Menu'); for(let i = 0; i < this.state.quantity; i++){this.props.screenProps.addItem((this.props.screenProps.currentItem))}; this.props.screenProps.addPrice(Number(itemPrice))}}/>
 
       </View>
     )

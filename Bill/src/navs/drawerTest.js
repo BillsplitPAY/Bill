@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput} from 'react-native';
-import { MenuNav } from './stackNavs';
+import { MenuStackNav } from './stackNavs';
 import { createDrawerNavigator } from 'react-navigation'
 
  export default class DrawerTest extends Component  {

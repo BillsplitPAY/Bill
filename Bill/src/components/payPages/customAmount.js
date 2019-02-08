@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput} from 'react-native';
-import Breaker from '../flexComponents/breaker';
-import BottomButton from '../flexComponents/bottomButton';
-import PriceBreakdown from '../flexComponents/priceBreakdown';
-import { addUp, listItemCreator } from '../helperFunctions/pureFunctions';
+import Breaker from '../../flexComponents/breaker';
+import BottomButton from '../../flexComponents/bottomButton';
+import PriceBreakdown from '../../flexComponents/priceBreakdown';
+import { addUp, listItemCreator } from '../../helperFunctions/pureFunctions';
 
 export default class EvenSplit extends Component{
   constructor(props){
@@ -27,7 +27,6 @@ export default class EvenSplit extends Component{
               {listItemCreator(order)}
           </View>
           <PriceBreakdown lineOneText={'Group Total'} lineTwoText={'Group Tax'} lineThreeText={'Group Subtotal'} lineFourText={'Your Subtotal'} lineOne={total} lineTwo={tax} lineThree={subtotal} lineFour={subtotal}/>
-
           <View style={styles.customDiv}>
               <Text style={styles.customText}>How Much Would You Like to Pay?</Text>
               <TextInput style={styles.textBox} autoFocus={true} onChangeText={(payment) => {this.setState({amount: Number(payment)})}}/>
@@ -37,36 +36,12 @@ export default class EvenSplit extends Component{
           <BottomButton navigate={this.props.navigation.navigate} buttonText={`Pay $ ${payAmount}`}/>
         </View>
       </View>
-
     )
   }
-
 }
 
 const styles = StyleSheet.create({
-  customDiv:{
-    flexDirection: 'row',
-    marginTop: 20,
-    marginBottom: 20,
-    // marginLeft: 10,
-    justifyContent: 'center',
-  },
-  customText:{
-    fontSize: 20,
-    flexWrap: 'wrap',
-    width: '50%'
-  },
-  textBox:{
-    height: 55,
-    width: '40%',
-    borderColor: 'grey',
-    borderWidth: 5,
-    borderRadius: 10,
-    color: 'grey',
-    backgroundColor: 'white',
-    fontSize: 20,
-    color: 'black',
-    paddingLeft: 10,
-  },
-
+  customDiv:{ flexDirection: 'row', marginTop: 20, marginBottom: 20, justifyContent: 'center', },
+  customText:{ fontSize: 20, flexWrap: 'wrap', width: '50%' },
+  textBox:{ height: 55, width: '40%', borderColor: 'grey', borderWidth: 5, borderRadius: 10, color: 'grey', backgroundColor: 'white', fontSize: 20, color: 'black', paddingLeft: 10, },
 })
