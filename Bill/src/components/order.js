@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView,
   TouchableHighlight, Image, TouchableOpacity, TextInput, Animated} from 'react-native';
-
-
 import Breaker from '../flexComponents/breaker';
 import {listItemCreator} from '../helperFunctions/pureFunctions';
 import BottomButton, {PayButton, CheckoutButton} from '../flexComponents/bottomButton'
@@ -13,7 +11,7 @@ import Tipper from './tipper';
 import PayOptions from './payOptions';
 import {SplitBreakdown, PriceBreakdown} from '../flexComponents/priceBreakdown';
 import {OrderListItem} from '../flexComponents/listItem';
-import IndyOrder from '../flexComponents/orderDropdown'
+import OrderDropdown from '../flexComponents/orderDropdown'
 import firebase from 'firebase';
 
 export default class Order extends Component {
@@ -28,8 +26,8 @@ export default class Order extends Component {
     }
     this.totalAdder = this.totalAdder.bind(this);
     this.orderState = this.orderState.bind(this);
-    this.payOptionState = this.payOptionState.bind(this);
-    this.splitState = this.splitState.bind(this);
+    // this.payOptionState = this.payOptionState.bind(this);
+    // this.splitState = this.splitState.bind(this);
     this.animator = this.animator.bind(this);
     this.getFromFirebase = this.getFromFirebase.bind(this);
   }
@@ -37,7 +35,7 @@ export default class Order extends Component {
 
 // Get a database reference to our posts
 getFromFirebase(){
-  firebase.database().ref('Restaurants/Larrys/Tables/Table1').on("value", function(snapshot) {
+  firebase.database().ref('Restaurants/Larrys/Tables/Table1/26/0').on("value", function(snapshot) {
     console.log(snapshot.val());
   }, function (errorObject) {
     console.log("The read failed: " + errorObject.code);
@@ -63,8 +61,6 @@ getFromFirebase(){
       }
   }
 
-
-
 payOptionState(){
   this.setState({
     payUp: ()=>{return <PayOptions payState={()=>{return this.splitState()}} orderState={()=>{return this.orderState()}} navigate={this.props.navigation.navigate}/>}
@@ -78,24 +74,6 @@ orderState(){
     payUp: ()=>{return null},
     breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)}/>},
     button: () => {return <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payState()}}/> }
-  })
-}
-
-splitState(){
-  this.setState({
-    tip:()=>{return <Tipper />},
-    breakdown: ()=>{return <SplitBreakdown />},
-    payUp: ()=>{return null},
-    button: ()=>{return <PayButton buttonPrice={'$0.00'}/>},
-  })
-}
-
-customState(){
-  this.setState({
-    tip:()=>{return <Tipper />},
-    breakdown: ()=>{return <SplitBreakdown />},
-    payUp: ()=>{return null},
-    button: ()=>{return <PayButton buttonPrice={'$0.00'}/>},
   })
 }
 
@@ -118,22 +96,17 @@ totalAdder(acc, itemObj){
        </TouchableOpacity>
        <ScrollView>
          <View>
-           <IndyOrder order={this.props.screenProps.order} name={'You'}/>
-           <IndyOrder order={this.props.screenProps.order} name={'Lyn'}/>
-           <IndyOrder order={this.props.screenProps.order} name={'Scoe'}/>
-           <IndyOrder order={this.props.screenProps.order} name={'Lee'}/>
-           <IndyOrder order={this.props.screenProps.order} name={'Luc'}/>
-
-
-           </View>
+           <OrderDropdown order={this.props.screenProps.order} startValue={order.length*50} name={'You'}/>
+           <OrderDropdown order={this.props.screenProps.order} startValue={0} name={'Lyn'}/>
+           <OrderDropdown order={this.props.screenProps.order} startValue={0} name={'Scoe'}/>
+           <OrderDropdown order={this.props.screenProps.order} startValue={0} name={'Lee'}/>
+           <OrderDropdown order={this.props.screenProps.order} startValue={0} name={'Luc'}/>
+           {this.getFromFirebase()}
+         </View>
        </ScrollView>
 
-       {this.state.breakdown(subTotal, tax)}
-
-       {this.state.tip()}
-
+       
        <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payOptionState()}}/>
-
        {this.state.payUp()}
 
      </View>

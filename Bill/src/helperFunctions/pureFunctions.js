@@ -46,7 +46,7 @@ export const listItemCreator = function(itemArray, ListType){
   })
     console.log(newArray)
     return newArray.map((newItem) => {
-        return <ListType itemAmount = {newItem.quantity} itemName = {newItem.name} itemPrice={newItem.price} />
+        return <ListType key={newItem.name} itemAmount = {newItem.quantity} itemName = {newItem.name} itemPrice={newItem.price} />
     })
   }
 

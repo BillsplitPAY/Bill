@@ -6,14 +6,14 @@ const Item = (props) => {
 const setCurrentItem = props.screenProps.setCurrentItem
 const setCategory = props.screenProps.setCategory
   return(
-    <View style={styles.touchContainer}>
-        <TouchableHighlight style={styles.touch} onPress={() => {setCurrentItem(props.foodItem); setCategory(props.category); props.navi('ItemPage')}} >
+
+        <TouchableHighlight style={[styles.touch, styles.touchContainer]} onPress={() => {setCurrentItem(props.foodItem); setCategory(props.category); props.navi('ItemPage')}} >
         <View style={styles.innerTouch}>
               <Text style={[styles.foodName, {width: '83%', fontFamily: 'Futura',}]}>{props.foodItem.name}</Text>
               <Text style={[styles.foodPrice, {width: '17%', alignSelf: 'flex-end'}]}>{(isNaN(props.foodItem.price)) ? '':`$${Number(props.foodItem.price).toFixed(0)}`}</Text>
             </View>
             </TouchableHighlight>
-      </View>
+    
     )
 }
 

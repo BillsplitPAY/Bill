@@ -16,7 +16,7 @@ class ItemPage extends Component {
 
   repeater(array, navigate, screenProps){
     return array.map((item)=>{
-      return <Item foodItem={item} category={array} navi={navigate} screenProps={screenProps}/>
+      return <Item key={item.name} foodItem={item} category={array} navi={navigate} screenProps={screenProps}/>
     })
   }
 

@@ -24,11 +24,15 @@ class Cart extends Component {
    headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0},
    headerTintColor: 'white'
 };
+
   sendToFirebase(cartInfo, subtotal) {
 
     this.props.screenProps.submitOrder(cartInfo);
     this.props.screenProps.emptyCart();
     this.props.navigation.navigate('Order')
+
+
+    
 
     console.log('TRYINGNN TO SEND THE DATAAAAA!!!')
       //console.log(cartInfo)
@@ -41,9 +45,7 @@ class Cart extends Component {
 
     firebase.database().ref('Restaurants/Larrys/Tables/Table1')
     // .child('8888').setValue(cartInfo)
-    .push()
-    .set(cartInfo)
-    .then((data)=>{
+    .child('26').set(cartInfo).then((data)=>{
         //success callback
         console.log('data ', cartInfo)
     }).catch((error)=>{
@@ -52,6 +54,10 @@ class Cart extends Component {
     })
 
   }
+
+
+
+
 
   totalAdder(acc, itemObj){
     return acc + itemObj.price
@@ -64,6 +70,8 @@ class Cart extends Component {
     const subtotal = cart.reduce(this.totalAdder, 0)
     const tax = subtotal * .07
     const total = subtotal + tax
+
+
 
     console.log(this.props)
     return (

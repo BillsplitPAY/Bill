@@ -10,7 +10,7 @@ export const categoryBuilder = (obj, navigate, setItem, setCat, screenProps) => 
     return(
     <View key={category}style={{backgroundColor: '#edeef0'}}>
       <Breaker value={category[0].category}/>
-      <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', alignItems: 'flex-start', backgroundColor: '#edeef0',  margin: '1.8%', height: 'auto'}}>
+      <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', alignItems: 'flex-start', backgroundColor: '#edeef0',  height: 'auto'}}>
       {category.map(function(item){return <Item key={item.name} foodItem={item} category={category} navi={navigate} screenProps={screenProps}/>})}
       </View>
     </View>

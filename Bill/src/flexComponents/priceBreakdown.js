@@ -13,7 +13,20 @@ export const PriceBreakdown = (props) => {
         <Text style={{marginTop: 8, fontSize: 14}}>Tax</Text>
         <Text style={{marginTop: 8, fontSize: 14}}>${props.lineTwoValue}</Text>
       </View>
+      <View style={styles.inDesc}>
+        <Text style={{marginTop: 8, fontSize: 18, fontWeight: 'bold'}}>Order Total</Text>
+        <Text style={{marginTop: 8, fontSize: 18, fontWeight: 'bold'}}>${props.lineTwoValue + props.lineOneValue}</Text>
+      </View>
     </View>
+  )
+}
+
+export const OrderBreakdown = (props) => {
+  return(
+    <PriceBreakdown subtotal={props.subtotal}>
+        <Text style={{textAlign: 'center', fontSize: 24}}>Even Split</Text>
+        <Text style={{textAlign: 'center', fontSize: 18}}>Splitting {'Four'} Ways</Text>
+    </PriceBreakdown>
   )
 }
 

@@ -15,7 +15,7 @@ export default class OrderDropdown extends React.Component{
   constructor(props){
     super(props)
     this.state={
-      dropdown: new Animated.Value(0),
+      dropdown: new Animated.Value(this.props.startValue),
       text: new Animated.Value(0),
     }
     this.animator=this.animator.bind(this)
@@ -60,7 +60,11 @@ render(){
 )
 
   }
+  shouldComponentUpdate(){
+    return true
+  }
 }
+
 
 
 const styles = StyleSheet.create({
