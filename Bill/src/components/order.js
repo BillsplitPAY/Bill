@@ -7,14 +7,15 @@ import {listItemCreator} from '../helperFunctions/pureFunctions';
 import BottomButton, {PayButton, CheckoutButton} from '../flexComponents/bottomButton'
 import { StackNavigator } from 'react-navigation';
 import {gStyle} from '../containers/styles';
-import Tipper from './tipper';
+import {Tipper} from './tipper';
 import PayOptions from './payOptions';
 import {SplitBreakdown, PriceBreakdown} from '../flexComponents/priceBreakdown';
 import {OrderListItem} from '../flexComponents/listItem';
 import OrderDropdown from '../flexComponents/orderDropdown'
 import firebase from 'firebase';
+import { connect } from 'react-redux'
 
-export default class Order extends Component {
+class Order extends Component {
   constructor(props){
     super(props);
     this.state ={
@@ -22,7 +23,8 @@ export default class Order extends Component {
       payUp: ()=>{return null},
       breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)} subtotal={tax.toFixed(2)}/>},
       button: () => {return <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payOptionState()}} /> },
-      dropdown: new Animated.Value(0)
+      dropdown: new Animated.Value(0),
+
     }
     this.totalAdder = this.totalAdder.bind(this);
     this.orderState = this.orderState.bind(this);
@@ -63,7 +65,7 @@ getFromFirebase(){
 
 payOptionState(){
   this.setState({
-    payUp: ()=>{return <PayOptions payState={()=>{return this.splitState()}} orderState={()=>{return this.orderState()}} navigate={this.props.navigation.navigate}/>}
+    payUp: ()=>{return <PayOptions payState={()=>{return this.splitState()}} orderState={this.orderState} navigate={this.props.navigation.navigate}/>}
   })
   console.log(this.state)
 }
@@ -75,6 +77,7 @@ orderState(){
     breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)}/>},
     button: () => {return <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payState()}}/> }
   })
+  console.log(this.state)
 }
 
 totalAdder(acc, itemObj){
@@ -96,16 +99,16 @@ totalAdder(acc, itemObj){
        </TouchableOpacity>
        <ScrollView>
          <View>
-           <OrderDropdown order={this.props.screenProps.order} startValue={order.length*50} name={'You'}/>
-           <OrderDropdown order={this.props.screenProps.order} startValue={0} name={'Lyn'}/>
-           <OrderDropdown order={this.props.screenProps.order} startValue={0} name={'Scoe'}/>
-           <OrderDropdown order={this.props.screenProps.order} startValue={0} name={'Lee'}/>
-           <OrderDropdown order={this.props.screenProps.order} startValue={0} name={'Luc'}/>
-           {this.getFromFirebase()}
+           <OrderDropdown key={this.props.order} orders={this.props.order} startVal={this.props.order.length*50} name={'You'}/>
+           <OrderDropdown orders={this.props.order} startVal={0} name={'Lyn'}/>
+           <OrderDropdown orders={this.props.order} startVal={0} name={'Scoe'}/>
+           <OrderDropdown orders={this.props.order} startVal={0} name={'Lee'}/>
+           <OrderDropdown orders={this.props.order} startVal={0} name={'Luc'}/>
+
          </View>
        </ScrollView>
 
-       
+
        <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payOptionState()}}/>
        {this.state.payUp()}
 
@@ -113,6 +116,17 @@ totalAdder(acc, itemObj){
       );
     }
   }
+
+  function mapStateToProps(state){
+    return {
+      order: state.order
+    }
+  }
+
+
+  export default connect(mapStateToProps)(Order)
+
+
 
   // <TouchableOpacity onPress={()=>{console.log(this.state); this.setState({screenBlurrer:{opacity: .5, zIndex: 0, borderColor: 'blue', borderWidth: 2}})}} style={[this.state.screenBlurrer, {width: '100%', height: '100%', position: 'absolute',}]} >
 

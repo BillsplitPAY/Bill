@@ -14,13 +14,12 @@ export const ListItem = (props) => {
             <Text style={styles.descText, {fontStyle: 'italic'}}>{props.itemName}</Text>
             <Text style={styles.descPrice, {fontWeight: 'bold'}}>${props.itemPrice}</Text>
           </View>
-          <View style={{borderColor: 'red', borderWidth: 1, height: '100%', width: 90, flexDirection: 'row'}}>
-            <View style={{backgroundColor: 'red', height: '100%', width: '50%'}}><Text>Edit</Text></View>
-            <View style={{backgroundColor: 'blue', height: '100%', width: '50%'}}><Text>Delete</Text></View>
+          <View style={{height: '100%', width: 90, flexDirection: 'row'}}>
+            <TouchableHighlight style={{borderRightColor: 'white', borderRightWidth:.5, backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: '50%'}} onPress={()=>{props.editor(props.itemName)}}><Text style={{color:'white'}}>Edit</Text></TouchableHighlight>
+            <TouchableHighlight style={{backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: 'auto', paddingRight:10, paddingLeft: 2}} onPress={()=>{props.screenProps.removeItem(props.itemName)}}><Text style={{color:'white'}}>Delete</Text></TouchableHighlight>
           </View>
-
-          </Animated.View>
-        </TouchableOpacity>
+        </Animated.View>
+      </TouchableOpacity>
     )
   }
 
@@ -41,7 +40,7 @@ export class CartListItem extends Component {
   }
   render(){
     return (
-      <ListItem {...this.props} animate={this.animator} right={this.state.edit} borderWidth={null}/>
+      <ListItem {...this.props} animate={this.animator} right={this.state.edit} borderWidth={null} />
     )
   }
 }

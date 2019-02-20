@@ -8,6 +8,11 @@ export default function(state = [], action) {
 			case 'EMPTY':
 				return []
 				break;
+				case 'REMOVE':
+					return state.filter((item)=>{
+						return item.name !== action.payload
+					})
+					break;
 		default:
 			return state;
 			break;

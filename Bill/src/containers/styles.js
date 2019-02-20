@@ -20,5 +20,4 @@ export const gStyle = {
     flexDirection: 'row',
   },
   appFont: 'Futura'
-
 };

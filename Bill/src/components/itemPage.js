@@ -6,7 +6,6 @@ import { Ionicons } from '@expo/vector-icons';
 import Item from '../flexComponents/item';
 import BottomButton from '../flexComponents/bottomButton';
 
-
 class ItemPage extends Component {
   constructor(props){
     super(props)
@@ -44,7 +43,7 @@ class ItemPage extends Component {
       </View>
 
       <Breaker value={'Item Options'}/>
-      <View style={{height: 200}}></View>
+      <View style={{height: 'auto'}}></View>
 
       <Breaker value={'Similar Items'}/>
       <View style={styles.similarDiv}>
@@ -63,72 +62,25 @@ export default ItemPage;
 
 const styles = StyleSheet.create({
 
-topDiv:{
-  justifyContent: 'space-between',
-},
-itemAndCounterRow:{
-  height: 200,
-},
-itemDiv:{
-  width: '50%',
-  justifyContent: 'flex-start',
-  paddingLeft: 10,
-},
-itemName:{
-  fontSize: 20,
-  fontWeight: 'bold',
-  marginTop: 32,
-  marginBottom: 8,
-},
-itemDescription:{
-  fontSize: 15
-},
-counterDiv: {
-  alignItems: 'center',
-  justifyContent:'center',
-  width: '50%'
-},
-similarDiv:{
-  height: 200,
-  flexWrap: 'wrap',
-  justifyContent: 'space-around'
-},
+topDiv:{ justifyContent: 'space-between', },
 
-  button:{
-    flexDirection: 'row',
-    backgroundColor: 'black',
-    height: 45,
-    width: '99%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'center',
-    marginBottom: 2,
-    borderRadius: 5,
-  },
-   buttonText:{
-     color: 'white',
-     fontWeight:'bold',
-     marginLeft: '37%',
-     fontSize: 17,
-   },
-   price:{
-     //alignSelf: 'flex-end',
-     color: '#8bc34a',
-     fontWeight:'bold',
-     marginRight: 4,
-     fontSize: 17,
-   },
-   textBox:{
-     backgroundColor: '#ececec',
-     borderWidth: 2,
-     borderColor: 'black',
-     width: '20%',
-     height: '40%',
-     alignSelf: 'center',
-     borderRadius: 5,
-     textAlign: 'center',
-     fontSize: 20,
-     marginLeft: 8,
-     marginRight: 8,
-   },
+itemAndCounterRow:{ height: 200, },
+
+itemDiv:{ width: '50%', justifyContent: 'flex-start', paddingLeft: 10, },
+
+itemName:{ fontSize: 20, fontWeight: 'bold', marginTop: 32, marginBottom: 8, },
+
+itemDescription:{ fontSize: 15 },
+
+counterDiv: { alignItems: 'center', justifyContent:'center', width: '50%' },
+
+similarDiv:{ height: 200, flexWrap: 'wrap', justifyContent: 'space-around' },
+
+button:{ flexDirection: 'row', backgroundColor: 'black', height: 45, width: '99%', justifyContent: 'space-between', alignItems: 'center', alignSelf: 'center', marginBottom: 2, borderRadius: 5, },
+
+buttonText:{ color: 'white', fontWeight:'bold', marginLeft: '37%', fontSize: 17, },
+
+
+
+textBox:{ backgroundColor: 'white', borderWidth: 2, borderColor: 'black', width: '20%', height: '40%', alignSelf: 'center', borderRadius: 5, textAlign: 'center', fontSize: 20, marginLeft: 8, marginRight: 8, },
 })

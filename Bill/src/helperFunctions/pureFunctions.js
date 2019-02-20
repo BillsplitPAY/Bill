@@ -9,7 +9,7 @@ export const addUp = function(array){
   }, 0)
 };
 
-export const listItemCreator = function(itemArray, ListType){
+export const listItemCreator = function(itemArray, ListType, editor, screenProps){
 //create new array that will hold objects that get rendered
   let newArray = []
 //if there's nothing in cart, render a message saying so.
@@ -17,7 +17,7 @@ export const listItemCreator = function(itemArray, ListType){
     return <Text style={{textAlign: 'center', marginTop: 40}}>You dont have anything in your cart yet!</Text>
   }
 //if there are objects in cart array, iterate over objects
-  itemArray.map(function(item){
+  itemArray.map((item) => {
     //add the first object in cart to newArray
     if (newArray.length === 0){
       newArray.push({...item, quantity: 1})
@@ -46,7 +46,7 @@ export const listItemCreator = function(itemArray, ListType){
   })
     console.log(newArray)
     return newArray.map((newItem) => {
-        return <ListType key={newItem.name} itemAmount = {newItem.quantity} itemName = {newItem.name} itemPrice={newItem.price} />
+        return <ListType key={newItem.name} itemAmount = {newItem.quantity} itemName = {newItem.name} itemPrice={newItem.price} editor={editor} screenProps={screenProps}/>
     })
   }
 

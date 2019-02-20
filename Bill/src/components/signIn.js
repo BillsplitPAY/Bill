@@ -63,12 +63,14 @@ class signIn extends Component {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        this.props.navigation.navigate('Menu');
+        this.props.navigation.navigate('DrawerNav');
         this.props.updateName(value.name);
       })
       .catch(error => this.setState({ errorMessage: error.message }))
 
   }
+
+
 
 
 

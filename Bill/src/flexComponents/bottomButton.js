@@ -29,11 +29,22 @@ export const CheckoutButton = (props)=>{
 export const PayButton = (props)=>{
   return (
     <View>
-    <TouchableOpacity style={[styles.button, {backgroundColor: 'green',}]}>
+    <TouchableOpacity style={[styles.button, {backgroundColor: 'green',}]} onPress={()=>{props.navigate()}}>
       <Text style={[styles.buttonText, {color: 'black', left: 25,}]}>Pay</Text>
       <Text style={[styles.buttonPrice, {color:'black'}]}>{props.buttonPrice}</Text>
     </TouchableOpacity>
     </View>
+  )
+}
+
+export const EditButton = (props)=>{
+  return (
+
+
+    <TouchableOpacity style={[styles.button, {backgroundColor: 'black', justifyContent:'center', marginTop: 5}]} onPress={()=>{props.navigate()}}>
+      <Text style={[styles.buttonText, {color: 'white', marginLeft:0}]}>Confirm Changes</Text>
+    </TouchableOpacity>
+
   )
 }
 

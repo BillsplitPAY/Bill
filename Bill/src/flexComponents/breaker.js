@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     paddingRight: 10,
     fontSize: 16,
+    fontFamily:'Futura'
   },
 
 

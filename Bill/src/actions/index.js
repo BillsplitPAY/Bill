@@ -34,10 +34,16 @@ return {
 }
 
 export function addItem(currentItem){
-
 	return {
 	   type: 'ADD',
 	    payload: currentItem,
+    };
+}
+
+export function removeItem(itemName){
+	return {
+	   type: 'REMOVE',
+	    payload: itemName,
     };
 }
 

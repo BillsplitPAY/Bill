@@ -3,7 +3,7 @@ import { createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import { connect } from 'react-redux'
 import {StyleSheet, Text, View} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchAPIData, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory, setMenu, setCurrentItem } from '../actions/index.js';
+import { fetchAPIData, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory, setMenu, setCurrentItem, removeItem } from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
@@ -13,6 +13,9 @@ import signIn from '../components/signIn'
 import TableRequest from '../components/TableRequest'
 import {config} from '../../Firebase/firebaseConfig'
 import {styles_menu, menuSetter} from '../containers/container_menu'
+import Welcome from '../components/welcome';
+
+import PaymentPage, {YourStuffPay, SplitPay, PickPay, RoulettePay} from '../components/payPages/paymentPage';
 
 class MainNav extends Component {
   render(){
@@ -61,15 +64,16 @@ class MainNav extends Component {
 
    export const FullStackNav = createStackNavigator({
      Zero: {
-       screen: DrawerNav,
+       screen: Welcome,
        navigationOptions: {
-         headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0,},
+         headerStyle:{backgroundColor: '#212121', height: 0, display: 'none'},
        },
      },
      One: {
-       screen: TableRequest,
+       screen: DrawerNav,
        navigationOptions: {
-         headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0},
+         headerStyle:{backgroundColor: 'red', height: 0, display: 'none'},
+         headerLeft: null
        },
      },
    })
@@ -96,6 +100,7 @@ function mapDispatchToProps(dispatch){
       fetchAPIData: fetchAPIData,
       fetchData: fetchData,
       addItem: addItem,
+      removeItem: removeItem,
       addPrice: addPrice,
       submitOrder: submitOrder,
       emptyCart: emptyCart,

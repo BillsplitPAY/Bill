@@ -4,20 +4,26 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 import Breaker from '../flexComponents/breaker';
 import {ListItem, CartListItem} from '../flexComponents/listItem';
 import { listItemCreator, addUp } from '../helperFunctions/pureFunctions';
-import {PriceBreakdown} from '../flexComponents/priceBreakdown';
+import {PriceBreakdown, CartBreakdown} from '../flexComponents/priceBreakdown';
 import NoteBox from '../flexComponents/noteBox';
 import firebase from 'firebase';
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
 import { connect } from 'react-redux'
-import BottomButton from '../flexComponents/bottomButton'
+import BottomButton, {EditButton} from '../flexComponents/bottomButton'
+import { Ionicons } from '@expo/vector-icons';
 
 
 class Cart extends Component {
   constructor(props){
     super(props);
+    this.state={
+      currentItem: 'Not working yet',
+      display: 'none'
+    }
     this.totalAdder=this.totalAdder.bind(this)
     this.sendToFirebase=this.sendToFirebase.bind(this)
+    this.editor=this.editor.bind(this)
   }
   static navigationOptions: {
    title: 'Cart',
@@ -29,10 +35,10 @@ class Cart extends Component {
 
     this.props.screenProps.submitOrder(cartInfo);
     this.props.screenProps.emptyCart();
-    this.props.navigation.navigate('Order')
+    this.props.navigation.navigate('Order', {orderz: this.props.order})
 
 
-    
+
 
     console.log('TRYINGNN TO SEND THE DATAAAAA!!!')
       //console.log(cartInfo)
@@ -43,9 +49,9 @@ class Cart extends Component {
 
       //async issue below to be resolved
 
-    firebase.database().ref('Restaurants/Larrys/Tables/Table1')
-    // .child('8888').setValue(cartInfo)
-    .child('26').set(cartInfo).then((data)=>{
+    let ref = firebase.database().ref('Restaurants/Larrys/Tables/Table1').child('26')
+
+    ref.set(cartInfo).then((data)=>{
         //success callback
         console.log('data ', cartInfo)
     }).catch((error)=>{
@@ -55,12 +61,15 @@ class Cart extends Component {
 
   }
 
-
-
-
-
   totalAdder(acc, itemObj){
     return acc + itemObj.price
+  }
+
+  editor(item){
+    this.setState({
+      currentItem: item,
+      display: 'flex'
+    })
   }
 
   render() {
@@ -71,31 +80,48 @@ class Cart extends Component {
     const tax = subtotal * .07
     const total = subtotal + tax
 
-
-
     console.log(this.props)
     return (
       <View style={{height: '100%'}}>
-
         <View style={{height: '55%'}}>
           <View style={{borderBottomWidth: .5, borderBottomColor: 'black'}}>
             <Text style={{fontWeight: 'bold', marginTop: 10, marginLeft: 10}}>Your Cart</Text>
           </View>
           <ScrollView>
-          {listItemCreator(cart, CartListItem)}
+          {listItemCreator(cart, CartListItem, this.editor, this.props.screenProps)}
           </ScrollView>
         </View>
         <View style={{justifyContent: 'flex-end', height: '45%'}}>
         <Text style={{fontWeight: 'bold', marginBottom: 10, marginLeft: 10}}>Order Notes</Text>
         <NoteBox defaultValue={'e.g. Bring everything out together!'}/>
 
-          <PriceBreakdown lineOneValue={subtotal} lineTwoValue={tax.toFixed(2)} />
+          <CartBreakdown lineOneValue={subtotal} lineTwoValue={tax.toFixed(2)} screenProps={this.props.screenProps}/>
 
           <BottomButton buttonText={'Submit Order'} doThis={()=>{this.sendToFirebase(cart, subtotal);}} buttonPrice={total.toFixed(2)}/>
+        </View>
 
+        <TouchableHighlight onPress={()=>{this.setState({display: 'none'})}}style={{position:'absolute', width: '100%', height: '100%', display: this.state.display, backgroundColor: 'rgba(0,0,0,.7)',}}><View></View></TouchableHighlight>
+        <View style={{display: this.state.display, position: 'absolute', height: '75%', width: '80%', alignSelf: 'center', borderColor: '#212121', borderWidth: 3, borderRadius:'5%', top: 75, backgroundColor: 'white', justifyContent:'flex-start', }}>
+          <View style={{height: '25%',flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View style={{width: '60%', justifyContent:'flex-start', top: 20}}><Text style={{fontSize: 20, fontFamily: 'Futura'}}>{this.state.currentItem}</Text></View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', width: '40%'}}>
+              <TouchableHighlight ><Ionicons name="ios-remove-circle-outline" size={32} /></TouchableHighlight>
+              <TextInput style={{  borderWidth: 2, borderColor: 'black', width: 'auto', height: 'auto', alignSelf: 'center', borderRadius: 5, textAlign: 'center', fontSize: 40, marginLeft: 8, marginRight: 8, }} defaultValue={String(1)} autoFocus={false}/>
+              <TouchableHighlight ><Ionicons name="ios-add-circle-outline" size={32} /></TouchableHighlight>
+            </View>
+          </View>
+          <View style={{ height: '75%', width: '100%', justifyContent: 'space-between'}}>
+            <Breaker value={'Item Options'}/>
+            <View style={{height: 'auto', width: '100%'}}>
+              <NoteBox defaultValue={'Notes for the kitchen...'}/>
+              <EditButton/>
+            </View>
 
+          </View>
 
         </View>
+
+
 
       </View>
 
@@ -137,7 +163,8 @@ class Cart extends Component {
 
 function mapStateToProps(state){
   return {
-    user: state.user
+    user: state.user,
+    order: state.order
   }
 }
 

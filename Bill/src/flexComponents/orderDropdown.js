@@ -10,28 +10,17 @@ import Tipper from '../components/tipper';
 import PayOptions from '../components/payOptions';
 import {SplitBreakdown, PriceBreakdown} from '../flexComponents/priceBreakdown';
 import {OrderListItem} from '../flexComponents/listItem'
+import { connect } from 'react-redux'
 
-export default class OrderDropdown extends React.Component{
+class OrderDropdown extends React.Component{
   constructor(props){
     super(props)
     this.state={
-      dropdown: new Animated.Value(this.props.startValue),
+
+      dropdown: new Animated.Value(props.startVal),
       text: new Animated.Value(0),
     }
-    this.animator=this.animator.bind(this)
     this.superAnimator=this.superAnimator.bind(this)
-  }
-
-
-
-  animator(itemCount){
-      if (this.state.dropdown._value === 0){
-          return Animated.timing(this.state.dropdown, {duration: 300, toValue: (itemCount*50)})
-      }
-      else{
-          return Animated.timing(this.state.dropdown, {duration: 300, toValue: 0})
-          //return Animated.timing(this.state.dropdown, {duration: 200, toValue: 0})
-      }
   }
 
   superAnimator(stateValue, duration, toValue1){
@@ -45,7 +34,7 @@ export default class OrderDropdown extends React.Component{
   }
 
 render(){
-  console.log(this.props.order)
+  console.log(this.props.orderz)
   return(
     <View style={{marginTop: 10, alignItems: 'center'}}>
       <TouchableHighlight onPress={()=>{this.superAnimator(this.state.dropdown, 400, this.props.order.length*50).start()}}style={{borderRadius: 5, borderColor: 'black', borderWidth: .5, width: '99%', height: 40, backgroundColor: '#212121', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center'}}>
@@ -55,15 +44,26 @@ render(){
         <Text style={{color:'green', fontSize: 18, fontWeight: 'bold'}}>$14.50</Text>
         </View>
       </TouchableHighlight>
-      <Animated.View style={{height: this.state.dropdown, opacity: 1, backgroundColor:'rgb(231,232,236)', zIndex: 2, overflow: 'hidden'}}>{listItemCreator(this.props.order, OrderListItem)}</Animated.View>
+      <Animated.View style={{height: this.state.dropdown, backgroundColor:'rgb(231,232,236)', zIndex: 2, overflow: 'hidden'}}>{listItemCreator(this.props.order, OrderListItem)}</Animated.View>
     </View>
 )
 
   }
-  shouldComponentUpdate(){
-    return true
+
+  // componentDidMount(){
+  //   this.setState({startVal: this.props.order.length*50})
+  //   console.log(this.state.dropdown)
+  // }
+}
+
+function mapStateToProps(state){
+  return {
+    order: state.order
   }
 }
+
+
+export default connect(mapStateToProps)(OrderDropdown)
 
 
 
