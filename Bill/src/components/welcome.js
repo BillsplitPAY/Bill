@@ -16,7 +16,7 @@ class Welcome extends React.Component {
   }
 
   render(){
-    console.log(this.props)
+    //console.log(this.props)
     return(
       <Animated.View style={{borderColor: 'red', borderWidth: 1, height: '100%', width: '100%', alignItems: 'center', justifyContent:'center'}}>
         <Animated.Text style ={{ fontSize: this.state.zoom, fontFamily: 'Futura'}}>Bill</Animated.Text>
