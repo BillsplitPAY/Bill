@@ -8,7 +8,7 @@ import { drawerContent } from './drawerContent';
 import Scanny from '../flexComponents/qrScans';
 import ItemPage from '../components/itemPage';
 import PaymentPage, {YourStuffPay, SplitPay, PickPay, RoulettePay} from '../components/payPages/paymentPage';
-import CustomAmount from '../components/payPages/customAmount';
+
 import Menu from '../components/menu.js';
 import Cart from '../components/cart';
 import Order from '../components/order.js';
@@ -119,10 +119,7 @@ export const TabNav = createBottomTabNavigator({
        screen: RoulettePay,
        navigationOptions: defaultNavOptions,
      },
-     CustomAmount: {
-       screen: CustomAmount,
-       navigationOptions: defaultNavOptions,
-     },
+    
      Confirmation: {
        screen: Confirmation,
        navigationOptions: defaultNavOptions,

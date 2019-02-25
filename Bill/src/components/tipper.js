@@ -162,14 +162,21 @@ return this.setState((prevState)=>{
 }
 
 render(){
+
+  const orderTotal = this.props.screenProps.order.reduce((acc, item)=>{return acc+item.price}, 0)
+  const orderTax = orderTotal * .07
+  const fifteenPercent = ((orderTotal + orderTax) * .15).toFixed(2)
+  const eighteenPercent = ((orderTotal + orderTax) * .18).toFixed(2)
+  const twentyPercent = ((orderTotal + orderTax) * .20).toFixed(2)
+
   return (
-    <Animated.View style={{alignSelf:'center', borderColor: 'blue', borderWidth: '1', width: '99%', height: this.state.animValue,  bottom: 8, flexDirection: 'row',  borderRadius: 8, backgroundColor: 'white'}}>
+    <Animated.View style={{alignSelf:'center', width: '99%', height: this.state.animValue,  bottom: 8, flexDirection: 'row',  borderRadius: 8, backgroundColor: 'white'}}>
 
-     <TouchableOpacity onPress={()=>{this.tippy('fifteen')}}style={[styles.tipButton, this.state.tipper.fifteen.button]}><Text style={[this.state.tipper.fifteen.text, {fontSize: 10}]}>15%</Text><Text style={[this.state.tipper.fifteen.text, {fontSize: 18}]}>$5.50</Text></TouchableOpacity>
+     <TouchableOpacity onPress={()=>{this.tippy('fifteen')}}style={[styles.tipButton, this.state.tipper.fifteen.button]}><Text style={[this.state.tipper.fifteen.text, {fontSize: 10}]}>15%</Text><Text style={[this.state.tipper.fifteen.text, {fontSize: 18}]}>{`$${fifteenPercent}`}</Text></TouchableOpacity>
 
-     <TouchableOpacity onPress={()=>{this.tippy('eighteen')}}style={[styles.tipButton, this.state.tipper.eighteen.button]}><Text style={[styles.tipText, this.state.tipper.eighteen.text, {fontSize: 10}]}>18%</Text><Text style={[this.state.tipper.eighteen.text, {fontSize: 18}]}>$5.50</Text></TouchableOpacity>
+     <TouchableOpacity onPress={()=>{this.tippy('eighteen')}}style={[styles.tipButton, this.state.tipper.eighteen.button]}><Text style={[styles.tipText, this.state.tipper.eighteen.text, {fontSize: 10}]}>18%</Text><Text style={[this.state.tipper.eighteen.text, {fontSize: 18}]}>{`$${eighteenPercent}`}</Text></TouchableOpacity>
 
-     <TouchableOpacity onPress={()=>{this.tippy('twenty')}}style={[styles.tipButton, this.state.tipper.twenty.button]}><Text style={[styles.tipText, this.state.tipper.twenty.text, {fontSize: 10}]}>20%</Text><Text style={[this.state.tipper.twenty.text, {fontSize: 18}]}>$5.50</Text></TouchableOpacity>
+     <TouchableOpacity onPress={()=>{this.tippy('twenty')}}style={[styles.tipButton, this.state.tipper.twenty.button]}><Text style={[styles.tipText, this.state.tipper.twenty.text, {fontSize: 10}]}>20%</Text><Text style={[this.state.tipper.twenty.text, {fontSize: 18}]}>{`$${twentyPercent}`}</Text></TouchableOpacity>
 
      <TouchableOpacity onPress={()=>{this.tippy('cash')}}style={[styles.tipButton, this.state.tipper.cash.button]}><Text style={[styles.tipText, this.state.tipper.cash.text, {fontSize: 10}]}>Cash</Text><Text style={[this.state.tipper.cash.text, {fontSize: 18}]}>Tip</Text></TouchableOpacity>
 

@@ -22,7 +22,7 @@ class Order extends Component {
       tip: ()=>{return null},
       payUp: ()=>{return null},
       breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)} subtotal={tax.toFixed(2)}/>},
-      button: () => {return <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payOptionState()}} /> },
+      button: () => {return <CheckoutButton buttonPrice={this.props.screenProps.order.reduce((item)=>{return acc + item.price}, 0)} doThis={()=>{return this.payOptionState()}} /> },
       dropdown: new Animated.Value(0),
 
     }
@@ -99,17 +99,17 @@ totalAdder(acc, itemObj){
        </TouchableOpacity>
        <ScrollView>
          <View>
-           <OrderDropdown key={this.props.order} orders={this.props.order} startVal={this.props.order.length*50} name={'You'}/>
-           <OrderDropdown orders={this.props.order} startVal={0} name={'Lyn'}/>
-           <OrderDropdown orders={this.props.order} startVal={0} name={'Scoe'}/>
-           <OrderDropdown orders={this.props.order} startVal={0} name={'Lee'}/>
-           <OrderDropdown orders={this.props.order} startVal={0} name={'Luc'}/>
+           <OrderDropdown key={this.props.order} orders={this.props.order} screenProps={this.props.screenProps} startVal={this.props.order.length*50} name={'You'}/>
+           <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Lyn'}/>
+           <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Scoe'}/>
+           <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Lee'}/>
+           <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Luc'}/>
 
          </View>
        </ScrollView>
 
 
-       <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payOptionState()}}/>
+       <CheckoutButton buttonPrice={`$${this.props.screenProps.order.reduce((acc, item)=>{return acc + item.price}, 0)}`} doThis={()=>{return this.payOptionState()}}/>
        {this.state.payUp()}
 
      </View>

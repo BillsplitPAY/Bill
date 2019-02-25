@@ -41,7 +41,7 @@ render(){
       <View style={{backgroundColor: '#212121', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center', width: '100%', height: '100%'}}>
         <Text style={styles.itemHeader}>{this.props.name}</Text>
         <Text style={{color: 'white', fontSize: 14}}>{this.props.order.length} Items</Text>
-        <Text style={{color:'green', fontSize: 18, fontWeight: 'bold'}}>$14.50</Text>
+        <Text style={{color:'green', fontSize: 18, fontWeight: 'bold'}}>{`$${this.props.screenProps.order.reduce((acc, item)=>{return acc + item.price}, 0)}`}</Text>
         </View>
       </TouchableHighlight>
       <Animated.View style={{height: this.state.dropdown, backgroundColor:'rgb(231,232,236)', zIndex: 2, overflow: 'hidden'}}>{listItemCreator(this.props.order, OrderListItem)}</Animated.View>
