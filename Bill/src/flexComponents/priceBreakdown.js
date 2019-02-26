@@ -29,7 +29,7 @@ export const CartBreakdown = (props) => {
   return(
     <View style={styles.priceView}>
       <View style={styles.inDesc}>
-        <Text style={{marginTop: 8, fontSize: 14}}>Cart Subtotal</Text>
+        <Text style={{marginTop: 8, fontSize: 14}}>Subtotal</Text>
         <Text style={{marginTop: 8, fontSize: 14}}>${cartTotal.toFixed(2)}</Text>
       </View>
       <View style={styles.inDesc}>
