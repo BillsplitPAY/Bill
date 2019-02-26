@@ -77,7 +77,7 @@ orderState(){
     breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)}/>},
     button: () => {return <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payState()}}/> }
   })
-  console.log(this.state)
+  //console.log(this.state)
 }
 
 totalAdder(acc, itemObj){
@@ -90,7 +90,7 @@ totalAdder(acc, itemObj){
     const subTotal = order.reduce(this.totalAdder, 0)
     const tax = subTotal * .07
     const total = subTotal + tax
-    this.getFromFirebase();
+    //this.getFromFirebase();
     return (
        <View style={styles.cartPage} blurRadius={1}>
 

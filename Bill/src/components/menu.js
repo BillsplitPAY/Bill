@@ -8,7 +8,7 @@ import {styles_menuCategories, categoryBuilder} from '../containers/container_me
 import {styles_menu, menuSetter} from '../containers/container_menu'
 
 const MenuCategories = (props) => {
-  console.log(props)
+  //console.log(props)
     return(
       <View style={styles_menuCategories.unnecessary}>
         {categoryBuilder(props.screenProps.menu, props.navigate, props.screenProps.setCurrentItem, props.screenProps.setCategory, props.screenProps)}
