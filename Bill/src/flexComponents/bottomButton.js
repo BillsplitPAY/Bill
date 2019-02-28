@@ -41,7 +41,7 @@ export const EditButton = (props)=>{
   return (
 
 
-    <TouchableOpacity style={[styles.button, {backgroundColor: 'black', justifyContent:'center', marginTop: 5}]} onPress={()=>{props.navigate()}}>
+    <TouchableOpacity style={[styles.button, {backgroundColor: 'black', justifyContent:'center', marginTop: 5}]} onPress={()=>{props.doThis()}}>
       <Text style={[styles.buttonText, {color: 'white', marginLeft:0}]}>Confirm Changes</Text>
     </TouchableOpacity>
 

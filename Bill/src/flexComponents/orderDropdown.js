@@ -20,10 +20,10 @@ class OrderDropdown extends React.Component{
       dropdown: new Animated.Value(props.startVal),
       text: new Animated.Value(0),
     }
-    this.superAnimator=this.superAnimator.bind(this)
+    this.animator=this.animator.bind(this)
   }
 
-  superAnimator(stateValue, duration, toValue1){
+  animator(stateValue, duration, toValue1){
       if (stateValue._value === 0){
           return Animated.timing(stateValue, {duration: duration, toValue: toValue1})
       }
@@ -34,10 +34,11 @@ class OrderDropdown extends React.Component{
   }
 
 render(){
+  const cartLength = listItemCreator(this.props.order, OrderListItem).length
   console.log(this.props.orderz)
   return(
     <View style={{marginTop: 10, alignItems: 'center'}}>
-      <TouchableHighlight onPress={()=>{this.superAnimator(this.state.dropdown, 400, this.props.order.length*50).start()}}style={{borderRadius: 5, borderColor: 'black', borderWidth: .5, width: '99%', height: 40, backgroundColor: '#212121', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center'}}>
+      <TouchableHighlight onPress={()=>{this.animator(this.state.dropdown, 400, cartLength*50).start(); console.log(this.state.dropdown)}}style={{borderRadius: 5, borderColor: 'black', borderWidth: .5, width: '99%', height: 40, backgroundColor: '#212121', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center'}}>
       <View style={{backgroundColor: '#212121', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center', width: '100%', height: '100%'}}>
         <Text style={styles.itemHeader}>{this.props.name}</Text>
         <Text style={{color: 'white', fontSize: 14}}>{this.props.order.length} Items</Text>

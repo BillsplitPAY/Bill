@@ -15,7 +15,7 @@ export const ListItem = (props) => {
             <Text style={styles.descPrice, {fontWeight: 'bold'}}>${props.itemPrice}</Text>
           </View>
           <View style={{height: '100%', width: 90, flexDirection: 'row'}}>
-            <TouchableHighlight style={{borderRightColor: 'white', borderRightWidth:.5, backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: '50%'}} onPress={()=>{props.editor(props.itemName)}}><Text style={{color:'white'}}>Edit</Text></TouchableHighlight>
+            <TouchableHighlight style={{borderRightColor: 'white', borderRightWidth:.5, backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: '50%'}} onPress={()=>{props.editor(props.itemName, props.cartArray, props.newItem)}}><Text style={{color:'white'}}>Edit</Text></TouchableHighlight>
             <TouchableHighlight style={{backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: 'auto', paddingRight:10, paddingLeft: 2}} onPress={()=>{props.screenProps.removeItem(props.itemName)}}><Text style={{color:'white'}}>Delete</Text></TouchableHighlight>
           </View>
         </Animated.View>

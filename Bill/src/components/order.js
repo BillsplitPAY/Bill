@@ -67,7 +67,7 @@ payOptionState(){
   this.setState({
     payUp: ()=>{return <PayOptions payState={()=>{return this.splitState()}} orderState={this.orderState} navigate={this.props.navigation.navigate}/>}
   })
-  console.log(this.state)
+
 }
 
 orderState(){
@@ -90,6 +90,7 @@ totalAdder(acc, itemObj){
     const subTotal = order.reduce(this.totalAdder, 0)
     const tax = subTotal * .07
     const total = subTotal + tax
+    const orderLength = listItemCreator(this.props.order, OrderListItem).length
     //this.getFromFirebase();
     return (
        <View style={styles.cartPage} blurRadius={1}>
@@ -99,7 +100,7 @@ totalAdder(acc, itemObj){
        </TouchableOpacity>
        <ScrollView>
          <View>
-           <OrderDropdown key={this.props.order} orders={this.props.order} screenProps={this.props.screenProps} startVal={this.props.order.length*50} name={'You'}/>
+           <OrderDropdown key={this.props.order} orders={this.props.order} screenProps={this.props.screenProps} startVal={(isNaN(orderLength)) ? 0 : orderLength*50} name={'You'}/>
            <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Lyn'}/>
            <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Scoe'}/>
            <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Lee'}/>

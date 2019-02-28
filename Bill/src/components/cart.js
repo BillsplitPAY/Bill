@@ -19,11 +19,13 @@ class Cart extends Component {
     super(props);
     this.state={
       currentItem: 'Not working yet',
-      display: 'none'
+      display: 'none',
+      quantity: 1
     }
     this.totalAdder=this.totalAdder.bind(this)
     this.sendToFirebase=this.sendToFirebase.bind(this)
     this.editor=this.editor.bind(this)
+    this.cartReset=this.cartReset.bind(this)
   }
   static navigationOptions: {
    title: 'Cart',
@@ -36,24 +38,11 @@ class Cart extends Component {
     this.props.screenProps.submitOrder(cartInfo);
     this.props.screenProps.emptyCart();
     this.props.navigation.navigate('Order', {orderz: this.props.order})
-
-
-
-
-    console.log('TRYINGNN TO SEND THE DATAAAAA!!!')
-      //console.log(cartInfo)
-
-      //add the cart to user1
-
-      //cartInfo.subtotal = subtotal
-
-      //async issue below to be resolved
-
     let ref = firebase.database().ref('Restaurants/Larrys/Tables/Table1').child('26')
 
     ref.set(cartInfo).then((data)=>{
         //success callback
-        console.log('data ', cartInfo)
+
     }).catch((error)=>{
         //error callback
         console.log('error ' , error)
@@ -65,22 +54,32 @@ class Cart extends Component {
     return acc + itemObj.price
   }
 
-  editor(item){
+  editor(item, array, newItem){
     this.setState({
       currentItem: item,
-      display: 'flex'
+      display: 'flex',
+      cartArray: array,
+      newItem: newItem
     })
   }
 
+  cartReset(){
+      const newCart = this.props.screenProps.cart.filter((item)=>{return item.id !== this.state.newItem.id})
+      this.props.screenProps.emptyCart()
+      newCart.map((item)=>{this.props.screenProps.addItem(item)})
+      for (let i = 0; i < this.state.quantity; i++){this.props.screenProps.addItem(this.state.newItem)}
+      console.log(this.props.screenProps.cart)
+  }
+
   render() {
-    console.log('cart info', this.props.user)
+    console.log(this.state)
     const { navigate } = this.props.navigation
     const cart = this.props.screenProps.cart
     const subtotal = cart.reduce(this.totalAdder, 0)
     const tax = subtotal * .07
     const total = subtotal + tax
+    console.log(this.props.screenProps.cart)
 
-    console.log(this.props)
     return (
       <View style={{height: '100%'}}>
         <View style={{height: '55%'}}>
@@ -101,20 +100,21 @@ class Cart extends Component {
         </View>
 
         <TouchableHighlight onPress={()=>{this.setState({display: 'none'})}}style={{position:'absolute', width: '100%', height: '100%', display: this.state.display, backgroundColor: 'rgba(0,0,0,.7)',}}><View></View></TouchableHighlight>
-        <View style={{display: this.state.display, position: 'absolute', height: '75%', width: '80%', alignSelf: 'center', borderColor: '#212121', borderWidth: 3, borderRadius:'5%', top: 75, backgroundColor: 'white', justifyContent:'flex-start', }}>
-          <View style={{height: '25%',flexDirection: 'row', justifyContent: 'space-between'}}>
-            <View style={{width: '60%', justifyContent:'flex-start', top: 20}}><Text style={{fontSize: 20, fontFamily: 'Futura'}}>{this.state.currentItem}</Text></View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', width: '40%'}}>
-              <TouchableHighlight ><Ionicons name="ios-remove-circle-outline" size={32} /></TouchableHighlight>
-              <TextInput style={{  borderWidth: 2, borderColor: 'black', width: 'auto', height: 'auto', alignSelf: 'center', borderRadius: 5, textAlign: 'center', fontSize: 40, marginLeft: 8, marginRight: 8, }} defaultValue={String(1)} autoFocus={false}/>
-              <TouchableHighlight ><Ionicons name="ios-add-circle-outline" size={32} /></TouchableHighlight>
+
+        <View style={{display: this.state.display, position: 'absolute', height: 'auto', width: '80%', alignSelf: 'center', borderColor: '#212121', borderWidth: 3, borderRadius:'10%', top: 125, backgroundColor: 'white', justifyContent:'space-between', }}>
+          <View style={{height: 'auto', padding:10, marginBottom: 25, flexDirection: 'row', justifyContent: 'space-between', }}>
+            <View style={{width: '60%', justifyContent:'flex-start'}}><Text style={{fontSize: 20, fontFamily: 'Futura'}}>{this.state.currentItem}</Text></View>
+            <View style={{ flexDirection: 'row', justifyContent:'flex-end', alignItems: 'center', width: '40%'}}>
+              <TouchableHighlight onPress={()=> this.setState({quantity: this.state.quantity - 1})}><Ionicons name="ios-remove-circle-outline" size={32} /></TouchableHighlight>
+              <TextInput style={{  borderWidth: 2, borderColor: 'black', width: 'auto', height: 'auto', alignSelf: 'center', borderRadius: 5, textAlign: 'center', fontSize: 40, marginLeft: 8, marginRight: 8, }} defaultValue={String(this.state.quantity)} autoFocus={false}/>
+              <TouchableHighlight onPress={()=> this.setState({quantity: this.state.quantity + 1})}><Ionicons name="ios-add-circle-outline" size={32} /></TouchableHighlight>
             </View>
           </View>
-          <View style={{ height: '75%', width: '100%', justifyContent: 'space-between'}}>
-            <Breaker value={'Item Options'}/>
+          <View style={{ height: 'auto', width: '100%', justifyContent: 'space-between'}}>
+
             <View style={{height: 'auto', width: '100%'}}>
               <NoteBox defaultValue={'Notes for the kitchen...'}/>
-              <EditButton/>
+              <EditButton doThis={this.cartReset}/>
             </View>
 
           </View>
@@ -125,36 +125,6 @@ class Cart extends Component {
 
       </View>
 
-
-
-
-
-
-
-
-     //   <View style={styles.cartPage}>
-     //     <View style={{width: '100%', height: 'auto'}}>
-     //     <Text style={{textAlign: 'left', marginTop: 8, fontWeight: 'bold', fontSize: 14, marginLeft: 5}}>Your Cart</Text>
-     //       <ScrollView style={{height: 'auto'}}>
-     //         {listItemCreator(cart)}
-     //      </ScrollView>
-     //    </View>
-     //
-     //    <View style={{height: '30%'}}>
-     //      <Breaker value='Add a Note' />
-     //       <View style={{marginTop: 15}}>
-     //        <NoteBox />
-     //       </View>
-     //      </View>
-     //
-     //      <View style={{height: '30%'}}>
-     //        <PriceBreakdown lineTwoText={'Item Total'} lineThreeText={'Item Tax'} lineFourText={'Item Subtotal'} lineTwo={total} lineThree={tax} lineFour={subtotal}/>
-     //        <TouchableOpacity style={styles.button} onPress={()=>{this.props.screenProps.submitOrder(cart); this.props.screenProps.emptyCart(); this.props.navigation.navigate('Order') }}>
-     //            <Text style={styles.buttonText}>Submit Order</Text>
-     //         </TouchableOpacity>
-     //       </View>
-     //
-     // </View>
       );
     }
   }
@@ -173,90 +143,28 @@ export default connect(mapStateToProps)(Cart)
 
 
   const styles = StyleSheet.create({
-    cartPage:{
-      justifyContent: 'space-between',
-      height: '100%',
-    },
+    cartPage:{ justifyContent: 'space-between', height: '100%', },
 
-    descView:{
-      height: 'auto',
-      //borderBottomColor: 'black',
-      //borderBottomWidth: 1,
-      justifyContent: 'space-between',
-      flexGrow: 1,
-      //margin: 10,
-      marginTop:5,
-    },
-    priceView:{
-      height: 'auto',
-      //borderBottomColor: 'black',
-      //borderBottomWidth: 1,
-      backgroundColor:'white',
-      justifyContent: 'space-between',
-      flexGrow: 1,
-      width: '100%',
-      marginBottom: 100,
-    },
-    inDesc:{
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginTop: 8,
-      //marginBottom: 20,
-    },
-    descText:{
-      marginLeft: 15,
-      //width: 220,
-      flexGrow: 2,
-      //width: 200,
-    },
-    descItems:{
-      //marginLeft: 15,
-      flexShrink: 2,
-      //width: 200,
-    },
-    descPrice:{
-      //marginLeft: 50,
-    },
-    breaker:{
-      height: 25,
-      backgroundColor: 'rgb(114, 137, 143)',
-      justifyContent: 'center',
-    },
-    breakerText:{
-      color: 'rgb(25, 52, 65)',
-      marginLeft: 12,
-      fontWeight: '600',
+    descView:{ height: 'auto', justifyContent: 'space-between', flexGrow: 1, marginTop:5, },
 
-    },
-    button:{
-      flexDirection: 'row',
-      backgroundColor: 'black',
-      height: 45,
-      width: '99%',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      alignSelf: 'center',
-      marginBottom: 2,
-      borderRadius: 5,
-    },
-     buttonText:{
-       color: 'white',
-       fontWeight:'bold',
-       marginLeft: '37%',
-       fontSize: 17,
-     },
-     price:{
-       alignSelf: 'flex-end',
-       color: 'white',
-       fontWeight:'bold',
-     },
-     textBox:{
-       height: 55,
-       width: '90%',
-       borderColor: 'grey',
-       borderWidth: 1,
-       margin: 10,
-       color: 'grey',
-     },
+    priceView:{ height: 'auto', backgroundColor:'white', justifyContent: 'space-between', flexGrow: 1, width: '100%', marginBottom: 100, },
+
+    inDesc:{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 8, },
+
+    descText:{ marginLeft: 15, flexGrow: 2, },
+
+    descItems:{ flexShrink: 2, },
+
+    breaker:{ height: 25, backgroundColor: 'rgb(114, 137, 143)', justifyContent: 'center', },
+
+    breakerText:{ color: 'rgb(25, 52, 65)', marginLeft: 12, fontWeight: '600', },
+
+    button:{ flexDirection: 'row', backgroundColor: 'black', height: 45, width: '99%', justifyContent: 'space-between', alignItems: 'center', alignSelf: 'center', marginBottom: 2, borderRadius: 5, },
+
+     buttonText:{ color: 'white', fontWeight:'bold', marginLeft: '37%', fontSize: 17, },
+
+     price:{ alignSelf: 'flex-end', color: 'white', fontWeight:'bold', },
+
+     textBox:{ height: 55, width: '90%', borderColor: 'grey', borderWidth: 1, margin: 10, color: 'grey', },
 
   })

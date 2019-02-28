@@ -76,53 +76,14 @@ constructor(props){
         button: {backgroundColor:'white'},
         text: {color: 'black'}
       },
-
     },
     animValue: new Animated.Value(0)
   }
-  this.tipSelector = this.tipSelector.bind(this)
+
   this.tippy = this.tippy.bind(this)
   // this.tipSelect = this.tipSelect.bind(this)
 }
 
-// tipSelect(percent){
-//   this.setState({
-//     //set state so that pressed item is selected
-//     //change backgroundColor to black and text to white
-//     //change backgroundColor and text of all other properties to white and black
-//     this.setState({[percent]: })
-//   })
-// }
-
-//function allowing selection of tip option
-tipSelector(percent){
-    if (this.state.tipper[percent].selected === false){
-      Object.keys(this.state.tipper).map((key)=>{
-        this.setState({[key]: {button: {backgroundColor: 'white'}}})
-      })
-    this.setState({tipper: {
-      [percent]:{
-        selected: true,
-        button: {backgroundColor: 'black'},
-        text:{color: 'white'}
-      }}})
-    console.log(this.state)
-    }
-    else {
-    this.setState({tipper: {
-      ...this.state.tipper,
-      [percent]:{
-        selected: false,
-        button: {backgroundColor: 'white'},
-        text:{color: 'black'}
-      }}})
-    console.log(this.state)
-    }
-}
-
-componentDidMount(){
-  Animated.timing(this.state.animValue, {duration: 200, toValue: 45}).start()
-}
 
 tippy(percent){
   const initialState ={
@@ -163,22 +124,22 @@ return this.setState((prevState)=>{
 
 render(){
 
-  const orderTotal = this.props.screenProps.order.reduce((acc, item)=>{return acc+item.price}, 0)
+  const orderTotal = this.props.payTotal
   const orderTax = orderTotal * .07
-  const fifteenPercent = ((orderTotal + orderTax) * .15).toFixed(2)
-  const eighteenPercent = ((orderTotal + orderTax) * .18).toFixed(2)
-  const twentyPercent = ((orderTotal + orderTax) * .20).toFixed(2)
+  const fifteenPercent = ((orderTotal + orderTax) * .15)
+  const eighteenPercent = ((orderTotal + orderTax) * .18)
+  const twentyPercent = ((orderTotal + orderTax) * .20)
 
   return (
-    <Animated.View style={{alignSelf:'center', width: '99%', height: this.state.animValue,  bottom: 8, flexDirection: 'row',  borderRadius: 8, backgroundColor: 'white'}}>
+    <Animated.View style={{alignSelf:'center', width: '99%', height: 45,  bottom: 8, flexDirection: 'row',  borderRadius: 8, backgroundColor: 'white'}}>
 
-     <TouchableOpacity onPress={()=>{this.tippy('fifteen')}}style={[styles.tipButton, this.state.tipper.fifteen.button]}><Text style={[this.state.tipper.fifteen.text, {fontSize: 10}]}>15%</Text><Text style={[this.state.tipper.fifteen.text, {fontSize: 18}]}>{`$${fifteenPercent}`}</Text></TouchableOpacity>
+     <TouchableOpacity onPress={()=>{this.tippy('fifteen'); this.props.screenProps.setTip(fifteenPercent)}}style={[styles.tipButton, this.state.tipper.fifteen.button]}><Text style={[this.state.tipper.fifteen.text, {fontSize: 10}]}>15%</Text><Text style={[this.state.tipper.fifteen.text, {fontSize: 18}]}>{`$${fifteenPercent.toFixed(2)}`}</Text></TouchableOpacity>
 
-     <TouchableOpacity onPress={()=>{this.tippy('eighteen')}}style={[styles.tipButton, this.state.tipper.eighteen.button]}><Text style={[styles.tipText, this.state.tipper.eighteen.text, {fontSize: 10}]}>18%</Text><Text style={[this.state.tipper.eighteen.text, {fontSize: 18}]}>{`$${eighteenPercent}`}</Text></TouchableOpacity>
+     <TouchableOpacity onPress={()=>{this.tippy('eighteen'); this.props.screenProps.setTip(eighteenPercent)}}style={[styles.tipButton, this.state.tipper.eighteen.button]}><Text style={[styles.tipText, this.state.tipper.eighteen.text, {fontSize: 10}]}>18%</Text><Text style={[this.state.tipper.eighteen.text, {fontSize: 18}]}>{`$${eighteenPercent.toFixed(2)}`}</Text></TouchableOpacity>
 
-     <TouchableOpacity onPress={()=>{this.tippy('twenty')}}style={[styles.tipButton, this.state.tipper.twenty.button]}><Text style={[styles.tipText, this.state.tipper.twenty.text, {fontSize: 10}]}>20%</Text><Text style={[this.state.tipper.twenty.text, {fontSize: 18}]}>{`$${twentyPercent}`}</Text></TouchableOpacity>
+     <TouchableOpacity onPress={()=>{this.tippy('twenty'); this.props.screenProps.setTip(twentyPercent)}}style={[styles.tipButton, this.state.tipper.twenty.button]}><Text style={[styles.tipText, this.state.tipper.twenty.text, {fontSize: 10}]}>20%</Text><Text style={[this.state.tipper.twenty.text, {fontSize: 18}]}>{`$${twentyPercent.toFixed(2)}`}</Text></TouchableOpacity>
 
-     <TouchableOpacity onPress={()=>{this.tippy('cash')}}style={[styles.tipButton, this.state.tipper.cash.button]}><Text style={[styles.tipText, this.state.tipper.cash.text, {fontSize: 10}]}>Cash</Text><Text style={[this.state.tipper.cash.text, {fontSize: 18}]}>Tip</Text></TouchableOpacity>
+     <TouchableOpacity onPress={()=>{this.tippy('cash'); this.props.screenProps.setTip(0)}}style={[styles.tipButton, this.state.tipper.cash.button]}><Text style={[styles.tipText, this.state.tipper.cash.text, {fontSize: 10}]}>Cash</Text><Text style={[this.state.tipper.cash.text, {fontSize: 18}]}>Tip</Text></TouchableOpacity>
 
      <TouchableOpacity style={{width: '20%', height: '100%', justifyContent: 'center', alignItems: 'center', }}><Text style={{fontSize: 14, color: 'black'}}>Custom Amount</Text></TouchableOpacity>
     </Animated.View>

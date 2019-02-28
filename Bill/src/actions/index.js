@@ -82,6 +82,13 @@ export function emptyCart(){
     };
 }
 
+export function setTip(tip){
+  return {
+	   type: 'SETTIP',
+		 payload: tip
+    };
+}
+
 export function tipUp(){
   return {
 	   type: 'TIPUP'

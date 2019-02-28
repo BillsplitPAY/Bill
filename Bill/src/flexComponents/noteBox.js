@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 const NoteBox = (props) => {
   return(
     <View style={styles.noteBoxView}>
-      <TextInput style={styles.noteBox} multiline={true} defaultValue={props.defaultValue}></TextInput>
+      <TextInput style={styles.noteBox} multiline={true} placeholder={props.defaultValue}></TextInput>
     </View>
   )
 }
@@ -15,7 +15,7 @@ export default NoteBox;
 
 const styles = StyleSheet.create({
   noteBoxView:{
-    width: '90%',
+    width: '98%',
     height: 85,
     alignSelf: 'center',
   },
@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     fontSize:15,
-    color: 'grey',
+    color: 'black',
   }
 })

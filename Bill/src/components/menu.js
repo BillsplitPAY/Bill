@@ -8,7 +8,6 @@ import {styles_menuCategories, categoryBuilder} from '../containers/container_me
 import {styles_menu, menuSetter} from '../containers/container_menu'
 
 const MenuCategories = (props) => {
-  //console.log(props)
     return(
       <View style={styles_menuCategories.unnecessary}>
         {categoryBuilder(props.screenProps.menu, props.navigate, props.screenProps.setCurrentItem, props.screenProps.setCategory, props.screenProps)}
@@ -53,6 +52,7 @@ export default class Menu extends Component {
 
   componentDidMount(){
     const categoriesArray = this.props.screenProps.APIData.response.menu.menus.items[0].entries.items
+    console.log(categoriesArray)
     this.props.screenProps.setMenu(menuSetter(categoriesArray));
     //transforms API menu object to more manageable menu object. Sets it to props.screenProps.menu.
   }

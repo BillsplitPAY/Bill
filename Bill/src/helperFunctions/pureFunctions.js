@@ -44,9 +44,9 @@ export const listItemCreator = function(itemArray, ListType, editor, screenProps
       }
     }
   })
-    console.log(newArray)
+
     return newArray.map((newItem) => {
-        return <ListType key={newItem.name} itemAmount = {newItem.quantity} itemName = {newItem.name} itemPrice={newItem.price} editor={editor} screenProps={screenProps}/>
+        return <ListType cartArray={itemArray} newItem={newItem} key={newItem.name} itemAmount = {newItem.quantity} itemName = {newItem.name} itemPrice={newItem.price} editor={editor} screenProps={screenProps}/>
     })
   }
 
@@ -68,11 +68,12 @@ const itemizer = (itemArray, navi) => {
 
  export const menuSetter = (array) => {
    let newMenu = {};
-  array.forEach(function(catObject){
-    let key = catObject.name
-    newMenu[key] = catObject.entries.items.map(function(index){
-      return {name: index.name, desc: index.description, category: catObject.name, price: Number(index.price)}
-    });
+   array.forEach(function(catObject){
+      let key = catObject.name
+      newMenu[key] = catObject.entries.items.map(function(index){
+        console.log(index);
+        return {name: index.name, desc: index.description, options: index.options, id: index.entryId, category: catObject.name, price: Number(index.price)}
+      });
     })
     return newMenu
 }

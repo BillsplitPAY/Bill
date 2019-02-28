@@ -3,7 +3,7 @@ import { createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import { connect } from 'react-redux'
 import {StyleSheet, Text, View} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchAPIData, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory, setMenu, setCurrentItem, removeItem } from '../actions/index.js';
+import { fetchAPIData, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, setTip, fetchData, setCategory, setMenu, setCurrentItem, removeItem } from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
@@ -108,7 +108,8 @@ function mapDispatchToProps(dispatch){
       setMenu: setMenu,
       setCurrentItem: setCurrentItem,
       tipUp: tipUp,
-      tipDown: tipDown
+      tipDown: tipDown,
+      setTip: setTip,
     }, dispatch)
 }
 //connects the mapped state object properties and action creators to props on this component

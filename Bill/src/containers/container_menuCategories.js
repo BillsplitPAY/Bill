@@ -5,7 +5,7 @@ import { withNavigation } from 'react-navigation';
 import Breaker from '../flexComponents/breaker';
 import Item from '../flexComponents/item';
 
-console.log('container_menu info!')
+
 
 export const categoryBuilder = (obj, navigate, setItem, setCat, screenProps) => {
   return Object.values(obj).map(category => {
@@ -15,7 +15,7 @@ export const categoryBuilder = (obj, navigate, setItem, setCat, screenProps) => 
       <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', alignItems: 'flex-start', backgroundColor: '#edeef0',  height: 'auto'}}>
       {category
         //displays items with a valid price
-        .filter(item => item.price) 
+        .filter(item => item.price)
         .map( it => <Item key={it.name} foodItem={it} category={category} navi={navigate} screenProps={screenProps}/>)}
       </View>
     </View>

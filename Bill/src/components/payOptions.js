@@ -22,7 +22,7 @@ return(
 }
 
 const PayOptions = (props) =>{
-  console.log(props)
+
   return(
     <View style={{width: '100%', height: '100%', position: 'absolute', alignItems: 'center', justifyContent: 'flex-start', zIndex: 3}} >
 
