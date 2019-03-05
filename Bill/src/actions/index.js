@@ -75,6 +75,16 @@ export function updateName(name){
     };
 }
 
+export function yPos(key, value){
+  return {
+     type: 'YPOS',
+     payload:{
+			 key: key,
+			 value: value,
+		 }
+    };
+}
+
 
 export function emptyCart(){
   return {
@@ -98,5 +108,12 @@ export function tipUp(){
 export function tipDown(){
   return {
 	   type: 'TIPDOWN'
+    };
+}
+
+export function toFirebase(db){
+  return {
+	   type: 'FIREBASE',
+		 payload: db
     };
 }

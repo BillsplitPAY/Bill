@@ -37,7 +37,7 @@ export const styles_catScroller ={
     textAlign: 'center',
     marginLeft: 14,
     marginRight: 14,
-    fontSize: 12,
+    fontSize: 16,
     color: 'white',
     fontFamily: 'Futura'
     //alignItems: 'center',

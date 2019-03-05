@@ -102,17 +102,14 @@ export const YourBreakdown = (props) => {
 
 export const RouletteBreakdown = (props) => {
   return(
-    <PriceBreakdown subtotal={props.subtotal}>
-        {null}
-    </PriceBreakdown>
+    <PriceBreakdown subtotal={props.subtotal}/>
   )
 }
 
 export const PickBreakdown = (props) => {
   return(
     <PriceBreakdown subtotal={props.subtotal} orderTax={props.tax}>
-        <Text style={{textAlign: 'center', fontSize: 24}}>Custom Selection</Text>
-        <Text style={{textAlign: 'center', fontSize: 18}}>Select the items you wish to pay for</Text>
+        {null}
     </PriceBreakdown>
   )
 }

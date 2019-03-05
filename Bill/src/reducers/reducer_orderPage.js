@@ -2,7 +2,7 @@ import React from 'react';
 import PriceBreakdown from '../flexComponents/priceBreakdown'
 import {BottomButton, PayButton, CheckoutButton} from '../flexComponents/bottomButton'
 import Tipper from '../components/tipper';
-import PayOptions from '../components/payOptions';
+import PayOptionsScreen from '../components/payOptions';
 import {SplitBreakdown} from '../components/payPages/splitComponents'
 
 

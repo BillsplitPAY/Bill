@@ -8,7 +8,7 @@ import BottomButton, {PayButton, CheckoutButton} from '../../flexComponents/bott
 import {gStyle} from '../../containers/styles';
 import {OrderListItem} from '../../flexComponents/listItem'
 import OrderDropdown from '../../flexComponents/orderDropdown'
-import PayOptions from '../payOptions'
+import PayOptionsScreen from '../payOptions'
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -41,7 +41,7 @@ export default class PaymentPage extends Component{
     const finalTotal = total + tip
     const orderLength = listItemCreator(order, OrderListItem).length*50
 
-    console.log(listItemCreator(order, OrderListItem))
+    // console.log(listItemCreator(order, OrderListItem))
     return(
       <View style={{justifyContent: 'space-between', height: '100%', opacity: 1}} blurRadius={1}>
       {this.state.payOps()}
@@ -52,11 +52,7 @@ export default class PaymentPage extends Component{
         </View>
         <ScrollView>
           <View>
-            <OrderDropdown screenProps={this.props.screenProps} key={order} startVal={(isNaN(orderLength)) ? 0 : orderLength*50} name={'You'}/>
-            <OrderDropdown screenProps={this.props.screenProps} orders={order} startVal={0} name={'Lyn'}/>
-            <OrderDropdown screenProps={this.props.screenProps} orders={order} startVal={0} name={'Scoe'}/>
-            <OrderDropdown screenProps={this.props.screenProps} orders={order} startVal={0} name={'Lee'}/>
-            <OrderDropdown screenProps={this.props.screenProps} orders={order} startVal={0} name={'Luc'}/>
+            {Object.keys(this.props.screenProps.firebase).map((user)=>{return <OrderDropdown orders={(this.props.screenProps.firebase[user].order) ? this.props.screenProps.firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>})}
           </View>
       </ScrollView>
 
@@ -75,7 +71,7 @@ export default class PaymentPage extends Component{
 
 }
 
-// <TouchableHighlight onPress={()=>{return this.setState({payOps: ()=>{return <PayOptions orderState={this.orderState} navigate={this.props.navigation.navigate}/>}})}} style={{borderColor: '#212121', borderWidth: 3, height: 'auto', width: 'auto', padding:2, borderRadius: '5%', }}><Text>Payment{"\n"}Methods</Text></TouchableHighlight>
+// <TouchableHighlight onPress={()=>{return this.setState({payOps: ()=>{return <PayOptionsScreen orderState={this.orderState} navigate={this.props.navigation.navigate}/>}})}} style={{borderColor: '#212121', borderWidth: 3, height: 'auto', width: 'auto', padding:2, borderRadius: '5%', }}><Text>Payment{"\n"}Methods</Text></TouchableHighlight>
 
 export const SplitPay = (props) =>{
   const order = props.screenProps.order
@@ -90,7 +86,7 @@ export const SplitPay = (props) =>{
     <PaymentPage screenProps={props.screenProps} navigation={props.navigation} type={'Even Split'}>
       <SplitBreakdown screenProps={props.screenProps}/>
       <Tipper screenProps={props.screenProps} payTotal={splitTotal} />
-      <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>this.props.navigation.navigate('Confirmation')}/>
+      <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
     </PaymentPage>
   )
 }
@@ -106,7 +102,7 @@ export const YourStuffPay = (props) =>{
     <PaymentPage key={props.screenProps} screenProps={props.screenProps} navigation={props.navigation} type={'Your Items'}>
     <YourBreakdown screenProps={props.screenProps}/>
     <Tipper screenProps={props.screenProps} payTotal={total}/>
-    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>this.props.navigation.navigate('Confirmation')}/>
+    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
     </PaymentPage>
   )
 }
@@ -122,7 +118,7 @@ export const PickPay = (props) =>{
     <PaymentPage screenProps={props.screenProps} navigation={props.navigation} type={'Custom Selection'}>
     <PickBreakdown subtotal ={subtotal} tax={tax}/>
     <Tipper screenProps={props.screenProps} payTotal={total}/>
-    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>this.props.navigation.navigate('Confirmation')}/>
+    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
     </PaymentPage>
   )
 }
@@ -132,13 +128,13 @@ export const RoulettePay = (props) =>{
   const subtotal = addUp(order)
   const tax = (addUp(order) * .07);
   const total = ((addUp(order) * .07) + (addUp(order)));
-  const tip = props.screenProps.tip;
+  const tip = props.screenProps.tip / 4;
   const finalTotal = total + tip
   return (
     <PaymentPage screenProps={props.screenProps} navigation={props.navigation} type={'Roulette'}>
-    <RouletteBreakdown/>
+    <PickBreakdown subtotal ={subtotal} tax={tax}/>
     <Tipper screenProps={props.screenProps} payTotal={total}/>
-    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>this.props.navigation.navigate('Confirmation')}/>
+    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
     </PaymentPage>
   )
 }

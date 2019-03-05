@@ -18,7 +18,7 @@ export default BottomButton
 export const CheckoutButton = (props)=>{
   return(
     <View>
-    <TouchableOpacity style={styles.button} onPress={()=>{props.doThis()}}>
+    <TouchableOpacity style={styles.button} onPress={()=>{props.payOptionToggle()}}>
       <Text style={styles.buttonText}>Checkout</Text>
       <Text style={styles.buttonPrice}>{props.buttonPrice}</Text>
     </TouchableOpacity>

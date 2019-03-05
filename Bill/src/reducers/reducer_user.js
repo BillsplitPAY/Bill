@@ -7,14 +7,12 @@ const userInfo = {
 }
 
 
-export default function(state = userInfo, action) {
+export default function(state = null, action) {
 	switch (action.type) {
 		case 'UPDATENAME':
-			return Object.assign({}, state, {
-        name: action.payload
-      })
+			return action.payload
 			break;
-			
+
 		default:
 			return state;
 			break;

@@ -3,7 +3,7 @@ import { createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import { connect } from 'react-redux'
 import {StyleSheet, Text, View} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchAPIData, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, setTip, fetchData, setCategory, setMenu, setCurrentItem, removeItem } from '../actions/index.js';
+import { fetchAPIData, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, setTip, fetchData, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase} from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
@@ -32,6 +32,7 @@ class MainNav extends Component {
     firebase.initializeApp(config);
     this.props.fetchAPIData();
     console.log(this.props);
+    firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.toFirebase(snapshot.val())})
     // this.props.setMenu(menuSetter(this.props.menu.response.menu.menus.items[0].entries.items));
   }
 }
@@ -67,13 +68,15 @@ class MainNav extends Component {
        screen: Welcome,
        navigationOptions: {
          headerStyle:{backgroundColor: '#212121', height: 0, display: 'none'},
+         gesturesEnabled: false,
        },
      },
      One: {
        screen: DrawerNav,
        navigationOptions: {
          headerStyle:{backgroundColor: 'red', height: 0, display: 'none'},
-         headerLeft: null
+         headerLeft: null,
+         gesturesEnabled: false,
        },
      },
    })
@@ -90,6 +93,8 @@ function mapStateToProps(state){
     menu: state.menu,
     currentItem: state.currentItem,
     user: state.user,
+    yPosition: state.yPosition,
+    firebase: state.firebase
   }
 }
 //Maps the action creators to component functions so they can be called on components
@@ -107,9 +112,12 @@ function mapDispatchToProps(dispatch){
       setCategory: setCategory,
       setMenu: setMenu,
       setCurrentItem: setCurrentItem,
+      updateName: updateName,
+      yPos: yPos,
       tipUp: tipUp,
       tipDown: tipDown,
       setTip: setTip,
+      toFirebase: toFirebase
     }, dispatch)
 }
 //connects the mapped state object properties and action creators to props on this component

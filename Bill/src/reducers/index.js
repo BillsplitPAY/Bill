@@ -8,6 +8,8 @@ import CatReducer from './reducer_category';
 import MenuReducer from './reducer_menu';
 import CurrentItem from './reducer_currentItem';
 import UserReducer from './reducer_user';
+import YPosReducer from './reducer_yPos';
+import FirebaseReducer from './reducer_firebase';
 
  export default combineReducers({
 	APIData: APIDataReducer,
@@ -20,6 +22,9 @@ import UserReducer from './reducer_user';
   menu: MenuReducer,
   currentItem: CurrentItem,
   user: UserReducer,
+  yPosition: YPosReducer,
+  firebase: FirebaseReducer
+
 });
 
 //export default rootReducer;

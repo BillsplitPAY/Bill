@@ -8,11 +8,22 @@ import Item from '../flexComponents/item';
 
 
 export const categoryBuilder = (obj, navigate, setItem, setCat, screenProps) => {
+
+let yPosObj = {};
+
+const yPosFunc = (catName, catYValue) => {
+  return yPosObj[catName] = catYValue;
+}
+
+//I want to get the Y positions of the elements when they are rendered, and scroll to those positions when the corresponding top scroll category is touched.
+
   return Object.values(obj).map(category => {
+    console.log(category)
+    //create a new object with the category name as keys, and Y positions as values.
     return(
-    <View key={category}style={{backgroundColor: '#edeef0'}}>
-      <Breaker value={category[0].category}/>
-      <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent:'flex-start', alignItems: 'flex-start', backgroundColor: '#edeef0',  height: 'auto'}}>
+    <View onLayout={(event)=>{yPosFunc(category, event.nativeEvent.layout.y); screenProps.yPos(category[0].category, event.nativeEvent.layout.y) ; console.log(screenProps)}} key={category}style={{backgroundColor: '#edeef0'}}>
+      <View style={{width: '100%', height: 40, flexDirection:'row', backgroundColor: '#212121', justifyContent: 'flex-end', alignItems:'center', paddingRight: 10, overflow: 'hidden'}}><Text style={{color: 'white', fontFamily: 'Futura', fontSize: 20}}>{category[0].category}</Text></View>
+      <View style={{justifyContent:'flex-start', alignItems: 'center', backgroundColor: '#edeef0',  height: 'auto',}}>
       {category
         //displays items with a valid price
         .filter(item => item.price)

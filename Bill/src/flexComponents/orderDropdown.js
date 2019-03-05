@@ -7,10 +7,11 @@ import BottomButton, {PayButton, CheckoutButton} from '../flexComponents/bottomB
 import { StackNavigator } from 'react-navigation';
 import {gStyle} from '../containers/styles';
 import Tipper from '../components/tipper';
-import PayOptions from '../components/payOptions';
+import PayOptionsScreen from '../components/payOptions';
 import {SplitBreakdown, PriceBreakdown} from '../flexComponents/priceBreakdown';
 import {OrderListItem} from '../flexComponents/listItem'
 import { connect } from 'react-redux'
+import firebase from 'firebase'
 
 class OrderDropdown extends React.Component{
   constructor(props){
@@ -33,26 +34,29 @@ class OrderDropdown extends React.Component{
       }
   }
 
+
+
 render(){
-  const cartLength = listItemCreator(this.props.order, OrderListItem).length
+  //firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.screenProps.toFirebase(snapshot.val())})
+  const cartLength = listItemCreator(this.props.orders, OrderListItem).length
   console.log(this.props.orderz)
   return(
     <View style={{marginTop: 10, alignItems: 'center'}}>
       <TouchableHighlight onPress={()=>{this.animator(this.state.dropdown, 400, cartLength*50).start(); console.log(this.state.dropdown)}}style={{borderRadius: 5, borderColor: 'black', borderWidth: .5, width: '99%', height: 40, backgroundColor: '#212121', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center'}}>
       <View style={{backgroundColor: '#212121', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center', width: '100%', height: '100%'}}>
         <Text style={styles.itemHeader}>{this.props.name}</Text>
-        <Text style={{color: 'white', fontSize: 14}}>{this.props.order.length} Items</Text>
-        <Text style={{color:'green', fontSize: 18, fontWeight: 'bold'}}>{`$${this.props.screenProps.order.reduce((acc, item)=>{return acc + item.price}, 0)}`}</Text>
+        <Text style={{color: 'white', fontSize: 14}}>{this.props.orders.length} Items</Text>
+        <Text style={{color:'green', fontSize: 18, fontWeight: 'bold'}}>{`$${this.props.orders.reduce((acc, item)=>{return acc + item.price}, 0)}`}</Text>
         </View>
       </TouchableHighlight>
-      <Animated.View style={{height: this.state.dropdown, backgroundColor:'rgb(231,232,236)', zIndex: 2, overflow: 'hidden'}}>{listItemCreator(this.props.order, OrderListItem)}</Animated.View>
+      <Animated.View style={{height: this.state.dropdown, backgroundColor:'rgb(231,232,236)', zIndex: 2, overflow: 'hidden'}}>{listItemCreator(this.props.orders, OrderListItem)}</Animated.View>
     </View>
 )
 
   }
 
   // componentDidMount(){
-  //   this.setState({startVal: this.props.order.length*50})
+  //   this.setState({startVal: this.props.orders.length*50})
   //   console.log(this.state.dropdown)
   // }
 }

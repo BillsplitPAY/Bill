@@ -33,20 +33,27 @@ class Cart extends Component {
    headerTintColor: 'white'
 };
 
-  sendToFirebase(cartInfo, subtotal) {
+  sendToFirebase(cart, subtotal) {
+    this.props.screenProps.submitOrder(cart)
+    setTimeout(()=>{
+      this.props.screenProps.emptyCart()
+      this.props.navigation.navigate('Order', {orderz: this.props.order})
+      
+      firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.user}`).child('order').update(this.props.screenProps.order)
 
-    this.props.screenProps.submitOrder(cartInfo);
-    this.props.screenProps.emptyCart();
-    this.props.navigation.navigate('Order', {orderz: this.props.order})
-    let ref = firebase.database().ref('Restaurants/Larrys/Tables/Table1').child('26')
+    }, 1)
 
-    ref.set(cartInfo).then((data)=>{
-        //success callback
 
-    }).catch((error)=>{
-        //error callback
-        console.log('error ' , error)
-    })
+
+
+
+    // ref.set(cartInfo).then((data)=>{
+    //     //success callback
+    //
+    // }).catch((error)=>{
+    //     //error callback
+    //     console.log('error ' , error)
+    // })
 
   }
 

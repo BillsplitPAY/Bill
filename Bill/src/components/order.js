@@ -8,7 +8,7 @@ import BottomButton, {PayButton, CheckoutButton} from '../flexComponents/bottomB
 import { StackNavigator } from 'react-navigation';
 import {gStyle} from '../containers/styles';
 import {Tipper} from './tipper';
-import PayOptions from './payOptions';
+import PayOptionsScreen from './payOptions';
 import {SplitBreakdown, PriceBreakdown} from '../flexComponents/priceBreakdown';
 import {OrderListItem} from '../flexComponents/listItem';
 import OrderDropdown from '../flexComponents/orderDropdown'
@@ -24,16 +24,21 @@ class Order extends Component {
       breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)} subtotal={tax.toFixed(2)}/>},
       button: () => {return <CheckoutButton buttonPrice={this.props.screenProps.order.reduce((item)=>{return acc + item.price}, 0)} doThis={()=>{return this.payOptionState()}} /> },
       dropdown: new Animated.Value(0),
-
+      style:{display:'none'},
+      counter: 0
     }
+
     this.totalAdder = this.totalAdder.bind(this);
-    this.orderState = this.orderState.bind(this);
     // this.payOptionState = this.payOptionState.bind(this);
     // this.splitState = this.splitState.bind(this);
     this.animator = this.animator.bind(this);
     this.getFromFirebase = this.getFromFirebase.bind(this);
+    this.payOptionToggle = this.payOptionToggle.bind(this);
   }
 
+  payOptionToggle(){
+    return (this.state.style.display === 'none') ? this.setState({style:{display:'flex'}}) : this.setState({style:{display:'none'}})
+  }
 
 // Get a database reference to our posts
 getFromFirebase(){
@@ -43,15 +48,6 @@ getFromFirebase(){
     console.log("The read failed: " + errorObject.code);
   });
 }
-// var ref = db.ref("server/saving-data/fireblog/posts");
-// firebase.database().ref('Restaurants/Larrys/Tables/Table1')
-//
-// // Attach an asynchronous callback to read the data at our posts reference
-// ref.on("value", function(snapshot) {
-//   console.log(snapshot.val());
-// }, function (errorObject) {
-//   console.log("The read failed: " + errorObject.code);
-// });
 
   animator(itemCount){
       if (this.state.dropdown._value === 0){
@@ -62,23 +58,6 @@ getFromFirebase(){
           //return Animated.timing(this.state.dropdown, {duration: 200, toValue: 0})
       }
   }
-
-payOptionState(){
-  this.setState({
-    payUp: ()=>{return <PayOptions payState={()=>{return this.splitState()}} orderState={this.orderState} navigate={this.props.navigation.navigate}/>}
-  })
-
-}
-
-orderState(){
-  this.setState({
-    tip: ()=>{return null},
-    payUp: ()=>{return null},
-    breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)}/>},
-    button: () => {return <CheckoutButton buttonPrice={'$0.00'} doThis={()=>{return this.payState()}}/> }
-  })
-  //console.log(this.state)
-}
 
 totalAdder(acc, itemObj){
   return acc + itemObj.price
@@ -91,32 +70,35 @@ totalAdder(acc, itemObj){
     const tax = subTotal * .07
     const total = subTotal + tax
     const orderLength = listItemCreator(this.props.order, OrderListItem).length
-    //this.getFromFirebase();
+    console.log(this.props.screenProps)
+    console.log(this.props.order)
+
     return (
-       <View style={styles.cartPage} blurRadius={1}>
-
-       <TouchableOpacity onPress={()=>{this.orderState()}} style={[this.state.screenBlurrer, {width: '100%', height: '100%', position: 'absolute',}]} >
-         <Image source={{uri: 'https://dummyimage.com/300x600/e7e8eb/e7e8eb.jpg'}} style={{height: '100%', width: '100%'}}/>
-       </TouchableOpacity>
-       <ScrollView>
-         <View>
-           <OrderDropdown key={this.props.order} orders={this.props.order} screenProps={this.props.screenProps} startVal={(isNaN(orderLength)) ? 0 : orderLength*50} name={'You'}/>
-           <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Lyn'}/>
-           <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Scoe'}/>
-           <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Lee'}/>
-           <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Luc'}/>
-
-         </View>
-       </ScrollView>
+       <View key={this.props.screenProps.firebase} style={styles.cartPage} blurRadius={1}>
+         <ScrollView>
+           <View>
 
 
-       <CheckoutButton buttonPrice={`$${this.props.screenProps.order.reduce((acc, item)=>{return acc + item.price}, 0)}`} doThis={()=>{return this.payOptionState()}}/>
-       {this.state.payUp()}
+             {Object.keys(this.props.screenProps.firebase).map((user)=>{return <OrderDropdown orders={(this.props.screenProps.firebase[user].order) ? this.props.screenProps.firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>})}
 
+
+           </View>
+         </ScrollView>
+         <CheckoutButton buttonPrice={`$${this.props.screenProps.order.reduce((acc, item)=>{return acc + item.price}, 0)}`} payOptionToggle={()=>{this.payOptionToggle()}}/>
+         <PayOptionsScreen payOptionToggle={this.payOptionToggle} navigate={this.props.navigation.navigate} style={this.state.style}/>
      </View>
       );
     }
+    componentDidMount(){
+      firebase.database().ref('Restaurant/testTable').on('value', ()=>{this.setState({counter: this.state.counter +1})})
+    }
   }
+
+  // <OrderDropdown key={this.props.order} orders={this.props.order} screenProps={this.props.screenProps} startVal={(isNaN(orderLength)) ? 0 : orderLength*50} name={'You'}/>
+  // <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Lyn'}/>
+  // <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Scoe'}/>
+  // <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Lee'}/>
+  // <OrderDropdown orders={this.props.order} screenProps={this.props.screenProps} startVal={0} name={'Luc'}/>
 
   function mapStateToProps(state){
     return {
@@ -124,14 +106,7 @@ totalAdder(acc, itemObj){
     }
   }
 
-
   export default connect(mapStateToProps)(Order)
-
-
-
-  // <TouchableOpacity onPress={()=>{console.log(this.state); this.setState({screenBlurrer:{opacity: .5, zIndex: 0, borderColor: 'blue', borderWidth: 2}})}} style={[this.state.screenBlurrer, {width: '100%', height: '100%', position: 'absolute',}]} >
-
-// <BottomButton buttonText={'Checkout'} doThis={() => {this.animator().start(); console.log(this.state)}} buttonPrice={total.toFixed(2)}/>
 
   const styles = StyleSheet.create({
     hidden:{position: 'absolute', height:'auto', borderColor: 'black', width: '95%',  left: 10, right: 'auto', top: 500, marginBottom: 0, flexDirection: 'row', justifyContent: 'space-between', },
@@ -143,6 +118,5 @@ totalAdder(acc, itemObj){
     itemHeader:{fontSize: 20, fontWeight: 'bold', color: 'white'},
 
     payText: {textAlign:'center', fontSize: 20, fontFamily: gStyle.appFont}
-
 
   })

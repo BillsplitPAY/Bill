@@ -20,7 +20,7 @@ const TopCatScroller = (props) => {
     <View style={styles_catScroller.scroller}>
       <ScrollView horizontal = {true}>
         <View style={styles_catScroller.scrollContainer}>
-          {Object.keys(props.categories).map((index) => {return <View key={index} style = {styles_catScroller.scr}><Text style = {styles_catScroller.text}>{index}</Text></View>})}
+          {Object.keys(props.categories).map((index) => {return <TouchableHighlight key={index} onPress={()=>{props.refy.scrollTo({x: 0, y: props.screenProps.yPosition[index], animated: true})}} style={styles_catScroller.scr}><Text style = {styles_catScroller.text}>{index}</Text></TouchableHighlight>})}
         </View>
     </ScrollView>
   </View>
@@ -31,8 +31,11 @@ export default class Menu extends Component {
   constructor(props){
     super(props);
   }
+
+
   render() {
     const { navigate } = this.props.navigation.navigate
+    console.log(this.props.screenProps)
 
     if (this.props.screenProps.menu === {}){
       return <Text>Waiting for menu...</Text>
@@ -40,8 +43,8 @@ export default class Menu extends Component {
       return (
         <View style={styles_menu.menuPage}>
         <StatusBar barStyle="light-content" />
-          <TopCatScroller categories={this.props.screenProps.menu}/>
-          <ScrollView>
+          <TopCatScroller categories={this.props.screenProps.menu} screenProps={this.props.screenProps} refy={this.list} />
+          <ScrollView ref={(ref) => this.list = ref}>
             <View style={styles_menu.items, {borderWidth: 1}}>
               <MenuCategories screenProps={this.props.screenProps} navigate={this.props.navigation.navigate}/>
             </View>
