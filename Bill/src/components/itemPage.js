@@ -18,13 +18,12 @@ class ItemPage extends Component {
   repeater(array, navigate, screenProps){
     return array.map((item)=>{
       return (
-      <TouchableHighlight onPress={()=>{this.props.screenProps.setCurrentItem(item); this.props.screenProps.setCategory(item.category); this.props.navigation.navigate('ItemPage')}} key={item.name} style={{borderColor: '#212121', borderWidth:'1', borderRadius: '10%', height: 170, width: 170, margin: 5, justifyContent:'flex-start',  paddingTop: 5, paddingBottom:20, overflow:'hidden'}}>
+      <TouchableHighlight onPress={()=>{this.props.screenProps.setCurrentItem(item); this.props.screenProps.setCategory(item.category); this.props.navigation.navigate('ItemPage')}} key={item.name} style={{borderColor: '#212121', borderWidth:1, borderRadius: 10, height: 170, width: 170, margin: 5, justifyContent:'flex-start',  paddingTop: 5, paddingBottom:20, overflow:'hidden'}}>
       <View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingLeft:5, paddingRight:5, }}>
           <Text style={{fontWeight: 'bold', width: '80%', fontSize:18, flexWrap: 'wrap'}}>{item.name}</Text>
           <Text style={{color: 'green', width: '30%', fontWeight: 'bold', fontSize:18}}>${item.price}</Text>
         </View>
-
         <View style={{margin: 5, overflow: 'hidden', height:'auto'}}><Text style={{color: 'black', paddingLeft: 5}}>{item.desc}</Text></View>
         </View>
       </TouchableHighlight>
@@ -53,37 +52,24 @@ class ItemPage extends Component {
 
     return(
       <View style={[gStyle.page, styles.topDiv]}>
-
-        //Item name
         <View style={[gStyle.row, styles.itemAndCounterRow]}>
           <View style={styles.itemDiv}>
             <Text style={styles.itemName}>{itemName}</Text>
           </View>
-
-          //Counter
           <View style={[gStyle.row, styles.counterDiv]}>
             <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) + 1)})}}><Ionicons name="ios-add-circle" size={40} /></TouchableHighlight>
             <TextInput style={styles.textBox} defaultValue={String(this.state.quantity)} autoFocus={false}/>
             <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) - 1)})}}><Ionicons name="ios-remove-circle" size={40} /></TouchableHighlight>
           </View>
         </View>
-
-        //Item description
         <Text style={styles.itemDescription}>{itemDesc}</Text>
         <View style={{marginBottom: 20}}><NoteBox defaultValue={`Special requests...`}/></View>
-
-        //Item options
         {this.options()}
-
-        //Similar Items
         <Breaker value={'Similar Items'}/>
         <ScrollView horizontal={true} contentContainerStyle={[styles.similarDiv, {height: 160}]}>
           {this.repeater(this.props.screenProps.menu[currentItem.category], this.props.navigation.navigate, this.props.screenProps)}
         </ScrollView>
-
-        //Notebox & bottom button
         <BottomButton buttonText={'Add to Cart'} buttonPrice={(itemPrice * this.state.quantity).toFixed(2)} doThis={() => {navigate('Menu'); for(let i = 0; i < this.state.quantity; i++){this.props.screenProps.addItem((this.props.screenProps.currentItem))}; this.props.screenProps.addPrice(Number(itemPrice))}}/>
-
       </View>
     )
   }

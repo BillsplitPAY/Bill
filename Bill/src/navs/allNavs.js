@@ -39,20 +39,20 @@ export const TabNav = createBottomTabNavigator({
   Menu: {
     screen: MenuStackNav,
     navigationOptions: {
-            tabBarLabel: <View style={{alignItems:'center',  marginBottom: -30}}><Ionicons name="md-book" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'Futura', fontSize: 14,}}>Menu</Text></View>,
+            tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30}}><Ionicons name="md-book" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'Futura', fontSize: 14,}}>Menu</Text></View>,
         },
   },
   Cart: {
     screen: Cart,
     navigationOptions: {
-            tabBarLabel: <View style={{alignItems: 'center',   marginBottom: -30 }}><Ionicons name="md-cart" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'Futura', fontSize: 14,}}>Cart</Text></View>
+            tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30  }}><Ionicons name="md-cart" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'Futura', fontSize: 14,}}>Cart</Text></View>
             //tabBarIcon:() => <Ionicons size={ 20 } name={ 'basket' } color={ 'red' }/>
         },
   },
   Order: {
     screen: Order,
     navigationOptions:{
-      tabBarLabel: <View style={{alignItems: 'center', justifyContent: 'flex-start', marginBottom: -30}}><Ionicons name="md-color-wand" size={24} style={{color:'white'}}/><Text style={{fontFamily: 'Futura', fontSize: 14, color: 'white'}}>Options</Text></View>
+      tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30, justifyContent: 'flex-start'}}><Ionicons name="md-color-wand" size={24} style={{color:'white'}}/><Text style={{fontFamily: 'Futura', fontSize: 14, color: 'white'}}>Options</Text></View>
     }
   }
 },
@@ -65,10 +65,10 @@ export const TabNav = createBottomTabNavigator({
       animationEnabled: 'true',
       style: {
         backgroundColor: '#212121',
-        height: 22,
+        height: '8%',
 
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
       },
 
     },
@@ -119,14 +119,15 @@ export const TabNav = createBottomTabNavigator({
        screen: RoulettePay,
        navigationOptions: defaultNavOptions,
      },
-    
+
      Confirmation: {
        screen: Confirmation,
        navigationOptions: defaultNavOptions,
      },
-   },
- // { cardStyle: {backgroundColor: 'rgba(234, 235, 238, 1)'}, }
-);
+   },{
+      headerMode: 'screen',
+      // cardStyle: {borderColor: 'green', borderWidth: 2}
+});
 
  //   export const FullStackNav = createStackNavigator({
  //     Zero: {

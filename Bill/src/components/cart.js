@@ -38,10 +38,18 @@ class Cart extends Component {
     setTimeout(()=>{
       this.props.screenProps.emptyCart()
       this.props.navigation.navigate('Order', {orderz: this.props.order})
-      
+
       firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.user}`).child('order').update(this.props.screenProps.order)
 
+
+      // firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.user}`).set({})
+      //anytime a user adds an item to the order, they are removed from firebase.
+
     }, 1)
+
+    // clearTable(){
+    //   firebase.database().ref(`Restaurant/testTable`).set({})
+    // }
 
 
 
@@ -108,7 +116,7 @@ class Cart extends Component {
 
         <TouchableHighlight onPress={()=>{this.setState({display: 'none'})}}style={{position:'absolute', width: '100%', height: '100%', display: this.state.display, backgroundColor: 'rgba(0,0,0,.7)',}}><View></View></TouchableHighlight>
 
-        <View style={{display: this.state.display, position: 'absolute', height: 'auto', width: '80%', alignSelf: 'center', borderColor: '#212121', borderWidth: 3, borderRadius:'10%', top: 125, backgroundColor: 'white', justifyContent:'space-between', }}>
+        <View style={{display: this.state.display, position: 'absolute', height: 'auto', width: '80%', alignSelf: 'center', borderColor: '#212121', borderWidth: 3, borderRadius:10, top: 125, backgroundColor: 'white', justifyContent:'space-between', }}>
           <View style={{height: 'auto', padding:10, marginBottom: 25, flexDirection: 'row', justifyContent: 'space-between', }}>
             <View style={{width: '60%', justifyContent:'flex-start'}}><Text style={{fontSize: 20, fontFamily: 'Futura'}}>{this.state.currentItem}</Text></View>
             <View style={{ flexDirection: 'row', justifyContent:'flex-end', alignItems: 'center', width: '40%'}}>

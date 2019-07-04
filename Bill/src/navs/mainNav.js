@@ -3,7 +3,7 @@ import { createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import { connect } from 'react-redux'
 import {StyleSheet, Text, View} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchAPIData, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, setTip, fetchData, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase} from '../actions/index.js';
+import { fetchAPIData, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, setTip, fetchData, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase, updateTable} from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
@@ -33,6 +33,7 @@ class MainNav extends Component {
     this.props.fetchAPIData();
     console.log(this.props);
     firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.toFirebase(snapshot.val())})
+    this.props.clearFirebase();
     // this.props.setMenu(menuSetter(this.props.menu.response.menu.menus.items[0].entries.items));
   }
 }
@@ -43,6 +44,7 @@ class MainNav extends Component {
     //and within the component itself use the 'static' keyword, check examples
      Home: {
        screen: inAppStackNav,
+
      },
      signIn: {
        screen: signIn,
@@ -94,7 +96,8 @@ function mapStateToProps(state){
     currentItem: state.currentItem,
     user: state.user,
     yPosition: state.yPosition,
-    firebase: state.firebase
+    firebase: state.firebase,
+    table: state.table,
   }
 }
 //Maps the action creators to component functions so they can be called on components
@@ -117,7 +120,9 @@ function mapDispatchToProps(dispatch){
       tipUp: tipUp,
       tipDown: tipDown,
       setTip: setTip,
-      toFirebase: toFirebase
+      toFirebase: toFirebase,
+      clearFirebase: clearFirebase,
+      updateTable: updateTable,
     }, dispatch)
 }
 //connects the mapped state object properties and action creators to props on this component

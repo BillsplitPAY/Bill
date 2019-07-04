@@ -38,19 +38,19 @@ const PayOptionsScreen = (props) =>{
         <PayOption title={"Your Items Only"} description={"Split the check with all of your friends, or whomever you choose."} img={require('../img/yourStuff.jpeg')} navigate={()=>{props.navigate('YourStuffPay')}}/>
         <PayOption title={"Pick What You Pay For"} description={"Split the check with all of your friends, or whomever you choose."} img={require('../img/custom.png')} navigate={()=>{props.navigate('PickPay')}}/>
         <PayOption title={"Roulette"} description={"Split the check with all of your friends, or whomever you choose."} img={require('../img/roulette.png')} navigate={()=>{props.navigate('RoulettePay')}}/>
-        <PayOption title={"I'm Treatin'!"} description={"Split the check with all of your friends, or whomever you choose."} img={require('../img/treatin.png')} navigate={null}/>
       </View>
 
     </View>
   )
 }
+// <PayOption title={"I'm Treatin'!"} description={"Split the check with all of your friends, or whomever you choose."} img={require('../img/treatin.png')} navigate={null}/>
 
 export default PayOptionsScreen;
 
 const styles = StyleSheet.create({
-  optionsContainer:{height: 'auto', width: '93%',  justifyContent: 'space-between', alignItems: 'center'},
+  optionsContainer:{height: '100%', width: '93%',  justifyContent: 'space-between', alignItems: 'center'},
 
-  payOption:{height: 100, width: '100%', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', backgroundColor: 'white', borderColor: '#212121', borderWidth: 2, borderRadius: 5, marginBottom: 20, paddingLeft: 5},
+  payOption:{height: '23%', width: '100%', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', backgroundColor: 'white', borderColor: '#212121', borderWidth: 2, borderRadius: 5, marginBottom: 20, paddingLeft: 5},
 
   cartPage:{justifyContent: 'space-between', height: '100%', opacity: 1},
 

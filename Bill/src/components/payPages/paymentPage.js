@@ -78,13 +78,13 @@ export const SplitPay = (props) =>{
   const subtotal = addUp(order)
   const tax = (addUp(order) * .07);
   const total = ((addUp(order) * .07) + (addUp(order)));
-  const splitTotal = total / 4;
+  const splitTotal = total / Object.keys(props.screenProps.firebase).length;
   const tip = props.screenProps.tip;
   const finalTotal = splitTotal + tip
-  console.log(props.screenProps)
+  console.log(Object.keys(props.screenProps.firebase).length)
   return (
     <PaymentPage screenProps={props.screenProps} navigation={props.navigation} type={'Even Split'}>
-      <SplitBreakdown screenProps={props.screenProps}/>
+      <SplitBreakdown screenProps={props.screenProps} diners={Object.keys(props.screenProps.firebase).length}/>
       <Tipper screenProps={props.screenProps} payTotal={splitTotal} />
       <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
     </PaymentPage>
@@ -123,18 +123,72 @@ export const PickPay = (props) =>{
   )
 }
 
-export const RoulettePay = (props) =>{
-  const order = props.screenProps.order
-  const subtotal = addUp(order)
-  const tax = (addUp(order) * .07);
-  const total = ((addUp(order) * .07) + (addUp(order)));
-  const tip = props.screenProps.tip / 4;
-  const finalTotal = total + tip
+export class RoulettePay extends React.Component{
+constructor(props){
+  super(props);
+  this.state={
+    total: 0,
+    payer: null,
+    display: 'none',
+    spinButton: 'flex',
+    spinOrPay: ()=>{return <TouchableOpacity title='Spin' style={{height: 50, display: this.state.spinButton, alignItems:'center', justifyContent: 'center', width:'15%', alignSelf:'center', borderWidth: 1, borderColor: 'black', borderRadius:5, backgroundColor:'black'}} onPress={()=>{setTimeout(()=>{this.roulette()}, 2000)}}><Text style={{color: 'white', fontSize:40}}>Spin</Text></TouchableOpacity>}
+
+  }
+  this.roulette = this.roulette.bind(this)
+  this.tableTotal = this.tableTotal.bind(this)
+
+}
+
+tableTotal(){
+  return Object.values(this.props.screenProps.firebase).map((index)=>{
+    return index.order.reduce((acc, orderNumber)=>{
+       return orderNumber.price + acc;
+    }, 0)
+  })
+}
+
+ roulette(){
+  const objLength = Object.keys(this.props.screenProps.firebase).length
+  const index = Math.floor(Math.random() * (objLength - 0)+0)
+  const rando = Object.keys(this.props.screenProps.firebase)[index];
+  console.log(rando)
+  const subtotal = this.tableTotal().reduce((acc, price)=>{return acc + price}, 0)
+
+  return (rando !== this.props.screenProps.user)?this.setState({total:0, payer: rando, display: 'flex', spinButton:'none', spinOrPay:()=>{return <PickBreakdown subtotal={this.state.total} tax={this.state.total * .07}/>}}):this.setState({total: subtotal, payer: 'You', display: 'flex', spinButton:'none', spinOrPay:()=>{return <PickBreakdown subtotal={this.state.total} tax={this.state.total * .07}/>}})
+  // this.setState({payer: Object.keys(this.props.screenProps.firebase)[index]})
+}
+
+
+
+  render(){
+
+    const order = this.props.screenProps.order
+    const tax = (addUp(order) * .07);
+    const total = ((addUp(order) * .07) + (addUp(order)));
+    const tip = this.props.screenProps.tip / 4;
+    const finalTotal = total + tip
+
   return (
-    <PaymentPage screenProps={props.screenProps} navigation={props.navigation} type={'Roulette'}>
-    <PickBreakdown subtotal ={subtotal} tax={tax}/>
-    <Tipper screenProps={props.screenProps} payTotal={total}/>
-    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
+    <PaymentPage screenProps={this.props.screenProps} navigation={this.props.navigation} type={'Roulette'}>
+    <View><Text>{this.state.total}</Text></View>
+    <View style={{display: this.state.display, backgroundColor:'white', position: 'absolute', height: '20%', width: '50%', zIndex:5, borderWidth:5, borderColor:'black', alignItems:'center', justifyContent:'center', fontSize:'2em', alignSelf:'center', top:'35%'}}>
+      <Text style={{fontSize:20}}>And the lucky winner is...</Text>
+      <Text style={{fontSize:100}}>{this.state.payer}!!!!</Text>
+    </View>
+    {this.state.spinOrPay()}
+    <Tipper screenProps={this.props.screenProps} payTotal={total}/>
+    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>this.props.navigation.navigate('Confirmation')}/>
     </PaymentPage>
   )
 }
+}
+// <TouchableOpacity title='Spin' style={{height: 50, display: this.state.spinButton, alignItems:'center', justifyContent: 'center', width:'15%', alignSelf:'center', borderWidth: 1, borderColor: 'black', borderRadius:5, backgroundColor:'black'}} onPress={()=>{setTimeout(()=>{this.roulette()}, 2000)}}><Text style={{color: 'white', fontSize:40}}>Spin</Text></TouchableOpacity>
+// <PickBreakdown subtotal ={this.state.total} tax={this.state.total * .07}/>
+
+// <PaymentPage screenProps={this.props.screenProps} navigation={this.props.navigation} type={'Roulette'}>
+// <Button title='Spin' onPress={()=>{this.roulette()}}>Spin</Button>
+// <View>{this.state.total}</View>
+// <PickBreakdown subtotal ={this.state.total} tax={tax}/>
+// <Tipper screenProps={this.props.screenProps} payTotal={total}/>
+// <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>this.props.navigation.navigate('Confirmation')}/>
+// </PaymentPage>

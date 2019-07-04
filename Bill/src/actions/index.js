@@ -117,3 +117,21 @@ export function toFirebase(db){
 		 payload: db
     };
 }
+
+export function clearFirebase(db){
+  return {
+	   type: 'CLEARBASE',
+		 payload: db
+    };
+}
+
+export function updateTable(members, items, price){
+  return {
+	   type: 'UPDATETABLE',
+		 payload: {
+			 members: members,
+			 items: items,
+			 price: price
+		 }
+    };
+}

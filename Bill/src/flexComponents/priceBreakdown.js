@@ -78,14 +78,14 @@ export const SplitBreakdown = (props) => {
 
       <View style={{width: 'auto', flexWrap: 'nowrap', flexShrink: 1}}>
         <Text style={{alignSelf: 'center', marginBottom:10, textDecorationLine: 'underline'}}>Diners</Text>
-        <Text style={[styles.splitNumbers, {flexWrap: 'nowrap', flexShrink: 1}]}>{'4'}</Text>
+        <Text style={[styles.splitNumbers, {flexWrap: 'nowrap', flexShrink: 1}]}>{props.diners}</Text>
       </View>
 
       <View style={{alignSelf: 'flex-end',  right: 5}}><Text style={{fontSize: 20, fontWeight: 'bold', color: 'red', bottom: 8}}>=</Text></View>
 
       <View style={{width: 'auto', flexWrap: 'nowrap', flexShrink: 2}}>
         <Text style={{alignSelf: 'center', marginBottom:10, textDecorationLine: 'underline'}}>Your Total</Text>
-        <Text style={[styles.splitNumbers, {flexWrap: 'nowrap', flexShrink: 2, textDecorationLine: 'underline', textDecorationStyle: 'double', textDecorationColor: 'green', fontSize: 26, bottom: 5}]}>{((subtotal + orderTax) / 4).toFixed(2)}</Text>
+        <Text style={[styles.splitNumbers, {flexWrap: 'nowrap', flexShrink: 2, textDecorationLine: 'underline', textDecorationStyle: 'double', textDecorationColor: 'green', fontSize: 26, bottom: 5}]}>{((subtotal + orderTax) / props.diners).toFixed(2)}</Text>
       </View>
 
     </View>

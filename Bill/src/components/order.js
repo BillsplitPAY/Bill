@@ -34,10 +34,16 @@ class Order extends Component {
     this.animator = this.animator.bind(this);
     this.getFromFirebase = this.getFromFirebase.bind(this);
     this.payOptionToggle = this.payOptionToggle.bind(this);
+    this.clearTable = this.clearTable.bind(this);
+    this.orderReader = this.orderReader.bind(this);
   }
 
   payOptionToggle(){
     return (this.state.style.display === 'none') ? this.setState({style:{display:'flex'}}) : this.setState({style:{display:'none'}})
+  }
+
+  clearTable(){
+    firebase.database().ref(`Restaurant/testTable`).set({})
   }
 
 // Get a database reference to our posts
@@ -63,6 +69,17 @@ totalAdder(acc, itemObj){
   return acc + itemObj.price
 }
 
+orderReader(){
+  if(this.props.screenProps.firebase === null){
+    return <View>No orders</View>
+  }
+  else{
+    return(
+      Object.keys(this.props.screenProps.firebase).map((user)=>{return <OrderDropdown key={this.props.screenProps[user]} orders={(this.props.screenProps.firebase[user].order) ? this.props.screenProps.firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>})
+    )
+  }
+}
+
   render() {
     const { navigate } = this.props.navigation
     const order = this.props.screenProps.order
@@ -74,16 +91,11 @@ totalAdder(acc, itemObj){
     console.log(this.props.order)
 
     return (
-       <View key={this.props.screenProps.firebase} style={styles.cartPage} blurRadius={1}>
-         <ScrollView>
-           <View>
-
-
-             {Object.keys(this.props.screenProps.firebase).map((user)=>{return <OrderDropdown orders={(this.props.screenProps.firebase[user].order) ? this.props.screenProps.firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>})}
-
-
-           </View>
-         </ScrollView>
+     <View key={this.props.screenProps.firebase} style={styles.cartPage} blurRadius={1}>
+         <View style={{height:'60%'}}>
+           <ScrollView>{this.orderReader()}</ScrollView>
+         </View>
+         <TouchableOpacity title='Clear' onPress={()=>{this.clearTable()}} style={{position:'relative', borderColor: 'black', borderWidth:1, borderRadius: 5, alignItems: 'center', paddingVertical:10, paddingHorizontal:20, alignSelf:'center', justifyContent: 'center'}}><Text style={{fontSize: 30, fontFamily: gStyle.appFont}}>Clear</Text></TouchableOpacity>
          <CheckoutButton buttonPrice={`$${this.props.screenProps.order.reduce((acc, item)=>{return acc + item.price}, 0)}`} payOptionToggle={()=>{this.payOptionToggle()}}/>
          <PayOptionsScreen payOptionToggle={this.payOptionToggle} navigate={this.props.navigation.navigate} style={this.state.style}/>
      </View>

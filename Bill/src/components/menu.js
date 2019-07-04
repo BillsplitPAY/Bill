@@ -35,7 +35,7 @@ export default class Menu extends Component {
 
   render() {
     const { navigate } = this.props.navigation.navigate
-    console.log(this.props.screenProps)
+    // console.log(this.props.screenProps)
 
     if (this.props.screenProps.menu === {}){
       return <Text>Waiting for menu...</Text>
@@ -55,7 +55,7 @@ export default class Menu extends Component {
 
   componentDidMount(){
     const categoriesArray = this.props.screenProps.APIData.response.menu.menus.items[0].entries.items
-    console.log(categoriesArray)
+    // console.log(categoriesArray)
     this.props.screenProps.setMenu(menuSetter(categoriesArray));
     //transforms API menu object to more manageable menu object. Sets it to props.screenProps.menu.
   }

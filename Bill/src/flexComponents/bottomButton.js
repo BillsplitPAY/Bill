@@ -5,7 +5,7 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 const BottomButton = (props) => {
 
   return (
-    <View>
+    <View >
     <TouchableOpacity style={styles.button} onPress={()=>{props.doThis()}}>
       <Text style={styles.buttonText}>{props.buttonText}</Text>
       <Text style={styles.buttonPrice}>${props.buttonPrice}</Text>
@@ -53,12 +53,11 @@ export const EditButton = (props)=>{
 const styles = StyleSheet.create({
 
   button:{
-    flexDirection: 'row',
+    flexDirection:'column',
     backgroundColor: 'black',
+    justifyContent:'center',
     height: 45,
     width: '99%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     alignSelf: 'center',
     marginBottom: 2,
     borderRadius: 5,
@@ -66,16 +65,25 @@ const styles = StyleSheet.create({
    buttonText:{
      color: 'white',
      fontWeight:'bold',
-     marginLeft: '37%',
      fontSize: 17,
+     alignSelf:'center',
+     position:'relative',
+     top:'25%'
+
+
+
 
    },
    buttonPrice:{
-     //alignSelf: 'flex-end',
+
      color: '#8bc34a',
      fontWeight:'bold',
-     marginRight: 4,
+
      fontSize: 17,
+     alignSelf: 'flex-end',
+     bottom:'25%',
+     right:'2.5%',
+     position:'relative'
    },
 
 })

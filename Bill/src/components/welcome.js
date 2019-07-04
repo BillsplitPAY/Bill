@@ -33,13 +33,13 @@ class Welcome extends React.Component {
   }
 
   render(){
-    console.log(this.props)
+    // console.log(this.props)
     return(
       <Animated.View style={{height: '100%', width: '100%', alignItems: 'center', justifyContent: 'flex-start'}}>
 
         <View style={{opacity: this.state.opacity, height: 150, width: 200, alignSelf:'center', marginTop: 20, alignItems: 'center', justifyContent: 'center'}}>
           <Text style={{fontFamily: 'Futura', fontSize: 17}}>Please Enter Your Name:</Text>
-          <TextInput style={{borderColor: 'black', borderWidth: 4, borderRadius:'5%', height: 'auto', width: '120%', fontSize: 40, textAlign: 'center', paddingTop:5, paddingBottom:5,}} onChangeText={(text) => {this.setState({value: text})}} value={this.state.value}></TextInput>
+          <TextInput  style={{borderColor: 'black', borderWidth: 4, borderRadius:5, height: 'auto', width: '120%', fontSize: 40, textAlign: 'center', paddingTop:5, paddingBottom:5,}} onChangeText={(text) => {this.setState({value: text})}} value={this.state.value}></TextInput>
           <Button title='Ok' onPress={()=>{this.props.screenProps.updateName(this.state.value); this.props.navigation.navigate('One'); firebase.database().ref('Restaurant').child('testTable').update({[this.state.value]:{'name': this.state.value}})}}></Button>
         </View>
 

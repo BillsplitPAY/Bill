@@ -3,6 +3,9 @@ export default function(state = '', action) {
 		case 'FIREBASE':
 			return action.payload
 			break;
+			case 'CLEARBASE':
+				return {}
+				break;
 		default:
 			return state;
 			break;

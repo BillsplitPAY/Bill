@@ -39,7 +39,7 @@ class OrderDropdown extends React.Component{
 render(){
   //firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.screenProps.toFirebase(snapshot.val())})
   const cartLength = listItemCreator(this.props.orders, OrderListItem).length
-  console.log(this.props.orderz)
+  
   return(
     <View style={{marginTop: 10, alignItems: 'center'}}>
       <TouchableHighlight onPress={()=>{this.animator(this.state.dropdown, 400, cartLength*50).start(); console.log(this.state.dropdown)}}style={{borderRadius: 5, borderColor: 'black', borderWidth: .5, width: '99%', height: 40, backgroundColor: '#212121', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center'}}>
