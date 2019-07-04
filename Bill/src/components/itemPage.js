@@ -18,7 +18,7 @@ class ItemPage extends Component {
   repeater(array, navigate, screenProps){
     return array.map((item)=>{
       return (
-      <TouchableHighlight onPress={()=>{this.props.screenProps.setCurrentItem(item); this.props.screenProps.setCategory(item.category); this.props.navigation.navigate('ItemPage')}} key={item.name} style={{borderColor: '#212121', borderWidth:1, borderRadius: 10, height: 170, width: 170, margin: 5, justifyContent:'flex-start',  paddingTop: 5, paddingBottom:20, overflow:'hidden'}}>
+      <TouchableHighlight onPress={()=>{this.props.screenProps.f_setCurrentItem(item); this.props.screenProps.f_setCategory(item.category); this.props.navigation.navigate('ItemPage')}} key={item.name} style={{borderColor: '#212121', borderWidth:1, borderRadius: 10, height: 170, width: 170, margin: 5, justifyContent:'flex-start',  paddingTop: 5, paddingBottom:20, overflow:'hidden'}}>
       <View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingLeft:5, paddingRight:5, }}>
           <Text style={{fontWeight: 'bold', width: '80%', fontSize:18, flexWrap: 'wrap'}}>{item.name}</Text>
@@ -33,7 +33,7 @@ class ItemPage extends Component {
 
 // <Item key={item.name} foodItem={item} category={array} navi={navigate} screenProps={screenProps}/>
   options(){
-    if (this.props.screenProps.currentItem.options.length !== 0){
+    if (this.props.screenProps.o_currentItem.options.length !== 0){
       return(
         <View><Breaker value={'Item Options'}/><View style={{height: 'auto'}}></View></View>
       )
@@ -45,10 +45,10 @@ class ItemPage extends Component {
     console.log(this.props)
     const {navigate} = this.props.navigation;
     //category is an object with the category's name under the name property, and the category's items under .entries.items
-    const currentItem = this.props.screenProps.currentItem;
-    const itemName = this.props.screenProps.currentItem.name;
-    const itemDesc = this.props.screenProps.currentItem.desc;
-    const itemPrice = this.props.screenProps.currentItem.price;
+    const currentItem = this.props.screenProps.o_currentItem;
+    const itemName = this.props.screenProps.o_currentItem.name;
+    const itemDesc = this.props.screenProps.o_currentItem.desc;
+    const itemPrice = this.props.screenProps.o_currentItem.price;
 
     return(
       <View style={[gStyle.page, styles.topDiv]}>
@@ -67,9 +67,9 @@ class ItemPage extends Component {
         {this.options()}
         <Breaker value={'Similar Items'}/>
         <ScrollView horizontal={true} contentContainerStyle={[styles.similarDiv, {height: 160}]}>
-          {this.repeater(this.props.screenProps.menu[currentItem.category], this.props.navigation.navigate, this.props.screenProps)}
+          {this.repeater(this.props.screenProps.o_menu[currentItem.category], this.props.navigation.navigate, this.props.screenProps)}
         </ScrollView>
-        <BottomButton buttonText={'Add to Cart'} buttonPrice={(itemPrice * this.state.quantity).toFixed(2)} doThis={() => {navigate('Menu'); for(let i = 0; i < this.state.quantity; i++){this.props.screenProps.addItem((this.props.screenProps.currentItem))}}}/>
+        <BottomButton buttonText={'Add to Cart'} buttonPrice={(itemPrice * this.state.quantity).toFixed(2)} doThis={() => {navigate('Menu'); for(let i = 0; i < this.state.quantity; i++){this.props.screenProps.f_addItem((this.props.screenProps.o_currentItem))}}}/>
       </View>
     )
   }

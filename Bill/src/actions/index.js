@@ -84,18 +84,6 @@ export function setTip(tip){
     };
 }
 
-export function tipUp(){
-  return {
-	   type: 'TIPUP'
-    };
-}
-
-export function tipDown(){
-  return {
-	   type: 'TIPDOWN'
-    };
-}
-
 export function toFirebase(db){
   return {
 	   type: 'FIREBASE',

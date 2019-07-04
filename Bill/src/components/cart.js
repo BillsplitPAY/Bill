@@ -34,15 +34,15 @@ class Cart extends Component {
 };
 
   sendToFirebase(cart, subtotal) {
-    this.props.screenProps.submitOrder(cart)
+    this.props.screenProps.f_submitOrder(cart)
     setTimeout(()=>{
-      this.props.screenProps.emptyCart()
+      this.props.screenProps.f_emptyCart()
       this.props.navigation.navigate('Order', {orderz: this.props.order})
 
-      firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.user}`).child('order').update(this.props.screenProps.order)
+      firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.o_user}`).child('order').update(this.props.screenProps.o_order)
 
 
-      // firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.user}`).set({})
+      // firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.o_user}`).set({})
       //anytime a user adds an item to the order, they are removed from firebase.
 
     }, 1)
@@ -79,21 +79,21 @@ class Cart extends Component {
   }
 
   cartReset(){
-      const newCart = this.props.screenProps.cart.filter((item)=>{return item.id !== this.state.newItem.id})
-      this.props.screenProps.emptyCart()
-      newCart.map((item)=>{this.props.screenProps.addItem(item)})
-      for (let i = 0; i < this.state.quantity; i++){this.props.screenProps.addItem(this.state.newItem)}
-      console.log(this.props.screenProps.cart)
+      const newCart = this.props.screenProps.o_cart.filter((item)=>{return item.id !== this.state.newItem.id})
+      this.props.screenProps.f_emptyCart()
+      newCart.map((item)=>{this.props.screenProps.f_addItem(item)})
+      for (let i = 0; i < this.state.quantity; i++){this.props.screenProps.f_addItem(this.state.newItem)}
+      console.log(this.props.screenProps.o_cart)
   }
 
   render() {
     console.log(this.state)
     const { navigate } = this.props.navigation
-    const cart = this.props.screenProps.cart
+    const cart = this.props.screenProps.o_cart
     const subtotal = cart.reduce(this.totalAdder, 0)
     const tax = subtotal * .07
     const total = subtotal + tax
-    console.log(this.props.screenProps.cart)
+    console.log(this.props.screenProps.o_cart)
 
     return (
       <View style={{height: '100%'}}>

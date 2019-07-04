@@ -21,7 +21,7 @@ const yPosFunc = (catName, catYValue) => {
     // console.log(category)
     //create a new object with the category name as keys, and Y positions as values.
     return(
-    <View onLayout={(event)=>{yPosFunc(category, event.nativeEvent.layout.y); screenProps.yPos(category[0].category, event.nativeEvent.layout.y) ; }} key={category}style={{backgroundColor: '#edeef0'}}>
+    <View onLayout={(event)=>{yPosFunc(category, event.nativeEvent.layout.y); screenProps.f_yPos(category[0].category, event.nativeEvent.layout.y) ; }} key={category}style={{backgroundColor: '#edeef0'}}>
       <View style={{width: '100%', height: 40, flexDirection:'row', backgroundColor: '#212121', justifyContent: 'flex-end', alignItems:'center', paddingRight: 10, overflow: 'hidden'}}><Text style={{color: 'white', fontFamily: 'Futura', fontSize: 20}}>{category[0].category}</Text></View>
       <View style={{justifyContent:'flex-start', alignItems: 'center', backgroundColor: '#edeef0',  height: 'auto',}}>
       {category

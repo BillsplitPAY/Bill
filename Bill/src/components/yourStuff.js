@@ -16,14 +16,14 @@ export default class YourStuff extends Component{
 
   totalAdder(){
     let total = 0;
-    for (i = 0; i < this.props.screenProps.order.length; i++){
-      total += this.props.screenProps.order[i].price
+    for (i = 0; i < this.props.screenProps.o_order.length; i++){
+      total += this.props.screenProps.o_order[i].price
     }
     return total
   }
 
   orderItemCreator(foodItemObject){
-    if (this.props.screenProps.order.length === 0){
+    if (this.props.screenProps.o_order.length === 0){
       return 'getting order'
     }
     return(
@@ -41,11 +41,11 @@ export default class YourStuff extends Component{
 
   render(){
 
-    const order = this.props.screenProps.order
+    const order = this.props.screenProps.o_order
     const total = addUp(order).toFixed(2)
     const tax = (addUp(order) * .07).toFixed(2);
     const subtotal = ((addUp(order) * .07) + (addUp(order))).toFixed(2);
-    const tip = ((this.props.screenProps.tip / 100) * (total)).toFixed(2);
+    const tip = ((this.props.screenProps.o_tip / 100) * (total)).toFixed(2);
 
     return(
       <View style={styles.payPage}>
@@ -60,7 +60,7 @@ export default class YourStuff extends Component{
 
       <Tipper screenProps={this.props.screenProps} tip={tip}/>
 
-      <BottomButton navigate={this.props.navigation.navigate} buttonText={`Pay $ ${((addUp(this.props.screenProps.order) * .07) + (addUp(this.props.screenProps.order)) + (this.totalAdder() * (this.props.screenProps.tip / 100))).toFixed(2)}`}/>
+      <BottomButton navigate={this.props.navigation.navigate} buttonText={`Pay $ ${((addUp(this.props.screenProps.o_order) * .07) + (addUp(this.props.screenProps.o_order)) + (this.totalAdder() * (this.props.screenProps.o_tip / 100))).toFixed(2)}`}/>
 
       </View>
 

@@ -39,7 +39,7 @@ export default class Scanny extends Component {
     // console.log(this.props.navigation)
 
 
-  //   if (this.props.screenProps.menu[1] === 'load'){
+  //   if (this.props.screenProps.o_menu[1] === 'load'){
   //   this.props.navigation.navigate('Zero');
   // }
      this.props.navigation.navigate('Menu')

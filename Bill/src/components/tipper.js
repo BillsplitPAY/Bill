@@ -133,13 +133,13 @@ render(){
   return (
     <Animated.View style={{alignSelf:'center', width: '99%', height: 45,  bottom: 8, flexDirection: 'row',  borderRadius: 8, backgroundColor: 'white'}}>
 
-     <TouchableOpacity onPress={()=>{this.tippy('fifteen'); this.props.screenProps.setTip(fifteenPercent)}}style={[styles.tipButton, this.state.tipper.fifteen.button]}><Text style={[this.state.tipper.fifteen.text, {fontSize: 10}]}>15%</Text><Text style={[this.state.tipper.fifteen.text, {fontSize: 18}]}>{`$${fifteenPercent.toFixed(2)}`}</Text></TouchableOpacity>
+     <TouchableOpacity onPress={()=>{this.tippy('fifteen'); this.props.screenProps.f_setTip(fifteenPercent)}}style={[styles.tipButton, this.state.tipper.fifteen.button]}><Text style={[this.state.tipper.fifteen.text, {fontSize: 10}]}>15%</Text><Text style={[this.state.tipper.fifteen.text, {fontSize: 18}]}>{`$${fifteenPercent.toFixed(2)}`}</Text></TouchableOpacity>
 
-     <TouchableOpacity onPress={()=>{this.tippy('eighteen'); this.props.screenProps.setTip(eighteenPercent)}}style={[styles.tipButton, this.state.tipper.eighteen.button]}><Text style={[styles.tipText, this.state.tipper.eighteen.text, {fontSize: 10}]}>18%</Text><Text style={[this.state.tipper.eighteen.text, {fontSize: 18}]}>{`$${eighteenPercent.toFixed(2)}`}</Text></TouchableOpacity>
+     <TouchableOpacity onPress={()=>{this.tippy('eighteen'); this.props.screenProps.f_setTip(eighteenPercent)}}style={[styles.tipButton, this.state.tipper.eighteen.button]}><Text style={[styles.tipText, this.state.tipper.eighteen.text, {fontSize: 10}]}>18%</Text><Text style={[this.state.tipper.eighteen.text, {fontSize: 18}]}>{`$${eighteenPercent.toFixed(2)}`}</Text></TouchableOpacity>
 
-     <TouchableOpacity onPress={()=>{this.tippy('twenty'); this.props.screenProps.setTip(twentyPercent)}}style={[styles.tipButton, this.state.tipper.twenty.button]}><Text style={[styles.tipText, this.state.tipper.twenty.text, {fontSize: 10}]}>20%</Text><Text style={[this.state.tipper.twenty.text, {fontSize: 18}]}>{`$${twentyPercent.toFixed(2)}`}</Text></TouchableOpacity>
+     <TouchableOpacity onPress={()=>{this.tippy('twenty'); this.props.screenProps.f_setTip(twentyPercent)}}style={[styles.tipButton, this.state.tipper.twenty.button]}><Text style={[styles.tipText, this.state.tipper.twenty.text, {fontSize: 10}]}>20%</Text><Text style={[this.state.tipper.twenty.text, {fontSize: 18}]}>{`$${twentyPercent.toFixed(2)}`}</Text></TouchableOpacity>
 
-     <TouchableOpacity onPress={()=>{this.tippy('cash'); this.props.screenProps.setTip(0)}}style={[styles.tipButton, this.state.tipper.cash.button]}><Text style={[styles.tipText, this.state.tipper.cash.text, {fontSize: 10}]}>Cash</Text><Text style={[this.state.tipper.cash.text, {fontSize: 18}]}>Tip</Text></TouchableOpacity>
+     <TouchableOpacity onPress={()=>{this.tippy('cash'); this.props.screenProps.f_setTip(0)}}style={[styles.tipButton, this.state.tipper.cash.button]}><Text style={[styles.tipText, this.state.tipper.cash.text, {fontSize: 10}]}>Cash</Text><Text style={[this.state.tipper.cash.text, {fontSize: 18}]}>Tip</Text></TouchableOpacity>
 
      <TouchableOpacity style={{width: '20%', height: '100%', justifyContent: 'center', alignItems: 'center', }}><Text style={{fontSize: 14, color: 'black'}}>Custom Amount</Text></TouchableOpacity>
     </Animated.View>

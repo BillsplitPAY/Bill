@@ -22,7 +22,7 @@ class Order extends Component {
       tip: ()=>{return null},
       payUp: ()=>{return null},
       breakdown: (subTotal, tax)=>{return <PriceBreakdown lineOneValue={subTotal}lineTwoValue={tax.toFixed(2)} subtotal={tax.toFixed(2)}/>},
-      button: () => {return <CheckoutButton buttonPrice={this.props.screenProps.order.reduce((item)=>{return acc + item.price}, 0)} doThis={()=>{return this.payOptionState()}} /> },
+      button: () => {return <CheckoutButton buttonPrice={this.props.screenProps.o_order.reduce((item)=>{return acc + item.price}, 0)} doThis={()=>{return this.payOptionState()}} /> },
       dropdown: new Animated.Value(0),
       style:{display:'none'},
       counter: 0
@@ -82,7 +82,7 @@ orderReader(){
 
   render() {
     const { navigate } = this.props.navigation
-    const order = this.props.screenProps.order
+    const order = this.props.screenProps.o_order
     const subTotal = order.reduce(this.totalAdder, 0)
     const tax = subTotal * .07
     const total = subTotal + tax
@@ -96,7 +96,7 @@ orderReader(){
            <ScrollView>{this.orderReader()}</ScrollView>
          </View>
          <TouchableOpacity title='Clear' onPress={()=>{this.clearTable()}} style={{position:'relative', borderColor: 'black', borderWidth:1, borderRadius: 5, alignItems: 'center', paddingVertical:10, paddingHorizontal:20, alignSelf:'center', justifyContent: 'center'}}><Text style={{fontSize: 30, fontFamily: gStyle.appFont}}>Clear</Text></TouchableOpacity>
-         <CheckoutButton buttonPrice={`$${this.props.screenProps.order.reduce((acc, item)=>{return acc + item.price}, 0)}`} payOptionToggle={()=>{this.payOptionToggle()}}/>
+         <CheckoutButton buttonPrice={`$${this.props.screenProps.o_order.reduce((acc, item)=>{return acc + item.price}, 0)}`} payOptionToggle={()=>{this.payOptionToggle()}}/>
          <PayOptionsScreen payOptionToggle={this.payOptionToggle} navigate={this.props.navigation.navigate} style={this.state.style}/>
      </View>
       );

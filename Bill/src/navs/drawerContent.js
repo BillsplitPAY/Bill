@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 
 export const drawerContent = (props) => {
-  let userInfo = props.screenProps.user;
+  let userInfo = props.screenProps.o_user;
   return(
     <View style={styles.contain}>
     <View style={styles.drawerHeader}>

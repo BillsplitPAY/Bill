@@ -3,7 +3,7 @@ import { createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import { connect } from 'react-redux'
 import {StyleSheet, Text, View} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchAPIData, addItem, submitOrder, emptyCart, tipUp, tipDown, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase} from '../actions/index.js';
+import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase} from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
@@ -30,10 +30,10 @@ class MainNav extends Component {
 }
   componentDidMount(){
     firebase.initializeApp(config);
-    this.props.fetchAPIData();
+    this.props.f_fetchAPIData();
     console.log(this.props);
-    firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.toFirebase(snapshot.val())})
-    this.props.clearFirebase();
+    firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.f_toFirebase(snapshot.val())})
+    this.props.f_clearFirebase();
     // this.props.setMenu(menuSetter(this.props.menu.response.menu.menus.items[0].entries.items));
   }
 }
@@ -87,15 +87,15 @@ class MainNav extends Component {
 function mapStateToProps(state){
   return {
     o_APIData: state.APIData,
-    cart: state.cart,
+    o_cart: state.cart,
     // price: state.price,
-    order: state.order,
-    tip: state.tip,
-    category: state.category,
-    menu: state.menu,
-    currentItem: state.currentItem,
-    user: state.user,
-    yPosition: state.yPosition,
+    o_order: state.order,
+    o_tip: state.tip,
+    o_category: state.category,
+    o_menu: state.menu,
+    o_currentItem: state.currentItem,
+    o_user: state.user,
+    o_yPosition: state.yPosition,
     o_firebase: state.firebase,
 
   }
@@ -105,22 +105,19 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return bindActionCreators(
     {
-      fetchAPIData: fetchAPIData,
-      addItem: addItem,
-      removeItem: removeItem,
-      // addPrice: addPrice,
-      submitOrder: submitOrder,
-      emptyCart: emptyCart,
-      setCategory: setCategory,
-      setMenu: setMenu,
-      setCurrentItem: setCurrentItem,
-      updateName: updateName,
-      yPos: yPos,
-      tipUp: tipUp,
-      tipDown: tipDown,
-      setTip: setTip,
-      toFirebase: toFirebase,
-      clearFirebase: clearFirebase,
+      f_fetchAPIData: fetchAPIData,
+      f_addItem: addItem,
+      f_removeItem: removeItem,
+      f_submitOrder: submitOrder,
+      f_emptyCart: emptyCart,
+      f_setCategory: setCategory,
+      f_setMenu: setMenu,
+      f_setCurrentItem: setCurrentItem,
+      f_updateName: updateName,
+      f_yPos: yPos,
+      f_setTip: setTip,
+      f_toFirebase: toFirebase,
+      f_clearFirebase: clearFirebase,
 
     }, dispatch)
 }

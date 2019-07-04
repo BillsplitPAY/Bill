@@ -37,7 +37,7 @@ class OrderDropdown extends React.Component{
 
 
 render(){
-  //firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.screenProps.toFirebase(snapshot.val())})
+  //firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.screenProps.f_toFirebase(snapshot.val())})
   const cartLength = listItemCreator(this.props.orders, OrderListItem).length
   
   return(

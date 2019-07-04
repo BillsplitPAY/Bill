@@ -32,12 +32,12 @@ export default class PaymentPage extends Component{
   }
 
   render(){
-    const order = this.props.screenProps.order
+    const order = this.props.screenProps.o_order
     const subtotal = addUp(order)
     const tax = (addUp(order) * .07);
     const total = ((addUp(order) * .07) + (addUp(order)));
     const splitTotal = total / 4;
-    const tip = this.props.screenProps.tip;
+    const tip = this.props.screenProps.o_tip;
     const finalTotal = total + tip
     const orderLength = listItemCreator(order, OrderListItem).length*50
 
@@ -74,12 +74,12 @@ export default class PaymentPage extends Component{
 // <TouchableHighlight onPress={()=>{return this.setState({payOps: ()=>{return <PayOptionsScreen orderState={this.orderState} navigate={this.props.navigation.navigate}/>}})}} style={{borderColor: '#212121', borderWidth: 3, height: 'auto', width: 'auto', padding:2, borderRadius: '5%', }}><Text>Payment{"\n"}Methods</Text></TouchableHighlight>
 
 export const SplitPay = (props) =>{
-  const order = props.screenProps.order
+  const order = props.screenProps.o_order
   const subtotal = addUp(order)
   const tax = (addUp(order) * .07);
   const total = ((addUp(order) * .07) + (addUp(order)));
   const splitTotal = total / Object.keys(props.screenProps.o_firebase).length;
-  const tip = props.screenProps.tip;
+  const tip = props.screenProps.o_tip;
   const finalTotal = splitTotal + tip
   console.log(Object.keys(props.screenProps.o_firebase).length)
   return (
@@ -92,11 +92,11 @@ export const SplitPay = (props) =>{
 }
 
 export const YourStuffPay = (props) =>{
-  const order = props.screenProps.order
+  const order = props.screenProps.o_order
   const subtotal = addUp(order)
   const tax = (addUp(order) * .07);
   const total = ((addUp(order) * .07) + (addUp(order)));
-  const tip = props.screenProps.tip / 4;
+  const tip = props.screenProps.o_tip / 4;
   const finalTotal = total + tip
   return (
     <PaymentPage key={props.screenProps} screenProps={props.screenProps} navigation={props.navigation} type={'Your Items'}>
@@ -108,11 +108,11 @@ export const YourStuffPay = (props) =>{
 }
 
 export const PickPay = (props) =>{
-  const order = props.screenProps.order
+  const order = props.screenProps.o_order
   const subtotal = addUp(order)
   const tax = (addUp(order) * .07);
   const total = ((addUp(order) * .07) + (addUp(order)));
-  const tip = props.screenProps.tip / 4;
+  const tip = props.screenProps.o_tip / 4;
   const finalTotal = total + tip
   return (
     <PaymentPage screenProps={props.screenProps} navigation={props.navigation} type={'Custom Selection'}>
@@ -154,7 +154,7 @@ tableTotal(){
   console.log(rando)
   const subtotal = this.tableTotal().reduce((acc, price)=>{return acc + price}, 0)
 
-  return (rando !== this.props.screenProps.user)?this.setState({total:0, payer: rando, display: 'flex', spinButton:'none', spinOrPay:()=>{return <PickBreakdown subtotal={this.state.total} tax={this.state.total * .07}/>}}):this.setState({total: subtotal, payer: 'You', display: 'flex', spinButton:'none', spinOrPay:()=>{return <PickBreakdown subtotal={this.state.total} tax={this.state.total * .07}/>}})
+  return (rando !== this.props.screenProps.o_user)?this.setState({total:0, payer: rando, display: 'flex', spinButton:'none', spinOrPay:()=>{return <PickBreakdown subtotal={this.state.total} tax={this.state.total * .07}/>}}):this.setState({total: subtotal, payer: 'You', display: 'flex', spinButton:'none', spinOrPay:()=>{return <PickBreakdown subtotal={this.state.total} tax={this.state.total * .07}/>}})
   // this.setState({payer: Object.keys(this.props.screenProps.o_firebase)[index]})
 }
 
@@ -162,10 +162,10 @@ tableTotal(){
 
   render(){
 
-    const order = this.props.screenProps.order
+    const order = this.props.screenProps.o_order
     const tax = (addUp(order) * .07);
     const total = ((addUp(order) * .07) + (addUp(order)));
-    const tip = this.props.screenProps.tip / 4;
+    const tip = this.props.screenProps.o_tip / 4;
     const finalTotal = total + tip
 
   return (

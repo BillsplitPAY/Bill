@@ -24,7 +24,7 @@ export const PriceBreakdown = (props) => {
 
 
 export const CartBreakdown = (props) => {
-  const cartTotal = (props.screenProps.cart.reduce((acc, item)=>{return acc+item.price}, 0))
+  const cartTotal = (props.screenProps.o_cart.reduce((acc, item)=>{return acc+item.price}, 0))
   const tax = (cartTotal * .07)
   return(
     <View style={styles.priceView}>
@@ -47,7 +47,7 @@ export const CartBreakdown = (props) => {
 
 
 export const OrderBreakdown = (props) => {
-  const subtotal = (props.screenProps.order.reduce((acc, item)=>{return acc+item.price}, 0))
+  const subtotal = (props.screenProps.o_order.reduce((acc, item)=>{return acc+item.price}, 0))
   const orderTax = (subtotal * .07)
   return(
     <PriceBreakdown subtotal={subtotal}>
@@ -57,7 +57,7 @@ export const OrderBreakdown = (props) => {
 }
 
 export const SplitBreakdown = (props) => {
-  const subtotal = (props.screenProps.order.reduce((acc, item)=>{return acc+item.price}, 0))
+  const subtotal = (props.screenProps.o_order.reduce((acc, item)=>{return acc+item.price}, 0))
   const orderTax = (subtotal * .07)
   return(
     <View style={{height: 'auto', flexDirection:'row', alignSelf:'center', width: '99%', paddingTop: 5, paddingBottom: 5,  backgroundColor:'white', justifyContent: 'space-around', marginBottom: 10, borderRadius: 5,}}>
@@ -93,7 +93,7 @@ export const SplitBreakdown = (props) => {
 }
 
 export const YourBreakdown = (props) => {
-  const subtotal = (props.screenProps.order.reduce((acc, item)=>{return acc+item.price}, 0))
+  const subtotal = (props.screenProps.o_order.reduce((acc, item)=>{return acc+item.price}, 0))
   const orderTax = (subtotal * .07)
   return(
     <PriceBreakdown subtotal={subtotal} orderTax={orderTax}/>

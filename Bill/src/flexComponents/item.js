@@ -3,8 +3,8 @@ import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableHighlight} f
 
 const Item = (props) => {
 
-const setCurrentItem = props.screenProps.setCurrentItem
-const setCategory = props.screenProps.setCategory
+const setCurrentItem = props.screenProps.f_setCurrentItem
+const setCategory = props.screenProps.f_setCategory
   return(
 
         <TouchableHighlight style={[styles.itemContainer]} onPress={() => {setCurrentItem(props.foodItem); setCategory(props.category); props.navi('ItemPage')}} >
