@@ -3,7 +3,7 @@ import { createBottomTabNavigator, createStackNavigator, addNavigationHelpers, N
 import { connect } from 'react-redux'
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, TouchableOpacity, Image} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, fetchData, setCategory, setMenu, setCurrentItem } from '../actions/index.js';
+import { fetchMenu, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, setCategory, setMenu, setCurrentItem } from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import Scanny from '../flexComponents/qrScans';
 import ItemPage from '../components/itemPage';

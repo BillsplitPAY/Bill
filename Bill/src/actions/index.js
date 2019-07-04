@@ -23,16 +23,6 @@ export function setCategory(category){
 };
 }
 
-export function fetchData(data){
-return {
-	type: 'FETCHY',
-	payload: fetch(data, {
-        mode: 'cors',
-      })
-      .then((resp) => resp.json())
-};
-}
-
 export function addItem(currentItem){
 	return {
 	   type: 'ADD',
@@ -54,12 +44,7 @@ export function setCurrentItem(currentItem){
     };
 }
 
-export function addPrice(itemPrice){
-  return {
-	   type: 'ADDPRICE',
-	    payload: itemPrice
-    };
-}
+
 
 export function submitOrder(orderArray){
   return {
@@ -125,13 +110,13 @@ export function clearFirebase(db){
     };
 }
 
-export function updateTable(members, items, price){
-  return {
-	   type: 'UPDATETABLE',
-		 payload: {
-			 members: members,
-			 items: items,
-			 price: price
-		 }
-    };
-}
+// export function updateTable(members, items, price){
+//   return {
+// 	   type: 'UPDATETABLE',
+// 		 payload: {
+// 			 members: members,
+// 			 items: items,
+// 			 price: price
+// 		 }
+//     };
+// }

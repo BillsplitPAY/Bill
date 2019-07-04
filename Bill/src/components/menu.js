@@ -5,7 +5,7 @@ import { StackNavigator } from 'react-navigation';
 import { Font } from 'expo';
 import {styles_catScroller} from '../containers/container_catScroller'
 import {styles_menuCategories, categoryBuilder} from '../containers/container_menuCategories'
-import {styles_menu, menuSetter} from '../containers/container_menu'
+import {styles_menu} from '../containers/container_menu'
 
 const MenuCategories = (props) => {
     return(
@@ -27,9 +27,23 @@ const TopCatScroller = (props) => {
   )
 }
 
+
+
 export default class Menu extends Component {
   constructor(props){
     super(props);
+    this.menuSetter = this.menuSetter.bind(this)
+  }
+
+  menuSetter(array){
+    let newMenu = {};
+   array.forEach(function(catObject){
+     let key = catObject.name
+     newMenu[key] = catObject.entries.items.map(function(index){
+       return {name: index.name, desc: index.description, category: catObject.name, price: Number(index.price), id: index.entryId, options: index.options}
+     });
+   })
+     return newMenu;
   }
 
 
@@ -54,9 +68,10 @@ export default class Menu extends Component {
   }
 
   componentDidMount(){
-    const categoriesArray = this.props.screenProps.APIData.response.menu.menus.items[0].entries.items
+    const categoriesArray = this.props.screenProps.o_APIData.response.menu.menus.items[0].entries.items
     // console.log(categoriesArray)
-    this.props.screenProps.setMenu(menuSetter(categoriesArray));
+    this.props.screenProps.setMenu(this.menuSetter(categoriesArray));
+
     //transforms API menu object to more manageable menu object. Sets it to props.screenProps.menu.
   }
 }

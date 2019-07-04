@@ -1,3 +1,4 @@
+
 export const menuSetter = (array) => {
   let newMenu = {};
  array.forEach(function(catObject){
@@ -5,8 +6,8 @@ export const menuSetter = (array) => {
    newMenu[key] = catObject.entries.items.map(function(index){
      return {name: index.name, desc: index.description, category: catObject.name, price: Number(index.price), id: index.entryId, options: index.options}
    });
-   })
-   return newMenu
+ })
+   return newMenu;
 }
 
 export const styles_menu = {

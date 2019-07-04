@@ -3,7 +3,7 @@ import { createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import { connect } from 'react-redux'
 import {StyleSheet, Text, View} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchAPIData, addItem, addPrice, submitOrder, emptyCart, tipUp, tipDown, setTip, fetchData, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase, updateTable} from '../actions/index.js';
+import { fetchAPIData, addItem, submitOrder, emptyCart, tipUp, tipDown, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase} from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
@@ -86,9 +86,9 @@ class MainNav extends Component {
 //Maps the state object properties to React props so the data can be passed down components
 function mapStateToProps(state){
   return {
-    APIData: state.APIData,
+    o_APIData: state.APIData,
     cart: state.cart,
-    price: state.price,
+    // price: state.price,
     order: state.order,
     tip: state.tip,
     category: state.category,
@@ -96,8 +96,8 @@ function mapStateToProps(state){
     currentItem: state.currentItem,
     user: state.user,
     yPosition: state.yPosition,
-    firebase: state.firebase,
-    table: state.table,
+    o_firebase: state.firebase,
+
   }
 }
 //Maps the action creators to component functions so they can be called on components
@@ -106,10 +106,9 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators(
     {
       fetchAPIData: fetchAPIData,
-      fetchData: fetchData,
       addItem: addItem,
       removeItem: removeItem,
-      addPrice: addPrice,
+      // addPrice: addPrice,
       submitOrder: submitOrder,
       emptyCart: emptyCart,
       setCategory: setCategory,
@@ -122,7 +121,7 @@ function mapDispatchToProps(dispatch){
       setTip: setTip,
       toFirebase: toFirebase,
       clearFirebase: clearFirebase,
-      updateTable: updateTable,
+
     }, dispatch)
 }
 //connects the mapped state object properties and action creators to props on this component

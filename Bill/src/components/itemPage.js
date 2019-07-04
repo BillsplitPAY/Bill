@@ -69,7 +69,7 @@ class ItemPage extends Component {
         <ScrollView horizontal={true} contentContainerStyle={[styles.similarDiv, {height: 160}]}>
           {this.repeater(this.props.screenProps.menu[currentItem.category], this.props.navigation.navigate, this.props.screenProps)}
         </ScrollView>
-        <BottomButton buttonText={'Add to Cart'} buttonPrice={(itemPrice * this.state.quantity).toFixed(2)} doThis={() => {navigate('Menu'); for(let i = 0; i < this.state.quantity; i++){this.props.screenProps.addItem((this.props.screenProps.currentItem))}; this.props.screenProps.addPrice(Number(itemPrice))}}/>
+        <BottomButton buttonText={'Add to Cart'} buttonPrice={(itemPrice * this.state.quantity).toFixed(2)} doThis={() => {navigate('Menu'); for(let i = 0; i < this.state.quantity; i++){this.props.screenProps.addItem((this.props.screenProps.currentItem))}}}/>
       </View>
     )
   }

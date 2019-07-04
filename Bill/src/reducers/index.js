@@ -10,14 +10,14 @@ import CurrentItem from './reducer_currentItem';
 import UserReducer from './reducer_user';
 import YPosReducer from './reducer_yPos';
 import FirebaseReducer from './reducer_firebase';
-import TableReducer from './reducer_tableOrder';
+
 
 
  export default combineReducers({
 	APIData: APIDataReducer,
   load: 'yea',
   cart: CartReducer,
-  price: PriceReducer,
+  // price: PriceReducer,
   order: OrderReducer,
   tip: TipReducer,
   category: CatReducer,
@@ -26,7 +26,7 @@ import TableReducer from './reducer_tableOrder';
   user: UserReducer,
   yPosition: YPosReducer,
   firebase: FirebaseReducer,
-  table: TableReducer,
+
 
 });
 

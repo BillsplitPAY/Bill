@@ -70,12 +70,12 @@ totalAdder(acc, itemObj){
 }
 
 orderReader(){
-  if(this.props.screenProps.firebase === null){
+  if(this.props.screenProps.o_firebase === null){
     return <View>No orders</View>
   }
   else{
     return(
-      Object.keys(this.props.screenProps.firebase).map((user)=>{return <OrderDropdown key={this.props.screenProps[user]} orders={(this.props.screenProps.firebase[user].order) ? this.props.screenProps.firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>})
+      Object.keys(this.props.screenProps.o_firebase).map((user)=>{return <OrderDropdown key={this.props.screenProps[user]} orders={(this.props.screenProps.o_firebase[user].order) ? this.props.screenProps.o_firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>})
     )
   }
 }
@@ -91,7 +91,7 @@ orderReader(){
     console.log(this.props.order)
 
     return (
-     <View key={this.props.screenProps.firebase} style={styles.cartPage} blurRadius={1}>
+     <View key={this.props.screenProps.o_firebase} style={styles.cartPage} blurRadius={1}>
          <View style={{height:'60%'}}>
            <ScrollView>{this.orderReader()}</ScrollView>
          </View>

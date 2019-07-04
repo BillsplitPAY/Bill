@@ -38,7 +38,7 @@ export const CartBreakdown = (props) => {
       </View>
       <View style={styles.inDesc}>
         <Text style={{marginTop: 8, fontSize: 18, fontWeight: 'bold'}}>Cart Total</Text>
-        <Text style={{marginTop: 8, fontSize: 18, fontWeight: 'bold'}}>${(cartTotal + tax)}</Text>
+        <Text style={{marginTop: 8, fontSize: 18, fontWeight: 'bold'}}>${(cartTotal + tax).toFixed(2)}</Text>
       </View>
     </View>
   )

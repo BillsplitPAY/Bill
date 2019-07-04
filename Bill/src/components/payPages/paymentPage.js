@@ -52,7 +52,7 @@ export default class PaymentPage extends Component{
         </View>
         <ScrollView>
           <View>
-            {Object.keys(this.props.screenProps.firebase).map((user)=>{return <OrderDropdown orders={(this.props.screenProps.firebase[user].order) ? this.props.screenProps.firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>})}
+            {Object.keys(this.props.screenProps.o_firebase).map((user)=>{return <OrderDropdown orders={(this.props.screenProps.o_firebase[user].order) ? this.props.screenProps.o_firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>})}
           </View>
       </ScrollView>
 
@@ -78,13 +78,13 @@ export const SplitPay = (props) =>{
   const subtotal = addUp(order)
   const tax = (addUp(order) * .07);
   const total = ((addUp(order) * .07) + (addUp(order)));
-  const splitTotal = total / Object.keys(props.screenProps.firebase).length;
+  const splitTotal = total / Object.keys(props.screenProps.o_firebase).length;
   const tip = props.screenProps.tip;
   const finalTotal = splitTotal + tip
-  console.log(Object.keys(props.screenProps.firebase).length)
+  console.log(Object.keys(props.screenProps.o_firebase).length)
   return (
     <PaymentPage screenProps={props.screenProps} navigation={props.navigation} type={'Even Split'}>
-      <SplitBreakdown screenProps={props.screenProps} diners={Object.keys(props.screenProps.firebase).length}/>
+      <SplitBreakdown screenProps={props.screenProps} diners={Object.keys(props.screenProps.o_firebase).length}/>
       <Tipper screenProps={props.screenProps} payTotal={splitTotal} />
       <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
     </PaymentPage>
@@ -140,7 +140,7 @@ constructor(props){
 }
 
 tableTotal(){
-  return Object.values(this.props.screenProps.firebase).map((index)=>{
+  return Object.values(this.props.screenProps.o_firebase).map((index)=>{
     return index.order.reduce((acc, orderNumber)=>{
        return orderNumber.price + acc;
     }, 0)
@@ -148,14 +148,14 @@ tableTotal(){
 }
 
  roulette(){
-  const objLength = Object.keys(this.props.screenProps.firebase).length
+  const objLength = Object.keys(this.props.screenProps.o_firebase).length
   const index = Math.floor(Math.random() * (objLength - 0)+0)
-  const rando = Object.keys(this.props.screenProps.firebase)[index];
+  const rando = Object.keys(this.props.screenProps.o_firebase)[index];
   console.log(rando)
   const subtotal = this.tableTotal().reduce((acc, price)=>{return acc + price}, 0)
 
   return (rando !== this.props.screenProps.user)?this.setState({total:0, payer: rando, display: 'flex', spinButton:'none', spinOrPay:()=>{return <PickBreakdown subtotal={this.state.total} tax={this.state.total * .07}/>}}):this.setState({total: subtotal, payer: 'You', display: 'flex', spinButton:'none', spinOrPay:()=>{return <PickBreakdown subtotal={this.state.total} tax={this.state.total * .07}/>}})
-  // this.setState({payer: Object.keys(this.props.screenProps.firebase)[index]})
+  // this.setState({payer: Object.keys(this.props.screenProps.o_firebase)[index]})
 }
 
 
