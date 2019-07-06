@@ -3,7 +3,7 @@ import { createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import { connect } from 'react-redux'
 import {StyleSheet, Text, View} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase} from '../actions/index.js';
+import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase, updateTable} from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
@@ -34,6 +34,16 @@ class MainNav extends Component {
     console.log(this.props);
     firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.f_toFirebase(snapshot.val())})
     this.props.f_clearFirebase();
+
+    // firebase.database().ref('Restaurant').on('value', (snapshot)=>{
+    //   console.log(snapshot.val())
+    //   this.props.f_toFirebase(snapshot.val())
+    // })
+
+    console.log(this.props)
+
+
+
     // this.props.setMenu(menuSetter(this.props.menu.response.menu.menus.items[0].entries.items));
   }
 }
@@ -97,6 +107,7 @@ function mapStateToProps(state){
     o_user: state.user,
     o_yPosition: state.yPosition,
     o_firebase: state.firebase,
+    o_table: state.table,
 
   }
 }
@@ -118,6 +129,7 @@ function mapDispatchToProps(dispatch){
       f_setTip: setTip,
       f_toFirebase: toFirebase,
       f_clearFirebase: clearFirebase,
+      f_updateTable: updateTable
 
     }, dispatch)
 }

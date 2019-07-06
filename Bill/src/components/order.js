@@ -36,6 +36,8 @@ class Order extends Component {
     this.payOptionToggle = this.payOptionToggle.bind(this);
     this.clearTable = this.clearTable.bind(this);
     this.orderReader = this.orderReader.bind(this);
+    this.tableTotal = this.tableTotal.bind(this);
+
   }
 
   payOptionToggle(){
@@ -80,6 +82,18 @@ orderReader(){
   }
 }
 
+tableTotal(){
+  return Object.values(this.props.screenProps.o_firebase).map((index)=>{
+    return index.order.reduce((acc, orderNumber)=>{
+       return orderNumber.price + acc;
+    }, 0)
+  })
+}
+
+
+
+
+
   render() {
     const { navigate } = this.props.navigation
     const order = this.props.screenProps.o_order
@@ -87,8 +101,8 @@ orderReader(){
     const tax = subTotal * .07
     const total = subTotal + tax
     const orderLength = listItemCreator(this.props.order, OrderListItem).length
+
     console.log(this.props.screenProps)
-    console.log(this.props.order)
 
     return (
      <View key={this.props.screenProps.o_firebase} style={styles.cartPage} blurRadius={1}>
@@ -103,6 +117,8 @@ orderReader(){
     }
     componentDidMount(){
       firebase.database().ref('Restaurant/testTable').on('value', ()=>{this.setState({counter: this.state.counter +1})})
+      console.log(firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.o_user}`).snapshot)
+
     }
   }
 

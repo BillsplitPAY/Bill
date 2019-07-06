@@ -21,6 +21,7 @@ export default class PaymentPage extends Component{
     }
     this.orderState=this.orderState.bind(this)
     this.customTipper=this.customTipper.bind(this)
+    this.tableTotal=this.tableTotal.bind(this)
   }
 
   orderState(){
@@ -31,9 +32,24 @@ export default class PaymentPage extends Component{
     this.setState({customTip:{opacity: 1, zIndex: 2}})
   }
 
+  tableTotal(){
+    return Object.values(this.props.screenProps.o_firebase).map((index)=>{
+      return index.order.reduce((acc, orderNumber)=>{
+         return orderNumber.price + acc;
+      }, 0)
+    })
+  }
+
+  tableTotal2(){
+    return Object.values(this.props.screenProps.o_firebase).reduce(acc, (index)=>{
+      return index.order.map((orderNumber)=>{
+         return orderNumber.price + acc;
+      }, 0)
+    }, 0)
+  }
   render(){
     const order = this.props.screenProps.o_order
-    const subtotal = addUp(order)
+    const subtotal = this.tableTotal().reduce((acc, price)=>{return acc + price}, 0)
     const tax = (addUp(order) * .07);
     const total = ((addUp(order) * .07) + (addUp(order)));
     const splitTotal = total / 4;
@@ -42,6 +58,8 @@ export default class PaymentPage extends Component{
     const orderLength = listItemCreator(order, OrderListItem).length*50
 
     // console.log(listItemCreator(order, OrderListItem))
+    console.log(Object.values(this.props.screenProps.o_firebase));
+
     return(
       <View style={{justifyContent: 'space-between', height: '100%', opacity: 1}} blurRadius={1}>
       {this.state.payOps()}
@@ -55,7 +73,6 @@ export default class PaymentPage extends Component{
             {Object.keys(this.props.screenProps.o_firebase).map((user)=>{return <OrderDropdown orders={(this.props.screenProps.o_firebase[user].order) ? this.props.screenProps.o_firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>})}
           </View>
       </ScrollView>
-
         {this.props.children}
         <View style={[{height: '100%', width: '100%', backgroundColor: 'rgba(0,0,0,.5)', position:'absolute', justifyContent:'center'}, this.state.customTip]}>
           <View style={{backgroundColor: 'white', height: '25%', width: '60%', alignSelf: 'center', alignItems: 'center', justifyContent:'space-around'}}>
@@ -81,7 +98,29 @@ export const SplitPay = (props) =>{
   const splitTotal = total / Object.keys(props.screenProps.o_firebase).length;
   const tip = props.screenProps.o_tip;
   const finalTotal = splitTotal + tip
+
   console.log(Object.keys(props.screenProps.o_firebase).length)
+
+// Object.keys(props.screenProps.o_firebase).reduce(funky)
+
+
+  //return an array of the prices
+  // console.log(Object.values(props.screenProps.o_firebase).reduce((acc, userObj)=>{
+  //    userObj.order.map((orderObj)=>{
+  //      return orderObj.price
+  //   })
+  // }))
+
+  // console.log(Object.values(props.screenProps.o_firebase).map((index)=>{
+  //   return index.order.reduce((acc, orderNumber)=>{
+  //      return orderNumber.price;
+  //   }, 0)
+  // }))
+
+  console.log(Object.values(props.screenProps.o_firebase))
+
+  console.log(Object.values(props.screenProps.o_firebase).map((userObj)=>{return userObj.order}))
+
   return (
     <PaymentPage screenProps={props.screenProps} navigation={props.navigation} type={'Even Split'}>
       <SplitBreakdown screenProps={props.screenProps} diners={Object.keys(props.screenProps.o_firebase).length}/>
@@ -167,6 +206,11 @@ tableTotal(){
     const total = ((addUp(order) * .07) + (addUp(order)));
     const tip = this.props.screenProps.o_tip / 4;
     const finalTotal = total + tip
+    const trueTableTotal = this.tableTotal().reduce((acc, price)=>{return acc + price}, 0)
+
+    console.log(trueTableTotal)
+
+    console.log(this.props)
 
   return (
     <PaymentPage screenProps={this.props.screenProps} navigation={this.props.navigation} type={'Roulette'}>
@@ -180,6 +224,11 @@ tableTotal(){
     <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>this.props.navigation.navigate('Confirmation')}/>
     </PaymentPage>
   )
+}
+
+componentDidMount(){
+  this.props.screenProps.f_updateTable(this.tableTotal().reduce((acc, price)=>{return acc + price}, 0))
+  console.log(this.props.screenProps)
 }
 }
 // <TouchableOpacity title='Spin' style={{height: 50, display: this.state.spinButton, alignItems:'center', justifyContent: 'center', width:'15%', alignSelf:'center', borderWidth: 1, borderColor: 'black', borderRadius:5, backgroundColor:'black'}} onPress={()=>{setTimeout(()=>{this.roulette()}, 2000)}}><Text style={{color: 'white', fontSize:40}}>Spin</Text></TouchableOpacity>

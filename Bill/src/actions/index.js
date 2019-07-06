@@ -70,7 +70,6 @@ export function yPos(key, value){
     };
 }
 
-
 export function emptyCart(){
   return {
 	   type: 'EMPTY'
@@ -98,13 +97,11 @@ export function clearFirebase(db){
     };
 }
 
-// export function updateTable(members, items, price){
-//   return {
-// 	   type: 'UPDATETABLE',
-// 		 payload: {
-// 			 members: members,
-// 			 items: items,
-// 			 price: price
-// 		 }
-//     };
-// }
+export function updateTable(price){
+  return {
+	   type: 'UPDATETABLE',
+		 payload: {
+			 price: price
+		 }
+    };
+}

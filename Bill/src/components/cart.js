@@ -93,7 +93,7 @@ class Cart extends Component {
     const subtotal = cart.reduce(this.totalAdder, 0)
     const tax = subtotal * .07
     const total = subtotal + tax
-    console.log(this.props.screenProps.o_cart)
+    console.log(this.props.screenProps)
 
     return (
       <View style={{height: '100%'}}>

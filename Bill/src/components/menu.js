@@ -33,6 +33,7 @@ export default class Menu extends Component {
   constructor(props){
     super(props);
     this.menuSetter = this.menuSetter.bind(this)
+    this.tableTotal = this.tableTotal.bind(this)
   }
 
   menuSetter(array){
@@ -45,6 +46,13 @@ export default class Menu extends Component {
    })
      return newMenu;
   }
+  tableTotal(){
+    return Object.values(this.props.screenProps.o_firebase).map((index)=>{
+      return index.order.reduce((acc, orderNumber)=>{
+         return orderNumber.price + acc;
+      }, 0)
+    })
+  }
 
 
   render() {
@@ -54,6 +62,7 @@ export default class Menu extends Component {
     if (this.props.screenProps.o_menu === {}){
       return <Text>Waiting for menu...</Text>
     }
+    console.log(this.props.screenProps)
       return (
         <View style={styles_menu.menuPage}>
         <StatusBar barStyle="light-content" />
@@ -71,6 +80,9 @@ export default class Menu extends Component {
     const categoriesArray = this.props.screenProps.o_APIData.response.menu.menus.items[0].entries.items
     // console.log(categoriesArray)
     this.props.screenProps.f_setMenu(this.menuSetter(categoriesArray));
+    setTimeout(()=>{this.props.screenProps.f_updateTable(this.tableTotal().reduce((acc, price)=>{return acc + price}, 0))}, 3000)
+
+
 
     //transforms API menu object to more manageable menu object. Sets it to props.screenProps.o_menu.
   }

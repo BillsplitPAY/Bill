@@ -1,11 +1,11 @@
 export default function(state = {
-  tableMembers: null,
-  tableItems: null,
   tablePrice: null,
 }, action) {
 	switch (action.type) {
 		case 'UPDATETABLE':
-			return action.payload
+			return {
+        price: action.payload.price
+      }
 			break;
 		default:
 			return state;

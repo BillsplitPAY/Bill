@@ -10,6 +10,7 @@ import CurrentItem from './reducer_currentItem';
 import UserReducer from './reducer_user';
 import YPosReducer from './reducer_yPos';
 import FirebaseReducer from './reducer_firebase';
+import TableReducer from './reducer_table';
 
 
 
@@ -26,6 +27,7 @@ import FirebaseReducer from './reducer_firebase';
   user: UserReducer,
   yPosition: YPosReducer,
   firebase: FirebaseReducer,
+  table: TableReducer,
 
 
 });

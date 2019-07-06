@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableHighlight, TouchableOpacity, TextInput, Animated} from 'react-native';
 import firebase from 'firebase';
 import Cart from './cart'
+// import {config} from '../../Firebase/firebaseConfig'
 
 class Welcome extends React.Component {
   constructor(){
@@ -53,8 +54,19 @@ class Welcome extends React.Component {
   // {setTimeout(()=>{this.props.navigation.navigate('One')}, 1000)}
 
   componentDidMount(){
+    // firebase.initializeApp(config);
     this.animator().start();
     setTimeout(()=>{this.setState({opacity: 1})}, 1500)
+
+
+    // firebase.database().ref('Restaurant').child('testTable').update({[this.state.value]:{'name': this.state.value}})
+
+    // firebase.database().ref('Restaurant').on('value', (snapshot)=>{
+    //   console.log(snapshot.val())
+    //
+    // })
+    // firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.screenProps.f_toFirebase(snapshot.val())})
+
 
   }
 }
