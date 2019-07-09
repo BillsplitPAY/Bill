@@ -4,11 +4,14 @@ import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, T
 import {stateToggler} from '../helperFunctions/pureFunctions';
 import {gStyle} from '../containers/styles';
 import {animator} from '../helperFunctions/pureFunctions'
+import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase, updateTable, subtractCustomPrice, addCustomPrice} from '../actions/index.js';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
 
 export const ListItem = (props) => {
     return (
       <TouchableOpacity style={styles.inDesc} onPress={()=>{props.animate().start()}}>
-        <Animated.View style = {{height: '100%', width: '100%', right: props.right, borderWidth: props.borderWidth, flexDirection: 'row'}}>
+        <Animated.View style = {{height: '100%', width: '100%', right: props.right, borderWidth: props.borderWidth, flexDirection: 'row', backgroundColor:props.backgroundColor, color:props.textColor}}>
           <View style={styles.touch}>
             <Text style={styles.descItems, {fontWeight: 'bold'}}>{props.itemAmount}</Text>
             <Text style={styles.descText, {fontStyle: 'italic'}}>{props.itemName}</Text>
@@ -22,6 +25,83 @@ export const ListItem = (props) => {
       </TouchableOpacity>
     )
   }
+
+  class CustomListItem extends React.Component {
+    constructor(props){
+      super(props);
+      this.state={
+        backgroundColor:'white',
+        textColor:'black',
+        selected: false,
+        amount:0
+      }
+      this.itemSelect=this.itemSelect.bind(this)
+    }
+
+itemSelect(){
+    if (this.state.selected===false){
+      this.setState({backgroundColor: 'black', textColor:'white', selected:true, amount: this.state.amount + this.props.itemPrice});
+        this.props.f_addCustomPrice(this.props.itemPrice);
+    }
+    else{
+      this.setState({backgroundColor: 'white', textColor:'black', selected:false, amount: this.state.amount - this.props.itemPrice});
+      this.props.f_subtractCustomPrice(this.props.itemPrice);
+      }
+    }
+
+    render(){
+      console.log(this.props)
+      return (
+        <TouchableOpacity style={styles.inDesc} onPress={()=>{this.itemSelect()}}>
+          <Animated.View style = {{height: '100%', width: '100%', flexDirection: 'row', backgroundColor:this.state.backgroundColor}}>
+            <View style={styles.touch}>
+              <Text style={styles.descItems, {fontWeight: 'bold', color:this.state.textColor}}>{this.props.itemAmount}</Text>
+              <Text style={styles.descText, {fontStyle: 'italic', color:this.state.textColor}}>{this.props.itemName}</Text>
+              <Text style={styles.descPrice, {fontWeight: 'bold', color:this.state.textColor}}>${this.props.itemPrice}</Text>
+            </View>
+            <View style={{height: '100%', width: 90, flexDirection: 'row'}}>
+              <TouchableHighlight style={{borderRightColor: 'white', borderRightWidth:.5, backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: '50%'}} onPress={()=>{props.editor(props.itemName, props.cartArray, props.newItem)}}><Text style={{color:'white'}}>Edit</Text></TouchableHighlight>
+              <TouchableHighlight style={{backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: 'auto', paddingRight:10, paddingLeft: 2}} onPress={()=>{props.screenProps.f_removeItem(props.itemName)}}><Text style={{color:'white'}}>Delete</Text></TouchableHighlight>
+            </View>
+          </Animated.View>
+        </TouchableOpacity>
+      )
+    }
+  }
+
+  function mapStateToProps(state){
+    return {
+      order: state.order,
+      o_user: state.user
+    }
+  }
+
+  function mapDispatchToProps(dispatch){
+    return bindActionCreators(
+      {
+        f_fetchAPIData: fetchAPIData,
+        f_addItem: addItem,
+        f_removeItem: removeItem,
+        f_submitOrder: submitOrder,
+        f_emptyCart: emptyCart,
+        f_setCategory: setCategory,
+        f_setMenu: setMenu,
+        f_setCurrentItem: setCurrentItem,
+        f_updateName: updateName,
+        f_yPos: yPos,
+        f_setTip: setTip,
+        f_toFirebase: toFirebase,
+        f_clearFirebase: clearFirebase,
+        f_updateTable: updateTable,
+        f_addCustomPrice: addCustomPrice,
+        f_subtractCustomPrice: subtractCustomPrice
+
+      }, dispatch)
+  }
+
+
+  // export default CustomListItem
+  export default connect(mapStateToProps, mapDispatchToProps)(CustomListItem)
 
 export class CartListItem extends Component {
   constructor(props){
@@ -45,26 +125,35 @@ export class CartListItem extends Component {
   }
 }
 
-export class CustomListItem extends Component {
-  constructor(props){
-    super(props)
-    this.state = {edit: new Animated.Value(0)}
-    this.borderAnimator = this.borderAnimator.bind(this)
-  }
-  borderAnimator(){
-      if (this.state.edit._value === 0){
-          return Animated.timing(this.state.edit, {duration: 200, toValue: 3})
-      }
-      else{
-          return Animated.timing(this.state.edit, {duration: 200, toValue: 0})
-      }
-  }
-  render(){
-    return (
-      <ListItem {...this.props} animate={this.borderAnimator} right={null} borderWidth={this.state.edit}/>
-    )
-  }
-}
+// export class CustomListItem extends Component {
+//   constructor(props){
+//     super(props)
+//     this.state = {edit: new Animated.Value(0)}
+//     this.backgroundAnimator = this.backgroundAnimator.bind(this)
+//     this.textAnimator = this.textAnimator.bind(this)
+//   }
+//   backgroundAnimator(){
+//       if (this.state.edit._value === 0){
+//           return Animated.timing(this.state.edit, {duration: 200, toValue: '#212121'})
+//       }
+//       else{
+//           return Animated.timing(this.state.edit, {duration: 200, toValue: 'white'})
+//       }
+//   }
+//   textAnimator(){
+//       if (this.state.edit._value === 0){
+//           return Animated.timing(this.state.edit, {duration: 200, toValue: 'white'})
+//       }
+//       else{
+//           return Animated.timing(this.state.edit, {duration: 200, toValue: 'green'})
+//       }
+//   }
+//   render(){
+//     return (
+//       <ListItem {...this.props} animate={this.borderAnimator} right={null} backgroundColor={this.backgroundAnimator} textColor={this.textAnimator} borderWidth={this.state.edit}/>
+//     )
+//   }
+// }
 
 export class OrderListItem extends Component {
   constructor(props){

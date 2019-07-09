@@ -1,18 +1,20 @@
 //User state
-const userInfo = {
-  firstName: null,
-  username: null,
-  email: null,
-  color: 'red'
-}
 
-
-export default function(state = null, action) {
+export default function(state = {customTotal: 0}, action) {
 	switch (action.type) {
 		case 'UPDATENAME':
-			return action.payload
+			return Object.assign({name: action.payload}, state)
 			break;
-
+      case 'ADDCUSTOM':
+			// return {customTotal:action.payload}
+				return Object.assign({}, state, {customTotal: action.payload + state.customTotal})
+        // return 'cool'
+  			break;
+				case 'SUBTRACTCUSTOM':
+				// return {customTotal:action.payload}
+					return Object.assign({}, state, {customTotal: action.payload - state.customTotal})
+	        // return 'cool'
+	  			break;
 		default:
 			return state;
 			break;

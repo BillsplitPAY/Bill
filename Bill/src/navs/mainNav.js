@@ -3,7 +3,7 @@ import { createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import { connect } from 'react-redux'
 import {StyleSheet, Text, View} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase, updateTable} from '../actions/index.js';
+import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase, updateTable, addCustomPrice, subtractCustomPrice} from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
@@ -14,6 +14,7 @@ import TableRequest from '../components/TableRequest'
 import {config} from '../../Firebase/firebaseConfig'
 import {styles_menu, menuSetter} from '../containers/container_menu'
 import Welcome from '../components/welcome';
+import {tableTotal} from '../components/menu'
 
 import PaymentPage, {YourStuffPay, SplitPay, PickPay, RoulettePay} from '../components/payPages/paymentPage';
 
@@ -30,17 +31,18 @@ class MainNav extends Component {
 }
   componentDidMount(){
     firebase.initializeApp(config);
+    firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.f_toFirebase(snapshot.val())})
+    firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.f_updateTable(tableTotal(this.props.o_firebase).reduce((acc, price)=>{return price+acc}))})
     this.props.f_fetchAPIData();
     console.log(this.props);
-    firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.f_toFirebase(snapshot.val())})
-    this.props.f_clearFirebase();
+
+    // this.props.f_clearFirebase();
 
     // firebase.database().ref('Restaurant').on('value', (snapshot)=>{
     //   console.log(snapshot.val())
     //   this.props.f_toFirebase(snapshot.val())
     // })
 
-    console.log(this.props)
 
 
 
@@ -129,7 +131,9 @@ function mapDispatchToProps(dispatch){
       f_setTip: setTip,
       f_toFirebase: toFirebase,
       f_clearFirebase: clearFirebase,
-      f_updateTable: updateTable
+      f_updateTable: updateTable,
+      f_addCustomPrice: addCustomPrice,
+      f_subtractCustomPrice: subtractCustomPrice,
 
     }, dispatch)
 }
@@ -138,41 +142,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(MainNav)
 
 const styles = StyleSheet.create({
 
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  drawerHeader: {
-    height: 200,
-    backgroundColor: 'white'
-  },
-  drawerImage: {
-    height: 150,
-    width: 150,
-    borderRadius: 75
-  },
-  userName: {
-    color: '#252326',
-    fontWeight: '800',
-    marginTop: 10,
-    marginBottom: 10,
-    fontSize: 20
-  },
-  loading:{
-    textAlign: 'center',
-    marginTop: '50%',
-    color: 'white'
-  },
-  contain: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 100,
-
-  },
-  icon: {
-    width: 24,
-    height: 24,
-  },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  drawerHeader: { height: 200, backgroundColor: 'white' },
+  drawerImage: { height: 150, width: 150, borderRadius: 75 },
+  userName: { color: '#252326', fontWeight: '800', marginTop: 10, marginBottom: 10, fontSize: 20 },
+  loading:{ textAlign: 'center', marginTop: '50%', color: 'white' },
+  contain: { flex: 1, justifyContent: 'center', alignItems: 'center', width: 100, },
+  icon: { width: 24, height: 24, },
 })

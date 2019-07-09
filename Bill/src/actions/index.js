@@ -60,6 +60,20 @@ export function updateName(name){
     };
 }
 
+export function addCustomPrice(price){
+  return {
+     type: 'ADDCUSTOM',
+     payload: price
+    };
+}
+
+export function subtractCustomPrice(price){
+  return {
+     type: 'SUBTRACTCUSTOM',
+     payload: price
+    };
+}
+
 export function yPos(key, value){
   return {
      type: 'YPOS',

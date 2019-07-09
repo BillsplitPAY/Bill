@@ -77,7 +77,7 @@ orderReader(){
   }
   else{
     return(
-      Object.keys(this.props.screenProps.o_firebase).map((user)=>{return <OrderDropdown key={this.props.screenProps[user]} orders={(this.props.screenProps.o_firebase[user].order) ? this.props.screenProps.o_firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>})
+      Object.keys(this.props.screenProps.o_firebase).map((user)=>{return <OrderDropdown key={user} orders={(this.props.screenProps.o_firebase[user].order) ? this.props.screenProps.o_firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>})
     )
   }
 }
@@ -89,10 +89,6 @@ tableTotal(){
     }, 0)
   })
 }
-
-
-
-
 
   render() {
     const { navigate } = this.props.navigation
@@ -117,7 +113,7 @@ tableTotal(){
     }
     componentDidMount(){
       firebase.database().ref('Restaurant/testTable').on('value', ()=>{this.setState({counter: this.state.counter +1})})
-      console.log(firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.o_user}`).snapshot)
+      // console.log(firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.o_user}`).snapshot)
 
     }
   }

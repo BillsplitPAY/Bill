@@ -39,7 +39,7 @@ class Cart extends Component {
       this.props.screenProps.f_emptyCart()
       this.props.navigation.navigate('Order', {orderz: this.props.order})
 
-      firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.o_user}`).child('order').update(this.props.screenProps.o_order)
+      firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.o_user.name}`).child('order').update(this.props.screenProps.o_order)
 
 
       // firebase.database().ref(`Restaurant/testTable/${this.props.screenProps.o_user}`).set({})

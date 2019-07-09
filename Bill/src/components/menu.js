@@ -27,13 +27,25 @@ const TopCatScroller = (props) => {
   )
 }
 
+export const tableTotal = (firebase)=>{
+  return Object.values(firebase).map((index)=>{
+    if(index.hasOwnProperty('order')){
+      return index.order.reduce((acc, orderNumber)=>{
+         return orderNumber.price + acc;
+      }, 0)
+    }
+    else{
+      return 0
+    }
+  })
+}
 
 
 export default class Menu extends Component {
   constructor(props){
     super(props);
     this.menuSetter = this.menuSetter.bind(this)
-    this.tableTotal = this.tableTotal.bind(this)
+    // this.tableTotal = this.tableTotal.bind(this)
   }
 
   menuSetter(array){
@@ -46,13 +58,7 @@ export default class Menu extends Component {
    })
      return newMenu;
   }
-  tableTotal(){
-    return Object.values(this.props.screenProps.o_firebase).map((index)=>{
-      return index.order.reduce((acc, orderNumber)=>{
-         return orderNumber.price + acc;
-      }, 0)
-    })
-  }
+
 
 
   render() {
@@ -62,7 +68,7 @@ export default class Menu extends Component {
     if (this.props.screenProps.o_menu === {}){
       return <Text>Waiting for menu...</Text>
     }
-    console.log(this.props.screenProps)
+    // console.log(this.props.screenProps)
       return (
         <View style={styles_menu.menuPage}>
         <StatusBar barStyle="light-content" />
@@ -78,9 +84,36 @@ export default class Menu extends Component {
 
   componentDidMount(){
     const categoriesArray = this.props.screenProps.o_APIData.response.menu.menus.items[0].entries.items
-    // console.log(categoriesArray)
     this.props.screenProps.f_setMenu(this.menuSetter(categoriesArray));
-    setTimeout(()=>{this.props.screenProps.f_updateTable(this.tableTotal().reduce((acc, price)=>{return acc + price}, 0))}, 3000)
+    // this.props.screenProps.f_updateTable(tableTotal(this.props.screenProps.o_firebase));
+    this.props.screenProps.f_updateTable(tableTotal(this.props.screenProps.o_firebase).reduce((acc, price)=>{return price+acc}))
+    // console.log(tableTotal(this.props.screenProps.o_firebase))
+    // console.log(Object.values(this.props.screenProps.o_firebase).map((index)=>{return index}))
+    console.log(Object.keys(this.props.screenProps.o_firebase))
+    // tableTotal(){
+    //   return Object.values(this.props.screenProps.o_firebase).map((index)=>{
+    //     return index.order.reduce((acc, orderNumber)=>{
+    //        return orderNumber.price + acc;
+    //     }, 0)
+    //   })
+    // }
+
+
+
+    // this.props.screenProps.f_updateTable((()=>{
+    //   return Object.values(this.props.screenProps.o_firebase).map((index)=>{
+    //     if (!index.order) {
+    //       return 5000;
+    //     }
+    //     return index.order.reduce((acc, orderNumber)=>{
+    //        return orderNumber.price + acc;
+    //     }, 0)
+    //   })
+    // })())
+
+    console.log(this.props.screenProps)
+
+
 
 
 

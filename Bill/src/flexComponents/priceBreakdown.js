@@ -7,7 +7,7 @@ export const PriceBreakdown = (props) => {
     {props.children}
       <View style={styles.inDesc}>
         <Text style={{marginTop: 8, fontSize: 14,}}>Subtotal</Text>
-        <Text style={{marginTop: 8, fontSize: 14,}}>${props.subtotal.toFixed(2)}</Text>
+        <Text key={props.screenProps.o_user.customTotal} style={{marginTop: 8, fontSize: 14,}}>${props.subtotal.toFixed(2)}</Text>
       </View>
       <View style={styles.inDesc}>
         <Text style={{marginTop: 8, fontSize: 14}}>Tax</Text>
@@ -57,7 +57,7 @@ export const OrderBreakdown = (props) => {
 }
 
 export const SplitBreakdown = (props) => {
-  const subtotal = (props.screenProps.o_order.reduce((acc, item)=>{return acc+item.price}, 0))
+  const subtotal = props.screenProps.o_table.price
   const orderTax = (subtotal * .07)
   return(
     <View style={{height: 'auto', flexDirection:'row', alignSelf:'center', width: '99%', paddingTop: 5, paddingBottom: 5,  backgroundColor:'white', justifyContent: 'space-around', marginBottom: 10, borderRadius: 5,}}>
@@ -106,12 +106,20 @@ export const RouletteBreakdown = (props) => {
   )
 }
 
-export const PickBreakdown = (props) => {
-  return(
-    <PriceBreakdown subtotal={props.subtotal} orderTax={props.tax}>
-        {null}
-    </PriceBreakdown>
-  )
+export class PickBreakdown extends React.Component {
+  // constructor(props){
+  //   super(props);
+  //   this.state = {
+  //     subtotal: this.props.screenProps.o_user.customTotal,
+  //   }
+  // }
+
+  render(){
+    console.log(this.props)
+    return(
+      <PriceBreakdown subtotal={this.props.screenProps.o_user.customTotal} orderTax={this.props.tax} screenProps={this.props.screenProps}/>
+    )
+  }
 }
 
 const styles = StyleSheet.create({

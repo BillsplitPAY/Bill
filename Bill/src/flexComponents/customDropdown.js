@@ -9,11 +9,13 @@ import {gStyle} from '../containers/styles';
 import Tipper from '../components/tipper';
 import PayOptionsScreen from '../components/payOptions';
 import {SplitBreakdown, PriceBreakdown} from '../flexComponents/priceBreakdown';
-import CustomListItem, {OrderListItem} from '../flexComponents/listItem'
+import CustomListItem,{OrderListItem} from '../flexComponents/listItem'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
+import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase, updateTable, addCustomPrice} from '../actions/index.js';
+import { bindActionCreators } from 'redux';
 
-class OrderDropdown extends React.Component{
+class CustomDropdown extends React.Component{
   constructor(props){
     super(props)
     this.state={
@@ -33,7 +35,6 @@ class OrderDropdown extends React.Component{
           //return Animated.timing(this.state.dropdown, {duration: 200, toValue: 0})
       }
   }
-
 render(){
   //firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.screenProps.f_toFirebase(snapshot.val())})
   const cartLength = listItemCreator(this.props.orders, OrderListItem).length
@@ -47,7 +48,7 @@ render(){
         <Text style={{color:'green', fontSize: 18, fontWeight: 'bold'}}>{`$${this.props.orders.reduce((acc, item)=>{return acc + item.price}, 0)}`}</Text>
         </View>
       </TouchableHighlight>
-      <Animated.View style={{height: this.state.dropdown, backgroundColor:'rgb(231,232,236)', zIndex: 2, overflow: 'hidden'}}>{listItemCreator(this.props.orders, OrderListItem)}</Animated.View>
+      <Animated.View style={{height: this.state.dropdown, backgroundColor:'rgb(231,232,236)', zIndex: 2, overflow: 'hidden'}}>{listItemCreator(this.props.orders, CustomListItem)}</Animated.View>
     </View>
 )
 
@@ -59,16 +60,36 @@ render(){
   // }
 }
 
-
-
 function mapStateToProps(state){
   return {
     order: state.order
   }
 }
 
+function mapDispatchToProps(dispatch){
+  return bindActionCreators(
+    {
+      f_fetchAPIData: fetchAPIData,
+      f_addItem: addItem,
+      f_removeItem: removeItem,
+      f_submitOrder: submitOrder,
+      f_emptyCart: emptyCart,
+      f_setCategory: setCategory,
+      f_setMenu: setMenu,
+      f_setCurrentItem: setCurrentItem,
+      f_updateName: updateName,
+      f_yPos: yPos,
+      f_setTip: setTip,
+      f_toFirebase: toFirebase,
+      f_clearFirebase: clearFirebase,
+      f_updateTable: updateTable,
+      f_addCustomPrice: addCustomPrice
 
-export default connect(mapStateToProps)(OrderDropdown)
+    }, dispatch)
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomDropdown)
 
 
 
@@ -81,7 +102,5 @@ const styles = StyleSheet.create({
 
   itemHeader:{fontSize: 20, fontWeight: 'bold', color: 'white'},
 
-  payText: {textAlign:'center', fontSize: 20, fontFamily: gStyle.appFont}
-
-
+  payText: {textAlign:'center', fontSize: 20, fontFamily: gStyle.appFont},
 })
