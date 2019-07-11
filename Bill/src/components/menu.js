@@ -6,6 +6,7 @@ import { Font } from 'expo';
 import {styles_catScroller} from '../containers/container_catScroller'
 import {styles_menuCategories, categoryBuilder} from '../containers/container_menuCategories'
 import {styles_menu} from '../containers/container_menu'
+import firebase from 'firebase'
 
 const MenuCategories = (props) => {
     return(
@@ -87,9 +88,13 @@ export default class Menu extends Component {
     this.props.screenProps.f_setMenu(this.menuSetter(categoriesArray));
     // this.props.screenProps.f_updateTable(tableTotal(this.props.screenProps.o_firebase));
     this.props.screenProps.f_updateTable(tableTotal(this.props.screenProps.o_firebase).reduce((acc, price)=>{return price+acc}))
+
+    firebase.database().ref('Restaurant/testTable').child('roulette').on('value', (snapshot)=>{this.props.navigation.navigate('Two'); console.log(this.state)})
+    firebase.database().ref('Restaurant/testTable').child('roulette').once('value', (snapshot)=>{this.props.navigation.navigate('One'); console.log(this.state)})
+
+
     // console.log(tableTotal(this.props.screenProps.o_firebase))
     // console.log(Object.values(this.props.screenProps.o_firebase).map((index)=>{return index}))
-    console.log(Object.keys(this.props.screenProps.o_firebase))
     // tableTotal(){
     //   return Object.values(this.props.screenProps.o_firebase).map((index)=>{
     //     return index.order.reduce((acc, orderNumber)=>{
@@ -111,7 +116,7 @@ export default class Menu extends Component {
     //   })
     // })())
 
-    console.log(this.props.screenProps)
+
 
 
 

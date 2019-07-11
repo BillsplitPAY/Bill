@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import { connect } from 'react-redux'
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase, updateTable, addCustomPrice, subtractCustomPrice} from '../actions/index.js';
 import { drawerContent } from './drawerContent';
@@ -15,13 +15,28 @@ import {config} from '../../Firebase/firebaseConfig'
 import {styles_menu, menuSetter} from '../containers/container_menu'
 import Welcome from '../components/welcome';
 import {tableTotal} from '../components/menu'
+import {rouletteDetector} from '../helperFunctions/pureFunctions'
+import {RouletteResult} from '../components/rouletteResult';
+import {Done} from '../components/done'
 
-import PaymentPage, {YourStuffPay, SplitPay, PickPay, RoulettePay} from '../components/payPages/paymentPage';
+
+
+import PaymentPage, {YourStuffPay, SplitPay, PickPay, RoulettePay, TreatPay} from '../components/payPages/paymentPage';
 
 class MainNav extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      test:null,
+    }
+  }
+
   render(){
     if (this.props.APIData === ''){
       return <Text style={styles.loading}>'loading'</Text>
+    }
+    if(this.state.test === 'test'){
+      return <RouletteResult screenProps={this.props}/>
     }
     else{
       return (
@@ -31,10 +46,22 @@ class MainNav extends Component {
 }
   componentDidMount(){
     firebase.initializeApp(config);
-    firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.f_toFirebase(snapshot.val())})
-    firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.f_updateTable(tableTotal(this.props.o_firebase).reduce((acc, price)=>{return price+acc}))})
-    this.props.f_fetchAPIData();
-    console.log(this.props);
+    const fetcher = async () => this.props.f_fetchAPIData();
+
+    // firebase.database().ref('Restaurant/testTable').child('roulette').set(null)
+    // firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.f_updateTable(tableTotal(this.props.o_firebase).reduce((acc, price)=>{return price+acc}))})
+    fetcher().then(result => {
+      // firebase.database().ref('Restaurant/testTable').child('roulette').on('value', (snapshot)=>{this.setState({test:'test'}); console.log(this.state)})
+      // firebase.database().ref('Restaurant/testTable').child('roulette').once('value', (snapshot)=>{this.setState({test:null}); console.log(this.state)})
+      firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.f_toFirebase(snapshot.val())})
+    })
+
+
+    // firebase.database().ref('Restaurant/testTable').child('roulette').on('value', (snapshot)=>{this.setState({test:'test'}); console.log(this.state)})
+
+    // rouletteDetector(this.props.o_firebase.roulette);
+    
+
 
     // this.props.f_clearFirebase();
 
@@ -50,10 +77,53 @@ class MainNav extends Component {
   }
 }
 
+// export const RouletteResult = (props)=>{
+//
+//   const roulette = props.screenProps.o_firebase
+//
+//   function rouletteReady(){
+//     if (props.screenProps.o_firebase.hasOwnProperty('roulette')){
+//       if(props.screenProps.o_firebase.roulette === props.screenProps.o_user.name){
+//         return{
+//           roulette: 'You',
+//           button: ()=>{return <TouchableOpacity><Text>Pay Up</Text></TouchableOpacity>}
+//         }
+//       }
+//       else{
+//           return {
+//             roulette: props.screenProps.o_firebase.roulette,
+//             button: <TouchableOpacity ><Text>Next</Text></TouchableOpacity>
+//           }
+//       }
+//        return props.screenProps.o_firebase.roulette
+//     }
+//     else{
+//       return 'heh'
+//     }
+//   }
+//   console.log(props, 'yeehaw')
+//   return(
+//     <View style={{width:'100%', height:'100%', backgroundColor: 'grey', justifyContent: 'space-around', alignItems:'center'}}>
+//       <Text style={styles.rouletteText}>Could it be you?</Text>
+//       <Text style={styles.rouletteText}>It could...</Text>
+//       <Text style={styles.rouletteText}>But don't worry</Text>
+//       <Text style={styles.rouletteText}>Your bank account is safe</Text>
+//       <Text style={styles.rouletteText}>this time...</Text>
+//       <Text style={styles.rouletteText}>Our lucky payer is...</Text>
+//       <Text style={styles.rouletteText}>{rouletteReady().roulette}</Text>
+//       {rouletteReady().button}
+//     </View>
+//   )
+// }
+
+// export connect(mapStateToProps, mapDispatchToProps)(RouletteResult)
+
    export const DrawerNav = createDrawerNavigator({
     //this is the slide out drawer navigator for the right side panel
     //in order to use add key/value pair to component as an object below
     //and within the component itself use the 'static' keyword, check examples
+
+
      Home: {
        screen: inAppStackNav,
 
@@ -89,6 +159,30 @@ class MainNav extends Component {
        screen: DrawerNav,
        navigationOptions: {
          headerStyle:{backgroundColor: 'red', height: 0, display: 'none'},
+         headerLeft: null,
+         gesturesEnabled: false,
+       },
+     },
+     Two: {
+       screen: RouletteResult,
+       navigationOptions: {
+         headerStyle:{backgroundColor: 'red', height: 0, display: 'none'},
+         headerLeft: null,
+         gesturesEnabled: false,
+       },
+     },
+    Three: {
+       screen: TreatPay,
+       navigationOptions: {
+         headerStyle:{backgroundColor: 'red', height: 0, display: 'none'},
+         headerLeft: null,
+         gesturesEnabled: false,
+       },
+     },
+     Four: {
+       screen: Done,
+       navigationOptions: {
+         headerStyle:{backgroundColor: '#212121', height: 10},
          headerLeft: null,
          gesturesEnabled: false,
        },
@@ -142,6 +236,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(MainNav)
 
 const styles = StyleSheet.create({
 
+  rouletteText:{fontSize: 40, color:'white'},
   container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   drawerHeader: { height: 200, backgroundColor: 'white' },
   drawerImage: { height: 150, width: 150, borderRadius: 75 },

@@ -12,7 +12,7 @@ export default function(state = {customTotal: 0}, action) {
   			break;
 				case 'SUBTRACTCUSTOM':
 				// return {customTotal:action.payload}
-					return Object.assign({}, state, {customTotal: action.payload - state.customTotal})
+					return Object.assign({}, state, {customTotal: state.customTotal - action.payload })
 	        // return 'cool'
 	  			break;
 		default:

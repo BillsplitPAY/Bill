@@ -42,7 +42,7 @@ class ItemPage extends Component {
 
 
   render(){
-    console.log(this.props)
+
     const {navigate} = this.props.navigation;
     //category is an object with the category's name under the name property, and the category's items under .entries.items
     const currentItem = this.props.screenProps.o_currentItem;

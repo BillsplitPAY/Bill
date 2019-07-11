@@ -50,7 +50,7 @@ itemSelect(){
     }
 
     render(){
-      console.log(this.props)
+
       return (
         <TouchableOpacity style={styles.inDesc} onPress={()=>{this.itemSelect()}}>
           <Animated.View style = {{height: '100%', width: '100%', flexDirection: 'row', backgroundColor:this.state.backgroundColor}}>

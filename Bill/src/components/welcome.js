@@ -34,7 +34,7 @@ class Welcome extends React.Component {
   }
 
   render(){
-    // console.log(this.props)
+
     return(
       <Animated.View style={{height: '100%', width: '100%', alignItems: 'center', justifyContent: 'flex-start'}}>
 
@@ -57,6 +57,7 @@ class Welcome extends React.Component {
     // firebase.initializeApp(config);
     this.animator().start();
     setTimeout(()=>{this.setState({opacity: 1})}, 1500)
+
 
 
     // firebase.database().ref('Restaurant').child('testTable').update({[this.state.value]:{'name': this.state.value}})

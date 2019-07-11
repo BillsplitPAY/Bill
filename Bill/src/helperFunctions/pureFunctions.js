@@ -91,3 +91,6 @@ export const animator = (stateValue, animValue, initValue) => {
         return Animated.timing(this.state.edit, {duration: 200, toValue: initValue})
     }
 }
+
+export const rouletteDetector = (prop)=>{
+  return (prop) ? console.log('Yeaaa!!!') : console.log('naw')}

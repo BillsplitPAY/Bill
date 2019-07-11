@@ -51,9 +51,9 @@ class Order extends Component {
 // Get a database reference to our posts
 getFromFirebase(){
   firebase.database().ref('Restaurants/Larrys/Tables/Table1/26/0').on("value", function(snapshot) {
-    console.log(snapshot.val());
+
   }, function (errorObject) {
-    console.log("The read failed: " + errorObject.code);
+
   });
 }
 
@@ -98,7 +98,7 @@ tableTotal(){
     const total = subTotal + tax
     const orderLength = listItemCreator(this.props.order, OrderListItem).length
 
-    console.log(this.props.screenProps)
+
 
     return (
      <View key={this.props.screenProps.o_firebase} style={styles.cartPage} blurRadius={1}>

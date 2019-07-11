@@ -83,17 +83,17 @@ class Cart extends Component {
       this.props.screenProps.f_emptyCart()
       newCart.map((item)=>{this.props.screenProps.f_addItem(item)})
       for (let i = 0; i < this.state.quantity; i++){this.props.screenProps.f_addItem(this.state.newItem)}
-      console.log(this.props.screenProps.o_cart)
+
   }
 
   render() {
-    console.log(this.state)
+
     const { navigate } = this.props.navigation
     const cart = this.props.screenProps.o_cart
     const subtotal = cart.reduce(this.totalAdder, 0)
     const tax = subtotal * .07
     const total = subtotal + tax
-    console.log(this.props.screenProps)
+
 
     return (
       <View style={{height: '100%'}}>

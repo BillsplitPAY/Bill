@@ -21,8 +21,6 @@ export const PriceBreakdown = (props) => {
   )
 }
 
-
-
 export const CartBreakdown = (props) => {
   const cartTotal = (props.screenProps.o_cart.reduce((acc, item)=>{return acc+item.price}, 0))
   const tax = (cartTotal * .07)
@@ -96,7 +94,15 @@ export const YourBreakdown = (props) => {
   const subtotal = (props.screenProps.o_order.reduce((acc, item)=>{return acc+item.price}, 0))
   const orderTax = (subtotal * .07)
   return(
-    <PriceBreakdown subtotal={subtotal} orderTax={orderTax}/>
+    <PriceBreakdown subtotal={subtotal} orderTax={orderTax} screenProps={props.screenProps}/>
+  )
+}
+
+export const TreatBreakdown = (props) => {
+  const subtotal = props.screenProps.o_table.price
+  const orderTax = (subtotal * .07)
+  return(
+    <PriceBreakdown subtotal={subtotal} orderTax={orderTax} screenProps={props.screenProps}/>
   )
 }
 
@@ -115,7 +121,7 @@ export class PickBreakdown extends React.Component {
   // }
 
   render(){
-    console.log(this.props)
+
     return(
       <PriceBreakdown subtotal={this.props.screenProps.o_user.customTotal} orderTax={this.props.tax} screenProps={this.props.screenProps}/>
     )

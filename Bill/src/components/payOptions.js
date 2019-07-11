@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView,
   TouchableHighlight, Image, TouchableOpacity, TextInput, Animated, TouchableWithoutFeedback} from 'react-native';
 import Breaker from '../flexComponents/breaker';

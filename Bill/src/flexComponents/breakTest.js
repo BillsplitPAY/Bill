@@ -7,7 +7,7 @@ import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, set
 
 
 const BreakTest = (props)=>{
-  console.log(props.o_user)
+
   return(
     <TouchableOpacity onPress={()=>{console.log(props.o_user.customTotal)}} key={props.o_user.customTotal}><Text key={props.o_user.customTotal}>{props.o_user.customTotal}</Text></TouchableOpacity>
   )

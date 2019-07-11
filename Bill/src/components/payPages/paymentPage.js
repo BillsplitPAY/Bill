@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TouchableWithoutFeedback, TextInput} from 'react-native';
 import Breaker from '../../flexComponents/breaker';
-import {PriceBreakdown, SplitBreakdown, YourBreakdown, RouletteBreakdown, PickBreakdown} from '../../flexComponents/priceBreakdown';
+import {PriceBreakdown, SplitBreakdown, YourBreakdown, RouletteBreakdown, PickBreakdown, TreatBreakdown} from '../../flexComponents/priceBreakdown';
 import { addUp, listItemCreator } from '../../helperFunctions/pureFunctions';
 import {Tipper} from '../tipper';
 import BottomButton, {PayButton, CheckoutButton} from '../../flexComponents/bottomButton'
@@ -13,6 +13,7 @@ import BreakTest from '../../flexComponents/breakTest'
 import PayOptionsScreen from '../payOptions'
 import { Ionicons } from '@expo/vector-icons';
 import {tableTotal} from '../menu'
+import firebase from 'firebase'
 
 
 export default class PaymentPage extends Component{
@@ -24,6 +25,7 @@ export default class PaymentPage extends Component{
     }
     this.orderState=this.orderState.bind(this)
     this.customTipper=this.customTipper.bind(this)
+    this.rouletteTest=this.rouletteTest.bind(this)
   }
 
   orderState(){
@@ -33,6 +35,10 @@ export default class PaymentPage extends Component{
   customTipper(){
     this.setState({customTip:{opacity: 1, zIndex: 2}})
   }
+
+rouletteTest(user){
+  document.getElementById(`droppy-${user}`).style.backgroundColor = 'red';
+}
 
   render(){
     const order = this.props.screenProps.o_order
@@ -45,7 +51,7 @@ export default class PaymentPage extends Component{
     const orderLength = listItemCreator(order, OrderListItem).length*50
 
     // console.log(listItemCreator(order, OrderListItem))
-    console.log(Object.values(this.props.screenProps.o_firebase));
+
 
     return(
       <View style={{justifyContent: 'space-between', height: '100%', opacity: 1}} blurRadius={1}>
@@ -56,9 +62,13 @@ export default class PaymentPage extends Component{
           <Text style={{fontFamily: 'Futura', fontSize: 20}}>{this.props.type}</Text>
         </View>
         <ScrollView>
+
           <View>
-            {Object.keys(this.props.screenProps.o_firebase).map((user)=>{return <this.props.dropType orders={(this.props.screenProps.o_firebase[user].order) ? this.props.screenProps.o_firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>})}
+            {Object.keys(this.props.screenProps.o_firebase).map((user)=>{
+              return <this.props.dropType key={this.props.screenProps.o_firebase[user]} id={`droppy-${user}`} orders={(this.props.screenProps.o_firebase[user].order) ? this.props.screenProps.o_firebase[user].order : []} screenProps={this.props.screenProps} startVal={0} name={user}/>
+            })}
           </View>
+
       </ScrollView>
         {this.props.children}
         <View style={[{height: '100%', width: '100%', backgroundColor: 'rgba(0,0,0,.5)', position:'absolute', justifyContent:'center'}, this.state.customTip]}>
@@ -72,6 +82,8 @@ export default class PaymentPage extends Component{
     </View>
   )
   }
+
+
 }
 
 // <TouchableHighlight onPress={()=>{return this.setState({payOps: ()=>{return <PayOptionsScreen orderState={this.orderState} navigate={this.props.navigation.navigate}/>}})}} style={{borderColor: '#212121', borderWidth: 3, height: 'auto', width: 'auto', padding:2, borderRadius: '5%', }}><Text>Payment{"\n"}Methods</Text></TouchableHighlight>
@@ -102,8 +114,24 @@ export const YourStuffPay = (props) =>{
   const tip = props.screenProps.o_tip / 4;
   const finalTotal = total + tip
   return (
-    <PaymentPage key={props.screenProps} screenProps={props.screenProps} navigation={props.navigation} type={'Your Items'}>
+    <PaymentPage key={props.screenProps} screenProps={props.screenProps} navigation={props.navigation} type={'Your Items'} dropType={OrderDropdown}>
     <YourBreakdown screenProps={props.screenProps}/>
+    <Tipper screenProps={props.screenProps} payTotal={total}/>
+    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
+    </PaymentPage>
+  )
+}
+
+export const TreatPay = (props) =>{
+  const order = props.screenProps.o_order
+  const subtotal = addUp(order)
+  const tax = (addUp(order) * .07);
+  const total = ((addUp(order) * .07) + (addUp(order)));
+  const tip = props.screenProps.o_tip / 4;
+  const finalTotal = total + tip
+  return (
+    <PaymentPage key={props.screenProps} screenProps={props.screenProps} navigation={props.navigation} type={'Your Items'} dropType={OrderDropdown}>
+    <TreatBreakdown screenProps={props.screenProps}/>
     <Tipper screenProps={props.screenProps} payTotal={total}/>
     <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
     </PaymentPage>
@@ -118,7 +146,7 @@ export const PickPay = (props) =>{
   // const total = (tax + (addUp(order)));
   const tip = props.screenProps.o_tip / 4;
   const finalTotal = subtotal + tip
-  console.log(props)
+
   return (
     <PaymentPage screenProps={props.screenProps} navigation={props.navigation} type={'Custom Selection'} dropType={CustomDropdown}>
     <View style={{borderColor:'black', borderWIdth: 1, width: '100%', height:300}}>
@@ -145,7 +173,7 @@ constructor(props){
     payer: null,
     display: 'none',
     spinButton: 'flex',
-    spinOrPay: ()=>{return <TouchableOpacity title='Spin' style={{height: 50, display: this.state.spinButton, alignItems:'center', justifyContent: 'center', width:'15%', alignSelf:'center', borderWidth: 1, borderColor: 'black', borderRadius:5, backgroundColor:'black'}} onPress={()=>{setTimeout(()=>{this.roulette()}, 2000)}}><Text style={{color: 'white', fontSize:40}}>Spin</Text></TouchableOpacity>}
+    spinOrPay: ()=>{return <TouchableOpacity title='Spin' style={{height: 50, display: this.state.spinButton, alignItems:'center', justifyContent: 'center', width:'15%', alignSelf:'center', borderWidth: 1, borderColor: 'black', borderRadius:5, backgroundColor:'black'}} onPress={()=>{setTimeout(()=>{this.roulette()}, 0)}}><Text style={{color: 'white', fontSize:40}}>Spin</Text></TouchableOpacity>}
   }
   this.roulette = this.roulette.bind(this)
 
@@ -155,9 +183,14 @@ constructor(props){
   const objLength = Object.keys(this.props.screenProps.o_firebase).length
   const index = Math.floor(Math.random() * (objLength - 0)+0)
   const rando = Object.keys(this.props.screenProps.o_firebase)[index];
-  console.log(rando)
+  // console.log(rando)
   const subtotal = tableTotal(this.props.screenProps.o_firebase).reduce((acc, price)=>{return acc + price}, 0)
-  return (rando !== this.props.screenProps.o_user)?this.setState({total:0, payer: rando, display: 'flex', spinButton:'none', spinOrPay:()=>{return <PickBreakdown subtotal={this.state.total} tax={this.state.total * .07}/>}}):this.setState({total: subtotal, payer: 'You', display: 'flex', spinButton:'none', spinOrPay:()=>{return <PickBreakdown subtotal={this.state.total} tax={this.state.total * .07}/>}})
+  // console.log(this.props.screenProps.o_user)
+
+  firebase.database().ref('Restaurant/testTable').update({roulette: rando})
+  // this.props.navigation.navigate('Two')
+  // console.log(this.props.screenProps.o_firebase)
+  // (rando !== this.props.screenProps.o_user.name) ? this.setState({total:0, payer: rando, display: 'flex', spinButton:'none', spinOrPay : ()=>{return <PickBreakdown subtotal={this.state.total} tax={this.state.total * .07} screenProps={this.props.screenProps}/>}}):this.setState({total: subtotal, payer: 'You', display: 'flex', spinButton:'none', spinOrPay:()=>{return <PickBreakdown subtotal={this.state.total} tax={this.state.total * .07} screenProps={this.props.screenProps}/>}})
   // this.setState({payer: Object.keys(this.props.screenProps.o_firebase)[index]})
 }
 
@@ -174,7 +207,7 @@ constructor(props){
     // console.log(this.props)
 
   return (
-    <PaymentPage screenProps={this.props.screenProps} navigation={this.props.navigation} type={'Roulette'}>
+    <PaymentPage screenProps={this.props.screenProps} navigation={this.props.navigation} type={'Roulette'} dropType={OrderDropdown}>
     <View><Text>{this.state.total}</Text></View>
     <View style={{display: this.state.display, backgroundColor:'white', position: 'absolute', height: '20%', width: '50%', zIndex:5, borderWidth:5, borderColor:'black', alignItems:'center', justifyContent:'center', fontSize:'2em', alignSelf:'center', top:'35%'}}>
       <Text style={{fontSize:20}}>And the lucky winner is...</Text>
@@ -188,6 +221,7 @@ constructor(props){
 }
 
 componentDidMount(){
+  // firebase.database().ref('Restaurant/testTable').child('roulette').on('value', (snapshot)=>{this.props.navigation.navigate('Two'); console.log(this.state)})
   // this.props.screenProps.f_updateTable(trueTableTotal)
 }
 }
