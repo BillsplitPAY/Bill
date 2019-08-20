@@ -2,10 +2,7 @@
 
 export default function(state = {}, action) {
 	switch (action.type) {
-		case 'SETMENU':
-			return action.payload
-			break;
-		case 'EDITMENU':
+		case 'FULLMENU':
 			return action.payload
 			break;
 		default:

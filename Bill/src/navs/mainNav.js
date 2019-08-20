@@ -3,7 +3,7 @@ import { createStackNavigator, createDrawerNavigator} from 'react-navigation';
 import { connect } from 'react-redux'
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { bindActionCreators } from 'redux';
-import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase, updateTable, addCustomPrice, subtractCustomPrice} from '../actions/index.js';
+import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase, updateTable, addCustomPrice, subtractCustomPrice, removeCat, fullMenu, addCat} from '../actions/index.js';
 import { drawerContent } from './drawerContent';
 import {inAppStackNav} from './allNavs'
 import Scanny from '../flexComponents/qrScans';
@@ -18,8 +18,6 @@ import {tableTotal} from '../components/menu'
 import {rouletteDetector} from '../helperFunctions/pureFunctions'
 import {RouletteResult} from '../components/rouletteResult';
 import {Done} from '../components/done'
-
-
 
 import PaymentPage, {YourStuffPay, SplitPay, PickPay, RoulettePay, TreatPay} from '../components/payPages/paymentPage';
 
@@ -60,7 +58,7 @@ class MainNav extends Component {
     // firebase.database().ref('Restaurant/testTable').child('roulette').on('value', (snapshot)=>{this.setState({test:'test'}); console.log(this.state)})
 
     // rouletteDetector(this.props.o_firebase.roulette);
-    
+
 
 
     // this.props.f_clearFirebase();
@@ -187,6 +185,14 @@ class MainNav extends Component {
          gesturesEnabled: false,
        },
      },
+     Five: {
+        screen: Scanny,
+        navigationOptions: {
+          headerStyle:{backgroundColor: 'red', height: 0, display: 'none'},
+          headerLeft: null,
+          gesturesEnabled: false,
+        },
+      },
    })
 
 //Maps the state object properties to React props so the data can be passed down components
@@ -199,6 +205,7 @@ function mapStateToProps(state){
     o_tip: state.tip,
     o_category: state.category,
     o_menu: state.menu,
+    o_fullMenu: state.fullMenu,
     o_currentItem: state.currentItem,
     o_user: state.user,
     o_yPosition: state.yPosition,
@@ -219,6 +226,7 @@ function mapDispatchToProps(dispatch){
       f_emptyCart: emptyCart,
       f_setCategory: setCategory,
       f_setMenu: setMenu,
+      f_fullMenu: fullMenu,
       f_setCurrentItem: setCurrentItem,
       f_updateName: updateName,
       f_yPos: yPos,
@@ -228,6 +236,8 @@ function mapDispatchToProps(dispatch){
       f_updateTable: updateTable,
       f_addCustomPrice: addCustomPrice,
       f_subtractCustomPrice: subtractCustomPrice,
+      removeCat: removeCat,
+      addCat: addCat,
 
     }, dispatch)
 }

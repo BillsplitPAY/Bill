@@ -14,8 +14,8 @@ const PayOption = (props)=>{
 return(
 <TouchableHighlight style={styles.payOption} onPress={()=>{props.navigate()}}>
 <View style={{height: '100%', width: '100%', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', backgroundColor: 'white'}}>
-   <View style={{height: '100%',  width: '70%', alignItems: 'flex-start'}}><Text style={styles.payText}>{props.title}</Text><Text style={{color: 'black', marginTop: 10}}>{props.description}</Text></View>
-   <View style={{height: '100%',  width: '30%', justifyContent: 'center', alignItems: 'center',}}><Image source={props.img} style={{width:'90%', height: '90%'}}/></View>
+   <View style={{height: '100%',  width: '70%', alignItems: 'flex-start'}}><Text style={styles.payText}>{props.title}</Text><Text style={{color: 'black', marginTop: 10, fontFamily:'Avenir-Light', }}>{props.description}</Text></View>
+   <View style={{height: '100%',  width: '30%', justifyContent: 'center', alignItems: 'center',}}><Image source={props.img} style={{width:50, height: 50}}/></View>
   </View>
  </TouchableHighlight>
 )
@@ -30,7 +30,7 @@ const PayOptionsScreen = (props) =>{
 
       <View style={{backgroundColor: '#212121', borderBottomColor: 'white', borderBottomWidth: .5, marginBottom: 9, height: 'auto', width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingLeft: 10, paddingRight: 10}}>
         <TouchableWithoutFeedback onPress={()=>{props.payOptionToggle()}}><View style={{flexDirection: 'row', alignItems: 'center'}}><Ionicons name="ios-arrow-back" size={40} style={{color:'white'}}/></View></TouchableWithoutFeedback>
-        <Text style={{fontFamily: 'Futura', fontSize: 20, color: 'white'}}>Select a Payment Option</Text>
+        <Text style={{fontFamily: 'Avenir-Medium', fontSize: 20, color: 'white'}}>Select a Payment Option</Text>
       </View>
 
       <View style={styles.optionsContainer}>
@@ -48,13 +48,13 @@ const PayOptionsScreen = (props) =>{
 export default PayOptionsScreen;
 
 const styles = StyleSheet.create({
-  optionsContainer:{height: '100%', width: '93%',  justifyContent: 'space-between', alignItems: 'center'},
+  optionsContainer:{height: 125, width: '93%',  justifyContent: 'space-between', alignItems: 'center'},
 
-  payOption:{height: '23%', width: '100%', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', backgroundColor: 'white', borderColor: '#212121', borderWidth: 2, borderRadius: 5, marginBottom: 20, paddingLeft: 5},
+  payOption:{height: 'auto', width: '100%', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', backgroundColor: 'white', borderColor: '#212121', borderWidth: 2, borderRadius: 5, marginBottom: 20, paddingLeft: 5},
 
   cartPage:{justifyContent: 'space-between', height: '100%', opacity: 1},
 
   itemHeader:{textAlign: 'center', fontSize: 14, fontWeight: 'bold', letterSpacing: 5, marginTop: 14},
 
-  payText: {textAlign:'center', fontSize: 20, fontFamily: gStyle.appFont}
+  payText: {textAlign:'center', fontSize: 20, fontFamily:'Avenir-Medium', }
 })

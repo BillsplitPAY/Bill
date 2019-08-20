@@ -100,7 +100,7 @@ export const SplitPay = (props) =>{
     <PaymentPage screenProps={props.screenProps} navigation={props.navigation} type={'Even Split'} dropType={OrderDropdown}>
       <SplitBreakdown screenProps={props.screenProps} diners={Object.keys(props.screenProps.o_firebase).length}/>
       <Tipper screenProps={props.screenProps} payTotal={splitTotal}  />
-      <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
+      <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Four')}/>
     </PaymentPage>
   )
 }
@@ -117,7 +117,7 @@ export const YourStuffPay = (props) =>{
     <PaymentPage key={props.screenProps} screenProps={props.screenProps} navigation={props.navigation} type={'Your Items'} dropType={OrderDropdown}>
     <YourBreakdown screenProps={props.screenProps}/>
     <Tipper screenProps={props.screenProps} payTotal={total}/>
-    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
+    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Four')}/>
     </PaymentPage>
   )
 }
@@ -133,7 +133,7 @@ export const TreatPay = (props) =>{
     <PaymentPage key={props.screenProps} screenProps={props.screenProps} navigation={props.navigation} type={'Your Items'} dropType={OrderDropdown}>
     <TreatBreakdown screenProps={props.screenProps}/>
     <Tipper screenProps={props.screenProps} payTotal={total}/>
-    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
+    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Four')}/>
     </PaymentPage>
   )
 }
@@ -208,14 +208,14 @@ constructor(props){
 
   return (
     <PaymentPage screenProps={this.props.screenProps} navigation={this.props.navigation} type={'Roulette'} dropType={OrderDropdown}>
-    <View><Text>{this.state.total}</Text></View>
-    <View style={{display: this.state.display, backgroundColor:'white', position: 'absolute', height: '20%', width: '50%', zIndex:5, borderWidth:5, borderColor:'black', alignItems:'center', justifyContent:'center', fontSize:'2em', alignSelf:'center', top:'35%'}}>
-      <Text style={{fontSize:20}}>And the lucky winner is...</Text>
-      <Text style={{fontSize:100}}>{this.state.payer}!!!!</Text>
-    </View>
-    {this.state.spinOrPay()}
-    <Tipper screenProps={this.props.screenProps} payTotal={total}/>
-    <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>this.props.navigation.navigate('Confirmation')}/>
+      <View><Text>{this.state.total}</Text></View>
+      <View style={{display: this.state.display, backgroundColor:'white', position: 'absolute', height: '20%', width: '50%', zIndex:5, borderWidth:5, borderColor:'black', alignItems:'center', justifyContent:'center', fontSize:'2em', alignSelf:'center', top:'35%'}}>
+        <Text style={{fontSize:20}}>And the lucky winner is...</Text>
+        <Text style={{fontSize:100}}>{this.state.payer}!!!!</Text>
+      </View>
+      {this.state.spinOrPay()}
+      <Tipper screenProps={this.props.screenProps} payTotal={total}/>
+      <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>this.props.navigation.navigate('Confirmation')}/>
     </PaymentPage>
   )
 }

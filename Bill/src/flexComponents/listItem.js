@@ -13,9 +13,11 @@ export const ListItem = (props) => {
       <TouchableOpacity style={styles.inDesc} onPress={()=>{props.animate().start()}}>
         <Animated.View style = {{height: '100%', width: '100%', right: props.right, borderWidth: props.borderWidth, flexDirection: 'row', backgroundColor:props.backgroundColor, color:props.textColor}}>
           <View style={styles.touch}>
-            <Text style={styles.descItems, {fontWeight: 'bold'}}>{props.itemAmount}</Text>
-            <Text style={styles.descText, {fontStyle: 'italic'}}>{props.itemName}</Text>
-            <Text style={styles.descPrice, {fontWeight: 'bold'}}>${props.itemPrice}</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.descItems, {fontFamily:'Avenir-Light', letterSpacing:2, fontSize: 18, color:'#212121'}}>{props.itemAmount}</Text>
+              <Text style={styles.descText, {position:'relative', left: 25, fontFamily:'Avenir-Light', letterSpacing:2, fontSize: 18, color:'#212121' }}>{props.itemName}</Text>
+            </View>
+            <Text style={styles.descPrice, {fontFamily:'Avenir-Heavy', letterSpacing:2, fontSize: 18, color:'green'}}>{props.itemPrice}.00</Text>
           </View>
           <View style={{height: '100%', width: 90, flexDirection: 'row'}}>
             <TouchableHighlight style={{borderRightColor: 'white', borderRightWidth:.5, backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: '50%'}} onPress={()=>{props.editor(props.itemName, props.cartArray, props.newItem)}}><Text style={{color:'white'}}>Edit</Text></TouchableHighlight>
@@ -188,12 +190,11 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   inDesc:{
-    borderBottomWidth: .5,
-    borderBottomColor: 'black',
+
     flexDirection: 'row',
-    marginTop: 8,
-    width: '95%',
-    height: 40,
+    marginTop: 0,
+    width: '100%',
+    height: 30,
     alignItems: 'center',
     alignSelf: 'center',
   },
@@ -204,6 +205,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginRight: 15,
+    paddingLeft:7,
   },
   descText:{
     marginLeft: 15,

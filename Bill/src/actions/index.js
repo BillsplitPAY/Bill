@@ -14,6 +14,41 @@ export function setMenu(menuObj){
     };
 }
 
+export function fullMenu(menuObj){
+  return {
+	   type: 'FULLMENU',
+	    payload: menuObj,
+    };
+}
+
+export function removeCat(category, menu){
+
+	const cat = category;
+	const {[cat]: value, ...updatedMenu } = menu;
+
+	return {
+	   type: 'EDITMENU',
+	    payload: updatedMenu,
+    };
+}
+
+export function addCat(category, fullMenu, omenu){
+	//take category, which is passed from fullMenu.
+	//locate that property on fullMenu
+	//add that category to o_menu, if it doesn't already have it.
+
+const updatedMenu = {
+	...omenu,
+	[category]: fullMenu[category]
+}
+
+
+	return {
+	   type: 'EDITMENU',
+	    payload: updatedMenu,
+    };
+}
+
 export function setCategory(category){
 	return{
 	type: 'CAT',

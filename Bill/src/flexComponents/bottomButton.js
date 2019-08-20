@@ -51,7 +51,6 @@ export const EditButton = (props)=>{
 
 
 const styles = StyleSheet.create({
-
   button:{
     flexDirection:'column',
     backgroundColor: 'black',
@@ -60,30 +59,23 @@ const styles = StyleSheet.create({
     width: '99%',
     alignSelf: 'center',
     marginBottom: 2,
-    borderRadius: 5,
   },
    buttonText:{
      color: 'white',
-     fontWeight:'bold',
-     fontSize: 17,
+     fontSize: 20,
      alignSelf:'center',
      position:'relative',
-     top:'25%'
-
-
-
-
+     top:'25%',
+     fontFamily: 'Avenir-Medium',
+     color: 'rgb(134,134,134)'
    },
    buttonPrice:{
-
      color: '#8bc34a',
-     fontWeight:'bold',
-
+     fontFamily: 'Avenir-Medium',
      fontSize: 17,
      alignSelf: 'flex-end',
      bottom:'25%',
      right:'2.5%',
      position:'relative'
    },
-
 })

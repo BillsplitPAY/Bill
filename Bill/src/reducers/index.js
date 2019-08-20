@@ -6,6 +6,7 @@ import OrderReducer from './reducer_order';
 import TipReducer from './reducer_tip';
 import CatReducer from './reducer_category';
 import MenuReducer from './reducer_menu';
+import FullMenuReducer from './reducer_fullMenu';
 import CurrentItem from './reducer_currentItem';
 import UserReducer from './reducer_user';
 import YPosReducer from './reducer_yPos';
@@ -23,6 +24,7 @@ import TableReducer from './reducer_table';
   tip: TipReducer,
   category: CatReducer,
   menu: MenuReducer,
+  fullMenu: FullMenuReducer,
   currentItem: CurrentItem,
   user: UserReducer,
   yPosition: YPosReducer,

@@ -73,7 +73,7 @@ totalAdder(acc, itemObj){
 
 orderReader(){
   if(this.props.screenProps.o_firebase === null){
-    return <View>No orders</View>
+    return <View><Text>No orders</Text></View>
   }
   else{
     return(
@@ -102,10 +102,10 @@ tableTotal(){
 
     return (
      <View key={this.props.screenProps.o_firebase} style={styles.cartPage} blurRadius={1}>
-         <View style={{height:'60%'}}>
+         <View style={{height:'85%'}}>
            <ScrollView>{this.orderReader()}</ScrollView>
          </View>
-         <TouchableOpacity title='Clear' onPress={()=>{this.clearTable()}} style={{position:'relative', borderColor: 'black', borderWidth:1, borderRadius: 5, alignItems: 'center', paddingVertical:10, paddingHorizontal:20, alignSelf:'center', justifyContent: 'center'}}><Text style={{fontSize: 30, fontFamily: gStyle.appFont}}>Clear</Text></TouchableOpacity>
+         <TouchableOpacity title='Clear' onPress={()=>{this.clearTable()}} style={{position:'relative', borderColor: 'black', borderWidth:1, borderRadius: 5, alignItems: 'center', paddingVertical:5, paddingHorizontal:5, alignSelf:'center', justifyContent: 'center', marginBottom:10}}><Text style={{fontSize: 17, fontFamily: 'Avenir'}}>Clear</Text></TouchableOpacity>
          <CheckoutButton buttonPrice={`$${this.props.screenProps.o_order.reduce((acc, item)=>{return acc + item.price}, 0)}`} payOptionToggle={()=>{this.payOptionToggle()}}/>
          <PayOptionsScreen payOptionToggle={this.payOptionToggle} navigate={this.props.navigation.navigate} style={this.state.style}/>
      </View>
@@ -137,7 +137,7 @@ tableTotal(){
 
     payOption:{height: 80, width: '25%', alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', borderRightWidth: .5, borderRightColor: 'black',},
 
-    cartPage:{justifyContent: 'space-between', height: '100%', opacity: 1},
+    cartPage:{justifyContent: 'space-between', paddingHorizontal: 3, height: '100%', opacity: 1},
 
     itemHeader:{fontSize: 20, fontWeight: 'bold', color: 'white'},
 

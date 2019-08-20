@@ -26,8 +26,9 @@ export const MenuStackNav = createStackNavigator({
   ItemPage: {
     screen: ItemPage,
     navigationOptions: {
-      headerStyle:{backgroundColor: '#212121', borderBottomWidth: 0, height: 0, display: 'none'},
-      headerLeft: null,
+      headerStyle:{borderBottomWidth: 0, height: 5, backgroundColor: 'rgb(234, 235, 237)', display:'none'},
+      headerTintColor: 'black',
+      // headerLeft: <Text style={{fontSize:20, borderColor: 'red', borderWidth: 3}}>Back</Text>,
     },
   },
 },
@@ -39,20 +40,20 @@ export const TabNav = createBottomTabNavigator({
   Menu: {
     screen: MenuStackNav,
     navigationOptions: {
-            tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30}}><Ionicons name="md-book" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'Futura', fontSize: 14,}}>Menu</Text></View>,
+            tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30}}><Ionicons name="md-book" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'AvenirNext-Regular', letterSpacing:2, fontSize: 14,}}>Menu</Text></View>,
         },
   },
   Cart: {
     screen: Cart,
     navigationOptions: {
-            tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30  }}><Ionicons name="md-cart" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'Futura', fontSize: 14,}}>Cart</Text></View>
+            tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30  }}><Ionicons name="md-cart" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'AvenirNext-Regular', letterSpacing:2, fontSize: 14,}}>Cart</Text></View>
             //tabBarIcon:() => <Ionicons size={ 20 } name={ 'basket' } color={ 'red' }/>
         },
   },
   Order: {
     screen: Order,
     navigationOptions:{
-      tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30, justifyContent: 'flex-start'}}><Ionicons name="md-color-wand" size={24} style={{color:'white'}}/><Text style={{fontFamily: 'Futura', fontSize: 14, color: 'white'}}>Options</Text></View>
+      tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30, justifyContent: 'flex-start'}}><Ionicons name="md-color-wand" size={24} style={{color:'white'}}/><Text style={{fontFamily: 'AvenirNext-Regular', letterSpacing:2, fontSize: 14, color: 'white'}}>Options</Text></View>
     }
   }
 },
