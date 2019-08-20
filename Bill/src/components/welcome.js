@@ -42,7 +42,7 @@ class Welcome extends React.Component {
               <TextInput placeholder={'Your Name'} style={{fontFamily: 'Avenir',  backgroundColor: 'rgb(205,205,205)', borderBottomWidth: 1, borderBottomColor:'#212121', height: 'auto', width: '120%',  textAlign: 'left', paddingVertical:20, paddingHorizontal:10,}} onChangeText={(text) => {this.setState({value: text})}} value={this.state.value}></TextInput>
               <TextInput placeholder={'Password'} style={{fontFamily: 'Avenir', backgroundColor: 'rgb(205,205,205)', height: 'auto', width: '120%',  textAlign: 'left', paddingVertical:20, paddingHorizontal:10,}}></TextInput>
           </View>
-          <TouchableOpacity style={{position:'relative', alignItems:'center', top: 30, width: '80%', backgroundColor: '#212121', paddingVertical: 20}} onPress={()=>{this.props.screenProps.f_updateName(this.state.value); this.props.navigation.navigate('One');firebase.database().ref('Restaurant').child('testTable').update({[this.state.value]:{'name': this.state.value}})}} >
+          <TouchableOpacity style={{position:'relative', alignItems:'center', top: 30, width: '80%', backgroundColor: '#212121', paddingVertical: 20}} onPress={()=>{this.props.screenProps.f_updateName(this.state.value); this.props.navigation.navigate('Five');firebase.database().ref('Restaurant').child('testTable').update({[this.state.value]:{'name': this.state.value}})}} >
               <Text style={{color: 'white', fontFamily: 'Avenir',  fontSize:19}}>Sign In</Text>
           </TouchableOpacity>
       </Animated.View>

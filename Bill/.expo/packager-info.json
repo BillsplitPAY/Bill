@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://ry-sk5.hop26.bill.exp.direct",
+  "packagerNgrokUrl": "https://packager.ry-sk5.hop26.bill.exp.direct",
+  "ngrokPid": 3743
 }
