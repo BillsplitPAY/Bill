@@ -36,22 +36,23 @@ class TopCatScroller extends React.Component {
     this.opDisplay = this.opDisplay.bind(this);
   }
 
-  opDisplay(){(this.state.opDisplay === 'none') ? this.setState({opDisplay:'fixed', backgroundColor: 'white', color: '#212121'}): this.setState({opDisplay:'none', backgroundColor: '#212121', color: 'white'})}
+  opDisplay(){(this.state.opDisplay === 'none') ? this.setState({opDisplay:'flex', backgroundColor: 'white', color: '#212121'}): this.setState({opDisplay:'none', backgroundColor: '#212121', color: 'white'})}
 
 
 
   render(){
     const menuBoy = this.props.screenProps.o_fullMenu;
     return(
-      <View id='category-view' style={{position: 'absolute', top:0, alignItems:'center', zIndex:20, backgroundColor: '#212121', width:'100%', flexDirection:'column', justifyContent:'center'}}>
+      <View id='category-view' style={{position: 'absolute', top:0, alignItems:'flex-end', zIndex:20, backgroundColor: '#212121', width:'100%', flexDirection:'column', justifyContent:'center'}}>
 
-          <TouchableOpacity id='category-touch' style={{borderColor:'white', backgroundColor:this.state.backgroundColor, borderWidth: 1, marginRight: 7, padding:7, alignSelf:'center', justifyContent:'center', flexDirection:'row'}} onPress={this.opDisplay}>
-            <Text id='category-text' style={{color:this.state.color,  fontSize:16, textAlign:'center', alignSelf:'center', fontFamily: 'Avenir', letterSpacing: 4}}>{'Categories'}</Text>
+          <TouchableOpacity id='category-touch' style={{borderColor:'white',  borderRadius: 5, backgroundColor:this.state.backgroundColor, marginRight: 7, padding:7, alignSelf:'flex-end', justifyContent:'center', flexDirection:'row'}} onPress={this.opDisplay}>
+            <Text id='category-text' style={{color:this.state.color,  fontSize:14, textAlign:'center', alignSelf:'center', fontFamily: 'Avenir', letterSpacing: 1.8, textTransform:'uppercase'}}>{'Categories'}</Text>
           </TouchableOpacity>
 
-          <View id='category-menu' style={{height: 'auto', width: 'auto', maxWidth:250, flexDirection:'column', position:'absolute', right:0,  top:50, zIndex:20, backgroundColor: 'rgba(31,31,31,.9)', alignSelf:'flex-end', display:this.state.opDisplay, justifyContent: 'center'}}>
+          <View id='category-menu' style={{height: 'auto', width: 'auto', maxWidth:250, flexDirection:'column', position:'fixed', top:50, zIndex:20, backgroundColor: 'rgba(31,31,31,.9)', alignSelf:'center', display:'fixed', justifyContent: 'center'}}>
+
             {Object.keys(menuBoy).map((index)=>{return(
-              <View key={index} id= 'category-menu-option' style={{flexDirection:'row', justifyContent: 'flex-end', borderBottomColor: 'black', position:'relative', borderBottomWidth: .5, paddingVertical:10,}}>
+              <View key={index} id='category-menu-option' style={{flexDirection:'row', justifyContent: 'flex-end', borderBottomColor: 'black', position:'relative', borderBottomWidth: .5, paddingVertical:10,}}>
                 <View style={{width:'75%', paddingHorizontal: 10, marginRight: 10, borderRightColor: 'white', borderRightWidth:1}}><Text style={{fontFamily:'AvenirNext-Regular',fontSize:16, position:'relative', textAlign:'center', color:'white'}}>{index}</Text></View>
                 <View style={{width:'25%', marginRight:3, flexDirection: 'column', justifyContent: 'center', }}><Switch style={{alignSelf:'center'}} value={(this.props.screenProps.o_menu[index]) ? true : false} key={this.props.screenProps.o_order} onValueChange={()=>{(this.props.screenProps.o_menu[index]) ? this.props.screenProps.removeCat(index, this.props.screenProps.o_menu):this.props.screenProps.addCat(index, this.props.screenProps.o_fullMenu, this.props.screenProps.o_menu); console.log(this.props.screenProps.o_menu); console.log(this.props.screenProps.o_fullMenu, 'full')}}/></View>
               </View>
@@ -132,10 +133,14 @@ export default class Menu extends Component {
     }
     // console.log(this.props.screenProps)
       return (
-        <View id='menu-view' style={styles_menu.menuPage}>
+        <View id='menu-view' style={styles.menuPage}>
+          <View id='header' style={styles.header}>
+            <TopCatScroller id='catgeory-menu' key={this.props.screenProps.o_order} category={this.state.category} screenProps={this.props.screenProps} refy={this.list} />
+          </View>
+
         <StatusBar id='status-bar' barStyle="light-content" />
-          <TopCatScroller id='catgeory-menu' key={this.props.screenProps.o_order} category={this.state.category} screenProps={this.props.screenProps} refy={this.list} />
-          <ScrollView id='menu-scrolly-part' ref={(ref) => this.list = ref} scrollEventThrottle={16} style={{position:'relative', top: 50}}>
+
+          <ScrollView id='menu-scrolly-part' ref={(ref) => this.list = ref} scrollEventThrottle={16} style={{position:'relative', zIndex: 10}}>
             <View style={styles_menu.items, {borderWidth: 1}}>
               <MenuCategories screenProps={this.props.screenProps} navigate={this.props.navigation.navigate}/>
             </View>
@@ -153,6 +158,9 @@ export default class Menu extends Component {
     console.log(this.props.screenProps)
     // this.props.screenProps.f_updateTable(tableTotal(this.props.screenProps.o_firebase));
     this.props.screenProps.f_updateTable(tableTotal(this.props.screenProps.o_firebase).reduce((acc, price)=>{return price+acc}))
+
+    console.log(this.props.screenProps.o_firebase, 'ya')
+    console.log(this.props.fireObject, 'yi')
 
     // firebase.database().ref('Restaurant/testTable').child('roulette').on('value', (snapshot)=>{this.props.navigation.navigate('Two'); console.log(this.props)})
     firebase.database().ref('Restaurant/testTable').child('roulette').once('value', (snapshot)=>{this.props.navigation.navigate('One'); console.log(this.state)})
@@ -192,3 +200,8 @@ export default class Menu extends Component {
     //transforms API menu object to more manageable menu object. Sets it to props.screenProps.o_menu.
   }
 }
+
+const styles = StyleSheet.create({
+  menuPage: { backgroundColor: '#212121', justifyContent: 'flex-start', alignItems: 'stretch', height: 'auto', width: '100%',  },
+  header:{ height:'6.5%', width:'100%', marginBottom:0, },
+})

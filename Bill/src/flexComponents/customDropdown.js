@@ -40,16 +40,18 @@ render(){
   const cartLength = listItemCreator(this.props.orders, OrderListItem).length
 
   return(
-    <View style={{marginTop: 10, alignItems: 'center'}}>
-      <TouchableHighlight onPress={()=>{this.animator(this.state.dropdown, 400, cartLength*50).start(); console.log(this.state.dropdown)}}style={{borderRadius: 5, borderColor: 'black', borderWidth: .5, width: '99%', height: 40, backgroundColor: '#212121', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center'}}>
-      <View style={{backgroundColor: '#212121', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center', width: '100%', height: '100%'}}>
-        <Text style={styles.itemHeader}>{this.props.name}</Text>
-        <Text style={{color: 'white', fontSize: 14}}>{this.props.orders.length} Items</Text>
-        <Text style={{color:'green', fontSize: 18, fontWeight: 'bold'}}>{`$${this.props.orders.reduce((acc, item)=>{return acc + item.price}, 0)}`}</Text>
-        </View>
+    <View style={{marginTop: 10, alignItems: 'center', borderRadius: 5, }}>
+      <TouchableHighlight onPress={()=>{this.animator(this.state.dropdown, 400, cartLength*30).start(); console.log(this.state.dropdown)}}style={{borderRadius: 5, borderColor:'#212121', borderWidth:1, width: '100%', height: 40, backgroundColor: '#212121', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center',}}>
+        <View style={{backgroundColor: '#212121', paddingHorizontal: 4, flexDirection: 'row', justifyContent:'space-between', alignItems: 'center', width: '100%', height: '100%'}}>
+          <Text style={styles.itemHeader}>{this.props.name}</Text>
+          <Text style={{color:'green', fontSize: 18, fontFamily: 'AvenirNext-Regular'}}>{`$${this.props.orders.reduce((acc, item)=>{return acc + item.price}, 0)}`}</Text>
+          </View>
       </TouchableHighlight>
-      <Animated.View style={{height: this.state.dropdown, backgroundColor:'rgb(231,232,236)', zIndex: 2, overflow: 'hidden'}}>{listItemCreator(this.props.orders, CustomListItem)}</Animated.View>
+      <Animated.View style={{height: this.state.dropdown, backgroundColor:'white', zIndex: 2, overflow: 'hidden'}}>{listItemCreator(this.props.orders, CustomListItem)}</Animated.View>
     </View>
+
+
+
 )
 
   }
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
 
   cartPage:{justifyContent: 'space-between', height: '100%', opacity: 1},
 
-  itemHeader:{fontSize: 20, fontWeight: 'bold', color: 'white'},
+  itemHeader:{fontSize: 20, color: 'white', fontFamily:'AvenirNext-Medium', color: 'rgb(134,134,134)', fontSize: 24},
 
   payText: {textAlign:'center', fontSize: 20, fontFamily: gStyle.appFont},
 })

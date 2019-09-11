@@ -21,3 +21,8 @@ export const gStyle = {
   },
   appFont: 'Futura'
 };
+
+export const appStyle ={
+  page: { backgroundColor: 'white', justifyContent: 'space-between', alignItems: 'stretch', height: '100%', width: '100%'},
+  header:{ height:'6.5%', width:'100%', backgroundColor: '#212121', marginBottom:0, justifyContent:'center', alignItems:'center', alignSelf:'center'},
+}

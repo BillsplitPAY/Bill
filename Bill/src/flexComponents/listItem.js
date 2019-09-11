@@ -10,23 +10,23 @@ import { connect } from 'react-redux'
 
 export const ListItem = (props) => {
     return (
-      <TouchableOpacity style={styles.inDesc} onPress={()=>{props.animate().start()}}>
-        <Animated.View style = {{height: '100%', width: '100%', right: props.right, borderWidth: props.borderWidth, flexDirection: 'row', backgroundColor:props.backgroundColor, color:props.textColor}}>
+      <TouchableOpacity style={{flexDirection: 'row', marginTop: 0, width: '100%', height: 30, alignItems: 'center', alignSelf: 'center',}} onPress={()=>{props.doThis()}}>
           <View style={styles.touch}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.descItems, {fontFamily:'Avenir-Light', letterSpacing:2, fontSize: 18, color:'#212121'}}>{props.itemAmount}</Text>
-              <Text style={styles.descText, {position:'relative', left: 25, fontFamily:'Avenir-Light', letterSpacing:2, fontSize: 18, color:'#212121' }}>{props.itemName}</Text>
-            </View>
-            <Text style={styles.descPrice, {fontFamily:'Avenir-Heavy', letterSpacing:2, fontSize: 18, color:'green'}}>{props.itemPrice}.00</Text>
+            <Text style={styles.descItems, {width:'7.3%' ,fontFamily:'Avenir-Black', letterSpacing:1.2, color:'#212121', fontSize:16, position:'relative'}}>{props.itemAmount}</Text>
+            <View style={{width: '77%', textOverflow:'ellipsis', position:'relative', left:'8%'}}><Text style={{width: 'auto', position:'relative', fontFamily:'Avenir-Medium', letterSpacing:1.2, color:'#212121', fontSize:16}} numberOfLines={1}>{props.itemName}</Text></View>
+            <Text style={styles.descPrice, {width:'13.12%', textAlign:'right', fontFamily:'Avenir-Heavy', letterSpacing:1.2, color:'green', fontSize:16}}>{props.itemPrice}.00</Text>
           </View>
-          <View style={{height: '100%', width: 90, flexDirection: 'row'}}>
+
+          <View style={{height: '100%', width: 90, flexDirection: 'row', display:'none'}}>
             <TouchableHighlight style={{borderRightColor: 'white', borderRightWidth:.5, backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: '50%'}} onPress={()=>{props.editor(props.itemName, props.cartArray, props.newItem)}}><Text style={{color:'white'}}>Edit</Text></TouchableHighlight>
             <TouchableHighlight style={{backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: 'auto', paddingRight:10, paddingLeft: 2}} onPress={()=>{props.screenProps.f_removeItem(props.itemName)}}><Text style={{color:'white'}}>Delete</Text></TouchableHighlight>
           </View>
-        </Animated.View>
       </TouchableOpacity>
     )
   }
+
+  // <Animated.View style = {{height: '100%', width: '100%', right: props.right, borderWidth: props.borderWidth, flexDirection: 'row', backgroundColor:props.backgroundColor, color:props.textColor}}>
+  // </Animated.View>
 
   class CustomListItem extends React.Component {
     constructor(props){
@@ -54,22 +54,31 @@ itemSelect(){
     render(){
 
       return (
-        <TouchableOpacity style={styles.inDesc} onPress={()=>{this.itemSelect()}}>
-          <Animated.View style = {{height: '100%', width: '100%', flexDirection: 'row', backgroundColor:this.state.backgroundColor}}>
+        <TouchableOpacity style={{flexDirection: 'row', marginTop: 0, width: '96.5%', height: 30, alignItems: 'center', alignSelf: 'center',}} onPress={()=>{this.itemSelect()}}>
+          <Animated.View style = {{height: '100%', width: '100%', flexDirection: 'row', backgroundColor:this.state.backgroundColor, borderRadius:5}}>
             <View style={styles.touch}>
-              <Text style={styles.descItems, {fontWeight: 'bold', color:this.state.textColor}}>{this.props.itemAmount}</Text>
-              <Text style={styles.descText, {fontStyle: 'italic', color:this.state.textColor}}>{this.props.itemName}</Text>
-              <Text style={styles.descPrice, {fontWeight: 'bold', color:this.state.textColor}}>${this.props.itemPrice}</Text>
+              <Text style={styles.descItems, {width:'7.3%' ,fontFamily:'Avenir-Black', letterSpacing:1.2, color:this.state.textColor, fontSize:16, position:'relative'}}>{this.props.itemAmount}</Text>
+              <View style={{width: '77%', textOverflow:'ellipsis', position:'relative', left:'8%'}}><Text style={{width: 'auto', position:'relative', fontFamily:'Avenir-Medium', letterSpacing:1.2, color:this.state.textColor, fontSize:16}} numberOfLines={1}>{this.props.itemName}</Text></View>
+              <Text style={styles.descPrice, {width:'13.12%', textAlign:'right', fontFamily:'Avenir-Heavy', letterSpacing:1.2, color:'green', fontSize:16}}>{this.props.itemPrice}.00</Text>
             </View>
+
             <View style={{height: '100%', width: 90, flexDirection: 'row'}}>
-              <TouchableHighlight style={{borderRightColor: 'white', borderRightWidth:.5, backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: '50%'}} onPress={()=>{props.editor(props.itemName, props.cartArray, props.newItem)}}><Text style={{color:'white'}}>Edit</Text></TouchableHighlight>
-              <TouchableHighlight style={{backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: 'auto', paddingRight:10, paddingLeft: 2}} onPress={()=>{props.screenProps.f_removeItem(props.itemName)}}><Text style={{color:'white'}}>Delete</Text></TouchableHighlight>
+              <TouchableHighlight style={{borderRightColor: 'white', borderRightWidth:.5, backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: '50%'}} onPress={()=>{this.props.editor(this.props.itemName, this.props.cartArray, this.props.newItem)}}><Text style={{color:'white'}}>Edit</Text></TouchableHighlight>
+              <TouchableHighlight style={{backgroundColor:'#212121', justifyContent:'center', alignItems: 'center', height: '100%', width: 'auto', paddingRight:10, paddingLeft: 2}} onPress={()=>{this.props.screenProps.f_removeItem(this.props.itemName)}}><Text style={{color:'white'}}>Delete</Text></TouchableHighlight>
             </View>
           </Animated.View>
         </TouchableOpacity>
+
+
+
+
+
+
       )
     }
   }
+
+  // <ListItem {...this.props} animate={this.borderAnimator} right={null} borderWidth={this.state.edit} doThis={this.itemSelect()}/>
 
   function mapStateToProps(state){
     return {
@@ -179,85 +188,16 @@ const styles = StyleSheet.create({
 
 
 
-  priceView:{
-    height: 'auto',
-    //borderBottomColor: 'black',
-    //borderBottomWidth: 1,
-    backgroundColor:'white',
-    justifyContent: 'space-between',
-    flexGrow: 1,
-    width: '100%',
-    marginBottom: 100,
-  },
-  inDesc:{
-
-    flexDirection: 'row',
-    marginTop: 0,
-    width: '100%',
-    height: 30,
-    alignItems: 'center',
-    alignSelf: 'center',
-  },
-  touch:{
-    height: '100%',
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginRight: 15,
-    paddingLeft:7,
-  },
-  descText:{
-    marginLeft: 15,
-    fontSize: 17,
-    //width: 220,
-    flexGrow: 2,
-    //width: 200,
-  },
-  descItems:{
-    //marginLeft: 15,
-    flexShrink: 2,
-    fontSize: 17,
-    //width: 200,
-  },
-  descPrice:{
-    //marginLeft: 50,
-    fontSize: 17,
-  },
-  breaker:{
-    height: 25,
-    backgroundColor: 'rgb(114, 137, 143)',
-    justifyContent: 'center',
-  },
-  breakerText:{
-    color: 'rgb(25, 52, 65)',
-    marginLeft: 12,
-    fontWeight: '600',
-
-  },
-  button:{
-    flexDirection: 'column',
-    backgroundColor: 'rgb(25, 52, 65)',
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-   buttonText:{
-     color: 'white',
-     fontWeight:'bold',
-   },
-   price:{
-     alignSelf: 'flex-end',
-     color: 'white',
-     fontWeight:'bold',
-   },
-   textBox:{
-     height: 55,
-     width: '90%',
-     borderColor: 'grey',
-     borderWidth: 1,
-     margin: 10,
-     color: 'grey',
-   },
+  priceView:{ height: 'auto', backgroundColor:'white', justifyContent: 'space-between', flexGrow: 1, width: '100%', marginBottom: 100, },
+  inDesc:{ flexDirection: 'row', marginTop: 0, width: '100%', height: 30, alignItems: 'center', alignSelf: 'center', },
+  touch:{ height: '100%', width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',},
+  descItems:{ flexShrink: 2, fontSize: 17, },
+  descPrice:{ fontSize: 17, },
+  breaker:{ height: 25, backgroundColor: 'rgb(114, 137, 143)', justifyContent: 'center', },
+  breakerText:{ color: 'rgb(25, 52, 65)', marginLeft: 12, fontWeight: '600', },
+  button:{ flexDirection: 'column', backgroundColor: 'rgb(25, 52, 65)', height: 40, justifyContent: 'center', alignItems: 'center', },
+   buttonText:{ color: 'white', fontWeight:'bold', },
+   price:{ alignSelf: 'flex-end', color: 'white', fontWeight:'bold', },
+   textBox:{ height: 55, width: '90%', borderColor: 'grey', borderWidth: 1, margin: 10, color: 'grey', },
 
 })

@@ -58,43 +58,105 @@ export const SplitBreakdown = (props) => {
   const subtotal = props.screenProps.o_table.price
   const orderTax = (subtotal * .07)
   return(
-    <View style={{height: 'auto', flexDirection:'row', alignSelf:'center', width: '99%', paddingTop: 5, paddingBottom: 5,  backgroundColor:'white', justifyContent: 'space-around', marginBottom: 10, borderRadius: 5,}}>
+    <View style={{height: 'auto',  paddingHorizontal: '2%', alignSelf:'center', width: '96.5%', paddingTop: 5, paddingBottom: 5,  backgroundColor:'rgb(223,223,223)', justifyContent: 'space-between', marginBottom: 10, borderRadius: 5,}}>
 
-      <View style={{width: 'auto', flexWrap: 'nowrap', flexShrink: 1}}>
-        <Text style={{alignSelf: 'center', marginBottom:10, textDecorationLine: 'underline'}}>Subtotal</Text>
-        <Text style={[styles.splitNumbers, {flexWrap: 'nowrap', flexShrink: 1}]}>{subtotal.toFixed(2)}</Text>
+      <Text style={{alignSelf:'center', marginBottom:'2%', fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Check split 4 ways</Text>
+
+      <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Subtotal</Text>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
       </View>
-
-      <View style={{alignSelf: 'flex-end',}}><Text style={{fontSize: 20, fontWeight: 'bold', color: 'red', bottom: 8}}>+</Text></View>
-
-      <View style={{width: 'auto', flexWrap: 'nowrap', flexShrink: 1}}>
-        <Text style={{alignSelf: 'center', marginBottom:10, textDecorationLine: 'underline'}}>Tax</Text>
-        <Text style={[styles.splitNumbers, {flexWrap: 'nowrap', flexShrink: 1}]}>{orderTax.toFixed(2)}</Text>
+      <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Tax</Text>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
       </View>
-
-      <View style={{alignSelf: 'flex-end',}}><Text style={{fontSize: 20, fontWeight: 'bold', color: 'red', bottom: 8}}>/</Text></View>
-
-      <View style={{width: 'auto', flexWrap: 'nowrap', flexShrink: 1}}>
-        <Text style={{alignSelf: 'center', marginBottom:10, textDecorationLine: 'underline'}}>Diners</Text>
-        <Text style={[styles.splitNumbers, {flexWrap: 'nowrap', flexShrink: 1}]}>{props.diners}</Text>
+      <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
+        <Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8}}>Total</Text>
+        <Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
       </View>
-
-      <View style={{alignSelf: 'flex-end',  right: 5}}><Text style={{fontSize: 20, fontWeight: 'bold', color: 'red', bottom: 8}}>=</Text></View>
-
-      <View style={{width: 'auto', flexWrap: 'nowrap', flexShrink: 2}}>
-        <Text style={{alignSelf: 'center', marginBottom:10, textDecorationLine: 'underline'}}>Your Total</Text>
-        <Text style={[styles.splitNumbers, {flexWrap: 'nowrap', flexShrink: 2, textDecorationLine: 'underline', textDecorationStyle: 'double', textDecorationColor: 'green', fontSize: 26, bottom: 5}]}>{((subtotal + orderTax) / props.diners).toFixed(2)}</Text>
-      </View>
-
     </View>
+
+
+
+
+
+
+
+
   )
 }
+
+// <View style={{width: 'auto', flexWrap: 'nowrap', flexShrink: 1}}>
+//   <Text style={{alignSelf: 'center', marginBottom:10, textDecorationLine: 'underline'}}>Subtotal</Text>
+//   <Text style={[styles.splitNumbers, {flexWrap: 'nowrap', flexShrink: 1}]}>{subtotal.toFixed(2)}</Text>
+// </View>
+//
+// <View style={{alignSelf: 'flex-end',}}><Text style={{fontSize: 20, fontWeight: 'bold', color: 'red', bottom: 8}}>+</Text></View>
+//
+// <View style={{width: 'auto', flexWrap: 'nowrap', flexShrink: 1}}>
+//   <Text style={{alignSelf: 'center', marginBottom:10, textDecorationLine: 'underline'}}>Tax</Text>
+//   <Text style={[styles.splitNumbers, {flexWrap: 'nowrap', flexShrink: 1}]}>{orderTax.toFixed(2)}</Text>
+// </View>
+//
+// <View style={{alignSelf: 'flex-end',}}><Text style={{fontSize: 20, fontWeight: 'bold', color: 'red', bottom: 8}}>/</Text></View>
+//
+// <View style={{width: 'auto', flexWrap: 'nowrap', flexShrink: 1}}>
+//   <Text style={{alignSelf: 'center', marginBottom:10, textDecorationLine: 'underline'}}>Diners</Text>
+//   <Text style={[styles.splitNumbers, {flexWrap: 'nowrap', flexShrink: 1}]}>{props.diners}</Text>
+// </View>
+//
+// <View style={{alignSelf: 'flex-end',  right: 5}}><Text style={{fontSize: 20, fontWeight: 'bold', color: 'red', bottom: 8}}>=</Text></View>
+//
+// <View style={{width: 'auto', flexWrap: 'nowrap', flexShrink: 2}}>
+//   <Text style={{alignSelf: 'center', marginBottom:10, textDecorationLine: 'underline'}}>Your Total</Text>
+//   <Text style={[styles.splitNumbers, {flexWrap: 'nowrap', flexShrink: 2, textDecorationLine: 'underline', textDecorationStyle: 'double', textDecorationColor: 'green', fontSize: 26, bottom: 5}]}>{((subtotal + orderTax) / props.diners).toFixed(2)}</Text>
+// </View>
+//
+// </View>
 
 export const YourBreakdown = (props) => {
   const subtotal = (props.screenProps.o_order.reduce((acc, item)=>{return acc+item.price}, 0))
   const orderTax = (subtotal * .07)
   return(
-    <PriceBreakdown subtotal={subtotal} orderTax={orderTax} screenProps={props.screenProps}/>
+    <View style={{height: 'auto',  paddingHorizontal: '2%', alignSelf:'center', width: '96.5%', paddingTop: 5, paddingBottom: 5,  backgroundColor:'rgb(223,223,223)', justifyContent: 'space-between', marginBottom: 10, borderRadius: 5,}}>
+
+      <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Subtotal</Text>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
+      </View>
+      <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Tax</Text>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
+      </View>
+      <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
+        <Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8}}>Total</Text>
+        <Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
+      </View>
+    </View>
+  )
+}
+
+export const CustomBreakdown = (props) => {
+  const subtotal = (props.screenProps.o_order.reduce((acc, item)=>{return acc+item.price}, 0))
+  const orderTax = (subtotal * .07)
+  return(
+    <View style={{height: 'auto',  paddingHorizontal: '2%', alignSelf:'center', width: '96.5%', paddingTop: 5, paddingBottom: 5,  backgroundColor:'rgb(223,223,223)', justifyContent: 'space-between', marginBottom: 10, borderRadius: 5,}}>
+
+      <Text style={{alignSelf:'center', marginBottom:'2%', fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>4 items selected</Text>
+
+      <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Subtotal</Text>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
+      </View>
+      <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Tax</Text>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
+      </View>
+      <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
+        <Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8}}>Total</Text>
+        <Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
+      </View>
+    </View>
   )
 }
 
@@ -129,30 +191,13 @@ export class PickBreakdown extends React.Component {
 }
 
 const styles = StyleSheet.create({
-
-  priceView:{
-    height: 'auto',
-    paddingTop: 5,
-    paddingBottom: 5,
-    //borderBottomColor: 'black',
-    //borderBottomWidth: 1,
-    backgroundColor:'white',
-    justifyContent: 'space-around',
-
-    //width: '100%',
-    margin: 10,
-    borderRadius: 5,
-  },
-
-  inDesc:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: 20,
-    paddingRight: 20,
-    //marginTop: 8,
-    //marginBottom: 20,
-  },
+  priceView:{height: 'auto', paddingVertical: 5, backgroundColor:'white', justifyContent: 'space-between', alignItems:'stretch', margin: 10, borderRadius: 3, width:'100%', alignSelf:'center'},
+  inDesc:{flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 20, paddingRight: 20},
   splitNumbers:{fontSize: 20, fontWeight:'bold', alignSelf: 'center'}
-
-
 })
+
+
+
+
+
+// <PriceBreakdown subtotal={subtotal} orderTax={orderTax} screenProps={props.screenProps}/>

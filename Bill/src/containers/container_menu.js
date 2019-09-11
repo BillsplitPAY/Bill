@@ -11,13 +11,7 @@ export const menuSetter = (array) => {
 }
 
 export const styles_menu = {
-  menuPage: {
-    backgroundColor: 'black',
-    justifyContent: 'flex-end',
-    alignItems: 'stretch',
-    height: 'auto',
-    width: '100%',
-  },
+
   // scroller: {
   //   height: 36,
   //   width: 'auto',

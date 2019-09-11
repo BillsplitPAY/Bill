@@ -26,6 +26,7 @@ class MainNav extends Component {
     super(props);
     this.state={
       test:null,
+      fireObject: null,
     }
   }
 
@@ -38,7 +39,7 @@ class MainNav extends Component {
     }
     else{
       return (
-        <FullStackNav screenProps={this.props}/>
+            <FullStackNav screenProps={this.props} />
       )
   }
 }
@@ -51,7 +52,10 @@ class MainNav extends Component {
     fetcher().then(result => {
       // firebase.database().ref('Restaurant/testTable').child('roulette').on('value', (snapshot)=>{this.setState({test:'test'}); console.log(this.state)})
       // firebase.database().ref('Restaurant/testTable').child('roulette').once('value', (snapshot)=>{this.setState({test:null}); console.log(this.state)})
-      firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{this.props.f_toFirebase(snapshot.val())})
+      firebase.database().ref('Restaurant/testTable').on('value', (snapshot)=>{
+        this.props.f_toFirebase(snapshot.val());
+        console.log(this.props.o_firebase, 'yo')
+      })
     })
 
 

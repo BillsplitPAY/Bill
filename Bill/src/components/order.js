@@ -6,7 +6,7 @@ import Breaker from '../flexComponents/breaker';
 import {listItemCreator} from '../helperFunctions/pureFunctions';
 import BottomButton, {PayButton, CheckoutButton} from '../flexComponents/bottomButton'
 import { StackNavigator } from 'react-navigation';
-import {gStyle} from '../containers/styles';
+import {gStyle, appStyle} from '../containers/styles';
 import {Tipper} from './tipper';
 import PayOptionsScreen from './payOptions';
 import {SplitBreakdown, PriceBreakdown} from '../flexComponents/priceBreakdown';
@@ -98,15 +98,16 @@ tableTotal(){
     const total = subTotal + tax
     const orderLength = listItemCreator(this.props.order, OrderListItem).length
 
-
+    setTimeout(()=>{console.log(this.tableTotal())}, 2000)
 
     return (
-     <View key={this.props.screenProps.o_firebase} style={styles.cartPage} blurRadius={1}>
-         <View style={{height:'85%'}}>
+     <View id='page' key={this.props.screenProps.o_firebase} style={[appStyle.page, {width:'100%', alignSelf:'center'}]} blurRadius={1}>
+        <View style={appStyle.header}><Text style={{color: 'white', alignSelf:'center', fontFamily: 'Avenir', fontSize: 17, letterSpacing:4, fontWeight:'bold'}}>The Table</Text></View>
+         <View id='orders-list' style={{height:'78.5%', width:'96.5%', alignSelf:'center'}}>
            <ScrollView>{this.orderReader()}</ScrollView>
          </View>
          <TouchableOpacity title='Clear' onPress={()=>{this.clearTable()}} style={{position:'relative', borderColor: 'black', borderWidth:1, borderRadius: 5, alignItems: 'center', paddingVertical:5, paddingHorizontal:5, alignSelf:'center', justifyContent: 'center', marginBottom:10}}><Text style={{fontSize: 17, fontFamily: 'Avenir'}}>Clear</Text></TouchableOpacity>
-         <CheckoutButton buttonPrice={`$${this.props.screenProps.o_order.reduce((acc, item)=>{return acc + item.price}, 0)}`} payOptionToggle={()=>{this.payOptionToggle()}}/>
+         <View style={{width:'96.5%', alignSelf:'center', paddingBottom:6}}><CheckoutButton buttonPrice={this.tableTotal()} payOptionToggle={()=>{this.payOptionToggle()}}/></View>
          <PayOptionsScreen payOptionToggle={this.payOptionToggle} navigate={this.props.navigation.navigate} style={this.state.style}/>
      </View>
       );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, Image, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, TextInput} from 'react-native';
-import {gStyle} from '../containers/styles'
+import {gStyle, appStyle} from '../containers/styles'
 import Breaker from '../flexComponents/breaker'
 import { Ionicons } from '@expo/vector-icons';
 import Item from '../flexComponents/item';
@@ -48,7 +48,6 @@ class ItemPage extends Component {
 
 
   render(){
-
     const {navigate} = this.props.navigation;
     //category is an object with the category's name under the name property, and the category's items under .entries.items
     const currentItem = this.props.screenProps.o_currentItem;
@@ -56,79 +55,66 @@ class ItemPage extends Component {
     const itemDesc = this.props.screenProps.o_currentItem.desc;
     const itemPrice = this.props.screenProps.o_currentItem.price;
 
-    const imageArray= [
-      '../images/1.jpg',
-      '../images/2.jpg',
-      '../images/3.jpg',
-      '../images/4.jpg',
-      '../images/5.jpg',
-      '../images/6.jpg',
-      '../images/7.jpeg',
-      '../images/8.jpg',
-      '../images/9.jpg',
-    ]
+    const imageArray= [ '../images/1.jpg', '../images/2.jpg', '../images/3.jpg', '../images/4.jpg', '../images/5.jpg', '../images/6.jpg', '../images/7.jpeg', '../images/8.jpg', '../images/9.jpg', ]
 
     return(
-      <View style={{justifyContent: 'space-between', height: '100%', }}>
+      <View style={[appStyle.page], {paddingBottom: 6}}>
 
-      <View style={{height: 'auto'}}>
-
-          <View style={{borderWidth:1, borderColor:'black', backgroundColor: '#212121'}}>
+          <View id='header' style={[appStyle.header, {alignItems:'flex-start', paddingHorizontal:'3.5%'}]}>
             <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Menu')}} style={{width: '30%', position:'relative', left: 10}}>
               <View style={{flexDirection:'row'}}><Ionicons name="ios-arrow-back" size={40} style={{color:'white'}}/>
-                <Text style={{fontSize: 20, alignSelf: 'center', position:'relative', left: 5, color:'white', fontFamily:'Avenir', letterSpacing:4,}}>Menu</Text>
+              <Text style={{fontSize: 17, alignSelf: 'center', position:'relative', left: 5, color:'white', fontFamily:'Avenir', letterSpacing:1.8,}}>MENU</Text>
               </View>
             </TouchableOpacity>
           </View>
 
-          <View style={{justifyContent: 'space-between', flexDirection:'row',  position:'relative', height: 'auto', width: '99%', marginHorizontal: '.5%',}}>
+          <View id='page' style={{justifyContent: 'space-between', flexDirection:'column',  position:'relative', height: '93.5%', width: '96.5%', marginHorizontal: '.5%', alignSelf:'center'}}>
 
-            <View style={{height: 'auto', maxHeight:'90%', flexDirection: 'row', marginTop: 5, width: '70%',  paddingBottom:-200}}>
-              <View style={{width: '100%', height: 'auto', justifyContent: 'flex-start'}}>
-                <Text style={{fontSize: 30,  fontFamily: 'Avenir'}}>{itemName}</Text>
-                <Text style={styles.itemDescription}>{itemDesc}</Text>
 
-                <View style={{width: 'auto', position:'relative', alignItems:'center', height: 30, flexDirection: 'row', justifyContent: 'flex-start', }}>
-                  <View style={{flexDirection:'row', borderRightColor: '#212121', borderRightWidth: 1, width: 'auto', justifyContent: 'flex-start', paddingRight: 10}}>
-                    <Text style={{fontSize: 18}}>4.3</Text>
-                    <Ionicons name="ios-star" size={14} style={{position:'relative', top:2}} />
-                  </View>
-                  <View style={{flexDirection:'row', borderRightColor: '#212121', borderRightWidth: 1, width: 'auto', justifyContent: 'flex-start',}}>
-                    <Text style={{fontSize: 18, color: 'blue', marginHorizontal:10}}>Reviews</Text>
-                  </View>
-                  <View style={{flexDirection: 'row', width: 'auto', justifyContent: 'center'}}>
-                    <Image style={{width: 60, height: 30, marginHorizontal:10}} source={require(`../images/yelp.png`)}/>
-                  </View>
-                </View>
-
-                <View style={{marginBottom: 0,  height: '60%', width: '100%', backgroundColor:'rgb(223,223,223)', justifyContent:'center'}}><Text style={{alignSelf: 'center', fontSize: 18}}>Required Selection Area</Text></View>
+              <View id='item-text' style={{width: '90%', height: 'auto', justifyContent: 'flex-start', position:'relative', top: '4%', alignSelf:'center'}}>
+                <Text style={{fontSize: 20,  fontFamily: 'Avenir-Heavy', marginBottom:25, textTransform:'uppercase', textAlign:'center'}}>{itemName}</Text>
+                <Text style={{fontSize: 16,  fontFamily: 'Avenir', textAlign:'center'}}>{itemDesc}</Text>
               </View>
+
+
+            <View id='images' style={{justifyContent: 'space-between', flexDirection: 'row', height:'20%', width: '100%', position:'relative', marginTop:'3%' }}>
+              <Image style={{width: '33%', height: '100%', borderColor:'#212121', borderWidth:1, borderRadius:3}} source={require(`../images/crab1.jpg`)}/>
+              <Image style={{width: '33%', height: '100%', borderColor:'#212121', borderWidth:1, borderRadius:3}} source={require(`../images/crab2.jpg`)}/>
+              <Image style={{width: '33%', height: '100%', borderColor:'#212121', borderWidth:1, borderRadius:3}} source={require(`../images/crab3.jpg`)}/>
             </View>
 
-            <View style={{justifyContent: 'space-between', flexDirection: 'column', height:550, width: '30%', position:'relative', marginTop: 5,}}>
-                <Image style={{width: '100%', height: '20%'}} source={require(`../images/crab1.jpg`)}/>
-                <Image style={{width: '100%', height: '20%'}} source={require(`../images/crab2.jpg`)}/>
-                <Image style={{width: '100%', height: '20%'}} source={require(`../images/crab3.jpg`)}/>
-                <View style={{width: '100%', height: '9%', backgroundColor: '#212121', justifyContent:'center', alignItems:'center'}}><Text style={{color: 'white'}}>Photos (7)</Text></View>
-                <View style={{alignItems: 'center', justifyContent:'space-between', width: 'auto', height:'30%', flexDirection: 'column', position:'relative', top:20,}}>
-                  <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) + 1)})}}><Ionicons name="ios-add-circle" size={40} /></TouchableHighlight>
-                  <TextInput style={styles.textBox} defaultValue={String(this.state.quantity)} autoFocus={false}/>
-                  <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) - 1)})}}><Ionicons name="ios-remove-circle" size={40} /></TouchableHighlight>
+            <View id='review-line' style={{width: '90%', position:'relative', alignItems:'center', alignSelf:'center', height: 30, flexDirection: 'row', justifyContent: 'space-between', }}>
+                <View style={{flexDirection:'row', width: 'auto', justifyContent: 'flex-start',}}>
+                  <Text style={{fontSize: 18, color: 'blue', marginHorizontal:10, fontFamily:'Avenir'}}>Reviews</Text>
+                </View>
+                <View style={{flexDirection:'row',  width: 'auto', justifyContent: 'flex-start', paddingRight: 10}}>
+                  <Text style={{fontSize: 28}}>4.3</Text><Ionicons name="ios-star" size={24} style={{position:'relative', top:2}} />
+                </View>
+                <View style={{flexDirection: 'row', width: 'auto', justifyContent: 'center'}}>
+                  <Image style={{width: 60, height: 30, marginHorizontal:10}} source={require(`../images/yelp.png`)}/>
                 </View>
             </View>
 
+            <View id='required-selections' style={{marginBottom: 0, borderColor:'#212121', borderWidth:1, borderRadius:3,  height: '30%', width: '100%', backgroundColor:'rgb(223,223,223)', justifyContent:'flex-start'}}>
+              <Text style={{alignSelf: 'center', fontSize: 16, color:'grey', position:'relative', top:20, fontFamily: 'Avenir-Light'}}>Required Selection Area</Text>
+            </View>
+
+
+            <BottomButton buttonText={'+CART'} buttonPrice={(itemPrice * this.state.quantity).toFixed(2)} doThis={() => {navigate('Menu'); for(let i = 0; i < this.state.quantity; i++){this.props.screenProps.f_addItem((this.props.screenProps.o_currentItem))}}}/>
           </View>
-        </View>
-
-        {this.options()}
 
 
-        <BottomButton buttonText={'Add to Cart'} buttonPrice={(itemPrice * this.state.quantity).toFixed(2)} doThis={() => {navigate('Menu'); for(let i = 0; i < this.state.quantity; i++){this.props.screenProps.f_addItem((this.props.screenProps.o_currentItem))}}}/>
       </View>
     )
   }
 
 }
+
+// <View style={{alignItems: 'center', justifyContent:'space-between', width: 'auto', height:'30%', flexDirection: 'column', position:'relative', top:20,}}>
+//   <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) + 1)})}}><Ionicons name="ios-add-circle" size={40} /></TouchableHighlight>
+//   <TextInput style={styles.textBox} defaultValue={String(this.state.quantity)} autoFocus={false}/>
+//   <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) - 1)})}}><Ionicons name="ios-remove-circle" size={40} /></TouchableHighlight>
+// </View>
 
 // <View style={{ alignItems: 'center', justifyContent:'space-between', width: '40%', flexDirection: 'row',alignSelf:'center' }}>
 //   <TouchableHighlight onPress={()=>{this.setState({quantity: String(Number(this.state.quantity) - 1)})}}><Ionicons name="ios-remove-circle" size={40} /></TouchableHighlight>

@@ -10,8 +10,9 @@ import firebase from 'firebase';
 //import DrawerNav from './drawerNav.js';
 import { StackNavigator } from 'react-navigation';
 import { connect } from 'react-redux'
-import BottomButton, {EditButton} from '../flexComponents/bottomButton'
+import BottomButton, {EditButton, CartButton} from '../flexComponents/bottomButton'
 import { Ionicons } from '@expo/vector-icons';
+import {appStyle} from '../containers/styles';
 
 
 class Cart extends Component {
@@ -94,55 +95,48 @@ class Cart extends Component {
     const tax = subtotal * .07
     const total = subtotal + tax
 
+    console.log(this.props)
+    console.log(cart)
+    console.log(this.props.screenProps.o_order)
 
     return (
-      <View style={{height: '100%'}}>
-        <View style={{height: '55%'}}>
-          <View style={{borderBottomWidth: .5, borderBottomColor: 'black'}}>
-            <Text style={{fontWeight: 'bold', marginTop: 10, marginLeft: 10}}>Your Cart</Text>
-          </View>
-          <ScrollView>
-          {listItemCreator(cart, CartListItem, this.editor, this.props.screenProps)}
+      <View style={[appStyle.page], {paddingBottom:6}}>
+        <View style={appStyle.header}><Text style={{color: 'white', alignSelf:'center', fontFamily: 'Avenir', fontSize: 17, letterSpacing:4, fontWeight:'bold'}}>Your Cart</Text></View>
+
+        <View style={{height: '53.5%', width:'96.5%', alignSelf:'center'}}>
+          <ScrollView style={{marginTop: '5%'}}>
+            {listItemCreator(cart, CartListItem, this.editor, this.props.screenProps)}
           </ScrollView>
         </View>
-        <View style={{justifyContent: 'flex-end', height: '45%'}}>
-        <Text style={{fontWeight: 'bold', marginBottom: 10, marginLeft: 10}}>Order Notes</Text>
-        <NoteBox defaultValue={'e.g. Bring everything out together!'}/>
 
-          <CartBreakdown lineOneValue={subtotal} lineTwoValue={tax.toFixed(2)} screenProps={this.props.screenProps}/>
-
-          <BottomButton buttonText={'Submit Order'} doThis={()=>{this.sendToFirebase(cart, subtotal);}} buttonPrice={total.toFixed(2)}/>
-        </View>
-
-        <TouchableHighlight onPress={()=>{this.setState({display: 'none'})}}style={{position:'absolute', width: '100%', height: '100%', display: this.state.display, backgroundColor: 'rgba(0,0,0,.7)',}}><View></View></TouchableHighlight>
-
-        <View style={{display: this.state.display, position: 'absolute', height: 'auto', width: '80%', alignSelf: 'center', borderColor: '#212121', borderWidth: 3, borderRadius:10, top: 125, backgroundColor: 'white', justifyContent:'space-between', }}>
-          <View style={{height: 'auto', padding:10, marginBottom: 25, flexDirection: 'row', justifyContent: 'space-between', }}>
-            <View style={{width: '60%', justifyContent:'flex-start'}}><Text style={{fontSize: 20, fontFamily: 'Futura'}}>{this.state.currentItem}</Text></View>
-            <View style={{ flexDirection: 'row', justifyContent:'flex-end', alignItems: 'center', width: '40%'}}>
-              <TouchableHighlight onPress={()=> this.setState({quantity: this.state.quantity - 1})}><Ionicons name="ios-remove-circle-outline" size={32} /></TouchableHighlight>
-              <TextInput style={{  borderWidth: 2, borderColor: 'black', width: 'auto', height: 'auto', alignSelf: 'center', borderRadius: 5, textAlign: 'center', fontSize: 40, marginLeft: 8, marginRight: 8, }} defaultValue={String(this.state.quantity)} autoFocus={false}/>
-              <TouchableHighlight onPress={()=> this.setState({quantity: this.state.quantity + 1})}><Ionicons name="ios-add-circle-outline" size={32} /></TouchableHighlight>
-            </View>
+          <View style={{justifyContent: 'flex-end', height: '40%', width:'96.5%', alignSelf:'center'}}>
+            <CartButton cart={this.props.screenProps.o_cart} buttonText={'PLACE ORDER'} doThis={()=>{this.sendToFirebase(cart, subtotal);}} buttonPrice={subtotal.toFixed(2)}/>
           </View>
-          <View style={{ height: 'auto', width: '100%', justifyContent: 'space-between'}}>
-
-            <View style={{height: 'auto', width: '100%'}}>
-              <NoteBox defaultValue={'Notes for the kitchen...'}/>
-              <EditButton doThis={this.cartReset}/>
-            </View>
-
-          </View>
-
         </View>
-
-
-
-      </View>
 
       );
     }
   }
+
+  // <TouchableHighlight onPress={()=>{this.setState({display: 'none'})}}style={{position:'absolute', width: '100%', height: '100%', display: this.state.display, backgroundColor: 'rgba(0,0,0,.7)',}}><View></View></TouchableHighlight>
+  //
+  // <View style={{display: this.state.display, position: 'absolute', height: 'auto', width: '80%', alignSelf: 'center', borderColor: '#212121', borderWidth: 3, borderRadius:10, top: 125, backgroundColor: 'white', justifyContent:'space-between', }}>
+  //   <View style={{height: 'auto', padding:10, marginBottom: 25, flexDirection: 'row', justifyContent: 'space-between', }}>
+  //     <View style={{width: '60%', justifyContent:'flex-start'}}><Text style={{fontSize: 20, fontFamily: 'Futura'}}>{this.state.currentItem}</Text></View>
+  //     <View style={{ flexDirection: 'row', justifyContent:'flex-end', alignItems: 'center', width: '40%'}}>
+  //       <TouchableHighlight onPress={()=> this.setState({quantity: this.state.quantity - 1})}><Ionicons name="ios-remove-circle-outline" size={32} /></TouchableHighlight>
+  //       <TextInput style={{  borderWidth: 2, borderColor: 'black', width: 'auto', height: 'auto', alignSelf: 'center', borderRadius: 5, textAlign: 'center', fontSize: 40, marginLeft: 8, marginRight: 8, }} defaultValue={String(this.state.quantity)} autoFocus={false}/>
+  //       <TouchableHighlight onPress={()=> this.setState({quantity: this.state.quantity + 1})}><Ionicons name="ios-add-circle-outline" size={32} /></TouchableHighlight>
+  //     </View>
+  //   </View>
+  //   <View style={{ height: 'auto', width: '100%', justifyContent: 'space-between'}}>
+  //
+  //     <View style={{height: 'auto', width: '100%'}}>
+  //       <NoteBox defaultValue={'Notes for the kitchen...'}/>
+  //       <EditButton doThis={this.cartReset}/>
+  //     </View>
+  //
+  //   </View>
 
 
 

@@ -40,20 +40,20 @@ export const TabNav = createBottomTabNavigator({
   Menu: {
     screen: MenuStackNav,
     navigationOptions: {
-            tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30}}><Ionicons name="md-book" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'AvenirNext-Regular', letterSpacing:2, fontSize: 14,}}>Menu</Text></View>,
+            tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30}}><Ionicons name="md-book" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'AvenirNext-Regular', letterSpacing:2, fontSize: 12,}}>MENU</Text></View>,
         },
   },
   Cart: {
     screen: Cart,
     navigationOptions: {
-            tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30  }}><Ionicons name="md-cart" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'AvenirNext-Regular', letterSpacing:2, fontSize: 14,}}>Cart</Text></View>
+            tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30  }}><Ionicons name="md-cart" size={24} style={{color:'white'}}/><Text style={{color:'white', fontFamily: 'AvenirNext-Regular', letterSpacing:2, fontSize: 12,}}>CART</Text></View>
             //tabBarIcon:() => <Ionicons size={ 20 } name={ 'basket' } color={ 'red' }/>
         },
   },
   Order: {
     screen: Order,
     navigationOptions:{
-      tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30, justifyContent: 'flex-start'}}><Ionicons name="md-color-wand" size={24} style={{color:'white'}}/><Text style={{fontFamily: 'AvenirNext-Regular', letterSpacing:2, fontSize: 14, color: 'white'}}>Options</Text></View>
+      tabBarLabel: <View style={{alignItems: 'center', position:'relative', marginBottom: -30, justifyContent: 'flex-start'}}><Ionicons name="md-color-wand" size={24} style={{color:'white'}}/><Text style={{fontFamily: 'AvenirNext-Regular', letterSpacing:2, fontSize: 12, color: 'white'}}>TABLE</Text></View>,
     }
   }
 },
@@ -61,15 +61,16 @@ export const TabNav = createBottomTabNavigator({
   animationEnabled: 'true',
   swipeEnabled: 'true',
   tabBarOptions: {
-      activeTintColor: 'white',
-      inactiveTintColor: 'white',
+      activeTintColor: '#212121',
+      inactiveTintColor: 'black',
       animationEnabled: 'true',
       style: {
         backgroundColor: '#212121',
         height: '8%',
-
         display: 'flex',
         justifyContent: 'center',
+
+
       },
 
     },
@@ -92,8 +93,8 @@ export const TabNav = createBottomTabNavigator({
       TabNav: {
         screen: TabNav,
         navigationOptions: {
-          headerStyle:{backgroundColor: 'green', borderBottomWidth: 0, height: 0, display: 'none'},
-          headerVisible: false,
+          headerStyle:{backgroundColor: 'green', borderBottomWidth: 0, height: 0, display: 'none',},
+          headerVisible: false
        },
       },
       PaymentPage: {
@@ -130,7 +131,7 @@ export const TabNav = createBottomTabNavigator({
      },
    },{
       headerMode: 'screen',
-      // cardStyle: {borderColor: 'green', borderWidth: 2}
+      cardStyle: {backgroundColor:'white'}
 });
 
  //   export const FullStackNav = createStackNavigator({
