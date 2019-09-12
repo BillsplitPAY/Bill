@@ -14,6 +14,8 @@ import {OrderListItem} from '../flexComponents/listItem';
 import OrderDropdown from '../flexComponents/orderDropdown'
 import firebase from 'firebase';
 import { connect } from 'react-redux'
+import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase, updateTable, addCustomPrice, subtractCustomPrice, removeCat, fullMenu, addCat, updatePrice} from '../actions/index.js';
+import { bindActionCreators } from 'redux';
 
 class Order extends Component {
   constructor(props){
@@ -98,7 +100,54 @@ tableTotal(){
     const total = subTotal + tax
     const orderLength = listItemCreator(this.props.order, OrderListItem).length
 
-    setTimeout(()=>{console.log(this.tableTotal())}, 2000)
+    // setTimeout(()=>{console.log(this.tableTotal())}, 2000)
+
+    console.log(order, 'order')
+    console.log(this.props.screenProps.o_firebase, 'firebase')
+
+
+      const base = Object.values(this.props.screenProps.o_firebase).map((person)=>{
+        if (person.hasOwnProperty('order')){
+          if (person.order.length > 1){
+            return person.order.reduce((acc, item)=>{
+               return item.price + acc;
+          }, 0)
+        }
+           else if (person.order.length === 1){return person.order[0].price}
+        }
+        else{
+          return 0
+        }
+      })
+
+      const base3 = base.filter((price)=>{
+        return (typeof price === 'number')
+      })
+
+      console.log(base3, 'base3')
+
+      const basey = base.reduce((acc, index)=>{
+        if (Array.isArray(index)){
+          if(index.length ===1){
+            return index[0] + acc
+          }
+        }
+      })
+
+      // this.props.f_updateTable({price:base3})
+      console.log(this.props.screenProps.o_table, 'table')
+
+
+
+
+
+      console.log(basey, 'basey')
+
+
+
+      console.log(base, 'base')
+
+
 
     return (
      <View id='page' key={this.props.screenProps.o_firebase} style={[appStyle.page, {width:'100%', alignSelf:'center'}]} blurRadius={1}>
@@ -107,7 +156,7 @@ tableTotal(){
            <ScrollView>{this.orderReader()}</ScrollView>
          </View>
          <TouchableOpacity title='Clear' onPress={()=>{this.clearTable()}} style={{position:'relative', borderColor: 'black', borderWidth:1, borderRadius: 5, alignItems: 'center', paddingVertical:5, paddingHorizontal:5, alignSelf:'center', justifyContent: 'center', marginBottom:10}}><Text style={{fontSize: 17, fontFamily: 'Avenir'}}>Clear</Text></TouchableOpacity>
-         <View style={{width:'96.5%', alignSelf:'center', paddingBottom:6}}><CheckoutButton buttonPrice={this.tableTotal()} payOptionToggle={()=>{this.payOptionToggle()}}/></View>
+         <View style={{width:'96.5%', alignSelf:'center', paddingBottom:6}}><CheckoutButton buttonPrice={`$${(base3.length > 0)?base3.reduce((acc, price)=>{return price + acc}):'0'}`} payOptionToggle={()=>{this.payOptionToggle()}}/></View>
          <PayOptionsScreen payOptionToggle={this.payOptionToggle} navigate={this.props.navigation.navigate} style={this.state.style}/>
      </View>
       );
@@ -127,11 +176,40 @@ tableTotal(){
 
   function mapStateToProps(state){
     return {
-      order: state.order
+      order: state.order,
+      totalPrice: state.totalPrice,
+
     }
   }
 
-  export default connect(mapStateToProps)(Order)
+  function mapDispatchToProps(dispatch){
+    return bindActionCreators(
+      {
+        f_fetchAPIData: fetchAPIData,
+        f_addItem: addItem,
+        f_removeItem: removeItem,
+        f_submitOrder: submitOrder,
+        f_emptyCart: emptyCart,
+        f_setCategory: setCategory,
+        f_setMenu: setMenu,
+        f_fullMenu: fullMenu,
+        f_setCurrentItem: setCurrentItem,
+        f_updateName: updateName,
+        f_yPos: yPos,
+        f_setTip: setTip,
+        f_toFirebase: toFirebase,
+        f_clearFirebase: clearFirebase,
+        f_updateTable: updateTable,
+        f_addCustomPrice: addCustomPrice,
+        f_subtractCustomPrice: subtractCustomPrice,
+        removeCat: removeCat,
+        addCat: addCat,
+        f_updatePrice: updatePrice,
+
+      }, dispatch)
+  }
+
+  export default connect(mapStateToProps, mapDispatchToProps)(Order)
 
   const styles = StyleSheet.create({
     hidden:{position: 'absolute', height:'auto', borderColor: 'black', width: '95%',  left: 10, right: 'auto', top: 500, marginBottom: 0, flexDirection: 'row', justifyContent: 'space-between', },

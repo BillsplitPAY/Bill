@@ -8,6 +8,9 @@ import {styles_menuCategories, categoryBuilder} from '../containers/container_me
 import {styles_menu} from '../containers/container_menu'
 import firebase from 'firebase';
 import { Ionicons } from '@expo/vector-icons';
+import { fetchAPIData, addItem, submitOrder, emptyCart, setTip, setCategory, setMenu, setCurrentItem, removeItem, yPos, updateName, toFirebase, clearFirebase, updateTable, addCustomPrice, subtractCustomPrice, removeCat, fullMenu, addCat, theOrder} from '../actions/index.js';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 const MenuCategories = (props) => {
     return(
@@ -80,7 +83,7 @@ export const tableTotal = (firebase)=>{
 }
 
 
-export default class Menu extends Component {
+class Menu extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -160,6 +163,12 @@ export default class Menu extends Component {
     this.props.screenProps.f_updateTable(tableTotal(this.props.screenProps.o_firebase).reduce((acc, price)=>{return price+acc}))
 
     console.log(this.props.screenProps.o_firebase, 'ya')
+
+    Object.values(this.props.screenProps.o_firebase).map((index)=>{})
+
+    console.log(this.props.screenProps.o_order, 'order')
+
+
     console.log(this.props.fireObject, 'yi')
 
     // firebase.database().ref('Restaurant/testTable').child('roulette').on('value', (snapshot)=>{this.props.navigation.navigate('Two'); console.log(this.props)})
@@ -200,6 +209,19 @@ export default class Menu extends Component {
     //transforms API menu object to more manageable menu object. Sets it to props.screenProps.o_menu.
   }
 }
+function mapStateToProps(state){
+  return { o_APIData: state.APIData, o_cart: state.cart, o_order: state.order, o_tip: state.tip, o_category: state.category, o_menu: state.menu, o_fullMenu: state.fullMenu, o_currentItem: state.currentItem, o_user: state.user, o_yPosition: state.yPosition, o_firebase: state.firebase, o_table: state.table, }
+}
+//Maps the action creators to component functions so they can be called on components
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators(
+    { f_fetchAPIData: fetchAPIData, f_addItem: addItem, f_removeItem: removeItem, f_submitOrder: submitOrder, f_emptyCart: emptyCart, f_setCategory: setCategory, f_setMenu: setMenu, f_fullMenu: fullMenu, f_setCurrentItem: setCurrentItem, f_updateName: updateName, f_yPos: yPos, f_setTip: setTip, f_toFirebase: toFirebase, f_clearFirebase: clearFirebase, f_updateTable: updateTable, f_addCustomPrice: addCustomPrice, f_subtractCustomPrice: subtractCustomPrice, removeCat: removeCat, addCat: addCat,
+    }, dispatch)
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu)
 
 const styles = StyleSheet.create({
   menuPage: { backgroundColor: '#212121', justifyContent: 'flex-start', alignItems: 'stretch', height: 'auto', width: '100%',  },

@@ -88,6 +88,13 @@ export function submitOrder(orderArray){
     };
 }
 
+export function theOrder(orderArray){
+  return {
+	   type: 'ORDERUP',
+	    payload: orderArray
+    };
+}
+
 export function updateName(name){
   return {
      type: 'UPDATENAME',
@@ -142,6 +149,13 @@ export function toFirebase(db){
 export function clearFirebase(db){
   return {
 	   type: 'CLEARBASE',
+		 payload: db
+    };
+}
+
+export function updatePrice(db){
+  return {
+	   type: 'UPDATEPRICE',
 		 payload: db
     };
 }

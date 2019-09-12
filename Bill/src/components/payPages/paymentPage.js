@@ -98,14 +98,37 @@ export const SplitPay = (props) =>{
   const tip = props.screenProps.o_tip;
   const finalTotal = splitTotal + tip
 
+  const base = Object.values(props.screenProps.o_firebase).map((person)=>{
+    if (person.hasOwnProperty('order')){
+      if (person.order.length > 1){
+        return person.order.reduce((acc, item)=>{
+           return item.price + acc;
+      }, 0)
+    }
+       else if (person.order.length === 1){return person.order[0].price}
+    }
+    else{
+      return 0
+    }
+  })
+
+  const base3 = base.filter((price)=>{
+    return (typeof price === 'number')
+  })
+
+  const splitEem = ((base3.length > 0)?base3.reduce((acc, price)=>{return price + acc}) / base3.length : '0')
+
+  console.log(base3, 'base3')
+
+
   return (
     <PaymentPage screenProps={props.screenProps} navigation={props.navigation} type={'Even Split'} dropType={OrderDropdown} options={Object.keys(props.screenProps.o_firebase).map((user)=>{
             return <OrderDropdown key={props.screenProps.o_firebase[user]} id={`droppy-${user}`} orders={(props.screenProps.o_firebase[user].order) ? props.screenProps.o_firebase[user].order : []} screenProps={props.screenProps} startVal={0} name={user}/>
     })}>
-      <View style={{width:'96.5%', flexDirection:'row', justifyContent:'space-between', alignSelf:'center', paddingHorizontal:'2%'}}><Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8}}>Order Total</Text><Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text></View>
-      <SplitBreakdown screenProps={props.screenProps} diners={Object.keys(props.screenProps.o_firebase).length}/>
+      <View style={{width:'96.5%', flexDirection:'row', justifyContent:'space-between', alignSelf:'center', paddingHorizontal:'2%'}}><Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8}}>Order Total</Text><Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8, color:'green'}}>{base3.reduce((acc, index)=>{return index+acc}).toFixed(2)}</Text></View>
+      <SplitBreakdown screenProps={props.screenProps} base3={base3} splitEem={splitEem} diners={Object.keys(props.screenProps.o_firebase).length}/>
       <Tipper screenProps={props.screenProps} payTotal={splitTotal}  />
-      <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Four')}/>
+      <PayButton buttonPrice={`$${(splitEem + (splitEem*.07)).toFixed(2) }`} navigate={()=>props.navigation.navigate('Four')}/>
     </PaymentPage>
   )
 }
@@ -141,14 +164,14 @@ export const PickPay = (props) =>{
   const tax = (subtotal * .07);
   // const total = (tax + (addUp(order)));
   const tip = props.screenProps.o_tip / 4;
-  const finalTotal = subtotal + tip
+  const finalTotal = subtotal + tax + tip
 
   return (
     <PaymentPage screenProps={props.screenProps} navigation={props.navigation} type={'Custom Selection'} dropType={OrderDropdown} options={Object.keys(props.screenProps.o_firebase).map((user)=>{
             return <CustomDropdown key={props.screenProps.o_firebase[user]} id={`droppy-${user}`} orders={(props.screenProps.o_firebase[user].order) ? props.screenProps.o_firebase[user].order : []} screenProps={props.screenProps} startVal={0} name={user}/>
     })} directions={<View style={{borderBottomWidth:.5, borderBottomColor:'#212121', width:'100%', height: '10%', justifyContent:'center', alignItems:'center', }}><Text style={{textTransform:'uppercase', fontFamily:'Avenir-Medium', fontSize:17}}>Select Items you wish to pay for</Text></View>}>
-        <CustomBreakdown key={props.screenProps.o_user.customTotal} subtotal ={props.screenProps.o_user.customTotal} tax={tax} screenProps={props.screenProps}/>
-      <Tipper screenProps={props.screenProps} payTogjhgtal={subtotal}/>
+        <CustomBreakdown key={props.screenProps.o_user.customTotal} subtotal ={props.screenProps.o_user.customTotal} tax={tax} screenProps={props.screenProps} amounts={subtotal}/>
+      <Tipper screenProps={props.screenProps} payTotal={subtotal}/>
       <PayButton buttonPrice={`$${finalTotal.toFixed(2)}`} navigate={()=>props.navigation.navigate('Confirmation')}/>
     </PaymentPage>
   )

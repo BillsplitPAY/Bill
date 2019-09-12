@@ -96,7 +96,7 @@ class Cart extends Component {
     const total = subtotal + tax
 
     console.log(this.props)
-    console.log(cart)
+    console.log(cart, 'cart')
     console.log(this.props.screenProps.o_order)
 
     return (

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Button, StyleSheet, Text, View, ScrollView, TouchableHighlight, Image, TouchableOpacity, TextInput, Picker} from 'react-native';
+import {base3, base} from '../components/payPages/paymentPage'
 
 export const PriceBreakdown = (props) => {
   return (
@@ -57,22 +58,42 @@ export const OrderBreakdown = (props) => {
 export const SplitBreakdown = (props) => {
   const subtotal = props.screenProps.o_table.price
   const orderTax = (subtotal * .07)
+
+  const base = Object.values(props.screenProps.o_firebase).map((person)=>{
+    if (person.hasOwnProperty('order')){
+      if (person.order.length > 1){
+        return person.order.reduce((acc, item)=>{
+           return item.price + acc;
+      }, 0)
+    }
+       else if (person.order.length === 1){return person.order[0].price}
+    }
+    else{
+      return 0;
+    }
+  })
+
+  const base3 = base.filter((price)=>{
+    return (typeof price === 'number')
+  })
+
+  console.log(base3, 'base3-breaky')
   return(
     <View style={{height: 'auto',  paddingHorizontal: '2%', alignSelf:'center', width: '96.5%', paddingTop: 5, paddingBottom: 5,  backgroundColor:'rgb(223,223,223)', justifyContent: 'space-between', marginBottom: 10, borderRadius: 5,}}>
 
-      <Text style={{alignSelf:'center', marginBottom:'2%', fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Check split 4 ways</Text>
+      <Text style={{alignSelf:'center', marginBottom:'2%', fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Check split {props.base3.length} ways</Text>
 
       <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
         <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Subtotal</Text>
-        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>{props.splitEem.toFixed(2)}</Text>
       </View>
       <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
         <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Tax</Text>
-        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>{(props.splitEem * .07).toFixed(2)}</Text>
       </View>
       <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
         <Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8}}>Total</Text>
-        <Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
+        <Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8, color:'green'}}>{(props.splitEem + (props.splitEem * .07)).toFixed(2)}</Text>
       </View>
     </View>
 
@@ -146,15 +167,15 @@ export const CustomBreakdown = (props) => {
 
       <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
         <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Subtotal</Text>
-        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>{props.amounts.toFixed(2)}</Text>
       </View>
       <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
         <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8}}>Tax</Text>
-        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
+        <Text style={{fontFamily:'Avenir-Light', fontSize:16, letterSpacing:1.8, color:'green'}}>{(props.amounts * .07).toFixed(2)}</Text>
       </View>
       <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:'1%'}}>
         <Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8}}>Total</Text>
-        <Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8, color:'green'}}>Money</Text>
+        <Text style={{fontFamily:'Avenir-Heavy', fontSize:16, letterSpacing:1.8, color:'green'}}>{((props.amounts * .07) + (props.amounts)).toFixed(2)}</Text>
       </View>
     </View>
   )

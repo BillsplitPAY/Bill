@@ -5,6 +5,9 @@ export default function(state = [], action) {
 		case 'SUBMIT':
 			return state.concat(action.payload);
 			break;
+			case 'ORDERUP':
+				return state.concat(action.payload);
+				break;
 		default:
 			return state;
 			break;
