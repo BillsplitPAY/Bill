@@ -46,7 +46,7 @@ class TopCatScroller extends React.Component {
   render(){
     const menuBoy = this.props.screenProps.o_fullMenu;
     return(
-      <View id='category-view' style={{position: 'absolute', top:0, alignItems:'flex-end', zIndex:20, backgroundColor: '#212121', width:'100%', flexDirection:'column', justifyContent:'center'}}>
+      <View id='category-view' style={{position: 'absolute', top:0, alignItems:'flex-end', zIndex:200, backgroundColor: '#212121', width:'100%', flexDirection:'column', justifyContent:'center'}}>
 
           <TouchableOpacity id='category-touch' style={{borderColor:'white',  borderRadius: 5, backgroundColor:this.state.backgroundColor, marginRight: 7, padding:7, alignSelf:'flex-end', justifyContent:'center', flexDirection:'row'}} onPress={this.opDisplay}>
             <Text id='category-text' style={{color:this.state.color,  fontSize:14, textAlign:'center', alignSelf:'center', fontFamily: 'Avenir', letterSpacing: 1.8, textTransform:'uppercase'}}>{'Categories'}</Text>

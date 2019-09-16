@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 
 export const ListItem = (props) => {
     return (
-      <TouchableOpacity style={{flexDirection: 'row', marginTop: 0, width: '100%', height: 30, alignItems: 'center', alignSelf: 'center',}} onPress={()=>{props.doThis()}}>
+      <TouchableOpacity style={{flexDirection: 'row', marginTop: 0, width: '100%', height: 30, alignItems: 'center', alignSelf: 'center',}} >
           <View style={styles.touch}>
             <Text style={styles.descItems, {width:'7.3%' ,fontFamily:'Avenir-Black', letterSpacing:1.2, color:'#212121', fontSize:16, position:'relative'}}>{props.itemAmount}</Text>
             <View style={{width: '77%', textOverflow:'ellipsis', position:'relative', left:'8%'}}><Text style={{width: 'auto', position:'relative', fontFamily:'Avenir-Medium', letterSpacing:1.2, color:'#212121', fontSize:16}} numberOfLines={1}>{props.itemName}</Text></View>
