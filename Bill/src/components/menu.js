@@ -46,13 +46,13 @@ class TopCatScroller extends React.Component {
   render(){
     const menuBoy = this.props.screenProps.o_fullMenu;
     return(
-      <View id='category-view' style={{position: 'absolute', top:0, alignItems:'flex-end', zIndex:200, backgroundColor: '#212121', width:'100%', flexDirection:'column', justifyContent:'center'}}>
+      <View id='category-view' style={{position: 'absolute', top:0, alignItems:'flex-end', zIndex:200, backgroundColor: '#212121', width:'30%', flexDirection:'column', justifyContent:'center', borderColor:'red', borderWidth:2, alignSelf:'flex-end',  }}>
 
           <TouchableOpacity id='category-touch' style={{borderColor:'white',  borderRadius: 5, backgroundColor:this.state.backgroundColor, marginRight: 7, padding:7, alignSelf:'flex-end', justifyContent:'center', flexDirection:'row'}} onPress={this.opDisplay}>
             <Text id='category-text' style={{color:this.state.color,  fontSize:14, textAlign:'center', alignSelf:'center', fontFamily: 'Avenir', letterSpacing: 1.8, textTransform:'uppercase'}}>{'Categories'}</Text>
           </TouchableOpacity>
 
-          <View id='category-menu' style={{height: 'auto', width: 'auto', maxWidth:250, flexDirection:'column', position:'fixed', top:50, zIndex:20, backgroundColor: 'rgba(31,31,31,.9)', alignSelf:'center', display:'fixed', justifyContent: 'center'}}>
+          <View id='category-menu' style={{height: 'auto', width: 'auto', maxWidth:250, flexDirection:'column', position:'fixed', top:50, zIndex:20, backgroundColor: 'rgba(31,31,31,.9)', alignSelf:'center', display:this.state.opDisplay, justifyContent: 'center'}}>
 
             {Object.keys(menuBoy).map((index)=>{return(
               <View key={index} id='category-menu-option' style={{flexDirection:'row', justifyContent: 'flex-end', borderBottomColor: 'black', position:'relative', borderBottomWidth: .5, paddingVertical:10,}}>
@@ -136,8 +136,8 @@ class Menu extends Component {
     }
     // console.log(this.props.screenProps)
       return (
-        <View id='menu-view' style={styles.menuPage}>
-          <View id='header' style={styles.header}>
+        <View id='menu-view' style={[styles.menuPage , {zIndex:-1}]}>
+          <View id='header' style={[styles.header, {zIndex:100,  borderColor:'green', borderWidth:2}]}>
             <TopCatScroller id='catgeory-menu' key={this.props.screenProps.o_order} category={this.state.category} screenProps={this.props.screenProps} refy={this.list} />
           </View>
 
